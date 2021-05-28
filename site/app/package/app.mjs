@@ -27,8 +27,8 @@ export default {
                 this.view.view(this.data);
             },
             initializeApp: function(msg) {
-                this.conf = this.sys.extend(this.conf, JSON.parse(msg.response));
-                let conf = this.conf;
+                let conf = this.sys.extend(this.conf, JSON.parse(msg.response));
+                this.let("conf", conf);
                 this.open(conf.typeSource, "initializeTypes");
                 this.open(conf.dataSource, "initializeData");
                 if (conf.diagram) this.open(conf.diagram, "initializeDiagram");
