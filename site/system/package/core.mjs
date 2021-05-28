@@ -25,6 +25,8 @@ export default {
 			return this[this.sys.symbols.interface];
 		},
 		let: function(name, value, facet) {
+			if (!facet) facet = "const";
+			if (facet == "var") facet = "";
 			this.sys.define(this, name, value, facet);
 		},
 		super: function(method, ...args) {

@@ -81,7 +81,7 @@ const pkg = {
 				return px;
 			},
 			start: function(conf) {
-				this.sys.define(this, "$window", conf.window);
+				this.let("$window", conf.window);
 				this.document.body.$peer = this;
 				//console.log(this.toPixels("1mm"), this.toPixels("1pt"), this.toPixels("1in"));
 				pkg.addEvents(this.$window, conf.events.windowEvents);

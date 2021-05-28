@@ -5,7 +5,7 @@ export default {
 		conf: {
 		},
 		start: function(conf) {
-			if (conf) this.sys.define(this, "conf", conf, "const");
+			if (conf) this.let("conf", conf);
 		},
 		receive: function(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];

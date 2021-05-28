@@ -33,7 +33,7 @@ export default {
                 this.open(conf.dataSource, "initializeData");
                 this.open(conf.diagram, "initializeDiagram");
  
-                this.sys.define(this, "owner" , this.sys.extend(conf.ownerType || this.owner));
+                this.let("owner", this.sys.extend(conf.ownerType || this.owner));
                 this.owner.editors = conf.editors;
                 this.owner.start(conf);
                 this.initializeDocument(conf);

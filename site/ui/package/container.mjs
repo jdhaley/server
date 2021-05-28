@@ -51,7 +51,7 @@ export default {
 		},
 		start: function start(conf) {
 			this.super(start, conf);
-			this.let("parts", this.sys.extend(), "const");
+			this.let("parts", this.sys.extend());
 		},
 		draw: function draw() {
 			this.super(draw);

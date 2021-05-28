@@ -46,8 +46,8 @@ const pkg = {
 			},
 			type$commands: "use/command/Commands",
 			start: function(conf) {
-				if (conf) this.sys.define(this, "conf", conf);
-				this.sys.define(this, "commands", this.use.Commands.instance());			
+				if (conf) this.let("conf", conf);
+				this.let("commands", this.use.Commands.instance());			
 			},
 			draw: function draw() {
 				this.peer.textContent = "";

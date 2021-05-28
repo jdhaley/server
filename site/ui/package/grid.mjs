@@ -64,7 +64,7 @@ export default {
 			this.peer.textContent = model || "";
 		},
 		start: function(conf) {
-			this.let("conf", conf, "const");
+			this.let("conf", conf);
 			this.peer.contentEditable = true;
 		}
 	},
@@ -83,7 +83,7 @@ export default {
 		bind: function(model) {
 		},
 		start: function(conf) {
-			this.let("conf", conf, "const");
+			this.let("conf", conf);
 		}
 	}
 }

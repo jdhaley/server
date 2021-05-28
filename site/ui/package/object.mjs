@@ -65,7 +65,7 @@ export default {
 		},
 		start: function start(conf) {
 			this.super(start, conf);
-			if (conf) this.sys.define(this, "conf", conf);
+			if (conf) this.let("conf", conf);
 		}
 	},
 	Properties: {
@@ -115,7 +115,7 @@ export default {
 		},
 		start: function start(conf) {
 			this.super(start, conf);
-			if (conf) this.sys.define(this, "conf", conf);
+			if (conf) this.let("conf", conf);
 		},
 		extend$actions: {
 			// view: function(event) {

@@ -145,7 +145,7 @@ export default {
 		type$type: "Type",
 		start: function start(type) {
 			this.super(start);
-			this.sys.define(this, "type", type);
+			this.let("type", type);
 		},
 		partConfOf: function(name) {
 			return this.type;
