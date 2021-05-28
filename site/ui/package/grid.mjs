@@ -51,9 +51,10 @@ export default {
 		draw: function draw() {
 			this.super(draw);
 			this.let("className", this.conf.name);
-			let s = this.conf.size || "0";
-			this.style.minWidth = `${s}em`;
-			this.style.maxWidth = `${s}em`;
+			let s = +(this.conf.size ) || 1;
+			this.style.flex = `${s} 1`;
+			this.style.minWidth = `${s * 3}mm`;
+//			this.style.maxWidth = `${s}mm`;
 		}
 	},
 	Cell: {

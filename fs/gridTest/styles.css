@@ -19,7 +19,7 @@
 	border: 0;
 	padding: 0;
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 10pt;
+	font-size: 16px;
 }
 BODY {
 	flex: 1 1;
@@ -28,39 +28,36 @@ BODY {
 .grid, .header, .body, .footer, .body>.composite {
 	display: flex;
 	flex-direction: row;
-	flex: 1;
+	flex: 1 1;
 }
 .body>.composite, .grid>.header {
 	border-bottom-width: 1px;
 
 }
-.grid {
+.grid, .grid>.body {
 	flex-direction: column;
 }
-.grid>.body {
-	flex-direction: column;
-}
+
 .grid * {
 	border-width: 0;
 	border-style: solid;
 	border-color: silver;
 }
-.header>.header, .handle {
+.caption, .handle {
 	color: steelblue;
-	background-color: aliceblue;
-	font-weight: lighter;
-	flex: 1;
-	min-width: 2em;
-	max-width: 2em;
+	background-color: ghostwhite;
+	/* font-weight: lighter;
+	font-size: larger; */
+}
+.header>.header, .handle {
+	flex: 1 1;
+	min-width: 5mm;
+	max-width: 5mm;
 }
 .caption, .cell {
 	flex: 1 1;
 	padding: 3px;
 	border-left-width: 1px;
-}
-.caption {
-	background-color: aliceblue;
-	color: steelblue;
 }
 .cell {
 	overflow: auto;
