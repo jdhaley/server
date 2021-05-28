@@ -25,10 +25,12 @@ BODY {
 	flex: 1 1;
 }
 
-.grid, .header, .body, .footer, .body>.composite {
-	display: flex;
-	flex-direction: row;
-	flex: 1 1;
+.grid {
+	display: grid;
+	grid-template-columns: 6fr 4fr 6fr 10fr 10fr 6fr;
+}
+.header, .body, .footer, .body>.composite {
+	display: contents;
 }
 .body>.composite, .grid>.header {
 	border-bottom-width: 1px;
@@ -41,7 +43,7 @@ BODY {
 .grid * {
 	border-width: 0;
 	border-style: solid;
-	border-color: silver;
+	border-color: purple;
 }
 .caption, .handle {
 	color: steelblue;
