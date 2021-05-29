@@ -35,34 +35,34 @@
 			{
 				"name": "issued",
 				"dataType": "date",
-				"size": 6,
+				"columnSize": 6,
 				"style": {
 					"backgrounds": "wheat"
 				}
 			},
 			{
 				"name": "design",
-				"size": 4,
+				"columnSize": 4,
 				"maxLength": 4
 			},
 			{
 				"name": "denom",
 				"caption": "Denomination",
-				"size": 7
+				"columnSize": 7
 			},
 			{
 				"name": "colors",
-				"size": 12
+				"columnSize": 12
 			},
 			{
 				"name": "subject",
-				"size": 12
+				"columnSize": 12
 			},
 			{
 				"name": "image",
 				"dataType": "media",
 				"mediaType": "image",
-				"size": 10
+				"columnSize": 10
 			}
 		]
 	}

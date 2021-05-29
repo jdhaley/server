@@ -1,17 +1,9 @@
 export default {
 	type$: "/ui.youni.works/view",
 	Container: {
-		type$: ["View", "Observer"],
+		type$: "View",
 		get$elementType: function() {
 			return this.conf.elementType;
-		},
-		bind: function(model) {
-			this.observe(model);
-			this.model = model;
-		},
-		unbind: function() {
-			this.unobserve(this.model);
-			this.model = undefined;
 		},
 		forEach: function(object, method) {
 			if (object && typeof object.length == "number") {
@@ -60,7 +52,7 @@ export default {
 		append: function append(control) {
 			this.super(append, control);
 			let key = control.peer.$key;
-			control.peer.classList.add(key);
+			if (isNaN(+key)) control.peer.classList.add(key);
 			this.parts[key] = control;
 		},
 		typeFor: function(value, key) {
@@ -74,13 +66,29 @@ export default {
 		}
 	},
 	Collection: {
-		type$: "Container",
+		type$: ["Container", "Observer"],
 		bind: function bind(model) {
-			this.super(bind, model);
+			this.observe(model);
+			this.model = model;
 			this.forEach(model, this.createElement);
+		},
+		unbind: function() {
+			this.unobserve(this.model);
+			this.model = undefined;
 		},
 		bindElement: function(view) {
 			view.bind(this.model[view.peer.$key]);
+		}
+	},
+	Record: {
+		type$: ["Composite", "Observer"],
+		bind: function(model) {
+			this.observe(model);
+			this.model = model;
+		},
+		unbind: function() {
+			this.unobserve(this.model);
+			this.model = undefined;
 		}
 	}
 }
