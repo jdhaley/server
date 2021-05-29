@@ -6,9 +6,12 @@ export default {
 			header: {
 				type$: "Composite",
 				members: {
-					type$header: "Handle",
+					header: {
+						type$: "View",
+						className: "handle"
+					},
 					body: {
-						type$: "Composite",
+						type$: "Composite", //or Record?
 						type$elementType: "Caption"
 					}
 				}
@@ -19,31 +22,45 @@ export default {
 					type$: "Composite",
 					className: "object",
 					members: {
-						header: {
-							type$: "Handle"
-						},
+						type$header: "Handle",
 						body: {
-							type$: "Composite",
+							type$: "Record",
 							type$elementType: "Cell"
 						}
 					}
 				}
 			},
-			type$footer: "View"
+			footer: {
+				type$: "Composite",
+				members: {
+					header: {
+						type$: "View",
+						className: "handle"
+					},
+					body: {
+						type$: "Composite",
+						elementType: {
+							type$: "View",
+							className: "caption"
+						}
+					}
+				}
+			}
 		}
 	},
 	Handle: {
 		type$: "View",
 		bind: function(model) {
-			console.log(this.of.peer.$key, model);
+			let key = this.of.peer.$key;
+			this.peer.textContent = key;
 		}
 	},
 	Property: {
 		type$: "View",
 		draw: function draw() {
 			this.super(draw);
-			this.let("className", this.conf.name);
-			let s = +(this.conf.size ) || 1;
+			this.peer.classList.add(this.conf.name);
+			let s = +(this.conf.columnSize) || 1;
 //			this.style.flex = `${s} 1`;
 			this.style.minWidth = `${s * 3}mm`;
 //			this.style.maxWidth = `${s}mm`;
