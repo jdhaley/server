@@ -1,21 +1,12 @@
 export default {
 	type$: "/ui.youni.works/container",
-	Parts: {
-		type$: "Composite",
-		// configurationFor: function(value, key) {
-		// 	return value;
-		// }
-		// bindElement: function(view) {
-		// 	view.bind(this.model[view.conf.name]);
-		// }
-	},
 	Grid: {
 		type$: "Composite",
 		members: {
 			header: {
 				type$: "Composite",
 				members: {
-					header: "/ui.youni.works/view/View",
+					type$header: "Handle",
 					body: {
 						type$: "Composite",
 						type$elementType: "Caption"
@@ -26,6 +17,7 @@ export default {
 				type$: "Collection",
 				elementType: {
 					type$: "Composite",
+					className: "object",
 					members: {
 						header: {
 							type$: "Handle"
@@ -37,7 +29,7 @@ export default {
 					}
 				}
 			},
-			footer: "/ui.youni.works/view/View"
+			type$footer: "View"
 		}
 	},
 	Handle: {
@@ -52,7 +44,7 @@ export default {
 			this.super(draw);
 			this.let("className", this.conf.name);
 			let s = +(this.conf.size ) || 1;
-			this.style.flex = `${s} 1`;
+//			this.style.flex = `${s} 1`;
 			this.style.minWidth = `${s * 3}mm`;
 //			this.style.maxWidth = `${s}mm`;
 		}

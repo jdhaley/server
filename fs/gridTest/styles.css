@@ -22,44 +22,49 @@
 	font-size: 16px;
 }
 BODY {
-	flex: 1 1;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
 }
 
 .grid {
 	display: grid;
-	grid-template-columns: 6fr 4fr 6fr 10fr 10fr 6fr;
+	grid-template-columns: 1fr 6fr 4fr 6fr 10fr 10fr 6fr;
 }
-.header, .body, .footer, .body>.composite {
+.grid>.header, .grid>.header>.body, .grid>.body, .grid>.body>.body {
 	display: contents;
 }
-.body>.composite, .grid>.header {
-	border-bottom-width: 1px;
-
+.grid>.header {
+	display: contents;
+	position: sticky;
 }
-.grid, .grid>.body {
-	flex-direction: column;
+.grid>.body {
+	display: contents;
 }
-
+.grid>.footer {
+	border: 2px solid salmon;
+	content: "sdfasdf";
+}
+.composite, .object {
+	display: contents;
+}
 .grid * {
 	border-width: 0;
 	border-style: solid;
-	border-color: purple;
+	border-color: silver;
 }
 .caption, .handle {
 	color: steelblue;
 	background-color: ghostwhite;
-	/* font-weight: lighter;
-	font-size: larger; */
 }
 .header>.header, .handle {
-	flex: 1 1;
 	min-width: 5mm;
-	max-width: 5mm;
+	border-bottom-width: 1px;
 }
 .caption, .cell {
-	flex: 1 1;
 	padding: 3px;
 	border-left-width: 1px;
+	border-bottom-width: 1px;
 }
 .cell {
 	overflow: auto;
