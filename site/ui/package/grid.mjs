@@ -57,6 +57,9 @@ export default {
 	},
 	Property: {
 		type$: "View",
+		getCaption: function() {
+			return this.conf.caption || this.use.Naming.captionize(this.conf.name);
+		},
 		draw: function draw() {
 			this.super(draw);
 			this.peer.classList.add(this.conf.name);
@@ -83,9 +86,6 @@ export default {
 		use: {
 			type$Naming: "/base.youni.works/util/Naming"
 		},
-		getCaption: function() {
-			return this.conf.caption || this.use.Naming.captionize(this.conf.name);
-		},
 		draw: function draw() {
 			this.super(draw);
 			this.peer.innerText = this.getCaption();
@@ -94,6 +94,17 @@ export default {
 		},
 		start: function(conf) {
 			this.let("conf", conf);
+		}
+	},
+	Sheet: {
+		type$: "Record",
+		elementType: {
+			type$: "Composite",
+			className: "part",
+			members: {
+				type$header: "Caption",
+				type$body: "Cell"
+			}
 		}
 	}
 }
