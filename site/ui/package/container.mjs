@@ -1,5 +1,4 @@
 export default {
-	
 	type$: "/ui.youni.works/view",
 	Container: {
 		type$: ["View", "Observer"],
@@ -76,10 +75,6 @@ export default {
 	},
 	Collection: {
 		type$: "Container",
-		draw: function() {
-			//Collection views are "model driven" so content will be created by bind().
-			this.peer.textContext = "";
-		},
 		bind: function bind(model) {
 			this.super(bind, model);
 			this.forEach(model, this.createElement);

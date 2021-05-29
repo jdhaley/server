@@ -21,6 +21,7 @@ const pkg = {
 				this.model = undefined;
 			},
 			draw: function() {
+				this.peer.textContext = "";
 				this.peer.classList.add(this.className);
 			},
 			view: function(data) {
