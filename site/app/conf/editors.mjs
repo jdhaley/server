@@ -1,11 +1,34 @@
 export default {
-	string: scalar,
-	number: scalar,
-	boolean: scalar,
-	date: scalar,
-	object: object, //composite part
-	array: grid, //composite part
-	link: link //referenced object
+	string() {
+		this.let("nodeName", "div");
+		this.peer.type = "string";
+		this.peer.contentEditable = true;
+	},
+	number() {
+		this.let("nodeName", "input");
+		this.peer.type = "number";
+	},
+	boolean() {
+		this.let("nodeName", "input");
+		this.peer.type = "checkbox";
+	},
+	date() {
+		this.let("nodeName", "input");
+		this.peer.type = this.conf.time ? "datetime" : "date";
+	},
+	object: link,
+	array: link,
+	link: link
+}
+
+function link() {
+	this.let("nodeName", "a");
+	let editor = this.peer;
+	editor.classList.add("widget");
+	editor.classList.add("link");
+	editor.setAttribute("href", "");
+	editor.textContent = "...";
+}
 //	text: {
 //		type$: "use.prop.Text"
 //	},
@@ -20,35 +43,8 @@ export default {
 //		type$: "use.prop.Link",
 //		listType: "list | table | set"
 //	}
-}
 
-function object() {
-	let control = this;
-	let editor = control.owner.createNode("a");
-	editor.classList.add("widget");
-	editor.classList.add("link");
-	editor.setAttribute("href", "");
-	editor.textContent = "...";
-	return editor;
-}
-function link() {
-	let control = this;
-	let editor = control.owner.createNode("a");
-	editor.classList.add("widget");
-	editor.classList.add("link");
-	editor.setAttribute("href", "");
-	editor.textContent = "...";
-	return editor;
-}
-function grid() {
-	let control = this;
-	let editor = control.owner.createNode("a");
-	editor.classList.add("widget");
-	editor.classList.add("link");
-	editor.setAttribute("href", "");
-	editor.textContent = "...";
-	return editor;
-}
+
 function scalar() {
 	let control = this;
 	let editor;
