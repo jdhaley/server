@@ -1,5 +1,5 @@
-{
-	"GB1A1": {
+[
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "1d",
@@ -7,7 +7,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1As.png"
 	},
-	"GB1A2":	{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1D",
 		"denom": "2d",
@@ -15,7 +15,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1Ds.png"
 	},
-	"GB1A3":	{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "3d",
@@ -23,7 +23,7 @@
 		"subject": "",
 		"image": "/file/stamp/x.png"
 	},
-	"GB1A4":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "1d",
@@ -31,7 +31,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1As.png"
 	},
-	"GB1A5":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1D",
 		"denom": "2d",
@@ -39,7 +39,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1Ds.png"
 	},
-	"GB1A6":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "3d",
@@ -47,7 +47,7 @@
 		"subject": "",
 		"image": "/file/stamp/x.png"
 	},
-	"GB1A7":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "1d",
@@ -55,7 +55,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1As.png"
 	},
-	"GB1A8":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1D",
 		"denom": "2d",
@@ -63,7 +63,7 @@
 		"subject": "",
 		"image": "/file/stamp/GB1Ds.png"
 	},
-	"GB1A9":{
+	{
 		"issued": "1960-03-01",
 		"design": "GB1A",
 		"denom": "3d",
@@ -71,4 +71,5 @@
 		"subject": "",
 		"image": "/file/stamp/x.png"
 	}
-}
+
+]
