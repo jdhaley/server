@@ -57,6 +57,9 @@ export default {
 	},
 	Property: {
 		type$: "View",
+		use: {
+			type$Naming: "/base.youni.works/util/Naming"
+		},
 		getCaption: function() {
 			return this.conf.caption || this.use.Naming.captionize(this.conf.name);
 		},
@@ -74,26 +77,26 @@ export default {
 		bind: function(model) {
 			model = model && model[this.conf.name];
 			if (typeof model == "object") model = "...";
-			this.peer.textContent = model || "";
+			model = model || "";
+			if (this.peer.nodeName == "INPUT") {
+				this.peer.value = model;
+			} else {
+				this.peer.textContent = model;
+			}
 		},
-		start: function(conf) {
-			this.let("conf", conf);
-			this.peer.contentEditable = true;
+		start: function start(conf) {
+			this.super(start, conf);
+			let editor = this.owner.editors[conf.inputType || conf.dataType || "string"];
+			editor && editor.call(this);
 		}
 	},
 	Caption: {
 		type$: "Property",
-		use: {
-			type$Naming: "/base.youni.works/util/Naming"
-		},
 		draw: function draw() {
 			this.super(draw);
 			this.peer.innerText = this.getCaption();
 		},
 		bind: function(model) {
-		},
-		start: function(conf) {
-			this.let("conf", conf);
 		}
 	},
 	Sheet: {

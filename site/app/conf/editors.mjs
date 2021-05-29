@@ -2,19 +2,32 @@ export default {
 	string() {
 		this.let("nodeName", "div");
 		this.peer.type = "string";
-		this.peer.contentEditable = true;
+		this.peer.contentEditable = this.conf.readOnly ? false : true;
 	},
 	number() {
 		this.let("nodeName", "input");
 		this.peer.type = "number";
+		if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
+	},
+	date() {
+		this.let("nodeName", "input");
+		this.peer.type = "date";
+		if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
+	},
+	dateTime() {
+		this.let("nodeName", "input");
+		this.peer.type = "datetime";
+		if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
+	},
+	color() {
+		this.let("nodeName", "input");
+		this.peer.type = "color";
+		if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
 	},
 	boolean() {
 		this.let("nodeName", "input");
 		this.peer.type = "checkbox";
-	},
-	date() {
-		this.let("nodeName", "input");
-		this.peer.type = this.conf.time ? "datetime" : "date";
+		if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
 	},
 	object: link,
 	array: link,

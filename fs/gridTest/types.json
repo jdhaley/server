@@ -52,7 +52,8 @@
 			},
 			{
 				"name": "colors",
-				"columnSize": 12
+				"columnSize": 4,
+				"inputType": "color"
 			},
 			{
 				"name": "subject",

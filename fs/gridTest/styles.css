@@ -32,7 +32,7 @@ BODY {
 }
 .grid {
 	display: grid;
-	grid-template-columns: 2fr 6fr 4fr 6fr 10fr 10fr 6fr;
+	grid-template-columns: 2fr 6fr 4fr 6fr 0fr 10fr 6fr;
 }
 .grid>.header, .grid>.header>.body, .grid>.body, .grid>.body>.body {
 	display: contents;
@@ -64,6 +64,7 @@ BODY {
 .caption, .handle {
 	color: steelblue;
 	background-color: ghostwhite;
+	cursor: default;
 }
 .handle {
 	border-left-width: 0;
