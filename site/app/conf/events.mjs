@@ -1,23 +1,20 @@
 let TRACK = null;
 export default {
-	windowEvents: {
-		select: UP, //may not exist
-		change: UP, //may not exist
-		
-		input: UP,
-		cut: UP,
-		copy: UP,
-		paste: UP,
+	windowEvents: {		
+		input: TARGET_EVENT,
+		cut: TARGET_EVENT,
+		copy: TARGET_EVENT,
+		paste: TARGET_EVENT,
 
-		keydown: UP,
+		keydown: TARGET_EVENT,
 		mousedown: function(event) {
-			UP(event);
+			TARGET_EVENT(event);
 			if (event.track) {
 				TRACK = event;
 			}
 		},
 		mousemove: function(event) {
-			UP(event);
+			TARGET_EVENT(event);
 			if (TRACK) {
 				event.subject = "track";
 				event.track = TRACK.track;
@@ -29,7 +26,7 @@ export default {
 			}
 		},
 		mouseup: function(event) {
-			UP(event);
+			TARGET_EVENT(event);
 			if (TRACK) {
 				event.subject = "trackEnd"
 				event.track = TRACK.track;
@@ -39,61 +36,50 @@ export default {
 				TRACK = null;
 			}
 		},
-		click: UP,
-		dragstart: UP,
-		dragover: UP,
-		drop: UP,
-//		mouseover: UP,
-//		mouseout: UP,
-		focusin: UP,
-		focusout: UP,
-		focus: UP,
-		blur: UP,
+		click: TARGET_EVENT,
+		dragstart: TARGET_EVENT,
+		dragover: TARGET_EVENT,
+		drop: TARGET_EVENT,
+//		mouseover: TARGET_EVENT,
+//		mouseout: TARGET_EVENT,
+		focusin: TARGET_EVENT,
+		focusout: TARGET_EVENT,
+		focus: TARGET_EVENT,
+		blur: TARGET_EVENT,
 		contextmenu: function(event) {
 			if (event.ctrlKey) {
 				event.preventDefault();
-				UP(event);
+				TARGET_EVENT(event);
 			}
 		},
-//		resize: DOWN
+		resize: function(event) {
+			let owner = event.target.$peer.owner;
+			owner.send(owner, event);
+		},
+		select: TARGET_EVENT, //may not exist
+		change: TARGET_EVENT, //may not exist
 	},
-//	documentEvents: {
-//		selectionstart: SELECTION_EVENT,
-//		selectionchange: SELECTION_EVENT
-//	}
+	documentEvents: {
+		selectionstart: SELECTION_EVENT,
+		selectionchange: SELECTION_EVENT
+	}
+}
+
+function getControl(node) {
+	while(node) {
+		if (node.$peer) return node.$peer;
+		node = node.parentNode;
+	}
+}
+
+function TARGET_EVENT(event) {
+	let ctl = getControl(event.target);
+	ctl && ctl.owner.sense(ctl, event);
 }
 
 function SELECTION_EVENT(event) {
-	event.range = event.target.owner.selectionRange;
-	event.target.owner.actions.sense(event.range.commonAncestorContainer, event);
-}
-
-function prepareSignal(signal) {
-	if (typeof signal != "object") {
-		signal = {
-			subject: signal
-		};
-	}
-	signal.stopPropagation && signal.stopPropagation();
-	if (!signal.subject) signal.subject = signal.type;
-	return signal;
-}
-
-function UP(event) {
-	event = prepareSignal(event);
-	log(event.target, event);
-	for (let on of event.path) {
-		if (!event.subject) return;
-		on.$peer && on.$peer.receive(event);
-	}
-	if (!event.subject) event.preventDefault();
-}
-
-
-const DONTLOG = ["receive", "track", "mousemove", "selectionchange"];
-function log(on, event) {
-	for (let subject of DONTLOG) {
-		if (event.subject == subject) return;
-	}
-	console.debug(event.subject + " " + on.nodeName + " " + on.className);
+	let ctl = getControl(event.target);
+	event.range = ctl && ctl.owner.selectionRange;
+	ctl = ctl && event.range.commonAncestorContainer;
+	ctl && ctl.owner.sense(ctl, event);
 }

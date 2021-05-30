@@ -50,12 +50,15 @@ export default {
 			}			
 		},
 		sense: function(on, event) {
-			if (to.owner != this) console.warn("sensing on a node not owned by this.");
+			if (on.owner != this) console.warn("sensing on a node not owned by this.");
 			event = this.prepareSignal(event);
 			this.log(on, event);
-			if (event.path) for (let on of event.path) {
+			let ele = on.peer
+			//can't use event.path - it is chrome-specific.
+			while (on) {
 				if (!event.subject) return;
 				on.receive(event);
+				on = on.of;
 			}
 		},
 		notify: function(on, signal) {
