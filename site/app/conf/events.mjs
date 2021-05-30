@@ -52,10 +52,10 @@ export default {
 				TARGET_EVENT(event);
 			}
 		},
-		resize: function(event) {
-			let owner = event.target.$peer.owner;
-			owner.send(owner, event);
-		},
+		// resize: function(event) {
+		// 	let owner = event.target.document.body.$peer.owner;
+		// 	owner.send(owner, event);
+		// },
 		select: TARGET_EVENT, //may not exist
 		change: TARGET_EVENT, //may not exist
 	},
