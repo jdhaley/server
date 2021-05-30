@@ -56,7 +56,7 @@ export default {
 		}
 	},
 	Property: {
-		type$: "Sizeable",
+		type$: ["View", "Sizeable"],
 		use: {
 			type$Naming: "/base.youni.works/util/Naming"
 		},
@@ -66,7 +66,7 @@ export default {
 		draw: function draw() {
 			this.super(draw);
 			this.peer.classList.add(this.conf.name);
-			let s = +(this.conf.columnSize) || 1;
+//			let s = +(this.conf.columnSize) || 1;
 //			this.style.flex = `${s} 1`;
 //			this.style.minWidth = `${s * 3}mm`;
 //			this.style.maxWidth = `${s}mm`;
@@ -145,7 +145,7 @@ export default {
 		},
 	},
 	Sizeable: {
-		type$: "View",
+		type$: "",
 		shapeConf: {
 			border: 6,
 			minWidth: 48,
