@@ -1,7 +1,17 @@
 export default {
 	type$: "/ui.youni.works/container",
-	type$Sizeable: "/ui.youni.works/shape/Sizeable",
-	type$Moveable: "/ui.youni.works/shape/Moveable",
+	type$Pane: "/ui.youni.works/shape/Pane",
+	Sheet: {
+		type$: "Object",
+		elementType: {
+			type$: "Composite",
+			className: "part",
+			members: {
+				type$header: "Caption",
+				type$body: "Cell"
+			}
+		}
+	},
 	Grid: {
 		type$: "Composite",
 		members: {
@@ -58,7 +68,7 @@ export default {
 		}
 	},
 	Property: {
-		type$: ["View", "Sizeable"],
+		type$: ["View", "Pane"],
 		use: {
 			type$Naming: "/base.youni.works/util/Naming"
 		},
@@ -101,17 +111,6 @@ export default {
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
-		}
-	},
-	Sheet: {
-		type$: "Object",
-		elementType: {
-			type$: "Composite",
-			className: "part",
-			members: {
-				type$header: "Caption",
-				type$body: "Cell"
-			}
 		}
 	}
 }

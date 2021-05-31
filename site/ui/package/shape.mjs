@@ -165,5 +165,79 @@ export default {
                 this.owner.style.removeProperty("cursor");
 			}
 		}
+	},
+	Shape: {
+        type$: "Zoned",
+		extend$conf: {
+			border: 6,
+			minWidth: 48,
+			minHeight: 24	
+		},
+		sizeTo: function(width, height) {
+			if (width < this.conf.minWidth) width = this.conf.minWidth;
+			if (height < this.conf.minHeight) height = this.conf.minHeight;
+			this.style.width = width + "px";
+			this.style.height = height + "px";
+		},
+		moveTo: function(x, y) {
+			if (x < 0) x = 0;
+			if (y < 0) y = 0;
+            this.style.position = "absolute"
+			this.style.left = x + "px";
+			this.style.top = y + "px";
+		}
+	},
+	Pane: {
+		type$: "Zoned",
+		extend$actions: {
+			mousemove: function(event) {
+				//Hit test in bottom right (BR) zone to track movement.
+				if (event.altKey) {
+					this.style.cursor = "move";
+				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
+					this.style.cursor = "nwse-resize";
+				} else {
+					this.style.removeProperty("cursor");
+				}
+			},
+			mousedown: function(event) {
+                console.log(event);
+                if (event.altKey) {
+					event.track = this;
+					this.peer.$tracking = "position";
+					this.owner.style.cursor = "move";
+				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
+					event.track = this;
+					this.peer.$tracking = "size";
+					this.style.cursor = "nwse-resize";
+				}
+			},
+			track: function(event) {
+				event.subject = this.peer.$tracking;
+				this.receive(event)
+			},
+			trackEnd: function(event) {
+				event.subject = "";
+				delete this.peer.$tracking;
+                this.owner.style.removeProperty("cursor");
+			},
+			position: function(event) {
+				if (event.track == this) {
+					this.bounds = {
+						left: event.clientX,
+						top: event.clientY,
+					}
+				}
+			},
+			size: function(event) {
+				if (event.track == this) {
+					let b = this.bounds;
+					this.bounds = {
+						width: event.clientX - b.left,
+						height: event.clientY - b.top
+					}
+				}
+			}
+		}
 	}
 }
