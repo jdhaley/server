@@ -19,6 +19,7 @@
 	margin: 0;
 	border: 0;
 	padding: 0;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
 .sheet {
@@ -170,4 +171,8 @@
 }
 .cell {
 	overflow: auto;
+}
+.dynamic {
+	font-style: italic;
+	font-weight: 100;
 }

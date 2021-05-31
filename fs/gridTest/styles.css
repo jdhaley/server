@@ -75,3 +75,7 @@ BODY {
 .cell {
 	overflow: auto;
 }
+.dynamic {
+	font-style: italic;
+	font-weight: 100;
+}
