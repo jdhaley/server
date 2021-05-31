@@ -5,6 +5,22 @@ const pkg = {
 			type$: "DomNode",
 			type$owner: "Frame",
 			nodeName: "div",
+			extend$conf: {
+				minWidth: 0,
+				minHeight: 0	
+			},
+			virtual$bounds: function() {
+				if (arguments.length) {
+					let rect = arguments[0];
+					if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
+					if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
+					if (rect.left !== undefined) this.style.left = rect.left + "px";
+					if (rect.top !== undefined) this.style.top = rect.top + "px";
+					if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
+				} else {
+					return this.peer.getBoundingClientRect();
+				}
+			},
 			get$style: function() {
 				return this.peer.style;
 			},
