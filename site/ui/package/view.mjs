@@ -45,7 +45,9 @@ const pkg = {
 		},
 		Frame: {
 			type$: ["View", "DomOwner"],
-			type$owner: "",
+			get$owner: function() {
+				return this;
+			},
 			$window: null,
 			get$document: function() {
 				return this.$window.document;
@@ -87,6 +89,16 @@ const pkg = {
 				//console.log(this.toPixels("1mm"), this.toPixels("1pt"), this.toPixels("1in"));
 				pkg.addEvents(this.$window, conf.events.windowEvents);
 				pkg.addEvents(this.document, conf.events.documentEvents);
+			},
+			viewOf: function(node) {
+				while(node) {
+					if (node.$peer) return node.$peer;
+					node = node.parentNode;
+				}
+			},
+			viewAt: function(x, y) {
+                let target = this.$window.document.elementFromPoint(x, y);
+                return this.viewOf(target);
 			}
 		}
 	},
