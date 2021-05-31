@@ -90,5 +90,32 @@ export default {
 			this.unobserve(this.model);
 			this.model = undefined;
 		}
+	},
+	Object: {
+		type$: "Record",
+		use: {
+			type$Typing: "/base.youni.works/util/Typing"
+		},
+		once$members: function() {
+			let members = this.conf.members;
+			if (members && typeof members.length == "number") {
+				members = Object.create(null);
+				for (let member of this.conf.members) {
+					members[member.name] = member;
+				}
+			}
+			return members;
+		},
+		bind: function bind(model) {
+			this.super(bind, model);
+			let props = Object.create(null);
+			for (let name in model) {
+				if (!this.members[name]) {
+					props[name] = this.use.Typing.propertyOf(name, model[name]);
+				}
+			}
+			this.properties = props;
+			this.forEach(props, this.createElement);
+		}
 	}
 }

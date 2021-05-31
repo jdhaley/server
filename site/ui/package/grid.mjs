@@ -1,6 +1,7 @@
 export default {
 	type$: "/ui.youni.works/container",
 	type$Sizeable: "/ui.youni.works/shape/Sizeable",
+	type$Moveable: "/ui.youni.works/shape/Moveable",
 	Grid: {
 		type$: "Composite",
 		members: {
@@ -95,14 +96,15 @@ export default {
 		type$: "Property",
 		draw: function draw() {
 			this.super(draw);
+			this.peer.draggable = true;
 			this.peer.innerText = this.getCaption();
-			//if (this.conf.dynamic) this.peer.classList.add("dynamic");
+			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
 		}
 	},
 	Sheet: {
-		type$: "Record",
+		type$: "Object",
 		elementType: {
 			type$: "Composite",
 			className: "part",
@@ -111,38 +113,5 @@ export default {
 				type$body: "Cell"
 			}
 		}
-	},
-	//Lift the dynamic capability from here...
-	OLD_Properties: {
-		type$typing: "/base.youni.works/util/Typing",
-		dynamicProperties: function(object) {
-			let superType = Object.create(null);
-			for (let prop of this.conf.properties) {
-				superType[prop.name] = prop;
-			}
-			let properties = [];
-			for (let name in object) {
-				if (!superType[name]) {
-					let prop = this.typing.propertyOf(name, object[name]);
-					properties.push(prop);
-				}
-			}
-			return properties;
-		},
-		displayProperties: function(properties) {
-			if (!properties) return;
-			for (let propConf of properties) {
-				let propType = propConf.controlType || "/ui.youni.works/object/Part";
-				let prop = this.owner.create(propType, propConf);
-				this.sys.define(prop, "object", this);
-				this.append(prop);
-			}
-		},
-		bind: function(model) {
-			this.unobserve(this.model);
-			this.observe(model);
-			this.model = model;
-			this.displayProperties(this.dynamicProperties(model));
-		},
 	}
 }
