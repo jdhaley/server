@@ -5,13 +5,13 @@ export default {
 		conf: {
 		},
 		start: function(conf) {
-			if (conf) this.let("conf", conf);
+			if (conf) this.let("conf", conf, "extend");
 		},
 		receive: function(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];
 			action && action.call(this, signal);			
 		},
-		actions: {	
+		actions: {
 		}
 	},
 	Node: {
