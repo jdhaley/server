@@ -42,10 +42,23 @@ export default {
 }
 
 function link() {
-	this.let("nodeName", "a");
 	let editor = this.peer;
 	editor.classList.add("widget");
 	editor.classList.add("link");
 	editor.setAttribute("href", "");
 	editor.textContent = "...";
+	editor.onmousedown = function(event) {
+		event.preventDefault();
+		this.$peer
+		let pane = this.$peer.owner.create("/ui.youni.works/grid/ViewPane");
+		pane.from = this.$peer;
+		pane.bounds = {
+			top: pane.from.bounds.bottom,
+			left: pane.from.bounds.left,
+			width: 80,
+			height: 200
+		}
+		pane.owner.append(pane);
+		pane.peer.textContent = "Pop";
+	}
 }

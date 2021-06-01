@@ -11,10 +11,10 @@ export default {
 			TARGET_EVENT(event);
 			if (event.track) {
 				TRACK = event;
+				event.subject = "";
 			}
 		},
 		mousemove: function(event) {
-			TARGET_EVENT(event);
 			if (TRACK) {
 				event.subject = "track";
 				event.track = TRACK.track;
@@ -22,11 +22,12 @@ export default {
 				event.moveY = event.y - TRACK.y;
 				event.track.owner.send(event.track, event);
 				TRACK = event;
+				event.subject = "";
 				return;
 			}
+			TARGET_EVENT(event);
 		},
 		mouseup: function(event) {
-			TARGET_EVENT(event);
 			if (TRACK) {
 				event.subject = "trackEnd"
 				event.track = TRACK.track;
@@ -34,7 +35,10 @@ export default {
 				event.moveY = 0;
 				TRACK.track.owner.send(TRACK.track, event);
 				TRACK = null;
+				event.subject = "";
+				return;
 			}
+			TARGET_EVENT(event);
 		},
 		click: TARGET_EVENT,
 		dragstart: TARGET_EVENT,

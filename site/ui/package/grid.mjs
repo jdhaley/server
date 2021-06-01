@@ -82,7 +82,24 @@ export default {
 //			this.style.flex = `${s} 1`;
 //			this.style.minWidth = `${s * 3}mm`;
 //			this.style.maxWidth = `${s}mm`;
-		}
+		},
+//		extend$actions: {
+// 			mousedown: function(event) {
+// 				event.preventDefault();
+// 				this.$peer
+// //				if (!this.pane) this = this.own
+// 				let pane = this.$peer.owner.create("/ui.youni.works/grid/ViewPane");
+// 				pane.from = this.$peer;
+// 				pane.bounds = {
+// 					top: pane.from.bounds.bottom,
+// 					left: pane.from.bounds.left,
+// 					width: 80,
+// 					height: 200
+// 				}
+// 				pane.owner.append(pane);
+// 				pane.peer.textContent = "Pop";
+// 			}
+//		}
 	},
 	Cell: {
 		type$: "Property",
@@ -111,6 +128,12 @@ export default {
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
+		}
+	},
+	ViewPane: {
+		type$: ["View", "Pane"],
+		start: function start(conf) {
+			this.super(start, conf);
 		}
 	}
 }
