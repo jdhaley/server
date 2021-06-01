@@ -1,4 +1,5 @@
 let TRACK = null;
+let NO_CLICK;
 export default {
 	windowEvents: {		
 		input: TARGET_EVENT,
@@ -8,39 +9,52 @@ export default {
 
 		keydown: TARGET_EVENT,
 		mousedown: function(event) {
+			event.subject = "grab";
 			TARGET_EVENT(event);
 			if (event.track) {
+				event.preventDefault();
 				TRACK = event;
-				event.subject = "";
+			} else {
+				TRACK = null;
+				event.subject = "mousedown";
+				TARGET_EVENT(event);
 			}
 		},
 		mousemove: function(event) {
 			if (TRACK) {
-				event.subject = "track";
+				event.preventDefault();
+				event.subject = "drag";
 				event.track = TRACK.track;
 				event.moveX = event.x - TRACK.x;
 				event.moveY = event.y - TRACK.y;
 				event.track.owner.send(event.track, event);
 				TRACK = event;
-				event.subject = "";
 				return;
 			}
 			TARGET_EVENT(event);
 		},
 		mouseup: function(event) {
 			if (TRACK) {
-				event.subject = "trackEnd"
+				event.preventDefault();
+				event.subject = "release"
 				event.track = TRACK.track;
 				event.moveX = 0;
 				event.moveY = 0;
 				TRACK.track.owner.send(TRACK.track, event);
 				TRACK = null;
-				event.subject = "";
+				NO_CLICK = true;
 				return;
 			}
 			TARGET_EVENT(event);
 		},
-		click: TARGET_EVENT,
+		click: function(event) {
+			if (NO_CLICK) {
+				event.preventDefault();
+				NO_CLICK = false;
+			} else {
+				TARGET_EVENT(event);
+			}
+		},
 		dragstart: TARGET_EVENT,
 		dragover: TARGET_EVENT,
 		drop: TARGET_EVENT,

@@ -33,17 +33,7 @@ export default {
 	Pane: {
 		type$: "Zoned",
 		extend$actions: {
-			mousemove: function(event) {
-				//Hit test in bottom right (BR) zone to track movement.
-				if (event.altKey) {
-					this.style.cursor = "move";
-				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					this.style.cursor = "nwse-resize";
-				} else {
-					this.style.removeProperty("cursor");
-				}
-			},
-			mousedown: function(event) {
+			grab: function(event) {
                 console.log(event);
                 if (event.altKey) {
 					event.track = this;
@@ -55,15 +45,11 @@ export default {
 					this.style.cursor = "nwse-resize";
 				}
 			},
-			click: function(event) {
-				console.log(event)
-			},
-			track: function(event) {
+			drag: function(event) {
 				event.subject = this.peer.$tracking;
 				this.receive(event)
 			},
-			trackEnd: function(event) {
-				event.subject = "";
+			release: function(event) {
 				delete this.peer.$tracking;
                 this.owner.style.removeProperty("cursor");
 			},
@@ -82,6 +68,16 @@ export default {
 						width: event.clientX - b.left,
 						height: event.clientY - b.top
 					}
+				}
+			},
+			mousemove: function(event) {
+				//Hit test in bottom right (BR) zone to track movement.
+				if (event.altKey) {
+					this.style.cursor = "move";
+				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
+					this.style.cursor = "nwse-resize";
+				} else {
+					this.style.removeProperty("cursor");
 				}
 			}
 		}
