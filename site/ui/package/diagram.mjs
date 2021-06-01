@@ -182,7 +182,7 @@ const pkg = {
 				},
 				connect: function(event) {
 				},
-				mousedown: function(event) {
+				grab: function(event) {
 					if (this.owner.activeElement.parentNode == this.peer) return;
 					event.preventDefault();
 					event.track = this; // Tell the listener what to track.
@@ -192,7 +192,7 @@ const pkg = {
 					this.diagram.peer.focus();
 					if (this.diagram.command) console.log("no mouse up");
 				},
-				track: function(event) {
+				drag: function(event) {
 					let cmd = this.diagram.command;
 					if (!cmd) {
 						cmd = this.use.DrawCommand.instance(this);
@@ -210,7 +210,7 @@ const pkg = {
 					}
 					this.owner.notify(this, "drawShape");
 				},
-				trackEnd: function(event) {
+				release: function(event) {
 					event.subject = "";
 					this.style.outline = "";
 					this.style.cursor = "";
