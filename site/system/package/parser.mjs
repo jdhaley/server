@@ -3,7 +3,7 @@ export default {
 	Parser: {
 		type$: "Instance",
 		parse: function(value, componentName) {
-			if (this.sys.compiler.statusOf(value)) {
+			if (typeof value != "function" && this.sys.compiler.statusOf(value)) {
 				console.warn(`Possible parsing cycle detected in "${componentName}"`);
 				return value;
 			}
