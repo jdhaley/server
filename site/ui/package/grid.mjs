@@ -85,20 +85,16 @@ export default {
 	},
 	Cell: {
 		type$: "Property",
-		bind: function(model) {
-			model = model && model[this.conf.name];
-			if (typeof model == "object") model = "...";
-			model = model || "";
-			if (this.peer.nodeName == "INPUT") {
-				this.peer.value = model;
-			} else {
-				this.peer.textContent = model;
-			}
+		get$elementType: function() {
+			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
-		start: function start(conf) {
-			this.super(start, conf);
-			let editor = this.owner.editors[conf.inputType || conf.dataType || "string"];
-			editor && editor.call(this);
+		bind: function(model) {
+			this.model = model && model[this.conf.name];
+		},
+		draw: function draw() {
+			this.super(draw);
+			let ele = this.owner.create(this.elementType, this.conf);
+			this.append(ele);
 		}
 	},
 	Caption: {

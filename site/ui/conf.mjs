@@ -1,6 +1,7 @@
 import base from "../base/index.mjs";
 
 import view from "./package/view.mjs";
+import editors from "./package/editors.mjs";
 import shape from "./package/shape.mjs";
 import container from "./package/container.mjs";
 import grid from "./package/grid.mjs";
@@ -19,6 +20,7 @@ export default {
 		shape: shape,
 		container: container,
 		grid: grid,
+		editors: editors,
 		diagram: diagram
 	}
 }
