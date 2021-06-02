@@ -22,13 +22,24 @@ export default {
                 href: this.conf.styles
             });
         },
+        test: function() {
+            let pane = this.owner.create("/ui.youni.works/container/Pane", {
+                elementType: {
+                    type$: "/ui.youni.works/container/Collection",
+                    className: "list",
+                    elementType: "/ui.youni.works/container/Value"
+                }
+            });
+            this.owner.append(pane);
+            pane.view(["a", "b", "c"]);
+        },
         extend$actions: {
             view: function(msg) {
                 this.view.view(this.data);
             },
             initializeApp: function(msg) {
                 let conf = this.sys.extend(this.conf, JSON.parse(msg.response));
-                this.let("conf", conf);
+                 this.let("conf", conf);
                 this.open(conf.typeSource, "initializeTypes");
                 this.open(conf.dataSource, "initializeData");
                 if (conf.diagram) this.open(conf.diagram, "initializeDiagram");
@@ -37,6 +48,7 @@ export default {
                 this.owner.editors = conf.editors;
                 this.owner.start(conf);
                 this.initializeDocument(conf);
+                this.test();
             },
             initializeTypes: function(msg) {
                 let types = JSON.parse(msg.response);

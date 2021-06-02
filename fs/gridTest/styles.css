@@ -79,3 +79,23 @@ BODY {
 	font-style: italic;
 	font-weight: 100;
 }
+.pane {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	background: steelblue;
+	border: 1px solid steelblue;
+	width: 120px;
+	padding-bottom: 6px;
+	overflow: hidden;
+	box-shadow: 0 0 10px silver;
+	transition: top 80ms ease-in, left 80ms ease-in;
+}
+.list {
+	overflow: auto;
+	background: window;
+}
+.list>.value {
+	border-bottom: 1px solid silver;
+	padding: 3px;
+}

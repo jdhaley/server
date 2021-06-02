@@ -30,7 +30,7 @@ export default {
 
         }
     },
-	Pane: {
+	Shape: {
 		type$: "Zoned",
 		extend$actions: {
 			grab: function(event) {

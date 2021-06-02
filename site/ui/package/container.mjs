@@ -1,5 +1,13 @@
 export default {
 	type$: "/ui.youni.works/view",
+	type$Shape: "/ui.youni.works/shape/Shape",
+	Value: {
+		type$: "View",
+		bind: function bind(model) {
+			this.super(bind, model);
+			this.peer.textContent = model;
+		}
+	},
 	Container: {
 		type$: "View",
 		get$elementType: function() {
@@ -116,6 +124,23 @@ export default {
 			}
 			this.properties = props;
 			this.forEach(props, this.createElement);
+		}
+	},
+	Pane: {
+		type$: ["View", "Shape"],
+		get$elementType: function() {
+			return this.conf.elementType;
+		},
+		get$elementConf: function() {
+			return this.conf;
+		},
+		draw: function draw() {
+			this.super(draw);
+			let type = this.elementType;
+			let conf = this.elementConf;
+			let control = this.owner.create(type, conf);
+			this.append(control);
+			return control;
 		}
 	}
 }
