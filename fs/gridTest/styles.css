@@ -83,8 +83,8 @@ BODY {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
-	background: steelblue;
-	border: 1px solid steelblue;
+	background:  ghostwhite;
+	border: 1px solid gainsboro;
 	width: 120px;
 	padding-bottom: 6px;
 	overflow: hidden;
@@ -96,6 +96,8 @@ BODY {
 	background: window;
 }
 .list>.value {
-	border-bottom: 1px solid silver;
+	border-bottom: 1px solid gainsboro;
+	font-size: 16px;
 	padding: 3px;
+	height: 24px;
 }

@@ -141,6 +141,30 @@ export default {
 			let control = this.owner.create(type, conf);
 			this.append(control);
 			return control;
+		},
+		extend$actions: {
+			mousemove: function(event) {
+				//Hit test in bottom right (BR) zone to track movement.
+				if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
+					this.style.cursor = "nwse-resize";
+				} else if (event.altKey || event.target == this.peer) {
+					this.style.cursor = "move";
+				} else {
+					this.style.removeProperty("cursor");
+				}
+			},
+			grab: function(event) {
+                console.log(event);
+                if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
+					event.track = this;
+					this.peer.$tracking = "size";
+					this.style.cursor = "nwse-resize";
+				} else if (event.altKey || event.target == this.peer) {
+					event.track = this;
+					this.peer.$tracking = "position";
+					this.owner.style.cursor = "move";
+				}
+			}
 		}
 	}
 }
