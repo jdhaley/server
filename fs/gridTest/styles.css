@@ -89,7 +89,8 @@ BODY {
 	padding-bottom: 6px;
 	overflow: hidden;
 	box-shadow: 0 0 10px silver;
-	transition: top 80ms ease-in, left 80ms ease-in;
+	min-width: 24px;
+	min-height: 18px;
 }
 .list {
 	overflow: auto;
@@ -99,5 +100,5 @@ BODY {
 	border-bottom: 1px solid gainsboro;
 	font-size: 16px;
 	padding: 3px;
-	height: 24px;
+	min-height: 24px;
 }

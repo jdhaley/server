@@ -154,14 +154,18 @@ export default {
 				}
 			},
 			grab: function(event) {
-                console.log(event);
+				let b = this.bounds;
+				this.peer.$tracking = {
+					insideX: event.x - b.left,
+					insideY: event.y - b.top
+				}
                 if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
 					event.track = this;
-					this.peer.$tracking = "size";
+					this.peer.$tracking.subject = "size";
 					this.style.cursor = "nwse-resize";
 				} else if (event.altKey || event.target == this.peer) {
 					event.track = this;
-					this.peer.$tracking = "position";
+					this.peer.$tracking.subject = "position";
 					this.owner.style.cursor = "move";
 				}
 			}

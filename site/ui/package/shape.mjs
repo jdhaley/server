@@ -34,19 +34,23 @@ export default {
 		type$: "Zoned",
 		extend$actions: {
 			grab: function(event) {
-                console.log(event);
+				let b = this.bounds;
+				this.peer.$tracking = {
+					insideX: event.x - b.left,
+					insideY: event.y - b.top
+				}
                 if (event.altKey) {
 					event.track = this;
-					this.peer.$tracking = "position";
+					this.peer.$tracking.subject = "position";
 					this.owner.style.cursor = "move";
 				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
 					event.track = this;
-					this.peer.$tracking = "size";
+					this.peer.$tracking.subject = "size";
 					this.style.cursor = "nwse-resize";
 				}
 			},
 			drag: function(event) {
-				event.subject = this.peer.$tracking;
+				event.subject = this.peer.$tracking.subject;
 				this.receive(event)
 			},
 			release: function(event) {
@@ -56,8 +60,8 @@ export default {
 			position: function(event) {
 				if (event.track == this) {
 					this.bounds = {
-						left: event.clientX,
-						top: event.clientY,
+						left: event.x - this.peer.$tracking.insideX,
+						top: event.y - this.peer.$tracking.insideY
 					}
 				}
 			},
