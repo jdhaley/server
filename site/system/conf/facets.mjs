@@ -75,10 +75,15 @@ export default {
 	},
 	extend: function(decl) {
 		if (typeof decl.expr != "object") throw new Error("extend facet requires an object expression.");
+		let sys = decl.sys;
 		decl.enumerable = true;
 		decl.get = function() {
-			let value = Object.getPrototypeOf(this)[decl.name];
-			value = decl.sys.extend(value || null, decl.expr);
+			let proto = Object.getPrototypeOf(this);
+			let value = sys.extend(proto ? proto[decl.name] : null);
+			if (this.interface) for (let type of this.interface.implements) {
+				sys.implement(value, type.class[decl.name]);
+			}
+			sys.implement(value, decl.expr);
 			Reflect.defineProperty(this, decl.name, {
 				configurable: true,
 				enumerable: true,
