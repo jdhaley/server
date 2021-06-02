@@ -31,7 +31,11 @@ export default {
                 }
             });
             this.owner.append(pane);
-            pane.view(["a", "b", "c"]);
+            pane.view({
+                "a": "Apple",
+                "b": "Orange",
+                "c": "Grape"
+            });
         },
         extend$actions: {
             view: function(msg) {

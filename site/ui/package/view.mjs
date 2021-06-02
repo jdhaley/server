@@ -27,6 +27,7 @@ const pkg = {
 			virtual$model: function() {
 				if (arguments.length) {
 					this.peer.$model = arguments[0];
+					return;
 				}
 				return this.peer.$model;
 			},
