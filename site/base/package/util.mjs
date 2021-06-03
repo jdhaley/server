@@ -138,7 +138,7 @@ const pkg = {
 		Remote: {
 			type$: "Instance",
 			process: function(receiver, subject, request) {
-				  let xhr = this.createHttpRequest(receiver, subject, request);
+				let xhr = this.createHttpRequest(receiver, subject, request);
 				this.prepare(xhr);
 				let content = request.content;
 				if (typeof content != "string") content = JSON.stringify(content);
