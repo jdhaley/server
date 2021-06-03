@@ -95,6 +95,20 @@ export default {
 			this.super(draw);
 			let ele = this.owner.create(this.elementType, this.conf);
 			this.append(ele);
+		},
+		extend$actions: {
+			activate: function(event) {
+				let model = this.owner.origin.data[this.conf.dataset][this.model];
+				let type = this.owner.origin.types[this.conf.objectType];
+				let view = this.owner.create(this.conf.linkControl, type);
+				this.owner.append(view);
+				let b = this.bounds;
+				view.bounds = {
+					left: b.left,
+					top: b.bottom
+				};
+				view.view(model);
+			}
 		}
 	},
 	Caption: {

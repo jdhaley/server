@@ -62,16 +62,34 @@ const pkg = {
 		//more work needed...
 		Object: {
 			type$: "Editor",
-			dataType: "object"
+			dataType: "object",
+			bind: function(value) {
+				this.textContent = "...";
+			}
 		},
 		Collection: {
 			type$: "Editor",
-			dataType: "object"
+			dataType: "object",
+			bind: function(value) {
+				this.textContent = "...";
+			}
 		},
 		Link: {
 			type$: "Editor",
-			bind: function(value) {
-				this.textContent = "...";
+			extend$conf: {
+				readOnly: true
+			},
+			draw: function draw() {
+				this.super(draw);
+				this.peer.tabIndex = 1;
+			},
+			extend$actions: {
+				click: function(event) {
+					event.subject = "activate";
+				},
+				keydown: function(event) {
+					if (event.key == "Enter" || event.key == " ") event.subject = "activate";
+				}
 			}
 		}
 	}

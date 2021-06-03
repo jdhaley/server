@@ -9,6 +9,7 @@ export default {
             this.open(manifest, "initializeApp");
         },
         initializeOwner: function() {
+            this.owner.origin = this;
             this.owner.editors = this.conf.editors;
             this.owner.start(this.conf);
             if (this.conf.icon) this.owner.link({
@@ -20,24 +21,9 @@ export default {
                 href: this.conf.styles
             });
         },
-        // test: function() {
-        //     let pane = this.owner.create("/ui.youni.works/container/Pane", {
-        //         elementType: {
-        //             type$: "/ui.youni.works/container/Collection",
-        //             className: "list",
-        //             elementType: "/ui.youni.works/container/Value"
-        //         }
-        //     });
-        //     this.owner.append(pane);
-        //     pane.view({
-        //         "a": "Apple",
-        //         "b": "Orange",
-        //         "c": "Grape"
-        //     });
-        // },
         extend$actions: {
             view: function(msg) {
-                this.view.view(this.data);
+                this.view.view(this.data[this.conf.dataset]);
             },
             initializeApp: function(msg) {
                 let conf = this.sys.extend(this.conf, JSON.parse(msg.response));
@@ -51,7 +37,6 @@ export default {
                     this.owner.send(this, "initializeTypes");
                 }
                 this.open(conf.dataSource, "initializeData");
-//               this.test();
             },
             initializeTypes: function(msg) {
                 if (msg.response) {

@@ -3,9 +3,7 @@ export default {
 	type$number: "/ui.youni.works/editors/Number",
 	type$date: "/ui.youni.works/editors/Date",
 	type$boolean: "/ui.youni.works/editors/Boolean",
-	type$object: "/ui.youni.works/editors/Link",
-	type$array: "/ui.youni.works/editors/Link",
-	type$parcel: "/ui.youni.works/editors/Link",
+	type$link: "/ui.youni.works/editors/Link",
 	//the following should not be specified as a datatype, only as an inputType.
 	type$color: "/ui.youni.works/editors/Color"
 }

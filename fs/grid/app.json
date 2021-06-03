@@ -7,6 +7,7 @@
 		"Object": "/ui.youni.works/grid/Grid"
 	},
 	"objectType": "Issue",
+	"dataset": "Issue",
 	"dataSource": "/file/grid/data.json",
 	"typeSource": "/file/grid/types.json"
 }

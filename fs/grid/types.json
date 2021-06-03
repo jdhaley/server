@@ -1,32 +1,30 @@
 {
-	"Issues": {
+	"Design": {
 		"members": [
 			{
-				"name": "issues",
-				"dataType": "array",
-				"objectType": "Issue"
+				"name": "id",
+				"ColumnSize": 4
 			},
 			{
-				"name": "testAValue",
-				"dataType": "boolean"
+				"name": "shape",
+				"size": 6,
+				"choice": {
+					"r": "Rectangle",
+					"t": "Triangle",
+					"d": "Diamond",
+					"o": "Oval",
+					"x": "Irregular"
+				}
 			},
 			{
-				"name": "value",
-				"caption": "The Numeric Value",
-				"dataType": "number"
+				"name": "width",
+				"dataType": "number",
+				"columnSize": 4
 			},
 			{
-				"name": "code_name",
-				"dataType": "char",
-				"protected": true
-			},
-			{
-				"name": "action",
-				"dataType": "action"
-			},
-			{
-				"name": "testModel",
-				"dataType": "string"
+				"name": "height",
+				"dataType": "number",
+				"columnSize": 4
 			}
 		]
 	},
@@ -35,15 +33,17 @@
 			{
 				"name": "issued",
 				"dataType": "date",
-				"columnSize": 6,
-				"style": {
-					"backgrounds": "wheat"
-				}
+				"columnSize": 6
 			},
 			{
 				"name": "design",
-				"columnSize": 4,
-				"maxLength": 4
+				"dataType": "link",
+				"objectType": "Design",
+				"dataset": "Design",
+				"linkControl": {
+					"type$": "/ui.youni.works/container/Pane",
+					"elementType": "/ui.youni.works/grid/Sheet"
+				}
 			},
 			{
 				"name": "denom",
