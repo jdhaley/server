@@ -57,7 +57,6 @@ BODY {
 	border-color: silver;
 }
 .handle, .caption, .cell {
-	padding: 3px;
 	border-left-width: 1px;
 	border-bottom-width: 1px;
 }
@@ -65,6 +64,7 @@ BODY {
 	color: steelblue;
 	background-color: ghostwhite;
 	cursor: default;
+	padding: 3px;
 }
 .handle {
 	border-left-width: 0;
@@ -73,7 +73,14 @@ BODY {
 	overflow: hidden;
 }
 .cell {
+	padding: 2px;
+}
+INPUT {
+	width: 100%;
+}
+.cell > .string {
 	overflow: auto;
+	padding: 2px;
 }
 .dynamic {
 	font-style: italic;
@@ -99,6 +106,6 @@ BODY {
 .list>.value {
 	border-bottom: 1px solid gainsboro;
 	font-size: 16px;
-	padding: 3px;
+	padding: 2px;
 	min-height: 24px;
 }

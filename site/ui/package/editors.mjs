@@ -69,7 +69,10 @@ const pkg = {
 			dataType: "object"
 		},
 		Link: {
-			type$: "Editor"
+			type$: "Editor",
+			bind: function(value) {
+				this.textContent = "...";
+			}
 		}
 	}
 }
