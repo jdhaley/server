@@ -8,11 +8,9 @@ export default {
             let manifest = "/file/" + conf.window.location.search.substring(1) + "/app.json";
             this.open(manifest, "initializeApp");
         },
-        createView: function() {
-            this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
-            this.owner.append(this.view);
-        },
-        initializeDocument: function() {
+        initializeOwner: function() {
+            this.owner.editors = this.conf.editors;
+            this.owner.start(this.conf);
             if (this.conf.icon) this.owner.link({
                 rel: "icon",
                 href: this.conf.icon
@@ -22,58 +20,58 @@ export default {
                 href: this.conf.styles
             });
         },
-        test: function() {
-            let pane = this.owner.create("/ui.youni.works/container/Pane", {
-                elementType: {
-                    type$: "/ui.youni.works/container/Collection",
-                    className: "list",
-                    elementType: "/ui.youni.works/container/Value"
-                }
-            });
-            this.owner.append(pane);
-            pane.view({
-                "a": "Apple",
-                "b": "Orange",
-                "c": "Grape"
-            });
-        },
+        // test: function() {
+        //     let pane = this.owner.create("/ui.youni.works/container/Pane", {
+        //         elementType: {
+        //             type$: "/ui.youni.works/container/Collection",
+        //             className: "list",
+        //             elementType: "/ui.youni.works/container/Value"
+        //         }
+        //     });
+        //     this.owner.append(pane);
+        //     pane.view({
+        //         "a": "Apple",
+        //         "b": "Orange",
+        //         "c": "Grape"
+        //     });
+        // },
         extend$actions: {
             view: function(msg) {
                 this.view.view(this.data);
             },
             initializeApp: function(msg) {
                 let conf = this.sys.extend(this.conf, JSON.parse(msg.response));
-                 this.let("conf", conf);
-                this.open(conf.typeSource, "initializeTypes");
-                this.open(conf.dataSource, "initializeData");
-                if (conf.diagram) this.open(conf.diagram, "initializeDiagram");
- 
+                this.let("conf", conf);
                 this.let("owner", this.sys.extend(conf.ownerType || this.owner));
-                this.owner.editors = conf.editors;
-                this.owner.start(conf);
-                this.initializeDocument(conf);
-                this.test();
+                this.initializeOwner();
+
+                if (conf.typeSource) {
+                    this.open(conf.typeSource, "initializeTypes");                 
+                } else {
+                    this.owner.send(this, "initializeTypes");
+                }
+                this.open(conf.dataSource, "initializeData");
+//               this.test();
             },
             initializeTypes: function(msg) {
-                let types = JSON.parse(msg.response);
-                this.types = this.sys.extend(null, types);
-                this.createView();
+                if (msg.response) {
+                    let types = JSON.parse(msg.response);
+                    this.types = this.sys.extend(null, types);    
+                } else {
+                    this.types = Object.create(null);
+                }
+                //Create the view after the types have been initialized
+                this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
+                this.view.file =  this.conf.dataSource;
+                this.owner.append(this.view);
                 if (this.data) this.receive("view");
             },
             initializeData: function(msg) {
                 let data = JSON.parse(msg.response);
                 this.data = this.sys.extend(null, data);
                 if (this.view) this.receive("view");
-            },
-            initializeDiagram: function(msg) {
-                let data = JSON.parse(msg.response);
-                data = this.sys.extend(null, data);
-                let view = this.owner.create(this.conf.components.Diagram);
-                this.owner.append(view);
-                view.file = this.conf.diagram;
-                view.view(data);
             }
-        }
+       }
     }
 }
 
