@@ -3,11 +3,19 @@ export default {
     App: {
         type$: ["Control", "Origin"],
         type$owner: "Owner",
+        get$folder: function() {
+            return "/file/" + this.conf.window.location.search.substring(1);
+        },
+        runScript(name) {
+            import(name).then(v => {
+                v.default.call(this);
+            });
+        },
         start: function(conf) {
             this.let("conf", conf);
-            let manifest = "/file/" + conf.window.location.search.substring(1) + "/app.json";
-            this.open(manifest, "initializeApp");
-        },
+            this.open(this.folder + "/app.json", "initializeApp");
+            this.runScript(this.folder + "/index.mjs");
+         },
         initializeOwner: function() {
             this.owner.origin = this;
             this.owner.editors = this.conf.editors;

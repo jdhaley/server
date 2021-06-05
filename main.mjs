@@ -25,11 +25,16 @@ export default function main(conf) {
 				res.writeHead(200, {"Content-Type": "text/css"});
 				res.write(file);
 				res.end();
+			} else if (req.url.endsWith(".mjs")){
+				res.writeHead(200, {"Content-Type": "text/javascript"});
+				res.write(file);
+				res.end();
+
 			// } else if (req.url.endsWith(".png")) {
 			// 	res.writeHead(200, {"Content-Type": "image/png"});
 			// 	res.write(file);
 			// 	res.end();
-			}else {
+			} else {
 				res.send(file);
 			}
 		} else if (req.method == "PUT") {
