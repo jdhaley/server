@@ -5,6 +5,7 @@ import core from "./package/core.mjs";
 import reflect from "./package/reflect.mjs";
 import parser from "./package/parser.mjs";
 import compiler from "./package/compiler.mjs";
+import context from "./package/context.mjs";
 
 export default {
 	module: {
@@ -16,7 +17,8 @@ export default {
 		core: core,
 		reflect: reflect,
 		compiler: compiler,
-		parser: parser
+		parser: parser,
+		context: context
 	},
 	facets: facets,
 	symbols: symbols

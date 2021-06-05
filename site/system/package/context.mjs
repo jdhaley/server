@@ -5,9 +5,9 @@ const pkg = {
         symbols: {
         },
         forName: function(name) {
-			return this.get(this.$state, name);
+			return this.getProperty(this.data, name);
 		},
-        get: function(component, name) {
+        getProperty: function(component, name) {
             let value = component[name];
             if (this.isSource(value)) {
                 value = this.create(value, name, component);
@@ -33,7 +33,7 @@ const pkg = {
                     object.push(value);
                 }
             } else {
-                let object = source.type$;
+                object = source.type$;
                 if (typeof object == "string") object = this.forName(object);
                 object = Object.create(object || null);
                 if (target) target[name] = object;
@@ -54,7 +54,7 @@ const pkg = {
         },
 		declare: function(object, name, value, facet) {
             let fn = this.facets[facet || "default"];
-			if (!facet) throw new Error(`Facet "${facet}" does not exist.`);
+			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
             return fn.call(this, {
                 declaredBy: object,
                 facet: facet,
@@ -63,7 +63,12 @@ const pkg = {
             });
 		},
         define: function(object, name, value, facet) {
-            this.declare(object, name, value, facet).define(object);
+            let decl = this.declare(object, name, value, facet);
+            if (decl.define) {
+                decl.define(object);
+            } else {
+                Reflect.defineProperty(object, decl.name, decl);
+            }
 		},
         facetOf: function(decl) {
 			if (typeof decl == "symbol") return "";
