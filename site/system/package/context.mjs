@@ -1,18 +1,26 @@
-const pkg = {
+let pkg = {
     type$: "/system.youni.works/core",
-    Context: {
+    Store: {
+        get: function(id) {
+            return this.$data[id];
+        },
+        put: function(id, value) {
+            this.$data[value.id] = value;
+        }
+    },
+    Namespace: {
         forName: function(name) {
 			return this.sys.forName(name);
 		}
     },
     Factory: {
+        type$: "Namespace",
         use: {
             type$Object: "",
             type$Array: "Array"
         },
         type$facets: "Parcel",
         type$symbols: "Parcel",
-        type$context: "Context",
         create: function(value) {
             return this.extend(this.prototypeOf(value), value);
         },
@@ -65,7 +73,7 @@ const pkg = {
                 type = this.use.Array;
             } else if (Object.getPrototypeOf(source) == Object.prototype) {
                 type = source[this.typeProperty];
-                if (typeof type == "string") type = this.context.forName(type);
+                if (typeof type == "string") type = this.forName(type);
             } else {
                 throw new TypeError("Value is not a source object or array.");
             }
@@ -90,21 +98,11 @@ const pkg = {
 
 		}
     },
-    Store: {
-        get: function(id) {
-            return this.data[id];
-        },
-        put: function(id, value) {
-            this.data[value.id] = value;
-        }
-    },
-	FactoryContext: {
-        type$: ["Factory", "Context"],
-        get$context: function() {
-            return this;
-        },
+	Context: {
+        type$: "Factory",
         forName: function(name) {
-			return this.getProperty(this.data, name);
+            if (name.startsWith("/")) return this.sys.forName(name);
+			return this.getProperty(this.$data, name);
 		},
         getProperty: function(component, name) {
             let value = component[name];

@@ -17,7 +17,7 @@ export default function main() {
 }
 
 function createContext(sys, data) {
-    let ctx = sys.forName("/system.youni.works/context/FactoryContext");
+    let ctx = sys.forName("/system.youni.works/context/Context");
     ctx = sys.extend(ctx, {
         facets: facets,
         symbols: sys.symbols,
