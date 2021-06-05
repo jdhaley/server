@@ -1,57 +1,54 @@
 const pkg = {
-	Context: {
-        facets: {
-        },
-        symbols: {
-        },
+    type$: "/system.youni.works/core",
+    Context: {
         forName: function(name) {
-			return this.getProperty(this.data, name);
-		},
-        getProperty: function(component, name) {
-            let value = component[name];
-            if (this.isSource(value)) {
-                value = this.create(value, name, component);
-            }
-            return value;
+			return this.sys.forName(name);
+		}
+    },
+    Factory: {
+        use: {
+            type$Object: "",
+            type$Array: "Array"
         },
-		isSource: function(value) {
-			return value && typeof value == "object" &&
-                Object.getPrototypeOf(value) == Object.prototype ||
-                Object.getPrototypeOf(value) == Array.prototype;
-
-		},
-		create: function(source, name, target) {
-			if (!this.isSource(source)) {
-				throw new TypeError("Argument must be a source object or array.");
-			}
-            let object;
+        type$facets: "Parcel",
+        type$symbols: "Parcel",
+        type$context: "Context",
+        create: function(value) {
+            return this.extend(this.prototypeOf(value), value);
+        },
+        extend: function(object, source) {
+            object = Object.create(object);
+            this.implement(object, source);
+            return object;
+        },
+        implement: function(object, source) {
             if (Object.getPrototypeOf(source) == Array.prototype) {
-                object = Object.create(this.use.Array);
-                if (target) target[name] = object;
                 for (let value of source) {
-                    if (this.isSource(value)) value = this.create(source);
-                    object.push(value);
+                    if (this.isSource(value)) value = this.create(value);
+                    Array.prototype.push.call(object, value);
+                }
+            } else if (Object.getPrototypeOf(source) == Object.prototype) {
+                for (let decl of Object.getOwnPropertyNames(source)) {
+                    let facet = this.facetOf(decl);
+                    let name = this.nameOf(decl);
+                    if (decl != this.typeProperty) {
+                        let value = source[decl];
+                        if (facet != "source" && this.isSource(value)) value = this.create(value);
+                        this.define(object, name, value, facet);
+                    }
                 }
             } else {
-                object = source.type$;
-                if (typeof object == "string") object = this.forName(object);
-                object = Object.create(object || null);
-                if (target) target[name] = object;
-                this.implement(object, source);    
+                throw new TypeError("Value is not a source object or array.");
             }
-			return object;
 		},
-		implement: function(object, decls) {
-            for (let decl of Object.getOwnPropertyNames(decls)) {
-                let facet = this.facetOf(decl);
-                let name = this.nameOf(decl);
-                let value = decls[decl];
-                if (name) {
-                    if (facet != "source" && this.isSource(value)) value = this.create(value, name, object);
-                    this.define(object, name, value, facet);
-                }
+        define: function(object, name, value, facet) {
+            let decl = this.declare(object, name, value, facet);
+            if (decl.define) {
+                decl.define(object);
+            } else {
+                Reflect.defineProperty(object, decl.name, decl);
             }
-        },
+		},
 		declare: function(object, name, value, facet) {
             let fn = this.facets[facet || "default"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
@@ -62,14 +59,18 @@ const pkg = {
                 expr: value
             });
 		},
-        define: function(object, name, value, facet) {
-            let decl = this.declare(object, name, value, facet);
-            if (decl.define) {
-                decl.define(object);
+        prototypeOf: function(source) {
+            let type;
+            if (Object.getPrototypeOf(source) == Array.prototype) {
+                type = this.use.Array;
+            } else if (Object.getPrototypeOf(source) == Object.prototype) {
+                type = source[this.typeProperty];
+                if (typeof type == "string") type = this.context.forName(type);
             } else {
-                Reflect.defineProperty(object, decl.name, decl);
+                throw new TypeError("Value is not a source object or array.");
             }
-		},
+            return type || this.use.Object;
+        },
         facetOf: function(decl) {
 			if (typeof decl == "symbol") return "";
 			decl = "" + decl;
@@ -81,7 +82,40 @@ const pkg = {
 			decl = "" + decl;
 			let index = decl.indexOf("$");
 			return index < 0 ? decl : decl.substring(index + 1);
+		},
+        isSource: function(value) {
+			return value && typeof value == "object" &&
+                Object.getPrototypeOf(value) == Object.prototype ||
+                Object.getPrototypeOf(value) == Array.prototype;
+
 		}
+    },
+    Store: {
+        get: function(id) {
+            return this.data[id];
+        },
+        put: function(id, value) {
+            this.data[value.id] = value;
+        }
+    },
+	FactoryContext: {
+        type$: ["Factory", "Context"],
+        get$context: function() {
+            return this;
+        },
+        forName: function(name) {
+			return this.getProperty(this.data, name);
+		},
+        getProperty: function(component, name) {
+            let value = component[name];
+            if (this.isSource(value)) {
+                let object = Object.create(this.prototypeOf(value));
+                component[name] = object;
+                this.implement(object, value);
+                value = object;
+            }
+            return value;
+        }
 	}
 }
 export default pkg;
