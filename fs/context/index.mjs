@@ -1,7 +1,9 @@
+import facets from "./facets.mjs";
+
 export default function main() {
     let ctx = this.sys.forName("/system.youni.works/context/Context");
     ctx = this.sys.extend(ctx, {
-        facets: this.sys.facets
+        facets: facets
     });
     ctx.data = {
         x: {

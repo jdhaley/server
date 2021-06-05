@@ -83,7 +83,7 @@ export default {
 			throw new Error("type facet requires a string.");
 		}
 		decl.enumerable = true;
-		decl.value = decl.expr ? decl.sys.forName(decl.expr, decl[decl.sys.symbols.name]) : null;
+		decl.value = this.forName(decl.expr);
 		return decl;
 	},
 	extend: function(decl) {
