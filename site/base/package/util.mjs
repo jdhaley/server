@@ -1,10 +1,8 @@
 const pkg = {
-	isUpperCase(str)
-	{
+	isUpperCase: function(str) {
 		return str == str.toUpperCase() && str != str.toLowerCase();
 	},
-	isLowerCase(str)
-	{
+	isLowerCase: function(str) {
 		return str == str.toLowerCase() && str != str.toUpperCase();
 	},
 	$public: {
@@ -181,7 +179,7 @@ const pkg = {
 				xhr.onreadystatechange = () => this.monitor(xhr);
 				return xhr;
 			},
-			 createMessage(xhr) {
+			createMessage: function(xhr) {
 				return this.sys.extend(null, {
 					subject: xhr.subject,
 					request: xhr.request,
