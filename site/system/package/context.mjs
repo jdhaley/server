@@ -1,9 +1,30 @@
 let pkg = {
     type$: "/system.youni.works/core",
-    Store: {
+    createClass: function(source) {
+        let cls = this.instance("Parcel");
+        for (let decl of Object.getOwnPropertyNames(source)) {
+            let facet = this.facetOf(decl);
+            let name = this.nameOf(decl);
+            if (decl != this.typeProperty) {
+                let value = source[decl];
+                if (facet != "source" && this.isSource(value)) {
+                    value = this.createClass();
+                }
+                cls[name] = this.createProperty({
+                    name: name,
+                    facet: facet,
+                    expr: value
+                });
+            }
+        }
+    },
+    Values: {
         get: function(id) {
             return this.$data[id];
         },
+    },
+    Store: {
+        type$: "Values",
         put: function(id, value) {
             this.$data[value.id] = value;
         }
@@ -12,6 +33,13 @@ let pkg = {
         forName: function(name) {
 			return this.sys.forName(name);
 		}
+    },
+    Factry: {
+        instance: function(name, decls) {
+            let value = this.forName(name);
+            if (args) value = this.extend(value, args);
+            return value;
+        }
     },
     Factory: {
         type$: "Namespace",
@@ -22,11 +50,13 @@ let pkg = {
         type$facets: "Parcel",
         type$symbols: "Parcel",
         create: function(value) {
-            return this.extend(this.prototypeOf(value), value);
+            return this.instance(this.prototypeOf(value), value);
         },
-        extend: function(object, source) {
-            object = Object.create(object);
-            this.implement(object, source);
+        instance: function(type, source) {
+            if (typeof type == "string") type = this.forName(type);
+
+            let object = Object.create(type);
+            if (source) this.implement(object, source);
             return object;
         },
         implement: function(object, source) {
@@ -105,7 +135,6 @@ let pkg = {
 		},
         resolve: function(component, name, fromName) {
             name = "" + name;
-            if (name.startsWith("/")) return this.sys.forName(name, fromName);
 			let componentName = "";
 			for (let propertyName of name.split("/")) {
 				if (typeof component != "object") return error("is not an object.");

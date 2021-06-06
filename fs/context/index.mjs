@@ -1,7 +1,10 @@
 import facets from "./facets.mjs";
-
+import base from "/prd/base/index.mjs";
+let state;
 export default function main() {
-    let ctx = createContext(this.sys, {
+    let data = {
+        type$base: "/base.youni.works",
+        b: base.packages,
         x: {
             a: 10,
             b: 20,
@@ -12,15 +15,17 @@ export default function main() {
             b: 30,
             c: 50
         }
-    });
-    console.log(ctx.forName("y"));
+    };
+    let ctx = createContext(this.sys, data);
     console.log(ctx.forName("y/c"));
+    console.log(state);
 }
 
 let Context;
 function createContext(sys, data) {
     if (!Context) {
         Context = sys.extend("/system.youni.works/context/Context", {
+            sys: sys,
             facets: facets,
             symbols: sys.symbols,
             typeProperty: "class",    
@@ -28,8 +33,17 @@ function createContext(sys, data) {
         Object.freeze(Context);
     }
     let ctx = sys.extend(Context);
+
+    state = Object.create(null);
     sys.define(ctx, "forName", function forName(name, fromName) {
-        return this.resolve(data, name, fromName);
+        name = "" + name;
+        if (name.startsWith("/")) return sys.forName(name, fromName);
+        return this.resolve(state, name, fromName);
     }, "const");
+    for (let decl in data) {
+        let facet = ctx.facetOf(decl);
+        let name = ctx.nameOf(decl);
+        ctx.define(state, name, data[decl], facet);
+    }
     return ctx;
 }
