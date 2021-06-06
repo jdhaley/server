@@ -14,17 +14,22 @@ export default function main() {
         }
     });
     console.log(ctx.forName("y"));
+    console.log(ctx.forName("y/c"));
 }
 
+let Context;
 function createContext(sys, data) {
-    let ctx = sys.forName("/system.youni.works/context/Context");
-    ctx = sys.extend(ctx, {
-        facets: facets,
-        symbols: sys.symbols,
-        typeProperty: "class",
-        forName: function(name) {
-			return this.getProperty(data, name);
-		}
-    });
-    return Object.freeze(ctx);
+    if (!Context) {
+        Context = sys.extend("/system.youni.works/context/Context", {
+            facets: facets,
+            symbols: sys.symbols,
+            typeProperty: "class",    
+        });
+        Object.freeze(Context);
+    }
+    let ctx = sys.extend(Context);
+    sys.define(ctx, "forName", function forName(name, fromName) {
+        return this.resolve(data, name, fromName);
+    }, "const");
+    return ctx;
 }

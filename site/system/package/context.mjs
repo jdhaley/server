@@ -100,9 +100,26 @@ let pkg = {
     },
 	Context: {
         type$: "Factory",
-        forName: function(name) {
-            if (name.startsWith("/")) return this.sys.forName(name);
-			return this.getProperty(this.$data, name);
+        forName: function(name, fromName) {
+			return this.resolve(this.$data, name, fromName);
+		},
+        resolve: function(component, name, fromName) {
+            name = "" + name;
+            if (name.startsWith("/")) return this.sys.forName(name, fromName);
+			let componentName = "";
+			for (let propertyName of name.split("/")) {
+				if (typeof component != "object") return error("is not an object.");
+				if (!component[propertyName]) return error(`does not define "${propertyName}".`);
+				component = this.getProperty(component, propertyName);
+				componentName += "/" + propertyName;
+			}
+			return component;
+
+			function error(msg) {
+				let err = fromName ? `From "${fromName}"... ` : "For ";
+				err += `name "${name}": "${componentName}" ` + msg;
+				console.error(err);
+			}
 		},
         getProperty: function(component, name) {
             let value = component[name];
