@@ -1,10 +1,11 @@
 import facets from "./facets.mjs";
-import base from "/prd/base/index.mjs";
+import util from "/prd/base/package/util.mjs";
+import compile from "./compile.mjs";
 let state;
 export default function main() {
     let data = {
-        type$base: "/base.youni.works",
-        b: base.packages,
+        "type$base.youni.works": "/base.youni.works",
+        b: util,
         x: {
             a: 10,
             b: 20,
@@ -19,8 +20,8 @@ export default function main() {
     let ctx = createContext(this.sys, data);
     console.log(ctx.forName("y/c"));
     console.log(state);
+    console.log(compile(util, "util"));
 }
-
 let Context;
 function createContext(sys, data) {
     if (!Context) {
