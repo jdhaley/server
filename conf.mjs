@@ -1,6 +1,9 @@
 import express		from "express";
 import fs			from "fs";
 import https		from "https";
+
+import filer		from "./filer.mjs";
+import compile		from "./compile.mjs"
 //import base			from "./site/base/index.mjs";
 
 export default {
@@ -22,5 +25,9 @@ export default {
 	
 	OLD_files: "/web/repositories/fs/fs/",
 	files: "fs",
-	site: "site"
+	site: "site",
+	server_modules : {
+		filer: filer,
+		compile: compile
+	}
 }
