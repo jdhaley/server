@@ -24,15 +24,27 @@ async function load(sourceDir, id) {
 
 function compile(targetDir, module) {
     console.log(module);
+    let packages = module.packages;
+    delete module.packages;
     let out = "";
-    for (let name in module.packages) {
-        out += compilePackage(name, module.packages[name])
+    out += "const module = " + compileValue(module) + ";\n";
+
+    out += "module.packages = {";
+    for (let name in packages) {
+        out += `\n\t${name}: ${name}(),`;
     }
-    console.log(out);
+    out += "\n};\n"
+
+    for (let name in packages) {
+        out += compilePackage(name, packages[name]);
+    }
+    out += "\nexport default module;\n";
+
+    fs.writeFileSync(targetDir + "/" + module.id + "-" + module.version + ".mjs", out);
 }
 
 function compilePackage(name, pkg) {
-    return `${name}: function name() {\n\treturn ${compileValue(pkg)}}\n}`;
+    return `\nfunction ${name}() {\nconst pkg = ${compileValue(pkg)}\nreturn pkg;\n}\n`;
 }
 
 function compileValue(value, depth) {
@@ -54,7 +66,7 @@ function compileValue(value, depth) {
 function compileArray(value, depth) {
     depth++;
     let out = "";
-    for (let name of value) {
+    for (let name in value) {
         out += compileValue(value[name], depth) + ", "
     }
     if (out.endsWith(", ")) out = out.substring(0, out.length - 2);
@@ -64,7 +76,7 @@ function compileObject(value, depth) {
     depth++;
     let out = "";
     for (let name in value) {
-        out += indent(depth) + JSON.stringify(name) + ": " + compileValue(value[name], depth) + ","
+        out += indent(depth) + JSON.stringify(name) + ": " + compileValue(value[name], depth) + ",";
     }
     if (out.endsWith(",")) out = out.substring(0, out.length - 1);
     return "{" + out + indent(depth - 1) + "}";
