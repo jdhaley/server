@@ -179,7 +179,7 @@ const pkg = {
 				xhr.onreadystatechange = () => this.monitor(xhr);
 				return xhr;
 			},
-			 createMessage(xhr) {
+			createMessage: function(xhr) {
 				return this.sys.extend(null, {
 					subject: xhr.subject,
 					request: xhr.request,
