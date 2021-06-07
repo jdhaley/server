@@ -3,7 +3,7 @@ import fs			from "fs";
 import https		from "https";
 
 import filer		from "./filer.mjs";
-import compile		from "./compile.mjs"
+import "./compile.mjs";
 
 export default function main(conf) {
 	const app = express();
