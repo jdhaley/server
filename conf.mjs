@@ -1,8 +1,8 @@
 
 export default {
 	port: 443,
-	key: "ssl/my.key",
-	cert: "ssl/my.crt",
+	key: "conf/server.key",
+	cert: "conf/server.crt",
 	
 	fileDir: "fs",
 	siteDir: "site",
