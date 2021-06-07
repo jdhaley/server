@@ -5,9 +5,12 @@ export default function main(conf) {
 	app.use("/prd", pkg.express.static(conf.site));
 
 	let filer = conf.server_modules.filer(conf);
-	let compile = conf.server_modules.compile({
-		name: "base.youni.works"		
-	});
+	let module = {
+		id: "base.youni.works",
+		version: "1.2.0"
+	};
+	conf.server_modules.compile("fs/source/", module);
+	console.log(module);
 	app.use("/file", filer);
 //	app.use("/module", compile);
 
