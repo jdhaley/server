@@ -3,9 +3,10 @@ import fs			from "fs";
 import https		from "https";
 
 import filer		from "./filer.mjs";
-import "./compile.mjs";
+import compile		from "./compile.mjs";
 
 export default function main(conf) {
+	compile("source", "target");
 	const app = express();
 	app.use(conf.siteEnv, express.static(conf.siteDir));
 	let dyn = filer(conf);
