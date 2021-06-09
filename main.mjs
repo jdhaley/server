@@ -9,8 +9,8 @@ export default function main(conf) {
 	compile("source", "target");
 	const app = express();
 	app.use(conf.siteEnv, express.static(conf.siteDir));
-	let dyn = filer(conf);
-	app.use(conf.fileAlias, dyn);
+	app.use("/target", express.static("target"));
+	app.use(conf.fileAlias, filer(conf.fileDir));
 	
 	const credentials = {
 		key: fs.readFileSync(conf.key),

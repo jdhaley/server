@@ -37,7 +37,7 @@ export default {
 			}
 			throw new TypeError("Invalid method argument.");
 		},
-		toString: Object.prototype.toString,
-		valueOf: Object.prototype.valueOf,
+		// toString: Object.prototype.toString,
+		// valueOf: Object.prototype.valueOf,
 	}
 }

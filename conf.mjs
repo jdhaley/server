@@ -6,6 +6,6 @@ export default {
 	
 	fileDir: "fs",
 	siteDir: "site",
-	siteEnv: "prd",
-	fileAlias: "file"
+	siteEnv: "/prd",
+	fileAlias: "/file"
 }

@@ -1,10 +1,11 @@
-export default function load(conf) {
+import fs from "fs";
+export default function load(dir) {
     return function filer(req, res) {
-        let path = conf.files + req.url.substring(req.url.indexOf("?") + 1);
+        let path = dir + req.url.substring(req.url.indexOf("?") + 1);
         if (req.method == "GET") {
             let file;
             try {
-                file = conf.node_modules.fs.readFileSync(path);
+                file = fs.readFileSync(path);
             } catch (error) {
             //	console.log("GET:", error);
                 res.status(204);
