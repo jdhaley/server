@@ -1,17 +1,39 @@
 export default function main(module) {
 	console.log(module);
-	let core = module.package.core;
-
-	let factory = Object.create(core.Factory);
+	let pkg = module.package;
+	let factory = Object.create(pkg.core.Factory);
 	factory.conf = {
 		facets: module.conf.facets,
 		symbols: module.conf.symbols(),
 		typeProperty: "type$"
 	}
-	factory.$data = Object.create(null);
-	core = factory.create(core);
-	console.log(core);
+	factory.$context = pkg.core;
+	pkg.core = factory.create(pkg.core);
+	factory = factory.create({
+		type$: "Factory",
+		conf: factory.conf
+	});
+	console.log(factory);
+	// pkg.context.Factory = pkg.core.Factory;
+	// pkg.context = factory.create(pkg.context);
+	// factory = factory.create(pkg.context.ModuleContext);
+	// console.log(factory);
+	// factory = factory.create(pkg.)
+	// let ctx = factory.instance();
+	// ctx.core = factory.create(pkg.core);
+	// factory = factory.create(pkg.context.)
+	// factory.$context = 
+	// factory.$context.core = 
 
+	// factory.$context.context = factory.create(pkg.context);
+	// let cont
+	// core = 
+	// console.log(core);
+	
+	// function copy(object) {
+	// 	let copy = {};
+	// 	for (let name in object) copy[name] = object;
+	// }
 	// let conf = module.conf;
 	// let sys = bootInstance(conf).sys;
 	// module = sys.extend(sys.use.Module, module);

@@ -10,15 +10,24 @@ const pkg = {
             Reflect.defineProperty(object, this.name, this);
         }
     },
+    Namespace: {
+        forName: function(name, fromName) {
+		}
+    },
     Factory: {
+        type$: "Namespace",
         use: {
             type$Object: "",
             type$Array: "Array",
             type$Declaration: "Declaration"
         },
-        conf: null,
+        conf: {
+            facets: null,
+            symbols: null,
+            typeProperty: "type"
+        },
         forName: function(name, fromName) {
-            return this.$data[name];
+            return this.$context[name];
         },
         create: function(source) {
             if (Object.getPrototypeOf(source) == Array.prototype) {
@@ -34,11 +43,17 @@ const pkg = {
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
-            let object = type && type.length ? this.instance.apply(type) : this.instance(type);
+            let object;
+            if (typeof type == "object" && type[this.conf.symbols.iterator]) {
+                object = this.instance.apply(this, type);
+            } else {
+                object = this.instance(type);
+            }
             this.implement(object, source);
             return object;
         },
         instance: function() {
+            console.log(arguments);
             let object = Object.create(getType(this, arguments[0]));
             for (let i = 1; i < arguments.length; i++) {
                 this.implement(object, getType(this, arguments[i]));
@@ -50,6 +65,7 @@ const pkg = {
             }
         },
         implement: function(object, source) {
+            console.log(object, source);
             let cls = this.isType(object) ? object[this.conf.symbols.decls] : null;
             if (this.isType(source)) {
                 source = source[this.conf.symbols.decls];
