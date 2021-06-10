@@ -34,24 +34,20 @@ const pkg = {
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
-            let object;
-            if (type && typeof type == "string") {
-                type = this.forName(type);
-                object = Object.create(type);
-            } else if (type && Object.getPrototypeOf(type) == Array.prototype) {
-                //TODO add support for non-source arrays
-                let types = type;
-                type = this.forName(types[0]);
-                object = Object.create(type);
-                for (let i = 1; i < types.length; i++) {
-                    type = this.forName(types[i]);
-                    this.implement(object, type[Symbol.interface]);
-                }
-            } else {
-                object = Object.create(type || null);
-            }
+            let object = type && type.length ? this.instance.apply(type) : this.instance(type);
             this.implement(object, source);
             return object;
+        },
+        instance: function() {
+            let object = Object.create(getType(this, arguments[0]));
+            for (let i = 1; i < arguments.length; i++) {
+                this.implement(object, getType(this, arguments[i]));
+            }
+            return object;
+
+            function getType(ns, type) {
+                return typeof type == "string" ? ns.forName(type) : (type || null);
+            }
         },
         implement: function(object, source) {
             let cls = this.isType(object) ? object[this.conf.symbols.decls] : null;
