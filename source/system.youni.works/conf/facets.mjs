@@ -2,12 +2,9 @@
 //facet_name - public
 
 export default {
-			static: function(decl) { //or protected?
-				decl.value = decl.expr;
-			},
 			const: function(decl) {
-				decl.enumerable = true;
 				decl.value = decl.expr;
+				return decl;
 			},
 			var: function(decl) {
 				decl.enumerable = true;
@@ -22,6 +19,7 @@ export default {
 						value: value
 					});
 				}
+				return decl;
 			},
 			get: function(decl) {
 				decl.enumerable = true;
@@ -31,6 +29,7 @@ export default {
 					console.warn("get facet requires a function. Creating a value property instead.");
 					decl.value = decl.expr;
 				}
+				return decl;
 			},
 			virtual: function(decl) {
 				decl.enumerable = true;
@@ -41,6 +40,7 @@ export default {
 					console.warn("virtual facet requires a function. Creating a value property instead.");
 					decl.value = decl.expr;
 				}
+				return decl;
 			},
 			once: function(decl) {
 				const source = decl.expr;
@@ -65,13 +65,15 @@ export default {
 					decl.set.call(this, value);
 					return value;
 				};
+				return decl;
 			},
 			type: function(decl) {
 				if (typeof decl.expr != "string") {
 					throw new Error("type facet requires a string.");
 				}
 				decl.enumerable = true;
-				decl.value = decl.expr ? decl.sys.forName(decl.expr, decl[decl.sys.symbols.name]) : null;
+				decl.value = decl.expr ? decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]) : null;
+				return decl;
 			},
 			extend: function(decl) {
 				if (typeof decl.expr != "object") throw new Error("extend facet requires an object expression.");
@@ -91,13 +93,15 @@ export default {
 					});
 					return value;
 				}
+				return decl;
 			},
 			symbol: function(decl) {
-				decl.symbol = decl.sys.symbols[decl.name];
+				decl.symbol = decl.sys.conf.symbols[decl.name];
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.value = decl.expr;
 				decl.sys.define(decl, "define", defineSymbol);
-				
+				return decl;
+
 				function defineSymbol(object) {
 					delete object[this.name];
 					Reflect.defineProperty(object, this.symbol, this);

@@ -7,7 +7,8 @@ export default {
 	moduleType: "system",
 	conf: {
 		facets: facets,
-		symbols: symbols	
+		symbols: symbols,
+		typeProperty: "type$"
 	},
 	main: main
 }
