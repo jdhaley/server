@@ -1,24 +1,23 @@
 let pkg = {
     Context: {
-        forName: function(name, fromName) {
-            return this.resolve(this.$context, name, fromName);
+        forName: function(name) {
+            return this.resolve(this.$context, name);
         },
-        resolve: function(component, name, fromName) {
-            name = "" + name;
+        resolve: function(component, pathname) {
+            pathname = "" + pathname;
             let componentName = "";
-            for (let propertyName of name.split("/")) {
-                if (typeof component != "object") return error("is not an object.");
-                if (!component[propertyName]) return error(`does not define "${propertyName}".`);
-                component = this.getProperty(component, propertyName);
-                componentName += "/" + propertyName;
+            for (let name of pathname.split("/")) {
+                if (typeof component != "object") {
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName}" is not an object.`);
+                }
+                if (component[name] === undefined) {
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName}" does not contain "${name}".`);
+                }
+                if (component.$loading) this.$loading = component;
+                component = this.getProperty(component, name);
+                componentName += "/" + name;
             }
             return component;
-
-            function error(msg) {
-                let err = fromName ? `From "${fromName}"... ` : "For ";
-                err += `name "${name}": "${componentName}" ` + msg;
-                console.error(err);
-            }
         },
         getProperty: function(component, name) {
             return component[name];
@@ -58,11 +57,12 @@ let pkg = {
             return this.resolve(this.$loading, name, fromName);
         },
         compile: function (pkgs) {
-            this.$context = pkgs;
             for (let name in pkgs) {
-                pkgs[name].$loading = true;
+                pkgs[name]["/"] = this.$context;
             }
-            for (let name in pkgs);
+            for (let name in pkgs) {
+                this.forName("/" + name);
+            }
         }
     }
 }
