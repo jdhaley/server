@@ -1,5 +1,5 @@
 export default {
-	type$: "/system.youni.works/core",
+	type$: "/system/core",
 	Control: {
 		type$: "Instance",
 		conf: {

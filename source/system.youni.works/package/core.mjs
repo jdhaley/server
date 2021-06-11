@@ -14,6 +14,8 @@ const pkg = {
         forName: function(name, fromName) {
 		}
     },
+    Instance: {
+    },
     Factory: {
         type$: "Namespace",
         use: {

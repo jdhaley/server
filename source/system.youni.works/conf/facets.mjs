@@ -4,6 +4,7 @@
 export default {
 			const: function(decl) {
 				decl.configurable = true;
+				decl.enumerable = true;
 				decl.value = decl.expr;
 				return decl;
 			},

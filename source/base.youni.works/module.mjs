@@ -3,6 +3,6 @@ export default {
     version: "1.2.0",
     moduleType: "library",
     use: {
-        system: "system.youni.works-2.1"
+        "system": "system.youni.works-2.1"
     }
 }

@@ -1,5 +1,4 @@
 export default function main(module, conf) {
-	console.log(module);
 	conf.symbols = conf.symbols();
 	let pkg = module.package;
 	let factory = Object.create(pkg.core.Factory);
@@ -9,6 +8,9 @@ export default function main(module, conf) {
 	factory.implement(factory, pkg.context.FactoryContext);
 	factory.$context = module.package;
 	module = factory.create(module);
+	module.sys = factory.extend(module.package.context.FactoryContext, {
+		conf: conf,
+	});
 	console.log(module);
 	return module;
 }
