@@ -1,21 +1,18 @@
-export default function main(module) {
+export default function main(module, conf) {
 	console.log(module);
-	let conf = {
-		facets: module.conf.facets,
-		symbols: module.conf.symbols(),
-		typeProperty: "type$"
-	};
+	conf.symbols = conf.symbols();
 	let pkg = module.package;
 	let factory = Object.create(pkg.core.Factory);
 	factory.conf = conf;
-	factory.$context = pkg.core;
-	pkg.core = factory.create(pkg.core);
-	delete pkg.context.type$Factory;
-	pkg.context.Factory = pkg.core.Factory;
-	factory.$context = pkg.context;
-	pkg.context = factory.create(pkg.context);
-	console.log(pkg);
-	factory = factory.extend(pkg.context.ModuleContext, conf);
+	factory.$context = factory.instance();
+	factory.implement(factory, pkg.context.Context);
+	factory.implement(factory, pkg.context.FactoryContext);
+	factory.implement(factory, pkg.context.ModuleContext);
+	factory.compile(module.package);
+	console.log(factory.$context);
+	return module;
+}
+
 	// pkg.context = factory.create(pkg.context);
 	// factory = factory.create(pkg.context.ModuleContext);
 	// console.log(factory);
@@ -102,6 +99,4 @@ export default function main(module) {
 	// 		return object;
 	// 	}
 	// }
-}
-
 

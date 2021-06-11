@@ -3,10 +3,12 @@
 
 export default {
 			const: function(decl) {
+				decl.configurable = true;
 				decl.value = decl.expr;
 				return decl;
 			},
 			var: function(decl) {
+				decl.configurable = true;
 				decl.enumerable = true;
 				decl.get = function getVar() {
 					return decl.expr;
@@ -22,6 +24,7 @@ export default {
 				return decl;
 			},
 			get: function(decl) {
+				decl.configurable = true;
 				decl.enumerable = true;
 				if (typeof decl.expr == "function") {
 					decl.get = decl.expr;				
@@ -32,6 +35,7 @@ export default {
 				return decl;
 			},
 			virtual: function(decl) {
+				decl.configurable = true;
 				decl.enumerable = true;
 				if (typeof decl.expr == "function") {
 					decl.get = decl.expr;
@@ -43,6 +47,7 @@ export default {
 				return decl;
 			},
 			once: function(decl) {
+				decl.configurable = true;
 				const source = decl.expr;
 				if (typeof source != "function") {
 					console.error("once facet requires a function. Creating a value property instead.");
@@ -71,6 +76,7 @@ export default {
 				if (typeof decl.expr != "string") {
 					throw new Error("type facet requires a string.");
 				}
+				decl.configurable = true;
 				decl.enumerable = true;
 				decl.value = decl.expr ? decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]) : null;
 				return decl;
@@ -96,6 +102,7 @@ export default {
 				return decl;
 			},
 			symbol: function(decl) {
+				decl.configurable = true;
 				decl.symbol = decl.sys.conf.symbols[decl.name];
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.value = decl.expr;

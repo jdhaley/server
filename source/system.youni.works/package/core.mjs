@@ -52,6 +52,7 @@ const pkg = {
             } else {
                 object = this.instance(type);
             }
+            if (source === undefined) return object;
             if (source[this.conf.symbols.tag]) {
                 object[this.conf.symbols.tag] = source[this.conf.symbols.tag];
                 object[this.conf.symbols.decls] = this.instance();
@@ -95,7 +96,8 @@ const pkg = {
                     decl = this.extend(this.use.Declaration, decl);
                     cls[decl.name] = decl;
                 }
-                decl.define ? decl.define(object) : Reflect.defineProperty(object, decl.name, decl);
+                let defined = decl.define ? decl.define(object) : Reflect.defineProperty(object, decl.name, decl);
+                if (!defined) console.warn("Unable to define declaration: ", decl);
             }
 		},
 		declare: function(name, value, facet) {

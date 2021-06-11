@@ -4,17 +4,19 @@ import fs from "fs";
 export default function compileAll(sourceDir, targetDir) {
     let dir = fs.readdirSync(sourceDir);
     for (let name of dir) {
-        load(sourceDir, name).then(m => compile(targetDir, m));
+        load(sourceDir, name).then(manifest => compile(targetDir, manifest));
     }   
 }
 
 async function load(sourceDir, name) {
-    let module = (await import("./" + sourceDir + "/" + name + "/module.mjs")).default;
+    let index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
+    let module = index && index.module;
+    if (!module) throw new Error(`Module "${name}" is missing module.mjs`);
     if (module.name && module.name != name) {
         log("Warning: module name doesn't match folder name. Using folder name");
     }
     module.name = name;
-    module.package = {};
+    module.package = Object.create(null);
     let dir = fs.readdirSync(sourceDir + "/" + module.name + "/package");
     for (let fname of dir) {
         let index = fname.lastIndexOf(".");
@@ -25,10 +27,11 @@ async function load(sourceDir, name) {
             module.package[name] = (await import(fname)).default;    
         }
     }
-    return module;
+    return index;
 }
 
-function compile(targetDir, module) {
+function compile(targetDir, manifest) {
+    let module = manifest.module;
     console.log("Compiling: " + module.name + "-" + module.version);
     let uses = module.use;
     let packages = module.package;
@@ -50,7 +53,9 @@ function compile(targetDir, module) {
         out += `\n\t${name}: ${name}(),`;
     }
     out += "\n};\n"
-    out += "export default module.main(module);\n";
+    out += "const conf = " + compileValue(manifest.conf) + ";\n";
+    out += "const main = " + compileValue(manifest.main) + ";\n";
+    out += "export default main(module, conf);\n"
     out += pkg;
 
     fs.writeFileSync(targetDir + "/" + module.name + "-" + module.version + ".mjs", out);
