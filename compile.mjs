@@ -61,7 +61,9 @@ function compile(targetDir, manifest) {
     fs.writeFileSync(targetDir + "/" + module.name + "-" + module.version + ".mjs", out);
 }
 
+let $context = "";
 function compilePackage(name, pkg) {
+    $context = "/" + name + "/";
     return `\nfunction ${name}() {\nconst pkg = ${compileValue(pkg)}\nreturn pkg;\n}\n`;
 }
 
@@ -99,10 +101,25 @@ function compileObject(value, depth) {
     if (out.endsWith(",")) out = out.substring(0, out.length - 1);
     return "{" + out + indent(depth - 1) + "}";
 }
-function compileProperty(name, value, depth) {
-    return keyValue(name, compileValue(value, depth), depth);   
+function compileProperty(key, value, depth) {
+    if (value && facetOf(key) == "type" || key == "type$") {
+        if (value && typeof value == "string" && !value.startsWith("/")) {
+            value = $context + value;
+        } else if (Object.getPrototypeOf(value) == Array.prototype) {
+            for (let i = 0, len = value.length; i < len; i++) {
+                let type = value[i];
+                if (typeof type == "string" && !type.startsWith("/")) {
+                    value[i] = $context + type;
+                }
+            }
+        }
+    }
+    return keyValue(key, compileValue(value, depth), depth);   
 }
-
+function facetOf(key) {
+    let index = key.indexOf("$");
+    return index < 1 ? "" : key.substr(0, index);
+}
 function keyValue(key, value, depth) {
     return indent(depth) + JSON.stringify(key) + ": " +  value + ","; 
 }
