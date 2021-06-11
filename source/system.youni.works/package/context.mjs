@@ -1,6 +1,8 @@
 let pkg = {
+    type$Factory: "/core/Factory",
     Context: {
         forName: function(name) {
+            if (name.startsWith("/")) name = name.substring(1);
             return this.resolve(this.$context, name);
         },
         resolve: function(component, pathname) {
@@ -24,7 +26,7 @@ let pkg = {
         }
     },
     FactoryContext: {
-        type$: ["/core/Factory", "Context"],
+        type$: ["Factory", "Context"],
         getProperty: function(component, name) {
             let value = component[name];
             if (this.isSource(value)) {
@@ -46,23 +48,6 @@ let pkg = {
                 }
             }
             return value;
-        }
-    },
-    ModuleContext: {
-        type$: "FactoryContext",
-        forName: function(name, fromName) {
-            if (name.startsWith("/")) {
-                return this.resolve(this.$context, name.substring(1), fromName);
-            }
-            return this.resolve(this.$loading, name, fromName);
-        },
-        compile: function (pkgs) {
-            for (let name in pkgs) {
-                pkgs[name]["/"] = this.$context;
-            }
-            for (let name in pkgs) {
-                this.forName("/" + name);
-            }
         }
     }
 }

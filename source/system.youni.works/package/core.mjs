@@ -78,7 +78,7 @@ const pkg = {
                 for (let name in source) {
                     let decl = source[name];
                     if (cls) cls[name] = decl;
-                    decl.define(object);
+                    decl.define && decl.define(object) || Reflect.defineProperty(object, decl.name, decl);
                 }
             } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
                 for (let decl of Object.getOwnPropertyNames(source)) {
