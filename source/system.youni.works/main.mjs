@@ -1,20 +1,21 @@
 export default function main(module) {
 	console.log(module);
-	let pkg = module.package;
-	let factory = Object.create(pkg.core.Factory);
-	factory.conf = {
+	let conf = {
 		facets: module.conf.facets,
 		symbols: module.conf.symbols(),
 		typeProperty: "type$"
-	}
+	};
+	let pkg = module.package;
+	let factory = Object.create(pkg.core.Factory);
+	factory.conf = conf;
 	factory.$context = pkg.core;
 	pkg.core = factory.create(pkg.core);
-	factory = factory.create({
-		type$: "Factory",
-		conf: factory.conf
-	});
-	console.log(factory);
-	// pkg.context.Factory = pkg.core.Factory;
+	delete pkg.context.type$Factory;
+	pkg.context.Factory = pkg.core.Factory;
+	factory.$context = pkg.context;
+	pkg.context = factory.create(pkg.context);
+	console.log(pkg);
+	factory = factory.extend(pkg.context.ModuleContext, conf);
 	// pkg.context = factory.create(pkg.context);
 	// factory = factory.create(pkg.context.ModuleContext);
 	// console.log(factory);

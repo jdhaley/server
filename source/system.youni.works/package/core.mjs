@@ -27,6 +27,9 @@ const pkg = {
             typeProperty: "type"
         },
         forName: function(name, fromName) {
+            if (this.$context[name] === undefined) {
+                throw new Error(`"${name}" is not defined.`);
+            }
             return this.$context[name];
         },
         create: function(source) {
@@ -49,11 +52,14 @@ const pkg = {
             } else {
                 object = this.instance(type);
             }
+            if (source[this.conf.symbols.tag]) {
+                object[this.conf.symbols.tag] = source[this.conf.symbols.tag];
+                object[this.conf.symbols.decls] = this.instance();
+            }
             this.implement(object, source);
             return object;
         },
         instance: function() {
-            console.log(arguments);
             let object = Object.create(getType(this, arguments[0]));
             for (let i = 1; i < arguments.length; i++) {
                 this.implement(object, getType(this, arguments[i]));
@@ -65,7 +71,6 @@ const pkg = {
             }
         },
         implement: function(object, source) {
-            console.log(object, source);
             let cls = this.isType(object) ? object[this.conf.symbols.decls] : null;
             if (this.isType(source)) {
                 source = source[this.conf.symbols.decls];
@@ -74,7 +79,7 @@ const pkg = {
                     if (cls) cls[name] = decl;
                     decl.define(object);
                 }
-            } else if (Object.getPrototypeOf(source) == Object.prototype) {
+            } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
                 for (let decl of Object.getOwnPropertyNames(source)) {
                     def.call(this, decl, source[decl]);
                 }
@@ -96,8 +101,14 @@ const pkg = {
 		declare: function(name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
-            if (this.isSource(value)) value = this.create(value);
-            return fn.call(this, {
+            if (this.isSource(value)) {
+                if (this.isTypeName(name)) {
+                    //Signal to create a type:
+                    value[this.conf.symbols.tag] = name;
+                }
+                value = this.create(value, name);
+            }
+           return fn.call(this, {
                 sys: this,
                 facet: facet,
                 name: name,
@@ -130,6 +141,10 @@ const pkg = {
             return value &&
                 typeof value == "object" &&
                 Object.prototype.hasOwnProperty.call(value, this.conf.symbols.decls)
+        },
+        isTypeName: function(name) {
+            let first = name.substring(0, 1);
+            return first == first.toUpperCase() && first != first.toLowerCase() ? true : false;
         }
     }
 }
