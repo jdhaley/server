@@ -8,6 +8,7 @@ import compile		from "./compile.mjs";
 export default function main(conf) {
 	compile("source", "target");
 	const app = express();
+	app.use("/app", express.static("app"));
 	app.use(conf.siteEnv, express.static(conf.siteDir));
 	app.use("/target", express.static("target"));
 	app.use(conf.fileAlias, filer(conf.fileDir));
