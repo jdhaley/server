@@ -120,6 +120,9 @@ export default {
 					});
 					return value;
 				}
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
+				}
 				return decl;
 			},
 			symbol: function(decl) {
