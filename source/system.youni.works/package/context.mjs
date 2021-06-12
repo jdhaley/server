@@ -38,11 +38,7 @@ let pkg = {
                     //Allow for forward/inner references creating the instance, putting in context, then implementing.
                     //TODO might be issues with screwy type decls.
                     let type = value[this.conf.typeProperty];
-                    if (typeof type == "object" && type[Symbol.iterator]) {
-                        object = this.instance.apply(this, type);
-                    } else {
-                        object = this.instance(type);
-                    }
+                    object = this.extend(type);
                     component[name] = object;
                     this.implement(object, value);
                     value = object;

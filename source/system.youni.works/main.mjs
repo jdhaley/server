@@ -3,7 +3,7 @@ export default function main(module, conf) {
 	let pkg = module.package;
 	let factory = Object.create(pkg.core.Factory);
 	factory.conf = conf;
-	factory.context = factory.instance();
+	factory.context = factory.create();
 	factory.implement(factory, pkg.context.Context);
 	factory.implement(factory, pkg.context.FactoryContext);
 	factory.$context = pkg;

@@ -39,7 +39,7 @@ export default {
             initializeApp: function(msg) {
                 let conf = msg.response 
                     ? this.sys.extend(this.conf, JSON.parse(msg.response)) 
-                    : this.sys.instance();
+                    : this.sys.extend();
                 this.let("conf", conf);
                 this.let("owner", this.sys.extend(conf.ownerType || this.owner));
                 this.initializeOwner();

@@ -33,7 +33,6 @@ const pkg = {
         use: {
             type$Object: "",
             type$Array: "Array",
-            type$Declaration: "Declaration"
         },
         conf: {
             facets: null,
@@ -48,8 +47,9 @@ const pkg = {
             return this.$context[name];
         },
         create: function(source) {
+            if (source === undefined || source === null) return Object.create(null);
             if (Object.getPrototypeOf(source) == Array.prototype) {
-                let array = this.instance(this.use.Array);
+                let array = this.extend(this.use.Array);
                 for (let value of source) {
                     if (this.isSource(value)) value = this.create(value);
                     Array.prototype.push.call(array, value);
@@ -65,59 +65,59 @@ const pkg = {
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
-            let object;
+            let args = [];
             if (type && typeof type == "object" && type[Symbol.iterator]) {
-                object = this.instance.apply(this, type);
-            } else {
-                object = this.instance(type || null);
+                let i = 0;
+                for (let arg of type) {
+                    if (!i) type = arg; else args[i] = arg;
+                    i++;
+                }
             }
-            if (source === undefined) return object;
-            if (source[Symbol.toStringTag]) {
-                object[Symbol.toStringTag] = source[Symbol.toStringTag];
-                object[Symbol.for("decls")] = this.instance();
+            type = (typeof type == "string" ? this.forName(type) : type) || null;
+            let object = Object.create(type);
+            args[0] = object;
+            if (source && source[Symbol.toStringTag]) {
                 object[Symbol.for("sys")] = this;
+                object[Symbol.toStringTag] = source[Symbol.toStringTag];
+                object[Symbol.for("decls")] = Object.create(type && type[Symbol.for("decls")] || null);
             }
-            this.implement(object, source);
+            if (source) args.push(source);
+            if (args.length > 1) this.implement.apply(this, args);
             return object;
         },
-        instance: function() {
-            let object = Object.create(getType(this, arguments[0]));
-            for (let i = 1; i < arguments.length; i++) {
-                this.implement(object, getType(this, arguments[i]));
-            }
-            return object;
-
-            function getType(ns, type) {
-                return typeof type == "string" ? ns.forName(type) : (type || null);
-            }
-        },
-        implement: function(object, source) {
+        implement: function(object, ...sources) {
             let cls = this.isType(object) ? object[Symbol.for("decls")] : null;
-            if (this.isType(source)) {
-                source = source[Symbol.for("decls")];
-                for (let name in source) {
-                    let decl = source[name];
-                    if (cls) cls[name] = decl;
-                    decl.define && decl.define(object) || Reflect.defineProperty(object, decl.name, decl);
-                }
-            } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
-                for (let decl of Object.getOwnPropertyNames(source)) {
-                    def.call(this, decl, source[decl]);
-                }
-            } else {
-                throw new TypeError("Declarations must be a source or type object.");
+            for (let source of sources) {
+                if (typeof source == "string") source = this.forName(source);
+                if (this.isType(source)) {
+                    implementInterface(source);
+                } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
+                    implementSource(source, this);
+                } else {
+                    throw new TypeError("Declarations must be a source or type object.");
+                }    
             }
-
-            function def(decl, value) {
-                if (decl == this.conf.typeProperty) return;
-                decl = this.declare(this.nameOf(decl), value, this.facetOf(decl));
-                if (cls) {
-                    decl.declaredBy = object;
-                    decl = this.extend(this.use.Declaration, decl);
-                    cls[decl.name] = decl;
+            function implementInterface(type) {
+                type = type[Symbol.for("decls")];
+                if (type) for (let name in type) {
+                    let decl = type[name];
+                    if (cls) cls[name] = decl;
+                    decl.define(object);
                 }
-                let defined = decl.define ? decl.define(object) : Reflect.defineProperty(object, decl.name, decl);
-                if (!defined) console.warn("Unable to define declaration: ", decl);
+            }
+            function implementSource(source, sys) {
+                for (let decl in source) {
+                    if (decl != sys.conf.typeProperty) {
+                        decl = sys.declare(sys.nameOf(decl), source[decl], sys.facetOf(decl));
+                        if (cls) {
+                            decl.declaredBy = object;
+                            cls[decl.name] = decl;
+                        }
+                        if (!decl.define(object)) {
+                            console.warn("Unable to define declaration: ", decl);
+                        }
+                    }
+                }
             }
 		},
 		declare: function(name, value, facet) {
