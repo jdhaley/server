@@ -16,6 +16,17 @@ const pkg = {
 		}
     },
     Instance: {
+        get$sys: function() {
+            return this[Symbol.for("sys")];
+        },
+		let: function(name, value, facet) {
+			if (!facet) facet = "const";
+			if (facet == "var") facet = "";
+			this[Symbol.for("sys")].define(this, name, value, facet);
+		},
+        extend: function(decls) {
+            return this[Symbol.for("sys")].extend(this, decls);
+        }
     },
     Factory: {
         type$: "Namespace",
@@ -46,21 +57,25 @@ const pkg = {
                 return array;
             } else if (Object.getPrototypeOf(source) == Object.prototype) {
                 let object = this.extend(source[this.conf.typeProperty], source);
-                return source.$public ? object.public : object;
+                if (source.$public) {
+                    object = object.public;
+                }
+                return object;
              }
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
             let object;
-            if (typeof type == "object" && type[this.conf.symbols.iterator]) {
+            if (type && typeof type == "object" && type[Symbol.iterator]) {
                 object = this.instance.apply(this, type);
             } else {
-                object = this.instance(type);
+                object = this.instance(type || null);
             }
             if (source === undefined) return object;
-            if (source[this.conf.symbols.tag]) {
-                object[this.conf.symbols.tag] = source[this.conf.symbols.tag];
-                object[this.conf.symbols.decls] = this.instance();
+            if (source[Symbol.toStringTag]) {
+                object[Symbol.toStringTag] = source[Symbol.toStringTag];
+                object[Symbol.for("decls")] = this.instance();
+                object[Symbol.for("sys")] = this;
             }
             this.implement(object, source);
             return object;
@@ -77,9 +92,9 @@ const pkg = {
             }
         },
         implement: function(object, source) {
-            let cls = this.isType(object) ? object[this.conf.symbols.decls] : null;
+            let cls = this.isType(object) ? object[Symbol.for("decls")] : null;
             if (this.isType(source)) {
-                source = source[this.conf.symbols.decls];
+                source = source[Symbol.for("decls")];
                 for (let name in source) {
                     let decl = source[name];
                     if (cls) cls[name] = decl;
@@ -111,7 +126,7 @@ const pkg = {
             if (this.isSource(value)) {
                 if (this.isTypeName(name)) {
                     //Signal to create a type:
-                    value[this.conf.symbols.tag] = name;
+                    value[Symbol.toStringTag] = name;
                 }
                 value = this.create(value, name);
             }
@@ -147,7 +162,7 @@ const pkg = {
         isType: function(value) {
             return value &&
                 typeof value == "object" &&
-                Object.prototype.hasOwnProperty.call(value, this.conf.symbols.decls)
+                Object.prototype.hasOwnProperty.call(value, Symbol.for("decls"))
         },
         isTypeName: function(name) {
             let first = name.substring(0, 1);
