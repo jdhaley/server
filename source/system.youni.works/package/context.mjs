@@ -38,7 +38,7 @@ let pkg = {
                     //Allow for forward/inner references creating the instance, putting in context, then implementing.
                     //TODO might be issues with screwy type decls.
                     let type = value[this.conf.typeProperty];
-                    if (typeof type == "object" && type[this.conf.symbols.iterator]) {
+                    if (typeof type == "object" && type[Symbol.iterator]) {
                         object = this.instance.apply(this, type);
                     } else {
                         object = this.instance(type);
@@ -57,9 +57,12 @@ let pkg = {
             for (let name in module.use) {
                 module.package[name] = module.use[name].package;
             }
-            let loader = this.instance(this);
+            let loader = this.extend(this);
             loader.$context = module.package;
             module = loader.create(module);
+            loader.$context = module.package;
+            module.loader = loader;
+            loader.module = module;
             console.log(module);
             return module;
         }
