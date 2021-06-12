@@ -41,8 +41,8 @@
 				"objectType": "Design",
 				"dataset": "Design",
 				"linkControl": {
-					"type$": "/ui.youni.works/container/Pane",
-					"elementType": "/ui.youni.works/grid/Sheet"
+					"type$": "/ui/container/Pane",
+					"elementType": "/ui/grid/Sheet"
 				}
 			},
 			{
