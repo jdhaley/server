@@ -26,7 +26,15 @@ const pkg = {
 		},
         extend: function(decls) {
             return this[Symbol.for("sys")].extend(this, decls);
-        }
+        },
+        super: function(method, ...args) {
+			if (method && typeof method == "function") {
+				if (method.$super) return method.$super.apply(this, args);
+				console.error(`super("${method.name}" ...) is not a method.`);
+				return;
+			}
+			throw new TypeError("Invalid method argument.");
+		}
     },
     Factory: {
         type$: "Namespace",
@@ -116,9 +124,22 @@ const pkg = {
                         if (!decl.define(object)) {
                             console.warn("Unable to define declaration: ", decl);
                         }
+                        if (decl.facet === "" && typeof decl.expr == "function") {
+                            decl.expr.$super = getSuper(object, decl.name);
+                        }
                     }
                 }
             }
+
+            function getSuper(object, name) {
+                if (!object) return;
+                const sub = object[name];
+                const OGP = Object.getPrototypeOf;
+                if (sub) for (object = OGP(object); object; object = OGP(object)) {
+                    let sup = object[name];
+                    if (sup !== sub) return sup;
+                }
+            }    
 		},
 		declare: function(name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
