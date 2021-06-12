@@ -1,13 +1,9 @@
 	export default function main(module, conf) {
-		let system = module.use.system;
-		let sys = system.sys;
-		let ctx = module.package;
-		ctx.system = sys.instance();
-		for (let pkg in system.package) {
-			ctx.system[pkg] = system.package[pkg];
+		let sys = module.use.system.sys;
+		for (let name in module.use) {
+			module.package[name] = module.use[name].package;
 		}
-		console.log(ctx);
-		sys.$context = ctx;
+		sys.$context = module.package;
 		module = sys.create(module);
 		console.log(module);
 		return module;
