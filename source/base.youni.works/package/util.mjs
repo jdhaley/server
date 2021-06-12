@@ -181,7 +181,7 @@ const pkg = {
 				return xhr;
 			},
 			createMessage: function(xhr) {
-				return this.sys.extend(null, {
+				return this.sys.create({
 					subject: xhr.subject,
 					request: xhr.request,
 					response: xhr.responseText,
