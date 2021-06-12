@@ -1,7 +1,7 @@
-	export default function main(module) {
-		let system = module.use["system"];
+	export default function main(module, conf) {
+		let system = module.use.system;
 		let sys = system.sys;
-		let ctx = sys.instance(module.package);
+		let ctx = module.package;
 		ctx.system = sys.instance();
 		for (let pkg in system.package) {
 			ctx.system[pkg] = system.package[pkg];
