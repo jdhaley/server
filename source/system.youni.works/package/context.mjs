@@ -50,6 +50,19 @@ let pkg = {
             }
             return value;
         }
+    },
+    Loader: {
+        type$: "FactoryContext",
+        load: function(module) {
+            for (let name in module.use) {
+                module.package[name] = module.use[name].package;
+            }
+            let loader = this.instance(this);
+            loader.$context = module.package;
+            module = loader.create(module);
+            console.log(module);
+            return module;
+        }
     }
 }
 export default pkg;
