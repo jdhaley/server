@@ -54,7 +54,7 @@ function compile(targetDir, manifest) {
     }
     out += "\n};\n"
     out += "const conf = " + compileValue(manifest.conf) + ";\n";
-    out += "const main = " + compileValue(manifest.main) + ";\n";
+    out += "const main = " + compileValue(manifest.main || loadModule) + ";\n";
     out += "export default main(module, conf);\n"
     out += pkg;
 
@@ -127,4 +127,9 @@ function indent(depth) {
     let out = "\n";
     for (let i = 0; i < depth; i++) out += "\t";
     return out;
+}
+
+//TODO this is dependent on naming system.youni.works "system".
+function loadModule(module) {
+    return module.use.system.sys.load(module);
 }
