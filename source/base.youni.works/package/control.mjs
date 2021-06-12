@@ -62,9 +62,8 @@ export default {
 			}
 		},
 		notify: function(on, signal) {
-			const OBSERVERS = on.sys.symbols.observers;
 			let model = signal.model || on.model;
-			let observers = model && model[OBSERVERS];
+			let observers = model && model[Symbol.for("observers")];
 			if (!observers) return;
 			signal = this.prepareSignal(signal);
 			for (let ctl of observers) {
@@ -150,7 +149,7 @@ export default {
 	Observer: {
 		type$: "",
 		observe: function(object) {
-			const OBSERVERS = this.sys.symbols.observers;
+			const OBSERVERS = Symbol.for("observers");
 			if (typeof object != "object" || object == null) return; //Only observe objects.
 			let observers = object[OBSERVERS];
 			if (observers) {
@@ -164,7 +163,7 @@ export default {
 			observers.push(this);
 		},
 		unobserve: function(control, object) {
-			const OBSERVERS = this.sys.symbols.observers;
+			const OBSERVERS = Symbol.for("observers");
 			let list = object ? object[OBSERVERS] : null;
 			if (list) for (let i = 0, len = list.length; i < len; i++) {
 				if (this == list[i]) {
