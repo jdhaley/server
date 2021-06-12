@@ -1,5 +1,5 @@
 export default {
-	type$: "/ui.youni.works/container",
+	type$: "/container",
 	Sheet: {
 		type$: "Object",
 		elementType: {

@@ -1,10 +1,10 @@
 const pkg = {
-	$name: "/ui.youni.works/diagram",
+	type$: "/view",
+	use: {
+		type$command: "/base/command"
+	},
 	$public: {
-		type$: "/ui.youni.works/view",
-		use: {
-			type$command: "/base.youni.works/command"
-		},
+		type$: "/view",
 		DrawCommand: {
 			type$: "use/command/Command",
 			title: "Move/Size Shape",

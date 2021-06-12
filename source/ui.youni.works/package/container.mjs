@@ -1,6 +1,6 @@
 export default {
-	type$: "/ui.youni.works/view",
-	type$Shape: "/ui.youni.works/shape/Shape",
+	type$: "/view",
+	type$Shape: "/shape/Shape",
 	Value: {
 		type$: "View",
 		bind: function bind(model) {
