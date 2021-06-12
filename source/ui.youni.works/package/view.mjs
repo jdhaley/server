@@ -103,8 +103,9 @@ const pkg = {
 			this.let("$window", conf.window);
 			this.document.body.$peer = this;
 			//console.log(this.toPixels("1mm"), this.toPixels("1pt"), this.toPixels("1in"));
-			pkg.addEvents(this.$window, conf.events.windowEvents);
-			pkg.addEvents(this.document, conf.events.documentEvents);
+			let events = conf.events();
+			pkg.addEvents(this.$window, events.windowEvents);
+			pkg.addEvents(this.document, events.documentEvents);
 		},
 		viewOf: function(node) {
 			while(node) {
