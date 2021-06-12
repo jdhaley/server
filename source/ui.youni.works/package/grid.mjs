@@ -69,7 +69,7 @@ export default {
 	Property: {
 		type$: ["View", "Shape"],
 		use: {
-			type$Naming: "/base.youni.works/util/Naming"
+			type$Naming: "/base/util/Naming"
 		},
 		getCaption: function() {
 			return this.conf.caption || this.use.Naming.captionize(this.conf.name);

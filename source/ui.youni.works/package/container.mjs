@@ -102,7 +102,7 @@ export default {
 	Object: {
 		type$: "Record",
 		use: {
-			type$Typing: "/base.youni.works/util/Typing"
+			type$Typing: "/base/util/Typing"
 		},
 		once$members: function() {
 			let members = this.conf.members;
