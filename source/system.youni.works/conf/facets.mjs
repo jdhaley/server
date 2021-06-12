@@ -112,7 +112,9 @@ export default {
 					if (this.interface) for (let type of this.interface.implements) {
 						sys.implement(value, type.class[decl.name]);
 					}
-					sys.implement(value, decl.expr);
+					for (let name in decl.expr) {
+						value[name] = decl.expr[name];
+					}
 					Reflect.defineProperty(this, decl.name, {
 						configurable: true,
 						enumerable: true,
@@ -126,9 +128,9 @@ export default {
 				return decl;
 			},
 			symbol: function(decl) {
-				decl.configurable = true;
 				decl.symbol = decl.sys.conf.symbols[decl.name];
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
+				decl.configurable = true;
 				decl.value = decl.expr;
 				decl.define = function(object) {
 					delete object[this.name];
