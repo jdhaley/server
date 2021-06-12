@@ -1,4 +1,5 @@
 const pkg = {
+	type$: "/control",
 	isUpperCase: function(str) {
 		return str == str.toUpperCase() && str != str.toLowerCase();
 	},
@@ -6,7 +7,7 @@ const pkg = {
 		return str == str.toLowerCase() && str != str.toUpperCase();
 	},
 	$public: {
-		type$: "/base.youni.works/control",
+		type$: "/control",
 		Naming: {
 			type$: "",
 			captionize: function(name) {
