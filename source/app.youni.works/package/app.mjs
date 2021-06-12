@@ -4,7 +4,10 @@ export default {
         type$: ["Control", "Origin"],
         type$owner: "Owner",
         get$folder: function() {
-            return "/file/" + this.conf.window.location.search.substring(1);
+            let name = this.conf.window.location.pathname;
+            name = name.substring(name.lastIndexOf("/") + 1);
+            name = name.substring(0, name.lastIndexOf("."));
+            return "/file/" + name;
         },
         runScript: function(name) {
             import(name).then(v => {
@@ -34,7 +37,9 @@ export default {
                 this.view.view(this.data[this.conf.dataset]);
             },
             initializeApp: function(msg) {
-                let conf = this.sys.extend(this.conf, JSON.parse(msg.response));
+                let conf = msg.response 
+                    ? this.sys.extend(this.conf, JSON.parse(msg.response)) 
+                    : this.sys.instance();
                 this.let("conf", conf);
                 this.let("owner", this.sys.extend(conf.ownerType || this.owner));
                 this.initializeOwner();
