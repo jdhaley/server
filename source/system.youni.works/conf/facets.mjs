@@ -6,6 +6,9 @@ export default {
 				decl.configurable = true;
 				decl.enumerable = true;
 				decl.value = decl.expr;
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
+				}
 				return decl;
 			},
 			var: function(decl) {
@@ -22,6 +25,9 @@ export default {
 						value: value
 					});
 				}
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
+				}
 				return decl;
 			},
 			get: function(decl) {
@@ -32,6 +38,9 @@ export default {
 				} else {
 					console.warn("get facet requires a function. Creating a value property instead.");
 					decl.value = decl.expr;
+				}
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
 				}
 				return decl;
 			},
@@ -44,6 +53,9 @@ export default {
 				} else {
 					console.warn("virtual facet requires a function. Creating a value property instead.");
 					decl.value = decl.expr;
+				}
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
 				}
 				return decl;
 			},
@@ -71,6 +83,9 @@ export default {
 					decl.set.call(this, value);
 					return value;
 				};
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
+				}
 				return decl;
 			},
 			type: function(decl) {
@@ -79,7 +94,12 @@ export default {
 				}
 				decl.configurable = true;
 				decl.enumerable = true;
-				decl.value = decl.expr ? decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]) : null;
+				decl.get = function getType() {				
+					return decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]);
+				}
+				decl.define = function(object) {
+					return Reflect.defineProperty(object, this.name, this);
+				}
 				return decl;
 			},
 			extend: function(decl) {
@@ -107,12 +127,10 @@ export default {
 				decl.symbol = decl.sys.conf.symbols[decl.name];
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.value = decl.expr;
-				decl.sys.define(decl, "define", defineSymbol);
-				return decl;
-
-				function defineSymbol(object) {
+				decl.define = function(object) {
 					delete object[this.name];
-					Reflect.defineProperty(object, this.symbol, this);
+					return Reflect.defineProperty(object, this.symbol, this);
 				}
+				return decl;
 			}
 }

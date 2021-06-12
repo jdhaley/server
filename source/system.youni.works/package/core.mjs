@@ -12,6 +12,7 @@ const pkg = {
     },
     Namespace: {
         forName: function(name, fromName) {
+            if (name === "") return null;
 		}
     },
     Instance: {
@@ -29,6 +30,7 @@ const pkg = {
             typeProperty: "type"
         },
         forName: function(name, fromName) {
+            if (name === "") return null;
             if (this.$context[name] === undefined) {
                 throw new Error(`"${name}" is not defined.`);
             }
@@ -36,15 +38,16 @@ const pkg = {
         },
         create: function(source) {
             if (Object.getPrototypeOf(source) == Array.prototype) {
-                let array;
+                let array = this.instance(this.use.Array);
                 for (let value of source) {
                     if (this.isSource(value)) value = this.create(value);
                     Array.prototype.push.call(array, value);
                 }
                 return array;
             } else if (Object.getPrototypeOf(source) == Object.prototype) {
-                return this.extend(source[this.conf.typeProperty], source);
-            }
+                let object = this.extend(source[this.conf.typeProperty], source);
+                return source.$public ? object.public : object;
+             }
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {

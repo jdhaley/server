@@ -2,6 +2,7 @@ let pkg = {
     type$Factory: "/core/Factory",
     Context: {
         forName: function(name) {
+            if (name === "") return null;
             if (name.startsWith("/")) name = name.substring(1);
             return this.resolve(this.$context, name);
         },
