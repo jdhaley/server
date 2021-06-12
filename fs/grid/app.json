@@ -3,8 +3,8 @@
 	"icon": "/file/grid/icon.png",
 	"styles": "/file/grid/styles.css",
 	"components": {
-		"Frame": "/ui/view/Frame",
-		"Object": "/ui/grid/Grid"
+		"Frame": "/view/Frame",
+		"Object": "/grid/Grid"
 	},
 	"objectType": "Issue",
 	"dataset": "Issue",
