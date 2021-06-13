@@ -23,12 +23,12 @@ export default {
 		}
 	},
 	Owner: {
-		type$: "",
 		create: function(controlType, conf) {
+			let dir = this[Symbol.for("sys")];
 			if (typeof controlType != "object") {
-				controlType = this.sys.forName(controlType);
+				controlType = dir.forName(controlType);
 			}
-			let control = this.sys.extend(controlType, {
+			let control = dir.extend(controlType, {
 				owner: this
 			});
 			control.start(conf);
@@ -120,7 +120,7 @@ export default {
 		},
 		get$to: function() {
 			const nodes = this.peer.childNodes;
-			if (!nodes.$to) nodes.$to = this.sys.extend(null, {
+			if (!nodes.$to) nodes.$to = this[Symbol.for("sys")].extend(null, {
 				symbol$iterator: function*() {
 					for (let i = 0, len = nodes.length; i < len; i++) {
 						let node = nodes[i];

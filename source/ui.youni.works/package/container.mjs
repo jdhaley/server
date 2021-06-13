@@ -51,7 +51,7 @@ export default {
 		},
 		start: function start(conf) {
 			this.super(start, conf);
-			this.let("parts", this.sys.extend());
+			this.let("parts", Object.create(null));
 		},
 		draw: function draw() {
 			this.super(draw);
@@ -67,7 +67,7 @@ export default {
 			if (value && typeof value == "object") {
 				return value.receive ? value : value.elementType || this.elementType;
 			}
-			return this.sys.forName("" + value) || this.elementType;
+			return this[Symbol.for("sys")].forName("" + value) || this.elementType;
 		},
 		configurationFor: function(value, key) {
 			return value && typeof value == "object" && !value.receive ? value : this.conf;

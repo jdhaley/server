@@ -5,10 +5,25 @@ const pkg = {
 			for (let i = 0; i < this.length; i++) yield this[i];
 		}
 	},
+    Creator: {
+        create: function() {
+            let dir = this[Symbol.for("sys")];
+            switch (arguments.length) {
+                case 0:
+                    return dir.extend();
+                case 1:
+                    let arg = arguments[0];
+                    let isSource = dir.isSource(arg);
+                    return isSource ? dir.extend(null, arg) : dir.extend(arg);
+                case 2:
+                    return dir.extend(arguments[0], arguments[1]);
+                default:
+                    console.warn("Create expects two arguments");
+                    return dir.extend.apply(arguments);
+            }
+        }
+    },
     Instance: {
-        get$sys: function() {
-            return this[Symbol.for("sys")];
-        },
 		let: function(name, value, facet) {
 			if (!facet) facet = "const";
 			if (facet == "var") facet = "";

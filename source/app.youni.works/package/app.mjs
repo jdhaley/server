@@ -2,7 +2,7 @@ export default {
 	type$control: "/ui/base/control",
     type$origin: "/ui/base/origin",
     App: {
-        type$: ["control/Control", "origin/Origin"],
+        type$: ["control/Control", "origin/Origin", "/system/core/Creator"],
         type$owner: "control/Owner",
         get$folder: function() {
             let name = this.conf.window.location.pathname;
@@ -39,10 +39,10 @@ export default {
             },
             initializeApp: function(msg) {
                 let conf = msg.response 
-                    ? this.sys.extend(this.conf, JSON.parse(msg.response)) 
-                    : this.sys.extend();
+                    ? this.create(this.conf, JSON.parse(msg.response)) 
+                    : this.create();
                 this.let("conf", conf);
-                this.let("owner", this.sys.extend(conf.ownerType || this.owner));
+                this.let("owner", this.create(conf.ownerType || this.owner));
                 this.initializeOwner();
 
                 if (conf.typeSource) {
@@ -55,9 +55,9 @@ export default {
             initializeTypes: function(msg) {
                 if (msg.response) {
                     let types = JSON.parse(msg.response);
-                    this.types = this.sys.extend(null, types);    
+                    this.types = this.create(types);    
                 } else {
-                    this.types = Object.create(null);
+                    this.types = this.create();
                 }
                 //Create the view after the types have been initialized
                 this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
@@ -67,7 +67,7 @@ export default {
             },
             initializeData: function(msg) {
                 let data = JSON.parse(msg.response);
-                this.data = this.sys.extend(null, data);
+                this.data = this.create(data);
                 if (this.view) this.receive("view");
             }
        }

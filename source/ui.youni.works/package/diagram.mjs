@@ -23,11 +23,11 @@ const pkg = {
 			},
 			instance: function(control) {
 				let model = control.model;
-				let before = this.sys.extend();
+				let before = this.create();
 				control.set(before, model);
-				let after = this.sys.extend();
+				let after = this.create();
 				control.set(after, model);
-				return this.sys.extend(this, {
+				return this.create(this, {
 					prior: null,
 					next: null,
 					control: control,

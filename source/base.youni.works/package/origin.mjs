@@ -62,7 +62,7 @@ export default {
 			return xhr;
 		},
 		createMessage: function(xhr) {
-			return this[Symbol.for("sys")].extend("", {
+			return this[Symbol.for("sys")].extend(null, {
 				subject: xhr.subject,
 				request: xhr.request,
 				response: xhr.responseText,

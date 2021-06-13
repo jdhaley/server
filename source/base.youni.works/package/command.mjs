@@ -1,7 +1,7 @@
 export default {
 	type$: "/system/core",
 	Command: {
-		type$: "Instance",
+		type$: "Creator",
 		type$prior: "Command",
 		type$next: "Command",
 		exec: function() {
@@ -9,14 +9,14 @@ export default {
 		undo: function() {
 		},
 		instance: function() {
-			return this.sys.extend(this, {
+			return this.create(this, {
 				prior: null,
 				next: null
 			});
 		}
 	},
 	Commands: {
-		type$: "Instance",
+		type$: "Creator",
 		type$lastCommand: "Command",
 		undo: function() {
 			let command = this.lastCommand;
@@ -38,7 +38,7 @@ export default {
 			return command;
 		},
 		instance: function() {
-			return this.sys.extend(this, {
+			return this.create(this, {
 				lastCommand: this.lastCommand.instance()
 			});
 		}
