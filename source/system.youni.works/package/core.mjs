@@ -7,20 +7,8 @@ const pkg = {
 	},
     Factory: {
         create: function() {
-            let dir = this[Symbol.for("sys")];
-            switch (arguments.length) {
-                case 0:
-                    return dir.extend();
-                case 1:
-                    let arg = arguments[0];
-                    let isSource = dir.isSource(arg);
-                    return isSource ? dir.extend(null, arg) : dir.extend(arg);
-                case 2:
-                    return dir.extend(arguments[0], arguments[1]);
-                default:
-                    console.warn("Create expects two arguments");
-                    return dir.extend.apply(arguments);
-            }
+            let module = this[Symbol.for("sys")];
+            return module.create.apply(module, arguments);
         }
     },
     Instance: {
@@ -45,13 +33,10 @@ const pkg = {
         }
     },
     Module: {
+        type$: "Factory",
         name: "",
         version: "0.0.0",
         use: {
-        },
-        forName: function(name) {
-        },
-        extend: function(type, ext) {
         }
     }
 }

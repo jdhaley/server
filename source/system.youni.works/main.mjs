@@ -6,7 +6,7 @@ export default function main(module, conf) {
 //	factory.context = factory.create();
 	factory.implement(factory, pkg.context.Context);
 	factory.implement(factory, pkg.context.FactoryContext);
-	factory.$context = pkg;
+	factory._dir = pkg;
 	pkg = factory.create(pkg);
 	let loader = factory.extend(pkg.context.Loader);
 	factory.define(loader, "conf", conf);

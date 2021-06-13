@@ -1,10 +1,12 @@
 let pkg = {
     type$Factory: "/factory/Factory",
     Context: {
+        // _dir: {
+        // },
         forName: function(name) {
             if (name === "") return null;
             if (name.startsWith("/")) name = name.substring(1);
-            return this.resolve(this.$context, name);
+            return this.resolve(this._dir, name);
         },
         resolve: function(component, pathname) {
             pathname = "" + pathname;
@@ -16,7 +18,6 @@ let pkg = {
                 if (component[name] === undefined) {
                     throw new Error(`Unable to resolve "${pathname}": "${componentName}" does not contain "${name}".`);
                 }
-                if (component.$loading) this.$loading = component;
                 component = this.getProperty(component, name);
                 componentName += "/" + name;
             }
@@ -52,23 +53,46 @@ let pkg = {
         extend$use: {
             type$Module: "/core/Module"
         },
-        load: function(module) {
-            for (let name in module.use) {
-                module.package[name] = module.use[name][Symbol.for("dir")];
+        defineClass: function(object, name, supertype) {
+            object[Symbol.toStringTag] = name;
+            object[Symbol.for("type")] = Object.create(supertype || null);
+            object[Symbol.for("sys")] = this._module;
+        },        
+        load: function(source) {
+            let pkg = source.package;
+            for (let name in source.use) {
+                pkg[name] = source.use[name].package
             }
-            let ctx = this.extend(this);
-            ctx.$context = module.package;
-            module = ctx.extend(this.use.Module, module);
-            delete module.package;
-            ctx.implement(module, {
-                forName: function(name) {
-                    return ctx.forName(name);
-                },
-                extend: function(type, ext) {
-                    return ctx.extend(type, ext);
-                },
-                symbol$dir: ctx.$context
+            delete source.package;
+            let ctx = this.extend(this, {
+                 _module: this.extend(this.use.Module, {
+                    create: function() {
+                        switch (arguments.length) {
+                            case 0:
+                                return ctx.extend();
+                            case 1:
+                                let arg = arguments[0];
+                                let isSource = ctx.isSource(arg);
+                                return isSource ? ctx.extend(null, arg) : ctx.extend(arg);
+                            case 2:
+                                return ctx.extend(arguments[0], arguments[1]);
+                            default:
+                                console.warn("Create expects two arguments");
+                                return ctx.extend.apply(arguments);
+                        }        
+                    },
+                    define: function(object, name, value, facet) {
+                        return ctx.define(object, name, value, facet);
+                    },           
+                    get$package: function() {
+                        return ctx._dir;
+                    }
+                })
             });
+            ctx._dir = pkg;
+            ctx._dir = ctx.create(pkg); //make sure everything is compiled
+            let module = ctx._module;
+            ctx.implement(module, source);
             console.log(module);
             return module;
         }
