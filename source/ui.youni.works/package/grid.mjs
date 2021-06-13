@@ -69,10 +69,10 @@ export default {
 	Property: {
 		type$: ["View", "Shape"],
 		use: {
-			type$Naming: "/base/util/Naming"
+			type$Text: "/base/util/Text"
 		},
 		getCaption: function() {
-			return this.conf.caption || this.use.Naming.captionize(this.conf.name);
+			return this.conf.caption || this.use.Text.captionize(this.conf.name);
 		},
 		draw: function draw() {
 			this.super(draw);
