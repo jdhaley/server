@@ -1,8 +1,7 @@
 export default function main(module, conf) {
+	module = module.use.system.load(module);
 	conf.window = window;
-	let sys = module.use.ui.use.system.sys;
-	module = sys.load(module);
-	let app = sys.extend(module.package.app.App);
+	let app = module.extend("/app/App");
 	app.start(conf);
 	return module;
 }
