@@ -5,7 +5,7 @@ const pkg = {
 			for (let i = 0; i < this.length; i++) yield this[i];
 		}
 	},
-    Creator: {
+    Factory: {
         create: function() {
             let dir = this[Symbol.for("sys")];
             switch (arguments.length) {

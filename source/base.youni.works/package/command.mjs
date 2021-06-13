@@ -1,7 +1,7 @@
 export default {
 	type$: "/system/core",
 	Command: {
-		type$: "Creator",
+		type$: "Factory",
 		type$prior: "Command",
 		type$next: "Command",
 		exec: function() {
@@ -16,7 +16,7 @@ export default {
 		}
 	},
 	Commands: {
-		type$: "Creator",
+		type$: "Factory",
 		type$lastCommand: "Command",
 		undo: function() {
 			let command = this.lastCommand;

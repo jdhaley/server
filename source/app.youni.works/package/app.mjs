@@ -1,9 +1,9 @@
 export default {
-	type$control: "/ui/base/control",
+    type$: "/ui/base/control",
     type$origin: "/ui/base/origin",
     App: {
-        type$: ["control/Control", "origin/Origin", "/system/core/Creator"],
-        type$owner: "control/Owner",
+        type$: ["Control", "origin/Origin", "Factory"],
+        type$owner: "Owner",
         get$folder: function() {
             let name = this.conf.window.location.pathname;
             name = name.substring(name.lastIndexOf("/") + 1);
