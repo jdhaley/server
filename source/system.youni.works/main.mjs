@@ -1,7 +1,8 @@
 export default function main(module, conf) {
 	conf.symbols = conf.symbols();
 	let pkg = module.package;
-	let factory = Object.create(pkg.core.Factory);
+	let factory = Object.create(pkg.factory.Factory);
+	factory.use.Array = pkg.core.Array;
 	factory.conf = conf;
 	factory.context = factory.create();
 	factory.implement(factory, pkg.context.Context);

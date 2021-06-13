@@ -1,5 +1,5 @@
 let pkg = {
-    type$Factory: "/core/Factory",
+    type$Factory: "/factory/Factory",
     Context: {
         forName: function(name) {
             if (name === "") return null;
