@@ -54,22 +54,21 @@ let pkg = {
         },
         load: function(module) {
             for (let name in module.use) {
-                module.package[name] = module.use[name].package;
+                module.package[name] = module.use[name][Symbol.for("dir")];
             }
-            let loader = this.extend(this);
-            loader.$context = module.package;
-            module = loader.extend(loader.use.Module, module);
-            loader.implement(module, {
+            let ctx = this.extend(this);
+            ctx.$context = module.package;
+            module = ctx.extend(this.use.Module, module);
+            delete module.package;
+            ctx.implement(module, {
                 forName: function(name) {
-                    return loader.forName(name);
+                    return ctx.forName(name);
                 },
-                create: function(type, ext) {
-                    return loader.create(type, ext);
-                }
-            })
-            loader.$context = module.package;
-            module.loader = loader;
-            loader.module = module;
+                extend: function(type, ext) {
+                    return ctx.extend(type, ext);
+                },
+                symbol$dir: ctx.$context
+            });
             console.log(module);
             return module;
         }

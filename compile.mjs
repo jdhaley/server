@@ -131,5 +131,5 @@ function indent(depth) {
 
 //TODO this is dependent on naming system.youni.works "system".
 function loadModule(module) {
-    return module.use.system.sys.load(module);
+    return module.use.system.load(module);
 }

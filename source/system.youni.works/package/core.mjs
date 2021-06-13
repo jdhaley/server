@@ -32,9 +32,11 @@ const pkg = {
     Module: {
         name: "",
         version: "0.0.0",
+        use: {
+        },
         forName: function(name) {
         },
-        create: function(type, ext) {
+        extend: function(type, ext) {
         }
     }
 }
