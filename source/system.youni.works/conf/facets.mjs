@@ -95,7 +95,8 @@ export default {
 				decl.configurable = true;
 				decl.enumerable = true;
 				decl.get = function getType() {				
-					return decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]);
+					return decl.sys.forName(decl.expr 
+						/*TODO add back: , decl[decl.sys.symbolOf("name") ]*/);
 				}
 				decl.define = function(object) {
 					return Reflect.defineProperty(object, this.name, this);
@@ -128,7 +129,7 @@ export default {
 				return decl;
 			},
 			symbol: function(decl) {
-				decl.symbol = decl.sys.conf.symbols[decl.name];
+				decl.symbol = decl.sys.symbolOf(decl.name);
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.configurable = true;
 				decl.value = decl.expr;

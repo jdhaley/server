@@ -6,8 +6,11 @@ export default {
         },
         conf: {
             facets: null,
-            symbols: null,
             typeProperty: "type"
+        },
+        symbolOf: function(key) {
+            if (key == "iterator") return Symbol.iterator;
+            return Symbol.for(key);
         },
         forName: function(name, fromName) {
             if (name === "") return null;
