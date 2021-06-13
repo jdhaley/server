@@ -1,4 +1,5 @@
 export default {
+	type$: "/system/core",
 	Text: {
 		isUpperCase: function(str) {
 			return str == str.toUpperCase() && str != str.toLowerCase();
@@ -36,6 +37,7 @@ export default {
 		}
 	},
 	Typing: {
+		type$: "Factory",
 		use: {
 			type$Text: "Text"
 		},
@@ -54,7 +56,7 @@ export default {
 			let dataType = this.propertyType(name, value);
 			let objectType = (dataType == "object" ? this.objectType(value) : "");
 		
-			let property = this[Symbol.for("sys")].extend(null, {
+			let property = this.create({
 				dynamic: true,
 				name: name,
 				dataType: dataType,
