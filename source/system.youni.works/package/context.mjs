@@ -49,13 +49,24 @@ let pkg = {
     },
     Loader: {
         type$: "FactoryContext",
+        extend$use: {
+            type$Module: "/core/Module"
+        },
         load: function(module) {
             for (let name in module.use) {
                 module.package[name] = module.use[name].package;
             }
             let loader = this.extend(this);
             loader.$context = module.package;
-            module = loader.create(module);
+            module = loader.extend(loader.use.Module, module);
+            loader.implement(module, {
+                forName: function(name) {
+                    return loader.forName(name);
+                },
+                create: function(type, ext) {
+                    return loader.create(type, ext);
+                }
+            })
             loader.$context = module.package;
             module.loader = loader;
             loader.module = module;

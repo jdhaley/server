@@ -1,8 +1,8 @@
-export default {
+export default { 
     Factory: {
         use: {
             type$Object: "",
-            type$Array: "Array",
+            type$Array: "/core/Array"
         },
         conf: {
             facets: null,
