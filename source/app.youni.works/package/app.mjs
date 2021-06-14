@@ -1,8 +1,9 @@
 export default {
     type$: "/ui/base/control",
-    type$origin: "/ui/base/origin",
+    type$Origin: "/ui/base/origin/Origin",
     App: {
-        type$: ["Control", "origin/Origin", "Factory"],
+        type$: ["Control", "Origin", "Factory"],
+        type$context: "AppContext",
         type$owner: "Owner",
         get$folder: function() {
             let name = this.conf.window.location.pathname;
@@ -46,19 +47,21 @@ export default {
                 this.initializeOwner();
 
                 if (conf.typeSource) {
-                    this.open(conf.typeSource, "initializeTypes");                 
+                    this.open(conf.typeSource, "initializeContext");                 
                 } else {
-                    this.owner.send(this, "initializeTypes");
+                    this.owner.send(this, "initializeContext");
                 }
                 this.open(conf.dataSource, "initializeData");
             },
-            initializeTypes: function(msg) {
+            initializeContext: function(msg) {
                 if (msg.response) {
                     let types = JSON.parse(msg.response);
-                    this.types = this.create(types);    
+                    this.types = this.create(types);
                 } else {
                     this.types = this.create();
                 }
+                let ctx = this.create(this.context);
+                ctx.start(this.types);
                 //Create the view after the types have been initialized
                 this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
                 this.view.file =  this.conf.dataSource;
@@ -71,6 +74,12 @@ export default {
                 if (this.view) this.receive("view");
             }
        }
+    },
+    AppContext: {
+        type$: "Context",
+        start: function(conf) {
+            console.log(conf);
+        }
     }
 }
 
