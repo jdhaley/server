@@ -9,7 +9,17 @@ export default function compileAll(sourceDir, targetDir) {
 }
 
 async function load(sourceDir, name) {
-    let index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
+    let index;
+    try {
+        index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
+    } catch (err) {
+        if (err.code == "ERR_MODULE_NOT_FOUND") {
+            console.warn(`Directory "${name}" is missing index.mjs; skipping`);
+            return;
+        }
+        console.error(err);
+        return;
+    }
     let module = index && index.module;
     if (!module) throw new Error(`Module "${name}" is missing module.mjs`);
     if (module.name && module.name != name) {
@@ -31,6 +41,7 @@ async function load(sourceDir, name) {
 }
 
 function compile(targetDir, manifest) {
+    if (!manifest) return;
     let module = manifest.module;
     console.log("Compiling: " + module.name + "-" + module.version);
     let uses = module.use;
