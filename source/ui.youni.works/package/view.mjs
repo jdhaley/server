@@ -1,5 +1,5 @@
 const pkg = {
-	type$: "/base/control",
+	type$: "/dom/dom",
 	View: {
 		type$: "DomNode",
 		type$owner: "Frame",
