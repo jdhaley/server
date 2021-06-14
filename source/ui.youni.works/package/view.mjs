@@ -68,12 +68,6 @@ const pkg = {
 		get$document: function() {
 			return this.$window.document;
 		},
-		get$peer: function() {
-			return this.document.body;
-		},
-		get$location: function() {
-			return this.$window.location;
-		},
 		get$activeElement: function() {
 			return this.document.activeElement;
 		},

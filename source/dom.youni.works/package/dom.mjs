@@ -3,6 +3,12 @@ export default {
 	DomOwner: {
 		type$: "Owner",
 		document: null,
+		get$peer: function() {
+			return this.document.body;
+		},
+		get$location: function() {
+			return this.document.location;
+		},
 		createNode: function(name) {
 			if (name.indexOf("/") >= 0) {
 				let idx = name.lastIndexOf("/");
