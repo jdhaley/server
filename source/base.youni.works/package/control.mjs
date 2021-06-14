@@ -24,7 +24,7 @@ export default {
 	},
 	Owner: {
 		create: function(controlType, conf) {
-			let module = this[Symbol.for("sys")];
+			let module = this[Symbol.for("owner")];
 			let control = module.create(controlType);
 			module.define(control, "owner", this, "const");
 			control.start(conf);
@@ -116,7 +116,7 @@ export default {
 		},
 		get$to: function() {
 			const nodes = this.peer.childNodes;
-			if (!nodes.$to) nodes.$to = this[Symbol.for("sys")].create({
+			if (!nodes.$to) nodes.$to = this[Symbol.for("owner")].create({
 				symbol$iterator: function*() {
 					for (let i = 0, len = nodes.length; i < len; i++) {
 						let node = nodes[i];

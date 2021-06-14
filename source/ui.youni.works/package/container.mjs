@@ -67,7 +67,8 @@ export default {
 			if (value && typeof value == "object") {
 				return value.receive ? value : value.elementType || this.elementType;
 			}
-			return this[Symbol.for("sys")].forName("" + value) || this.elementType;
+			debugger;
+			return this[Symbol.for("owner")].forName("" + value) || this.elementType;
 		},
 		configurationFor: function(value, key) {
 			return value && typeof value == "object" && !value.receive ? value : this.conf;
