@@ -23,6 +23,10 @@ const pkg = {
 		get$style: function() {
 			return this.peer.style;
 		},
+		draw: function() {
+			this.peer.textContext = "";
+			this.peer.classList.add(this.className);
+		},
 		virtual$model: function() {
 			if (arguments.length) {
 				this.peer.$model = arguments[0];
@@ -35,10 +39,6 @@ const pkg = {
 		},
 		unbind: function() {
 			this.model = undefined;
-		},
-		draw: function() {
-			this.peer.textContext = "";
-			this.peer.classList.add(this.className);
 		},
 		view: function(data) {
 			this.draw();
