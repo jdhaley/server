@@ -26,6 +26,15 @@ const pkg = {
             return Object.prototype.valueOf.call(this);
         }
     },
+    Context: {
+        /*
+            Return the same instance or a new instance each time.
+            A context doesn't support declarations / configuration arguments -
+            Those dependencies are "configured in".
+        */
+        forName: function(name) {
+        }
+    },
     Factory: {
         create: function() {
             let module = this[Symbol.for("owner")];
