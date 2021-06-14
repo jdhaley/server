@@ -107,7 +107,7 @@ export default {
                 }
                 value = this.create(value, name);
             }
-           return fn.call(this, {
+            return fn.call(this, {
                 sys: this,
                 facet: facet,
                 name: name,

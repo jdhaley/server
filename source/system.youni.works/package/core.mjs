@@ -5,12 +5,6 @@ const pkg = {
 			for (let i = 0; i < this.length; i++) yield this[i];
 		}
 	},
-    Factory: {
-        create: function() {
-            let module = this[Symbol.for("sys")];
-            return module.create.apply(module, arguments);
-        }
-    },
     Instance: {
 		let: function(name, value, facet) {
 			if (!facet) facet = "const";
@@ -32,11 +26,21 @@ const pkg = {
             return Object.prototype.valueOf.call(this);
         }
     },
+    Factory: {
+        create: function() {
+            let module = this[Symbol.for("sys")];
+            return module.create.apply(module, arguments);
+        }
+    },
     Module: {
         type$: "Factory",
         name: "",
         version: "0.0.0",
         use: {
+        },
+        package: {
+        },
+        define: function(object, name, value, facet) {
         }
     }
 }
