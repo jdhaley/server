@@ -9,7 +9,7 @@ const pkg = {
 		let: function(name, value, facet) {
 			if (!facet) facet = "const";
 			if (facet == "var") facet = "";
-			this[Symbol.for("sys")].define(this, name, value, facet);
+			this[Symbol.for("owner")].define(this, name, value, facet);
 		},
         super: function(method, ...args) {
 			if (method && typeof method == "function") {
@@ -28,7 +28,7 @@ const pkg = {
     },
     Factory: {
         create: function() {
-            let module = this[Symbol.for("sys")];
+            let module = this[Symbol.for("owner")];
             return module.create.apply(module, arguments);
         }
     },

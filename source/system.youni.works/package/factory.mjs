@@ -29,7 +29,7 @@ export default {
                     object = object.public;
                 }
                 return object;
-             }
+            }
             throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
@@ -42,16 +42,17 @@ export default {
                 }
             }
             type = (typeof type == "string" ? this.forName(type) : type) || null;
-            let object = Object.create(type);
-            args[0] = object;
+            let target = Object.create(type);
+            args[0] = target;
             if (source && source[Symbol.toStringTag]) {
-                this.defineClass(object, source[Symbol.toStringTag], type && type[Symbol.for("type")]);
+                this.defineClass(target, source[Symbol.toStringTag], type && type[Symbol.for("type")]);
             }
             if (source) args.push(source);
             if (args.length > 1) this.implement.apply(this, args);
-            return object;
+            return target;
         },
         implement: function(object, ...sources) {
+            //TODO determine the guards or defaults for the object arg.
             let objectType = this.isType(object) ? object[Symbol.for("type")] : null;
             for (let source of sources) {
                 if (typeof source == "string") source = this.forName(source);
@@ -121,7 +122,7 @@ export default {
         defineClass: function(object, name, supertype) {
             object[Symbol.toStringTag] = name;
             object[Symbol.for("type")] = Object.create(supertype || null);
-            object[Symbol.for("sys")] = this;
+            object[Symbol.for("owner")] = this._owner;
         },        
         facetOf: function(decl) {
 			if (typeof decl == "symbol") return "";

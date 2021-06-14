@@ -5,18 +5,19 @@ let pkg = {
         // },
         forName: function(name) {
             if (name === "") return null;
-            if (name.startsWith("/")) name = name.substring(1);
+            name = "" + name;
             return this.resolve(this._dir, name);
         },
         resolve: function(component, pathname) {
             pathname = "" + pathname;
+            if (pathname.startsWith("/")) pathname = pathname.substring(1);
             let componentName = "";
             for (let name of pathname.split("/")) {
                 if (typeof component != "object") {
                     throw new Error(`Unable to resolve "${pathname}": "${componentName}" is not an object.`);
                 }
                 if (component[name] === undefined) {
-                    throw new Error(`Unable to resolve "${pathname}": "${componentName}" does not contain "${name}".`);
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName || "/"}" does not contain "${name}".`);
                 }
                 component = this.getProperty(component, name);
                 componentName += "/" + name;
@@ -35,11 +36,14 @@ let pkg = {
                 if (Object.getPrototypeOf(value) == Array.prototype) {
                     value = this.create(value);
                 } else {
-                    let object;
-                    //Allow for forward/inner references creating the instance, putting in context, then implementing.
-                    //TODO might be issues with screwy type decls.
                     let type = value[this.conf.typeProperty];
-                    object = this.extend(type);
+                    /*
+                        Create the object from its prototype, put it in context, then implement
+                        rather than just creating / extending before putting in context.
+                        This way, forward/inner type references (then back-references) from properties
+                        will resolve to the target object in the context rather than the source.
+                    */
+                    let object = this.extend(type);
                     component[name] = object;
                     this.implement(object, value);
                     value = object;
@@ -51,22 +55,28 @@ let pkg = {
     Loader: {
         type$: "FactoryContext",
         extend$use: {
-            type$Module: "/core/Module"
+            type$Owner: "/core/Module"
         },
-        defineClass: function(object, name, supertype) {
-            object[Symbol.toStringTag] = name;
-            object[Symbol.for("type")] = Object.create(supertype || null);
-            object[Symbol.for("sys")] = this._module;
-        },        
         load: function(source) {
             let pkg = source.package;
             for (let name in source.use) {
                 pkg[name] = source.use[name].package
             }
             delete source.package;
+            let ctx = this.createContext();
+            ctx._dir = pkg;
+            ctx._dir = ctx.create(pkg); //make sure everything is compiled
+            let module = ctx._owner;
+            ctx.implement(module, source);
+            console.log(module);
+            return module;
+        },
+        createContext: function() {
+            //Create a context and have its owner close over it.
+            //To some degree, this logic assume a Module as owner.
             let ctx = this.extend(this, {
-                 _module: this.extend(this.use.Module, {
-                    create: function() {
+                _owner: this.extend(this.use.Owner, {
+                    create: function () {
                         switch (arguments.length) {
                             case 0:
                                 return ctx.extend();
@@ -79,23 +89,18 @@ let pkg = {
                             default:
                                 console.warn("Create expects two arguments");
                                 return ctx.extend.apply(arguments);
-                        }        
+                        }
                     },
-                    define: function(object, name, value, facet) {
+                    define: function (object, name, value, facet) {
                         return ctx.define(object, name, value, facet);
-                    },           
-                    get$package: function() {
+                    },
+                    get$package: function () {
                         return ctx._dir;
                     }
                 })
             });
-            ctx._dir = pkg;
-            ctx._dir = ctx.create(pkg); //make sure everything is compiled
-            let module = ctx._module;
-            ctx.implement(module, source);
-            console.log(module);
-            return module;
-        }
+            return ctx;
+        }   
     }
 }
 export default pkg;
