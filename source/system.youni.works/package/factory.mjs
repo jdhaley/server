@@ -1,4 +1,20 @@
 export default { 
+    F2: {
+        conf: {
+            facets: {
+            }
+        },
+        symbolOf: function(key) {
+            if (key == "iterator") return Symbol.iterator;
+            return Symbol.for(key);
+        },
+        create: function(...sources) {
+        },
+        implement: function(object, ...sources) {
+        },
+        define: function(object, name, value, facet) {
+        }
+    },
     Factory: {
         use: {
             type$Object: "",
@@ -14,27 +30,25 @@ export default {
         },
         forName: function(name, fromName) {
         },
-        compile: function(source) {
-            if (this.isSource(source)) return this._creat(source);
-            return source;
-        },
-        _creat: function(source) {
-            if (source === undefined || source === null) return Object.create(null);
-            if (Object.getPrototypeOf(source) == Array.prototype) {
+        compile: function(value) {
+            if (!value || typeof value != "object") {
+                return value;
+            } else if (Object.getPrototypeOf(value) == Array.prototype) {
                 let array = this.extend(this.use.Array);
-                for (let value of source) {
-                    if (this.isSource(value)) value = this._creat(value);
-                    Array.prototype.push.call(array, value);
+                for (let ele of value) {
+                    ele = this.compile(ele);
+                    Array.prototype.push.call(array, ele);
                 }
                 return array;
-            } else if (Object.getPrototypeOf(source) == Object.prototype) {
-                let object = this.extend(source[this.conf.typeProperty], source);
-                if (source.$public) {
+            } else if (Object.getPrototypeOf(value) == Object.prototype) {
+                let object = this.extend(value[this.conf.typeProperty], value);
+                if (value.$public) {
                     object = object.public;
                 }
                 return object;
+            } else {
+                return value;
             }
-            throw new TypeError("Value is not a source object or array.");
         },
         extend: function(type, source) {
             let args = [];
@@ -105,13 +119,11 @@ export default {
 		declare: function(name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
-            if (this.isSource(value)) {
-                if (this.isTypeName(name)) {
-                    //Signal to create a type:
-                    value[Symbol.toStringTag] = name;
-                }
-                value = this._creat(value, name);
+            if (this.isSource(value) && this.isTypeName(name)) {
+                //Signal to create a type:
+                value[Symbol.toStringTag] = name;
             }
+            value = this.compile(value);
             return fn.call(this, {
                 sys: this,
                 facet: facet,
