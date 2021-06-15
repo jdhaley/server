@@ -65,7 +65,7 @@ let pkg = {
             delete source.package;
             let ctx = this.createContext();
             ctx._dir = pkg;
-            ctx._dir = ctx.create(pkg); //make sure everything is compiled
+            ctx._dir = ctx.compile(pkg); //make sure everything is compiled
             let module = ctx._owner;
             ctx.implement(module, source);
             console.log(module);

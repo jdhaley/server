@@ -14,12 +14,16 @@ export default {
         },
         forName: function(name, fromName) {
         },
-        create: function(source) {
+        compile: function(source) {
+            if (this.isSource(source)) return this._creat(source);
+            return source;
+        },
+        _creat: function(source) {
             if (source === undefined || source === null) return Object.create(null);
             if (Object.getPrototypeOf(source) == Array.prototype) {
                 let array = this.extend(this.use.Array);
                 for (let value of source) {
-                    if (this.isSource(value)) value = this.create(value);
+                    if (this.isSource(value)) value = this._creat(value);
                     Array.prototype.push.call(array, value);
                 }
                 return array;
@@ -106,7 +110,7 @@ export default {
                     //Signal to create a type:
                     value[Symbol.toStringTag] = name;
                 }
-                value = this.create(value, name);
+                value = this._creat(value, name);
             }
             return fn.call(this, {
                 sys: this,
