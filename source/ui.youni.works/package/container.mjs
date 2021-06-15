@@ -126,50 +126,5 @@ export default {
 			this.properties = props;
 			this.forEach(props, this.createElement);
 		}
-	},
-	Pane: {
-		type$: ["View", "Shape"],
-		get$elementType: function() {
-			return this.conf.elementType;
-		},
-		get$elementConf: function() {
-			return this.conf;
-		},
-		draw: function draw() {
-			this.super(draw);
-			let type = this.elementType;
-			let conf = this.elementConf;
-			let control = this.owner.create(type, conf);
-			this.append(control);
-			return control;
-		},
-		extend$actions: {
-			mousemove: function(event) {
-				//Hit test in bottom right (BR) zone to track movement.
-				if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					this.style.cursor = "nwse-resize";
-				} else if (event.altKey || event.target == this.peer) {
-					this.style.cursor = "move";
-				} else {
-					this.style.removeProperty("cursor");
-				}
-			},
-			grab: function(event) {
-				let b = this.bounds;
-				this.peer.$tracking = {
-					insideX: event.x - b.left,
-					insideY: event.y - b.top
-				}
-                if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					event.track = this;
-					this.peer.$tracking.subject = "size";
-					this.style.cursor = "nwse-resize";
-				} else if (event.altKey || event.target == this.peer) {
-					event.track = this;
-					this.peer.$tracking.subject = "position";
-					this.owner.style.cursor = "move";
-				}
-			}
-		}
 	}
 }

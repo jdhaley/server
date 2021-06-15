@@ -41,7 +41,7 @@
 				"objectType": "Design",
 				"dataset": "Design",
 				"linkControl": {
-					"type$": "/ui/container/Pane",
+					"type$": "/ui/shape/Pane",
 					"elementType": "/grid/Sheet"
 				}
 			},
