@@ -1,5 +1,4 @@
 export default function events() {
-	let TRACK;
 	let NO_CLICK;
 	function TARGET_EVENT(event) {
 		let ctl = getControl(event.target);
@@ -25,17 +24,18 @@ export default function events() {
 			paste: TARGET_EVENT,
 	
 			keydown: TARGET_EVENT,
-			click: function(event) {
-				if (NO_CLICK) {
-					event.preventDefault();
-					NO_CLICK = false;
-				} else {
-					TARGET_EVENT(event);
-				}
-			},
-			dragstart: TARGET_EVENT,
-			dragover: TARGET_EVENT,
-			drop: TARGET_EVENT,
+			click: TARGET_EVENT,		//call it "push"
+			// click: function(event) {
+			// 	if (NO_CLICK) {
+			// 		event.preventDefault();
+			// 		NO_CLICK = false;
+			// 	} else {
+			// 		TARGET_EVENT(event);
+			// 	}
+			// },
+			// dragstart: TARGET_EVENT,
+			// dragover: TARGET_EVENT,
+			// drop: TARGET_EVENT,
 	//		mouseover: TARGET_EVENT,
 	//		mouseout: TARGET_EVENT,
 			focusin: TARGET_EVENT,

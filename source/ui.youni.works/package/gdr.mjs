@@ -1,15 +1,4 @@
 const pkg = {
-    TRACK: null,
-    sense(event) {
-		let ctl = pkg.getControl(event.target);
-		ctl && ctl.owner.sense(ctl, event);
-	},
-	getControl(node) {
-		while(node) {
-			if (node.$peer) return node.$peer;
-			node = node.parentNode;
-		}
-	},
     $public: {
         mousedown(event) {
             event.subject = "grab";
@@ -50,6 +39,17 @@ const pkg = {
                 return;
             }
         }
-    }
+    },
+    TRACK: null,
+    sense(event) {
+		let ctl = pkg.getControl(event.target);
+		ctl && ctl.owner.sense(ctl, event);
+	},
+	getControl(node) {
+		while(node) {
+			if (node.$peer) return node.$peer;
+			node = node.parentNode;
+		}
+	}
 }
 export default pkg;
