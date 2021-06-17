@@ -87,7 +87,9 @@ function compileValue(value, depth) {
         case "string":
             return JSON.stringify(value);
         case "function":
-            return value.toString();
+            let source = value.toString();
+            if (source.startsWith("function(") || source.startsWith("function ") ) return source;
+            return "function " + source;
         case "object":
             if (!value) return "null";
             if (Object.getPrototypeOf(value) == Array.prototype) return compileArray(value, depth || 0);

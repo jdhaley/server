@@ -3,17 +3,17 @@ export default {
 	type$Shape: "/shape/Shape",
 	Value: {
 		type$: "View",
-		bind: function bind(model) {
+		bind(model) {
 			this.super(bind, model);
 			this.peer.textContent = model;
 		}
 	},
 	Container: {
 		type$: "View",
-		get$elementType: function() {
+		get$elementType() {
 			return this.conf.elementType;
 		},
-		forEach: function(object, method) {
+		forEach(object, method) {
 			if (object && typeof object.length == "number") {
 				for (let i = 0, length = object.length; i < length; i++) {
 					method.call(this, object[i], i, object);
@@ -24,7 +24,7 @@ export default {
 				}
 			}
 		},
-		createElement: function(value, key, object) {
+		createElement(value, key, object) {
 			let type = this.typeFor(value, key);
 			let conf = this.configurationFor(value, key);
 			let control = this.owner.create(type, conf);
@@ -32,70 +32,70 @@ export default {
 			this.append(control);
 			return control;
 		},
-		keyFor: function(value, key) {
+		keyFor(value, key) {
 			return key;
 		},
-		typeFor: function(value, key) {
+		typeFor(value, key) {
 			return this.elementType;
 		},
-		configurationFor: function(value, key) {
+		configurationFor(value, key) {
 			return this.conf;
 		}
 	},
 	Composite: {
 		type$: "Container",
-		get$members: function() {
-			return this.conf.members;
-		},
 		parts: {
 		},
-		start: function start(conf) {
+		get$members() {
+			return this.conf.members;
+		},
+		start(conf) {
 			this.super(start, conf);
 			this.let("parts", Object.create(null));
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			this.forEach(this.members, this.createElement);
 		},
-		append: function append(control) {
+		append(control) {
 			this.super(append, control);
 			let key = control.peer.$key;
 			if (isNaN(+key)) control.peer.classList.add(key);
 			this.parts[key] = control;
 		},
-		typeFor: function(value, key) {
+		typeFor(value, key) {
 			if (value && typeof value == "object") {
 				return value.receive ? value : value.elementType || this.elementType;
 			}
 			debugger;
 			return this[Symbol.for("owner")].forName("" + value) || this.elementType;
 		},
-		configurationFor: function(value, key) {
+		configurationFor(value, key) {
 			return value && typeof value == "object" && !value.receive ? value : this.conf;
 		}
 	},
 	Collection: {
 		type$: ["Container", "Observer"],
-		bind: function bind(model) {
+		bind(model) {
 			this.observe(model);
 			this.model = model;
 			this.forEach(model, this.createElement);
 		},
-		unbind: function() {
+		unbind() {
 			this.unobserve(this.model);
 			this.model = undefined;
 		},
-		bindElement: function(view) {
+		bindElement(view) {
 			view.bind(this.model[view.peer.$key]);
 		}
 	},
 	Record: {
 		type$: ["Composite", "Observer"],
-		bind: function(model) {
+		bind(model) {
 			this.observe(model);
 			this.model = model;
 		},
-		unbind: function() {
+		unbind() {
 			this.unobserve(this.model);
 			this.model = undefined;
 		}
@@ -105,7 +105,7 @@ export default {
 		use: {
 			type$Typing: "/base/util/Typing"
 		},
-		once$members: function() {
+		once$members() {
 			let members = this.conf.members;
 			if (members && typeof members.length == "number") {
 				members = Object.create(null);
@@ -115,7 +115,7 @@ export default {
 			}
 			return members;
 		},
-		bind: function bind(model) {
+		bind(model) {
 			this.super(bind, model);
 			let props = Object.create(null);
 			for (let name in model) {
