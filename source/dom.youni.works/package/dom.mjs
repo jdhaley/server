@@ -64,5 +64,32 @@ export default {
 		append: function(control) {
 			this.peer.append(control.peer);
 		}
+	},
+	HtmlElement: {
+		type$: "DomNode",
+		nodeName: "div",
+		get$style: function() {
+			return this.peer.style;
+		},
+		draw: function() {
+			this.peer.textContext = "";
+			this.peer.classList.add(this.className);
+		},
+		extend$conf: {
+			minWidth: 0,
+			minHeight: 0	
+		},
+		virtual$bounds: function() {
+			if (arguments.length) {
+				let rect = arguments[0];
+				if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
+				if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
+				if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
+				if (rect.left !== undefined) this.style.left = rect.left + "px";
+				if (rect.top !== undefined) this.style.top = rect.top + "px";
+			} else {
+				return this.peer.getBoundingClientRect();
+			}
+		}
 	}
 }

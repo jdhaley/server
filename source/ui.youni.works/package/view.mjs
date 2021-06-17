@@ -1,32 +1,8 @@
 const pkg = {
 	type$: "/dom/dom",
 	View: {
-		type$: "DomNode",
+		type$: "HtmlElement",
 		type$owner: "Frame",
-		nodeName: "div",
-		extend$conf: {
-			minWidth: 0,
-			minHeight: 0	
-		},
-		virtual$bounds: function() {
-			if (arguments.length) {
-				let rect = arguments[0];
-				if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
-				if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
-				if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
-				if (rect.left !== undefined) this.style.left = rect.left + "px";
-				if (rect.top !== undefined) this.style.top = rect.top + "px";
-			} else {
-				return this.peer.getBoundingClientRect();
-			}
-		},
-		get$style: function() {
-			return this.peer.style;
-		},
-		draw: function() {
-			this.peer.textContext = "";
-			this.peer.classList.add(this.className);
-		},
 		virtual$model: function() {
 			if (arguments.length) {
 				this.peer.$model = arguments[0];
@@ -34,20 +10,20 @@ const pkg = {
 			}
 			return this.peer.$model;
 		},
-		bind: function(model) {
-			this.model = model;
-		},
 		unbind: function() {
 			this.model = undefined;
 		},
-		view: function(data) {
-			this.draw();
-			this.unbind();
-			this.bind(data);
-			this.owner.send(this, "view");
+		bind: function(model) {
+			this.model = model;
 		},
 		bindElement: function(view) {
 			view.bind(this.model);
+		},
+		view: function(data) {
+			this.unbind();
+			this.draw();
+			this.bind(data);
+			this.owner.send(this, "view");
 		},
 		extend$actions: {
 			view: function(event) {
