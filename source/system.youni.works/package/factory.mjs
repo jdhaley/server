@@ -12,7 +12,7 @@ export default {
         },
         implement: function(object, ...sources) {
         },
-        define: function(object, name, value, facet) {
+        declare: function(object, name, value, facet) {
         }
     },
     Factory: {
@@ -91,9 +91,8 @@ export default {
             function implementSource(source, sys) {
                 for (let decl in source) {
                     if (decl != sys.conf.typeProperty) {
-                        decl = sys.declare(sys.nameOf(decl), source[decl], sys.facetOf(decl));
+                        decl = sys.declare(object, sys.nameOf(decl), source[decl], sys.facetOf(decl));
                         if (objectType) {
-                            decl.declaredBy = object;
                             objectType[decl.name] = decl;
                         }
                         if (!decl.define(object)) {
@@ -116,7 +115,7 @@ export default {
                 }
             }    
 		},
-		declare: function(name, value, facet) {
+		declare: function(object, name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
             if (this.isSource(value) && this.isTypeName(name)) {
@@ -126,14 +125,14 @@ export default {
             value = this.compile(value);
             return fn.call(this, {
                 sys: this,
+                declaredBy: object,
                 facet: facet,
                 name: name,
                 expr: value
             });
 		},
         define: function(object, name, value, facet) {
-            let decl = this.declare(name, value, facet);
-            decl.define ? decl.define(object) : Reflect.defineProperty(object, decl.name, decl);
+            return this.declare(object, name, value, facet).define(object);
 		},
         defineClass: function(object, name, supertype) {
             object[Symbol.toStringTag] = name;
