@@ -5,5 +5,6 @@ export default {
     appType: "/app/App",
     window: null,
     events: events,
-    editors: editors
+    editors: editors,
+    type$gdr: "/ui/gdr"
 };

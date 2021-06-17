@@ -74,7 +74,7 @@ export default {
 					}
 				}
 			},
-			mousemove: function(event) {
+			move: function(event) {
 				//Hit test in bottom right (BR) zone to track movement.
 				if (event.altKey) {
 					this.style.cursor = "move";
@@ -104,7 +104,7 @@ export default {
 			return control;
 		},
 		extend$actions: {
-			mousemove: function(event) {
+			move: function(event) {
 				//Hit test in bottom right (BR) zone to track movement.
 				if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
 					this.style.cursor = "nwse-resize";

@@ -76,6 +76,8 @@ const pkg = {
 			let events = conf.events();
 			pkg.addEvents(this.$window, events.windowEvents);
 			pkg.addEvents(this.document, events.documentEvents);
+
+			pkg.addEvents(this.$window, conf.gdr);
 		},
 		viewOf: function(node) {
 			while(node) {
