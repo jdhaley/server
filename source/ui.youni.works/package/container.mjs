@@ -1,6 +1,5 @@
 export default {
 	type$: "/view",
-	type$Shape: "/shape/Shape",
 	Value: {
 		type$: "View",
 		bind(model) {

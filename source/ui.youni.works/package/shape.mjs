@@ -2,10 +2,35 @@ export default {
     Zoned: {
         type$: "",
         extend$conf: {
-			border: 6
+			zone: {
+				border: 6,
+				cursor: {
+					// "TL": "move",
+					// "TC": "move",
+					// "TR": "move",
+					// "CL": "move",
+					// "CC": "move",
+					// "CR": "move",
+					// "BL": "move",
+					// "BC": "move",
+					"BR": "nwse-resize",
+				},
+				subject: {
+					// "TL": "position",
+					// "TC": "position",
+					// "TR": "position",
+					// "CL": "position",
+					// "CC": "position",
+					// "CR": "position",
+					// "BL": "position",
+					// "BC": "position",
+					"BR": "size",
+				}
+			}
 		},
-        getZone: function(x, y, border) {
+        getZone: function(x, y) {
 			let rect = this.peer.getBoundingClientRect();
+			let border = this.conf.zone.border;
 			x -= rect.x;
 			y -= rect.y;
 			let zone;
@@ -25,29 +50,24 @@ export default {
 				zone += "C";
 			}
 			return zone;
-		},
-        extend$actions: {
-
-        }
+		}
     },
 	Shape: {
 		type$: "Zoned",
 		extend$actions: {
 			grab: function(event) {
+				let zone = this.getZone(event.clientX, event.clientY);
+				let subject = this.conf.zone.subject[zone] || "";
+				if (!subject) return;
+				this.style.cursor = this.conf.zone.cursor[zone];
 				let b = this.bounds;
 				this.peer.$tracking = {
+					subject: subject,
+					cursor: this.style.cursor,
 					insideX: event.x - b.left,
 					insideY: event.y - b.top
 				}
-                if (event.altKey) {
-					event.track = this;
-					this.peer.$tracking.subject = "position";
-					this.owner.style.cursor = "move";
-				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					event.track = this;
-					this.peer.$tracking.subject = "size";
-					this.style.cursor = "nwse-resize";
-				}
+				event.track = this;
 			},
 			drag: function(event) {
 				event.subject = this.peer.$tracking.subject;
@@ -75,11 +95,17 @@ export default {
 				}
 			},
 			moveover: function(event) {
-				//Hit test in bottom right (BR) zone to track movement.
-				if (event.altKey) {
-					this.style.cursor = "move";
-				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					this.style.cursor = "nwse-resize";
+				let zone = this.getZone(event.clientX, event.clientY);
+
+				let cursor;
+				let trk = this.peer.$tracking;
+				if (trk) {
+					cursor = trk.cursor;
+				} else {
+					cursor = this.conf.zone.cursor[zone];	
+				}
+				if (cursor) {
+					this.style.cursor = cursor;
 				} else {
 					this.style.removeProperty("cursor");
 				}
@@ -89,6 +115,21 @@ export default {
 	type$View: "/view/View",
 	Pane: {
 		type$: ["View", "Shape"],
+		extend$conf: {
+			zone: {
+				border: 6,
+				cursor: {
+					"CC": "move",
+					"BC": "move",
+					"BR": "nwse-resize",
+				},
+				subject: {
+					"CC": "position",
+					"BC": "position",
+					"BR": "size",
+				}
+			},	
+		},
 		get$elementType: function() {
 			return this.conf.elementType;
 		},
@@ -102,35 +143,6 @@ export default {
 			let control = this.owner.create(type, conf);
 			this.append(control);
 			return control;
-		},
-		extend$actions: {
-			moveover: function(event) {
-				console.log(event);
-				//Hit test in bottom right (BR) zone to track movement.
-				if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					this.style.cursor = "nwse-resize";
-				} else if (event.altKey || event.target == this.peer) {
-					this.style.cursor = "move";
-				} else {
-					this.style.removeProperty("cursor");
-				}
-			},
-			grab: function(event) {
-				let b = this.bounds;
-				this.peer.$tracking = {
-					insideX: event.x - b.left,
-					insideY: event.y - b.top
-				}
-                if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					event.track = this;
-					this.peer.$tracking.subject = "size";
-					this.style.cursor = "nwse-resize";
-				} else if (event.altKey || event.target == this.peer) {
-					event.track = this;
-					this.peer.$tracking.subject = "position";
-					this.owner.style.cursor = "move";
-				}
-			}
 		}
 	}
 }
