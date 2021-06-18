@@ -74,7 +74,7 @@ export default {
 					}
 				}
 			},
-			move: function(event) {
+			moveover: function(event) {
 				//Hit test in bottom right (BR) zone to track movement.
 				if (event.altKey) {
 					this.style.cursor = "move";
@@ -104,7 +104,8 @@ export default {
 			return control;
 		},
 		extend$actions: {
-			move: function(event) {
+			moveover: function(event) {
+				console.log(event);
 				//Hit test in bottom right (BR) zone to track movement.
 				if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
 					this.style.cursor = "nwse-resize";

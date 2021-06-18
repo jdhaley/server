@@ -22,7 +22,7 @@ const pkg = {
                 pkg.TRACK = event;
                 return;
             } else {
-                event.subject = "move";
+                event.subject = "moveover";
                 pkg.sense(event);
             }
         },
