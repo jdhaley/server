@@ -105,26 +105,12 @@ export default {
 			},
 			extend: function(decl) {
 				if (typeof decl.expr != "object") throw new Error("extend facet requires an object expression.");
-				let sys = decl.sys;
-				decl.enumerable = true;
-				decl.get = function() {
-					let proto = Object.getPrototypeOf(this);
-					let value = sys.extend(proto ? proto[decl.name] : null);
-					if (this.interface) for (let type of this.interface.implements) {
-						sys.implement(value, type.class[decl.name]);
-					}
-					for (let name in decl.expr) {
-						value[name] = decl.expr[name];
-					}
-					Reflect.defineProperty(this, decl.name, {
-						configurable: true,
-						enumerable: true,
-						value: value
-					});
-					return value;
-				}
 				decl.define = function(object) {
-					return Reflect.defineProperty(object, this.name, this);
+					let ext = Object.create(object[decl.name] || null);
+					for (let name in decl.expr) {
+						ext[name] = decl.expr[name];
+					}
+					return decl.sys.define(object, decl.name, ext, "const");
 				}
 				return decl;
 			},
