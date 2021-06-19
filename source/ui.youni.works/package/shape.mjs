@@ -33,7 +33,7 @@ export default {
 				}
 			}
 		},
-        getZone: function(x, y) {
+        getZone(x, y) {
 			let rect = this.peer.getBoundingClientRect();
 			let border = this.conf.zone.border;
 			x -= rect.x;
@@ -60,7 +60,7 @@ export default {
 	Shape: {
 		type$: "Zoned",
 		extend$actions: {
-			grab: function(event) {
+			grab(event) {
 				if (event.track && event.track != this) return;
 				let zone = this.getZone(event.clientX, event.clientY);
 				let subject = this.conf.zone.subject[zone] || "";
@@ -76,15 +76,15 @@ export default {
 				event.track = this;
 			//	event.subject = "";
 			},
-			drag: function(event) {
+			drag(event) {
 				event.subject = this.peer.$tracking.subject;
 				this.receive(event)
 			},
-			release: function(event) {
+			release(event) {
 				delete this.peer.$tracking;
                 this.owner.style.removeProperty("cursor");
 			},
-			position: function(event) {
+			position(event) {
 				if (event.track == this) {
 					this.bounds = {
 						left: event.x - this.peer.$tracking.insideX,
@@ -92,7 +92,7 @@ export default {
 					}
 				}
 			},
-			size: function(event) {
+			size(event) {
 				if (event.track == this) {
 					let b = this.bounds;
 					this.bounds = {
@@ -101,7 +101,7 @@ export default {
 					}
 				}
 			},
-			moveover: function(event) {
+			moveover(event) {
 				let zone = this.getZone(event.clientX, event.clientY);
 				let cursor = this.conf.zone.cursor[zone];
 				if (cursor) {
@@ -133,13 +133,13 @@ export default {
 				}
 			},	
 		},
-		get$elementType: function() {
+		get$elementType() {
 			return this.conf.elementType;
 		},
-		get$elementConf: function() {
+		get$elementConf() {
 			return this.conf;
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			let type = this.elementType;
 			let conf = this.elementConf;

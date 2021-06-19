@@ -3,13 +3,13 @@ const pkg = {
 	Editor: {
 		type$: "View",
 		dataType: "",
-		get$inputType: function() {
+		get$inputType() {
 			return this.dataType;
 		},
-		bind: function(value) {
+		bind(value) {
 			this.peer.textContent = value;
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			this.peer.type = this.inputType;
 			this.peer.contentEditable = this.conf.readOnly ? false : true;
@@ -18,10 +18,10 @@ const pkg = {
 	Input: {
 		type$: "Editor",
 		nodeName: "input",
-		bind: function(value) {
+		bind(value) {
 			this.peer.value = value;
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			delete this.peer.contentEditable;
 			this.peer.type = this.inputType;
@@ -62,14 +62,14 @@ const pkg = {
 	Object: {
 		type$: "Editor",
 		dataType: "object",
-		bind: function(value) {
+		bind(value) {
 			this.textContent = "...";
 		}
 	},
 	Collection: {
 		type$: "Editor",
 		dataType: "object",
-		bind: function(value) {
+		bind(value) {
 			this.textContent = "...";
 		}
 	},
@@ -78,15 +78,15 @@ const pkg = {
 		extend$conf: {
 			readOnly: true
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			this.peer.tabIndex = 1;
 		},
 		extend$actions: {
-			click: function(event) {
+			click(event) {
 				event.subject = "activate";
 			},
-			keydown: function(event) {
+			keydown(event) {
 				if (event.key == "Enter" || event.key == " ") event.subject = "activate";
 			}
 		}

@@ -5,23 +5,23 @@ export default {
         type$: ["Control", "Origin", "Factory"],
         type$context: "AppContext",
         type$owner: "Owner",
-        get$folder: function() {
+        get$folder() {
             let name = this.conf.window.location.pathname;
             name = name.substring(name.lastIndexOf("/") + 1);
             name = name.substring(0, name.lastIndexOf("."));
             return "/file/" + name;
         },
-        runScript: function(name) {
+        runScript(name) {
             import(name).then(v => {
                 v.default.call(this);
             });
         },
-        start: function(conf) {
+        start(conf) {
             this.let("conf", conf);
             this.open(this.folder + "/app.json", "initializeApp");
             this.runScript(this.folder + "/index.mjs");
          },
-        initializeOwner: function() {
+        initializeOwner() {
             this.owner.origin = this;
             this.owner.editors = this.conf.editors;
             this.owner.start(this.conf);
@@ -35,10 +35,10 @@ export default {
             });
         },
         extend$actions: {
-            view: function(msg) {
+            view(msg) {
                 this.view.view(this.data[this.conf.dataset]);
             },
-            initializeApp: function(msg) {
+            initializeApp(msg) {
                 let conf = msg.response 
                     ? this.create(this.conf, JSON.parse(msg.response)) 
                     : this.create();
@@ -53,7 +53,7 @@ export default {
                 }
                 this.open(conf.dataSource, "initializeData");
             },
-            initializeContext: function(msg) {
+            initializeContext(msg) {
                 if (msg.response) {
                     let types = JSON.parse(msg.response);
                     this.types = this.create(types);
@@ -68,7 +68,7 @@ export default {
                 this.owner.append(this.view);
                 if (this.data) this.receive("view");
             },
-            initializeData: function(msg) {
+            initializeData(msg) {
                 let data = JSON.parse(msg.response);
                 this.data = this.create(data);
                 if (this.view) this.receive("view");
@@ -77,7 +77,7 @@ export default {
     },
     AppContext: {
         type$: "Context",
-        start: function(conf) {
+        start(conf) {
             console.log(conf);
         }
     }

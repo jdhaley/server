@@ -32,11 +32,11 @@ const pkg = {
             A context doesn't support declarations / configuration arguments -
             Those dependencies are "configured in".
         */
-        forName: function(name) {
+        forName(name) {
         }
     },
     Factory: {
-        create: function() {
+        create() {
             let module = this[Symbol.for("owner")];
             return module.create.apply(module, arguments);
         }
@@ -49,7 +49,7 @@ const pkg = {
         },
         package: {
         },
-        define: function(object, name, value, facet) {
+        define(object, name, value, facet) {
         }
     }
 }

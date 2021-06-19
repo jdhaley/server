@@ -3,12 +3,12 @@ let pkg = {
     Context: {
         // _dir: {
         // },
-        forName: function(name) {
+        forName(name) {
             if (name === "") return null;
             name = "" + name;
             return this.resolve(this._dir, name);
         },
-        resolve: function(component, pathname) {
+        resolve(component, pathname) {
             pathname = "" + pathname;
             if (pathname.startsWith("/")) pathname = pathname.substring(1);
             let componentName = "";
@@ -24,13 +24,13 @@ let pkg = {
             }
             return component;
         },
-        getProperty: function(component, name) {
+        getProperty(component, name) {
             return component[name];
         }
     },
     FactoryContext: {
         type$: ["Factory", "Context"],
-        getProperty: function(component, name) {
+        getProperty(component, name) {
             let value = component[name];
             if (this.isSource(value)) {
                 if (Object.getPrototypeOf(value) == Array.prototype) {
@@ -57,7 +57,7 @@ let pkg = {
         extend$use: {
             type$Owner: "/core/Module"
         },
-        load: function(source) {
+        load(source) {
             let pkg = source.package;
             for (let name in source.use) {
                 pkg[name] = source.use[name].package
@@ -71,7 +71,7 @@ let pkg = {
             console.log(module);
             return module;
         },
-        createContext: function() {
+        createContext() {
             //Create a context and have its owner close over it.
             //To some degree, this logic assume a Module as owner.
             let ctx = this.extend(this, {

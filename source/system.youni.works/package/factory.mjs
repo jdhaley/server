@@ -24,13 +24,13 @@ export default {
             facets: null,
             typeProperty: "type"
         },
-        symbolOf: function(key) {
+        forName(name, fromName) {
+        },
+        symbolOf(key) {
             if (key == "iterator") return Symbol.iterator;
             return Symbol.for(key);
         },
-        forName: function(name, fromName) {
-        },
-        compile: function(value) {
+        compile(value) {
             if (!value || typeof value != "object") {
                 return value;
             } else if (Object.getPrototypeOf(value) == Array.prototype) {
@@ -50,7 +50,7 @@ export default {
                 return value;
             }
         },
-        extend: function(type, source) {
+        extend(type, source) {
             let args = [];
             if (type && typeof type == "object" && type[Symbol.iterator]) {
                 let i = 0;
@@ -69,7 +69,7 @@ export default {
             if (args.length > 1) this.implement.apply(this, args);
             return target;
         },
-        implement: function(object, ...sources) {
+        implement(object, ...sources) {
             //TODO determine the guards or defaults for the object arg.
             let objectType = this.isType(object) ? object[Symbol.for("type")] : null;
             for (let source of sources) {
@@ -115,7 +115,7 @@ export default {
                 }
             }    
 		},
-		declare: function(object, name, value, facet) {
+		declare(object, name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
             if (this.isSource(value) && this.isTypeName(name)) {
@@ -131,38 +131,38 @@ export default {
                 expr: value
             });
 		},
-        define: function(object, name, value, facet) {
+        define(object, name, value, facet) {
             return this.declare(object, name, value, facet).define(object);
 		},
-        defineClass: function(object, name, supertype) {
+        defineClass(object, name, supertype) {
             object[Symbol.toStringTag] = name;
             object[Symbol.for("type")] = Object.create(supertype || null);
             object[Symbol.for("owner")] = this._owner;
         },        
-        facetOf: function(decl) {
+        facetOf(decl) {
 			if (typeof decl == "symbol") return "";
 			decl = "" + decl;
 			let index = decl.indexOf("$");
 			return index < 0 ? "" : decl.substr(0, index);
 		},
-		nameOf: function(decl) {
+		nameOf(decl) {
 			if (typeof decl == "symbol") return decl;
 			decl = "" + decl;
 			let index = decl.indexOf("$");
 			return index < 0 ? decl : decl.substring(index + 1);
 		},
-        isSource: function(value) {
+        isSource(value) {
 			return value && typeof value == "object" && (
                 Object.getPrototypeOf(value) == Object.prototype ||
                 Object.getPrototypeOf(value) == Array.prototype
             );
 		},
-        isType: function(value) {
+        isType(value) {
             return value &&
                 typeof value == "object" &&
                 Object.prototype.hasOwnProperty.call(value, Symbol.for("type"))
         },
-        isTypeName: function(name) {
+        isTypeName(name) {
             let first = name.substring(0, 1);
             return first == first.toUpperCase() && first != first.toLowerCase() ? true : false;
         }

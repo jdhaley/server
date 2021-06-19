@@ -3,7 +3,7 @@ export default {
     type$Shape: "/shape/Shape",
 	Handle: {
 		type$: "View",
-		bind: function(model) {
+		bind(model) {
 			let key = this.of.peer.$key;
 			this.peer.textContent = key;
 		}
@@ -13,10 +13,10 @@ export default {
 		use: {
 			type$Text: "/base/util/Text"
 		},
-		getCaption: function() {
+		getCaption() {
 			return this.conf.caption || this.use.Text.captionize(this.conf.name);
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			this.peer.classList.add(this.conf.name);
 //			let s = +(this.conf.columnSize) || 1;
@@ -27,19 +27,19 @@ export default {
 	},
 	Cell: {
 		type$: "Property",
-		get$elementType: function() {
+		get$elementType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
-		bind: function(model) {
+		bind(model) {
 			this.model = model && model[this.conf.name];
 		},
-		draw: function draw() {
+		draw() {
 			this.super(draw);
 			let ele = this.owner.create(this.elementType, this.conf);
 			this.append(ele);
 		},
 		extend$actions: {
-			activate: function(event) {
+			activate(event) {
 				let model = this.owner.origin.data[this.conf.dataset][this.model];
 				let type = this.owner.origin.types[this.conf.objectType];
 				let view = this.owner.create(this.conf.linkControl, type);

@@ -3,30 +3,30 @@ const pkg = {
 	View: {
 		type$: "HtmlElement",
 		type$owner: "Frame",
-		virtual$model: function() {
+		virtual$model() {
 			if (arguments.length) {
 				this.peer.$model = arguments[0];
 				return;
 			}
 			return this.peer.$model;
 		},
-		unbind: function() {
+		unbind() {
 			this.model = undefined;
 		},
-		bind: function(model) {
+		bind(model) {
 			this.model = model;
 		},
-		bindElement: function(view) {
+		bindElement(view) {
 			view.bind(this.model);
 		},
-		view: function(data) {
+		view(data) {
 			this.unbind();
 			this.draw();
 			this.bind(data);
 			this.owner.send(this, "view");
 		},
 		extend$actions: {
-			view: function(event) {
+			view(event) {
 				for (let view of this.to) {
 					view.unbind();
 					view.draw();
@@ -37,31 +37,32 @@ const pkg = {
 	},
 	Frame: {
 		type$: ["View", "DomOwner"],
-		get$owner: function() {
+		$window: null,
+		//
+		get$owner() {
 			return this;
 		},
-		$window: null,
-		get$document: function() {
+		get$document() {
 			return this.$window.document;
 		},
-		get$activeElement: function() {
+		get$activeElement() {
 			return this.document.activeElement;
 		},
-		get$selectionRange: function() {
+		get$selectionRange() {
 			let selection = this.$window.getSelection();
 			if (selection && selection.rangeCount) {
 				return selection.getRangeAt(0);
 			}
 			return this.document.createRange();
 		},
-		link: function(attrs) {
+		link(attrs) {
 			let ele = this.createNode("link");
 			for (let attr in attrs) {
 				ele.setAttribute(attr, attrs[attr]);
 			}
 			this.peer.ownerDocument.head.append(ele);
 		},              
-		toPixels: function(measure) {
+		toPixels(measure) {
 			let node = this.createNode("div");
 			node.style.height = measure;
 			this.peer.appendChild(node);
@@ -69,7 +70,7 @@ const pkg = {
 			node.parentNode.removeChild(node);
 			return px;
 		},
-		start: function(conf) {
+		start(conf) {
 			this.let("$window", conf.window);
 			this.document.body.$peer = this;
 			//console.log(this.toPixels("1mm"), this.toPixels("1pt"), this.toPixels("1in"));
@@ -79,23 +80,23 @@ const pkg = {
 
 			pkg.addEvents(this.$window, conf.gdr);
 		},
-		viewOf: function(node) {
+		viewOf(node) {
 			while(node) {
 				if (node.$peer) return node.$peer;
 				node = node.parentNode;
 			}
 		},
-		viewAt: function(x, y) {
+		viewAt(x, y) {
 			let target = this.$window.document.elementFromPoint(x, y);
 			return this.viewOf(target);
 		}
 	},
-	setAttributes: function(ele, at) {
+	setAttributes(ele, at) {
 		//TODO if attribute is an object, prefix the path iterator over it.
 		//above can handle the custom data attributes for html.
 		if (at) for (let name in at) peer.setAttribute(name, at[name]);
 	},
-	addEvents: function(peer, events) {
+	addEvents(peer, events) {
 		for (let name in events) {
 			let listener = events[name];
 			peer.addEventListener(name, listener);

@@ -4,10 +4,10 @@ export default {
 		type$: "Instance",
 		conf: {
 		},
-		start: function(conf) {
+		start(conf) {
 			if (conf) this.let("conf", conf, "extend");
 		},
-		receive: function(signal) {
+		receive(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];
 			action && action.call(this, signal);			
 		},
@@ -18,19 +18,19 @@ export default {
 		type$: "Control",
 		type$owner: "Owner",	//The graph.
 		type$to: "Array",		//The arcs. Each arc should be a Node.
-		append: function(component) {
+		append(component) {
 			Array.prototype.push.call(this.to, component);
 		}
 	},
 	Owner: {
-		create: function(controlType, conf) {
+		create(controlType, conf) {
 			let module = this[Symbol.for("owner")];
 			let control = module.create(controlType);
 			module.define(control, "owner", this, "const");
 			control.start(conf);
 			return control;
 		},
-		send: function(to, msg) {
+		send(to, msg) {
 			if (to.owner != this) console.warn("sending to a node not owned by this.");
 			msg = this.prepareSignal(msg);
 			this.log(to, msg);
@@ -45,7 +45,7 @@ export default {
 				}
 			}			
 		},
-		sense: function(on, event) {
+		sense(on, event) {
 			if (on.owner != this) console.warn("sensing on a node not owned by this.");
 			event = this.prepareSignal(event);
 			this.log(on, event);
@@ -57,7 +57,7 @@ export default {
 				on = on.of;
 			}
 		},
-		notify: function(on, signal) {
+		notify(on, signal) {
 			let model = signal.model || on.model;
 			let observers = model && model[Symbol.for("observers")];
 			if (!observers) return;
@@ -69,13 +69,13 @@ export default {
 				ctl.receive(signal);
 			}
 		},
-		prepareSignal: function(signal) {
+		prepareSignal(signal) {
 			if (typeof signal != "object") return {
 				subject: signal
 			}
 			return signal;
 		},
-		log: function(on, event) {
+		log(on, event) {
 			// const DONTLOG = ["receive", "track", "mousemove", "selectionchange"];
 			// for (let subject of DONTLOG) {
 			// 	if (event.subject == subject) return;
@@ -85,7 +85,7 @@ export default {
 	},
 	Observer: {
 		type$: "",
-		observe: function(object) {
+		observe(object) {
 			const OBSERVERS = Symbol.for("observers");
 			if (typeof object != "object" || object == null) return; //Only observe objects.
 			let observers = object[OBSERVERS];
@@ -99,7 +99,7 @@ export default {
 			}
 			observers.push(this);
 		},
-		unobserve: function(control, object) {
+		unobserve(control, object) {
 			const OBSERVERS = Symbol.for("observers");
 			let list = object ? object[OBSERVERS] : null;
 			if (list) for (let i = 0, len = list.length; i < len; i++) {

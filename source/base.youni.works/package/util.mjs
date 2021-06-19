@@ -1,13 +1,13 @@
 export default {
 	type$: "/system/core",
 	Text: {
-		isUpperCase: function(str) {
+		isUpperCase(str) {
 			return str == str.toUpperCase() && str != str.toLowerCase();
 		},
-		isLowerCase: function(str) {
+		isLowerCase(str) {
 			return str == str.toLowerCase() && str != str.toUpperCase();
 		},
-		captionize: function(name) {
+		captionize(name) {
 			let caption = "";
 			
 			if (name.indexOf("_") > 0) {
@@ -52,7 +52,7 @@ export default {
 			color: ["Color", "_color"],
 			boolean: ["Ind", "_ind", "Flag", "_flag"]
 		},
-		propertyOf: function(name, value) {
+		propertyOf(name, value) {
 			let dataType = this.propertyType(name, value);
 			let objectType = (dataType == "object" ? this.objectType(value) : "");
 		
@@ -65,7 +65,7 @@ export default {
 			if (objectType) property.objectType = objectType;
 			return property;
 		},
-		datatypeOf: function(value) {
+		datatypeOf(value) {
 			if (value === undefined ||
 				value === null ||
 				typeof value == "number" && isNaN(value)) return "void";
@@ -84,7 +84,7 @@ export default {
 					return "object";
 			}
 		},			
-		propertyType: function(name, value) {
+		propertyType(name, value) {
 			for (let type in this.typeSuffixes) {
 				for (let suffix of this.typeSuffixes[type]) {
 					if (name.endsWith(suffix)) return type;
@@ -95,7 +95,7 @@ export default {
 			let type = this.datatypeOf(value);
 			return type == "object" ? this.objectType(value) : type;
 		},
-		kindOf: function(name) {
+		kindOf(name) {
 			let kinds = ["link", "enum", "type"];
 			for (let type of kinds) {
 				for (let suffix of typeSuffixes[type]) {
@@ -103,7 +103,7 @@ export default {
 				}
 			}
 		},		
-		objectType: function(value) {
+		objectType(value) {
 			if (value instanceof Date) return "date";
 			if (value[Symbol.iterable] && typeof value.length == "number") return "array";
 			if (value.sys) return "instance";
