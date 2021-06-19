@@ -3,7 +3,12 @@ export default {
         type$: "",
         extend$conf: {
 			zone: {
-				border: 6,
+				border: {
+					top: 0,
+					right: 6,
+					bottom: 6,
+					left: 0
+				},
 				cursor: {
 					// "TL": "move",
 					// "TC": "move",
@@ -35,16 +40,16 @@ export default {
 			y -= rect.y;
 			let zone;
 
-			if (y < border) {
+			if (y < border.top) {
 				zone = "T";
-			} else if (y > rect.height - border) {
+			} else if (y > rect.height - border.bottom) {
 				zone = "B";
 			} else {
 				zone = "C";
 			}
-			if (x < border) {
+			if (x < border.left) {
 				zone += "L";
-			} else if (x > rect.width - border) {
+			} else if (x > rect.width - border.right) {
 				zone += "R";
 			} else {
 				zone += "C";
@@ -56,6 +61,7 @@ export default {
 		type$: "Zoned",
 		extend$actions: {
 			grab: function(event) {
+				if (event.track && event.track != this) return;
 				let zone = this.getZone(event.clientX, event.clientY);
 				let subject = this.conf.zone.subject[zone] || "";
 				if (!subject) return;
@@ -68,6 +74,7 @@ export default {
 					insideY: event.y - b.top
 				}
 				event.track = this;
+			//	event.subject = "";
 			},
 			drag: function(event) {
 				event.subject = this.peer.$tracking.subject;
@@ -96,14 +103,7 @@ export default {
 			},
 			moveover: function(event) {
 				let zone = this.getZone(event.clientX, event.clientY);
-
-				let cursor;
-				let trk = this.peer.$tracking;
-				if (trk) {
-					cursor = trk.cursor;
-				} else {
-					cursor = this.conf.zone.cursor[zone];	
-				}
+				let cursor = this.conf.zone.cursor[zone];
 				if (cursor) {
 					this.style.cursor = cursor;
 				} else {
@@ -117,14 +117,17 @@ export default {
 		type$: ["View", "Shape"],
 		extend$conf: {
 			zone: {
-				border: 6,
+				border: {
+					top: 0,
+					right: 8,
+					bottom: 12,
+					left: 0
+				},
 				cursor: {
-					"CC": "move",
 					"BC": "move",
 					"BR": "nwse-resize",
 				},
 				subject: {
-					"CC": "position",
 					"BC": "position",
 					"BR": "size",
 				}

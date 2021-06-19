@@ -4,7 +4,7 @@ const pkg = {
             event.subject = "grab";
             pkg.sense(event);
             if (event.track) {
-                event.preventDefault();
+//                event.preventDefault();
                 pkg.TRACK = event;
             } else {
                 pkg.TRACK = null;
