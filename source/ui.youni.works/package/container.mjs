@@ -101,9 +101,7 @@ export default {
 	},
 	Object: {
 		type$: "Record",
-		use: {
-			type$Typing: "/base/util/Typing"
-		},
+		type$typing: "/base/util/Typing",
 		once$members() {
 			let members = this.conf.members;
 			if (members && typeof members.length == "number") {
@@ -119,7 +117,7 @@ export default {
 			let props = Object.create(null);
 			for (let name in model) {
 				if (!this.members[name]) {
-					props[name] = this.use.Typing.propertyOf(name, model[name]);
+					props[name] = this.typing.propertyOf(name, model[name]);
 				}
 			}
 			this.properties = props;

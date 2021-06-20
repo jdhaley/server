@@ -37,10 +37,7 @@ export default {
 		}
 	},
 	Typing: {
-		type$: "Factory",
-		use: {
-			type$Text: "Text"
-		},
+		type$: ["Factory", "Text"],
 		datatypes: ["void", "boolean", "number", "date", "string", "array", "object"],
 		objecttypes: ["instance", "source", "record", "map", "function", "symbol", "other"],	
 		typeSuffixes: {
@@ -60,7 +57,7 @@ export default {
 				dynamic: true,
 				name: name,
 				dataType: dataType,
-				caption: this.use.Text.captionize(name)
+				caption: this.captionize(name)
 			});
 			if (objectType) property.objectType = objectType;
 			return property;

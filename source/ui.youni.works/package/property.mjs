@@ -10,11 +10,9 @@ export default {
 	},
 	Property: {
 		type$: ["View", "Shape"],
-		use: {
-			type$Text: "/base/util/Text"
-		},
+		type$textUtil: "/base/util/Text",
 		getCaption() {
-			return this.conf.caption || this.use.Text.captionize(this.conf.name);
+			return this.conf.caption || this.textUtil.captionize(this.conf.name);
 		},
 		draw() {
 			this.super(draw);

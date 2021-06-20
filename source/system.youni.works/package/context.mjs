@@ -54,8 +54,8 @@ let pkg = {
     },
     Loader: {
         type$: "FactoryContext",
-        extend$use: {
-            type$Owner: "/core/Module"
+        extend$conf: {
+            type$ownerType: "/core/Module"
         },
         load(source) {
             let pkg = source.package;
@@ -75,7 +75,7 @@ let pkg = {
             //Create a context and have its owner close over it.
             //To some degree, this logic assume a Module as owner.
             let ctx = this.extend(this, {
-                _owner: this.extend(this.use.Owner, {
+                _owner: this.extend(this.conf.ownerType, {
                     create: function () {
                         switch (arguments.length) {
                             case 0:

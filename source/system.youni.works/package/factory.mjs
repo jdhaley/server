@@ -16,14 +16,13 @@ export default {
         }
     },
     Factory: {
-        use: {
-            type$Object: "",
-            type$Array: "/core/Array"
-        },
         conf: {
-            facets: null,
-            typeProperty: "type"
+            facets: {
+            },
+            typeProperty: "type",
+            type$arrayType: "/core/Array",
         },
+        //_owner: object
         forName(name, fromName) {
         },
         symbolOf(key) {
@@ -34,7 +33,7 @@ export default {
             if (!value || typeof value != "object") {
                 return value;
             } else if (Object.getPrototypeOf(value) == Array.prototype) {
-                let array = this.extend(this.use.Array);
+                let array = this.extend(this.conf.arrayType);
                 for (let ele of value) {
                     ele = this.compile(ele);
                     Array.prototype.push.call(array, ele);
