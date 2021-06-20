@@ -19,10 +19,10 @@ const pkg = {
 			}
 			throw new TypeError("Invalid method argument.");
 		},
-        toString: function() {
+        toString() {
             return Object.prototype.toString.call(this);
         },
-		valueOf: function() {
+		valueOf() {
             return Object.prototype.valueOf.call(this);
         }
     },
