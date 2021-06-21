@@ -1,27 +1,26 @@
 export default { 
-    F2: {
-        conf: {
-            facets: {
-            }
-        },
-        symbolOf(key) {
+    Devt_System: {
+        type$conf: "Devt_FactoryClass",
+        symbolOf: function(key) {
             if (key == "iterator") return Symbol.iterator;
             return Symbol.for(key);
         },
-        create(...sources) {
+        create: function(...sources) {
         },
-        implement(object, ...sources) {
+        implement: function(object, ...sources) {
         },
-        declare(object, name, value, facet) {
+        declare: function(object, name, value, facet) {
         }
     },
-    Factory: {
-        conf: {
-            facets: {
-            },
-            typeProperty: "type",
-            type$arrayType: "/core/Array",
+    FactoryConf: {
+        typeProperty: "type",
+        facets: {
         },
+        type$arrayType: "/core/Array",
+        type$ownerType: "/core/Module"
+    },
+    Factory: {
+        type$conf: "FactoryConf",
         //_owner: object
         forName(name, fromName) {
         },
@@ -30,9 +29,13 @@ export default {
             return Symbol.for(key);
         },
         compile(value) {
-            if (!value || typeof value != "object") {
-                return value;
-            } else if (Object.getPrototypeOf(value) == Array.prototype) {
+            if (!value || typeof value != "object") return value;
+            if (!this._dir) {
+                let compiler = Object.create(this);
+                compiler._dir = value;
+                return compiler.compile(value);
+            }
+            if (Object.getPrototypeOf(value) == Array.prototype) {
                 let array = this.extend(this.conf.arrayType);
                 for (let ele of value) {
                     ele = this.compile(ele);
@@ -75,11 +78,11 @@ export default {
                 if (typeof source == "string") source = this.forName(source);
                 if (this.isType(source)) {
                     implementType(source[Symbol.for("type")]);
-                } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
-                    implementSource(source, this);
+                } else if (source && (Object.getPrototypeOf(source) == Object.prototype || !source[Symbol.for("type")])) {
+                    implementObject(source, this);
                 } else {
-                    throw new TypeError("Declarations must be a source or type object.");
-                }    
+                    throw new TypeError("Declarations must be a source, simple object, or class.");
+                }
             }
             function implementType(type) {
                 for (let name in type) {
@@ -87,7 +90,7 @@ export default {
                     type[name].define(object);
                 }
             }
-            function implementSource(source, sys) {
+            function implementObject(source, sys) {
                 for (let decl in source) {
                     if (decl != sys.conf.typeProperty) {
                         decl = sys.declare(object, sys.nameOf(decl), source[decl], sys.facetOf(decl));
@@ -121,9 +124,9 @@ export default {
                 //Signal to create a type:
                 value[Symbol.toStringTag] = name;
             }
-            value = this.compile(value);
+            //Facets are now responsible to compile the expr (extend$ needs the source object)
+            //value = this.compile(value);
             return fn.call(this, {
-                sys: this,
                 declaredBy: object,
                 facet: facet,
                 name: name,
