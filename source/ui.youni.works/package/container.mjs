@@ -1,12 +1,5 @@
 export default {
 	type$: "/view",
-	Value: {
-		type$: "View",
-		bind(model) {
-			this.super(bind, model);
-			this.peer.textContent = model;
-		}
-	},
 	Container: {
 		type$: "View",
 		get$elementType() {

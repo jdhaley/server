@@ -55,16 +55,16 @@ INPUT[type="date" i] {
 	border-style: solid;
 	border-color: silver;
 }
-.key, .caption, .cell {
+.key, .caption, .value {
 	display: flex;
 	padding: 2px;
 	border-bottom-width: 1px;
 }
-.caption, .cell {
+.caption, .value {
 	border-left-width: 1px;
 }
 
-.cell>* {
+.value>* {
 	flex: 1 1;
 }
 

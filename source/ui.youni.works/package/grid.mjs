@@ -1,8 +1,8 @@
 export default {
 	type$: "/container",
-	type$Caption: "/property/Caption",
-	type$Cell: "/property/Cell",
-	type$Key: "/property/Key",
+	type$Caption: "/cell/Caption",
+	type$Value: "/cell/Value",
+	type$Key: "/cell/Key",
 	Sheet: {
 		type$: "Object",
 		elementType: {
@@ -10,7 +10,7 @@ export default {
 			className: "part",
 			members: {
 				type$header: "Caption",
-				type$body: "Cell"
+				type$body: "Value"
 			}
 		}
 	},
@@ -38,7 +38,7 @@ export default {
 						type$header: "Key",
 						body: {
 							type$: "Record",
-							type$elementType: "Cell"
+							type$elementType: "Value"
 						}
 					}
 				}

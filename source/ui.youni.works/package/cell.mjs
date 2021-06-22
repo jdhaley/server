@@ -1,15 +1,8 @@
 export default {
     type$: "/view",
     type$Shape: "/shape/Shape",
-	Key: {
+	Cell: {
 		type$: "View",
-		bind(model) {
-			let key = this.of.peer.$key;
-			this.peer.textContent = key;
-		}
-	},
-	Property: {
-		type$: ["View", "Shape"],
 		type$textUtil: "/base/util/Text",
 		getCaption() {
 			return this.conf.caption || this.textUtil.captionize(this.conf.name);
@@ -23,18 +16,18 @@ export default {
 //			this.style.maxWidth = `${s}mm`;
 		}
 	},
-	Cell: {
-		type$: "Property",
+	Value: {
+		type$: "Cell",
 		get$elementType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
-		},
-		bind(model) {
-			this.model = model && model[this.conf.name];
 		},
 		draw() {
 			this.super(draw);
 			let ele = this.owner.create(this.elementType, this.conf);
 			this.append(ele);
+		},
+		bind(model) {
+			this.model = model && model[this.conf.name];
 		},
 		extend$actions: {
 			activate(event) {
@@ -52,7 +45,7 @@ export default {
 		}
 	},
 	Caption: {
-		type$: "Property",
+		type$: ["Cell", "Shape"],
 		draw: function draw() {
 			this.super(draw);
 			this.peer.draggable = true;
@@ -60,6 +53,13 @@ export default {
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
+		}
+	},
+	Key: {
+		type$: ["Cell", "Shape"],
+		bind(model) {
+			let key = this.of.peer.$key;
+			this.peer.textContent = key;
 		}
 	}
 }
