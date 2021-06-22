@@ -2,7 +2,7 @@ export default {
 	type$: "/container",
 	type$Caption: "/property/Caption",
 	type$Cell: "/property/Cell",
-	type$Handle: "/property/Handle",
+	type$Key: "/property/Key",
 	Sheet: {
 		type$: "Object",
 		elementType: {
@@ -21,11 +21,10 @@ export default {
 				type$: "Composite",
 				members: {
 					header: {
-						type$: "View",
-						className: "handle"
+						type$: "View"
 					},
 					body: {
-						type$: "Composite", //or Record?
+						type$: "Composite",
 						type$elementType: "Caption"
 					}
 				}
@@ -36,7 +35,7 @@ export default {
 					type$: "Composite",
 					className: "object",
 					members: {
-						type$header: "Handle",
+						type$header: "Key",
 						body: {
 							type$: "Record",
 							type$elementType: "Cell"

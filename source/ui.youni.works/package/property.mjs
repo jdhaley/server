@@ -1,7 +1,7 @@
 export default {
     type$: "/view",
     type$Shape: "/shape/Shape",
-	Handle: {
+	Key: {
 		type$: "View",
 		bind(model) {
 			let key = this.of.peer.$key;
