@@ -48,11 +48,25 @@ export default {
 		type$: ["Cell", "Shape"],
 		draw: function draw() {
 			this.super(draw);
+			if (!this.rule) this.createRule();
 			this.peer.draggable = true;
 			this.peer.innerText = this.getCaption();
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
+		},
+		createRule() {
+			if (this.conf.name != "issued") return;
+			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
+			this.rule = this.owner.createStyle(selector, {
+				background: "red"
+			});
+
+			function getParentId(node) {
+				for (; node; node = node.parentNode) {
+					if (node.id) return node.id;
+				}
+			}
 		}
 	},
 	Key: {
