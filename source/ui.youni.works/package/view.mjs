@@ -70,9 +70,27 @@ const pkg = {
 			node.parentNode.removeChild(node);
 			return px;
 		},
+		createId() {
+			let id = this.document.$lastId || 0;
+			this.document.$lastId = ++id;
+			return id;
+		},
+		createStyle(selector, object) {
+			let out = selector + " {";
+			if (object) for (let name in object) {
+				out += name + ":" + object[name] + ";"
+			}
+			out += "}";
+			let index = this.document.$styles.insertRule(out);
+			return this.document.$styles.cssRules[index];
+		},
 		start(conf) {
 			this.let("$window", conf.window);
 			this.document.body.$peer = this;
+			let ele = this.document.createElement("style");
+			ele.type = "text/css";
+			this.document.head.appendChild(ele);
+			this.document.$styles = ele.sheet;
 			//console.log(this.toPixels("1mm"), this.toPixels("1pt"), this.toPixels("1in"));
 			let events = conf.events();
 			pkg.addEvents(this.$window, events.windowEvents);

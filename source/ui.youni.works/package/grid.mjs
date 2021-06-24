@@ -59,6 +59,16 @@ export default {
 					}
 				}
 			}
-		}
+		},
+		get$id() {
+			return this.peer.id;
+		},
+		start(conf) {
+			this.super(start, conf);
+			this.peer.id = "I" + this.owner.createId();
+			this.rule = this.owner.createStyle("#" + this.peer.id, {
+				background: "green"
+			});
+		},
 	}
 }
