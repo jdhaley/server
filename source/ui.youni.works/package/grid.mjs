@@ -1,21 +1,29 @@
 export default {
 	type$: "/container",
 	type$Caption: "/cell/Caption",
-	type$Value: "/cell/Value",
+	type$Property: "/cell/Property",
 	type$Key: "/cell/Key",
+	Value: {
+		type$: "Record",
+		type$elementType: "/cell/Property"
+	},
+	Columns: {
+		type$: "Record",
+		type$elementType: "/cell/Caption"
+	},
 	Sheet: {
 		type$: "Record",
 		elementType: {
-			type$: "Composite",
+			type$: "Structure",
 			className: "part",
 			members: {
 				type$header: "Caption",
-				type$body: "Value"
+				type$body: "Property"
 			}
 		}
 	},
 	Section: {
-		type$: "Composite",
+		type$: "Structure",
 		direction: "vertical",
 		members: {
 			type$header: "View",
@@ -32,11 +40,11 @@ export default {
 		}
 	},
 	Row: {
-		type$: "Composite",
+		type$: "Structure",
 		direction: "horizontal",
 		members: {
 			type$key: "Key",
-			type$value: "View"
+			type$value: "Value"
 		}
 	},
 	Rows: {
@@ -44,16 +52,16 @@ export default {
 		elementType: "Row"
 	},
 	Grid: {
-		type$: "Composite",
+		type$: "Structure",
 		members: {
 			header: {
-				type$: "Composite",
+				type$: "Structure",
 				members: {
 					header: {
 						type$: "Key",
 					},
 					body: {
-						type$: "Composite",
+						type$: "Structure",
 						type$elementType: "Caption"
 					}
 				}
@@ -61,25 +69,25 @@ export default {
 			body: {
 				type$: "Collection",
 				elementType: {
-					type$: "Composite",
+					type$: "Structure",
 					className: "object",
 					members: {
 						type$header: "Key",
 						body: {
 							type$: "Record",
-							type$elementType: "Value"
+							type$elementType: "Property"
 						}
 					}
 				}
 			},
 			footer: {
-				type$: "Composite",
+				type$: "Structure",
 				members: {
 					header: {
 						type$: "Key"
 					},
 					body: {
-						type$: "Composite",
+						type$: "Structure",
 						elementType: {
 							type$: "Caption",
 							getCaption() {

@@ -38,7 +38,7 @@ export default {
 			return this.conf;
 		}
 	},
-	Composite: {
+	Structure: {
 		type$: "Container",
 		parts: {
 		},
@@ -86,7 +86,7 @@ export default {
 		}
 	},
 	Record: {
-		type$: ["Composite", "Observer"],
+		type$: ["Structure", "Observer"],
 		type$typing: "/base/util/Typing",
 		isDynamic: false,
 		once$members() {

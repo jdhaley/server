@@ -12,7 +12,7 @@ export default {
 			if (this.conf.name) this.peer.classList.add(this.conf.name);
 		}
 	},
-	Value: {
+	Property: {
 		type$: "Cell",
 		get$elementType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
