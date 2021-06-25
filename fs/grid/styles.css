@@ -32,31 +32,20 @@ BODY {
 INPUT[type="date" i] {
 	align-items: flex-start;
 }
-.header {
-	flex: 0 0;
-}
-.grid {
+.table {
 	display: flex;
 	flex-direction: column;
 }
-.object, .record {
+.row, .record {
 	display: flex;
 	flex: 1 1;
 }
-
-.grid>.header, .grid>.header>.body, .grid>.footer>.body {
-	display: flex;
-	flex-direction: row;
-	flex: 100;
-}
-.grid>.body {
+.rows {
 	display: flex;
 	flex-direction: column;
 }
-.grid>.footer {
-	display: flex;
-}
-.grid *, .sheet * {
+
+.table *, .sheet * {
 	border-width: 0;
 	border-style: solid;
 	border-color: silver;

@@ -4,7 +4,7 @@
 	"styles": "/file/grid/styles.css",
 	"components": {
 		"Frame": "/view/Frame",
-		"Object": "/grid/Grid"
+		"Object": "/grid/Table"
 	},
 	"objectType": "Issue",
 	"dataset": "Issue",

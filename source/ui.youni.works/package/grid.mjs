@@ -31,14 +31,14 @@ export default {
 			type$footer: "View"
 		}
 	},
-	Table: {
-		type$: "Section",
-		members: {
-			type$header: "Row",
-			type$body: "Rows",
-			type$footer: "Row"
-		}
-	},
+	// Table: {
+	// 	type$: "Section",
+	// 	members: {
+	// 		type$header: "Row",
+	// 		type$body: "Rows",
+	// 		type$footer: "Row"
+	// 	}
+	// },
 	Row: {
 		type$: "Structure",
 		direction: "horizontal",
@@ -49,31 +49,29 @@ export default {
 	},
 	Rows: {
 		type$: "Collection",
-		elementType: "Row"
+		type$elementType: "Row",
+		direction: "vertical"
 	},
-	Grid: {
-		type$: "Structure",
+	Table: {
+		type$: "Section",
 		members: {
 			header: {
-				type$: "Structure",
+				type$: "Row",
 				members: {
-					header: {
-						type$: "Key",
-					},
-					body: {
-						type$: "Structure",
+					type$key: "Key",
+					value: {
+						type$: "Record",
 						type$elementType: "Caption"
 					}
 				}
 			},
 			body: {
-				type$: "Collection",
+				type$: "Rows",
 				elementType: {
-					type$: "Structure",
-					className: "object",
+					type$: "Row",
 					members: {
-						type$header: "Key",
-						body: {
+						type$key: "Key",
+						value: {
 							type$: "Record",
 							type$elementType: "Property"
 						}
@@ -81,13 +79,11 @@ export default {
 				}
 			},
 			footer: {
-				type$: "Structure",
+				type$: "Row",
 				members: {
-					header: {
-						type$: "Key"
-					},
-					body: {
-						type$: "Structure",
+					type$key: "Key",
+					value: {
+						type$: "Record",
 						elementType: {
 							type$: "Caption",
 							getCaption() {
