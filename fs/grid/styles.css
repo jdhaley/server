@@ -15,7 +15,7 @@
 
 * {
 	min-width: 0; /*Helps to ensure flex aligns correctly */
-	flex-grow: 0;  /*TODO change to 1 when done devt */
+	flex-grow: 1;
 	flex-shrink: 1;
 	outline: 0;
 	margin: 0;
@@ -83,8 +83,8 @@ INPUT[type="date" i] {
 	cursor: default;
 }
 .key {
-	display: none;
 	border-left-width: 0;
+	flex: 0 0 5mm;
 	text-align: right;
 	color: silver;
 	overflow: hidden;

@@ -37,6 +37,7 @@
 			},
 			{
 				"name": "design",
+				"columnSize": 3,
 				"dataType": "link",
 				"objectType": "Design",
 				"dataset": "Design",
@@ -52,7 +53,7 @@
 			},
 			{
 				"name": "colors",
-				"columnSize": 4,
+				"columnSize": 3,
 				"inputType": "color"
 			},
 			{
