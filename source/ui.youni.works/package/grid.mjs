@@ -21,7 +21,7 @@ export default {
 				type$: "Composite",
 				members: {
 					header: {
-						type$: "View"
+						type$: "Key",
 					},
 					body: {
 						type$: "Composite",
@@ -47,14 +47,12 @@ export default {
 				type$: "Composite",
 				members: {
 					header: {
-						type$: "View",
-						className: "handle"
+						type$: "Key"
 					},
 					body: {
 						type$: "Composite",
 						elementType: {
-							type$: "View",
-							className: "caption"
+							type$: "Caption"
 						}
 					}
 				}

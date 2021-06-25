@@ -10,10 +10,9 @@ export default {
 		draw() {
 			this.super(draw);
 			this.peer.classList.add(this.conf.name);
-//			let s = +(this.conf.columnSize) || 1;
-//			this.style.flex = `${s} 1`;
-//			this.style.minWidth = `${s * 3}mm`;
-//			this.style.maxWidth = `${s}mm`;
+			let s = +(this.conf.columnSize) || 1;
+			this.style.flexBasis = `${s * 5}mm`;
+//			this.style.minWidth = `${s}em`;
 		}
 	},
 	Value: {
@@ -72,7 +71,7 @@ export default {
 	Key: {
 		type$: ["Cell", "Shape"],
 		bind(model) {
-			let key = this.of.peer.$key;
+			let key = this.of.peer.$key || "";
 			this.peer.textContent = key;
 		}
 	}

@@ -14,9 +14,6 @@
 }
 
 * {
-	min-width: 0; /*Helps to ensure flex aligns correctly */
-	flex-grow: 0;  /*TODO change to 1 when done devt */
-	flex-shrink: 1;
 	outline: 0;
 	margin: 0;
 	border: 0;
@@ -32,29 +29,26 @@ BODY {
 INPUT[type="date" i] {
 	align-items: flex-start;
 }
-.header {
-	flex: 0 0;
-}
 .grid {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 2fr 6fr 4fr 6fr 0fr 10fr 6fr;
 }
-.object, .record {
-	display: flex;
-	flex: 1 1;
+.grid>.header, .grid>.header>.body, .grid>.body, .grid>.body>.body {
+	display: contents;
 }
-
-.grid>.header, .grid>.header>.body, .grid>.footer>.body {
-	display: flex;
-	flex-direction: row;
-	flex: 100;
+.grid>.header {
+	display: contents;
+	position: sticky;
 }
 .grid>.body {
-	display: flex;
-	flex-direction: column;
+	display: contents;
 }
 .grid>.footer {
-	display: flex;
+	border: 2px solid salmon;
+	content: "sdfasdf";
+}
+.composite, .object, .record {
+	display: contents;
 }
 .grid *, .sheet * {
 	border-width: 0;
@@ -65,9 +59,6 @@ INPUT[type="date" i] {
 	display: flex;
 	padding: 2px;
 	border-bottom-width: 1px;
-	overflow: hidden;
-	min-width: 0;
-	min-height: 0;
 }
 .caption, .value {
 	border-left-width: 1px;
@@ -83,7 +74,6 @@ INPUT[type="date" i] {
 	cursor: default;
 }
 .key {
-	display: none;
 	border-left-width: 0;
 	text-align: right;
 	color: silver;
