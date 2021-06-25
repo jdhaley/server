@@ -33,11 +33,13 @@
 			{
 				"name": "issued",
 				"dataType": "date",
-				"columnSize": 7
+				"columnSize": 3.5,
+				"flex": false
 			},
 			{
 				"name": "design",
-				"columnSize": 3,
+				"columnSize": 2,
+				"flex": false,
 				"dataType": "link",
 				"objectType": "Design",
 				"dataset": "Design",
@@ -49,22 +51,23 @@
 			{
 				"name": "denom",
 				"caption": "Denomination",
-				"columnSize": 7
+				"columnSize": 4
 			},
 			{
 				"name": "colors",
-				"columnSize": 3,
+				"columnSize": 1.5,
+				"flex": false,
 				"inputType": "color"
 			},
 			{
 				"name": "subject",
-				"columnSize": 12
+				"columnSize": 6
 			},
 			{
 				"name": "image",
 				"dataType": "media",
 				"mediaType": "image",
-				"columnSize": 10
+				"columnSize": 8
 			}
 		]
 	}

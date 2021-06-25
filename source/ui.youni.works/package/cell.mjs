@@ -51,10 +51,11 @@ export default {
 		bind: function(model) {
 		},
 		createRule() {
-			let flex = (+(this.conf.columnSize) * 5 || 5) + "mm";
+			let flex = +(this.conf.columnSize);
 			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
 			this.rule = this.owner.createStyle(selector, {
-				"flex-basis": flex
+				"flex": (this.conf.flex === false ? "0 0 " : "1 1 ") + flex + "cm",
+				"min-width": flex / 2 + "cm"
 			});
 			console.log(this.rule);
 			function getParentId(node) {
