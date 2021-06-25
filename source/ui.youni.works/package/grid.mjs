@@ -31,14 +31,14 @@ export default {
 			type$footer: "View"
 		}
 	},
-	// Table: {
-	// 	type$: "Section",
-	// 	members: {
-	// 		type$header: "Row",
-	// 		type$body: "Rows",
-	// 		type$footer: "Row"
-	// 	}
-	// },
+	Sheet2: {
+		type$: "Section",
+		members: {
+			type$header: "Row",
+			type$body: "Rows",
+			type$footer: "Row"
+		}
+	},
 	Row: {
 		type$: "Structure",
 		direction: "horizontal",
@@ -79,19 +79,20 @@ export default {
 				}
 			},
 			footer: {
-				type$: "Row",
-				members: {
-					type$key: "Key",
-					value: {
-						type$: "Record",
-						elementType: {
-							type$: "Caption",
-							getCaption() {
-								return "";
-							}
-						}
-					}
-				}
+				type$: "Rows",
+				type$elementType: "View"
+				// members: {
+				// 	type$key: "Key",
+				// 	value: {
+				// 		type$: "Record",
+				// 		elementType: {
+				// 			type$: "Caption",
+				// 			getCaption() {
+				// 				return "";
+				// 			}
+				// 		}
+				// 	}
+				// }
 			}
 		},
 		get$id() {

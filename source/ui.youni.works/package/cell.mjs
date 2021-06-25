@@ -24,20 +24,6 @@ export default {
 		},
 		bind(model) {
 			this.model = model && model[this.conf.name];
-		},
-		extend$actions: {
-			activate(event) {
-				let model = this.owner.origin.data[this.conf.dataset][this.model];
-				let type = this.owner.origin.types[this.conf.objectType];
-				let view = this.owner.create(this.conf.linkControl, type);
-				this.owner.append(view);
-				let b = this.bounds;
-				view.bounds = {
-					left: b.left,
-					top: b.bottom
-				};
-				view.view(model);
-			}
 		}
 	},
 	Caption: {

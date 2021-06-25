@@ -43,10 +43,7 @@
 				"dataType": "link",
 				"objectType": "Design",
 				"dataset": "Design",
-				"linkControl": {
-					"type$": "/ui/shape/Pane",
-					"elementType": "/grid/Sheet"
-				}
+				"readOnly": false
 			},
 			{
 				"name": "denom",
