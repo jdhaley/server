@@ -2,6 +2,10 @@ export default {
 	type$: "/view",
 	Container: {
 		type$: "View",
+		/**
+		 * The common content type.
+		 * TODO: rename to contentType
+		 */
 		get$elementType() {
 			return this.conf.elementType;
 		},
@@ -83,18 +87,8 @@ export default {
 	},
 	Record: {
 		type$: ["Composite", "Observer"],
-		bind(model) {
-			this.observe(model);
-			this.model = model;
-		},
-		unbind() {
-			this.unobserve(this.model);
-			this.model = undefined;
-		}
-	},
-	Object: {
-		type$: "Record",
 		type$typing: "/base/util/Typing",
+		isDynamic: false,
 		once$members() {
 			let members = this.conf.members;
 			if (members && typeof members.length == "number") {
@@ -106,11 +100,19 @@ export default {
 			return members;
 		},
 		bind(model) {
-			this.super(bind, model);
+			this.observe(model);
+			this.model = model;
+			if (this.isDynamic) this.bindDynamic();
+		},
+		unbind() {
+			this.unobserve(this.model);
+			this.model = undefined;
+		},
+		bindDynamic() {
 			let props = Object.create(null);
-			for (let name in model) {
+			for (let name in this.model) {
 				if (!this.members[name]) {
-					props[name] = this.typing.propertyOf(name, model[name]);
+					props[name] = this.typing.propertyOf(name, this.model[name]);
 				}
 			}
 			this.properties = props;

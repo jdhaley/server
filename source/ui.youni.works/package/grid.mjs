@@ -4,7 +4,7 @@ export default {
 	type$Value: "/cell/Value",
 	type$Key: "/cell/Key",
 	Sheet: {
-		type$: "Object",
+		type$: "Record",
 		elementType: {
 			type$: "Composite",
 			className: "part",
@@ -13,6 +13,35 @@ export default {
 				type$body: "Value"
 			}
 		}
+	},
+	Section: {
+		type$: "Composite",
+		direction: "vertical",
+		members: {
+			type$header: "View",
+			type$body: "Collection",
+			type$footer: "View"
+		}
+	},
+	Table: {
+		type$: "Section",
+		members: {
+			type$header: "Row",
+			type$body: "Rows",
+			type$footer: "Row"
+		}
+	},
+	Row: {
+		type$: "Composite",
+		direction: "horizontal",
+		members: {
+			type$key: "Key",
+			type$value: "View"
+		}
+	},
+	Rows: {
+		type$: "Collection",
+		elementType: "Row"
 	},
 	Grid: {
 		type$: "Composite",
