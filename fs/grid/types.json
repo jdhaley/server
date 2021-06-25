@@ -33,7 +33,7 @@
 			{
 				"name": "issued",
 				"dataType": "date",
-				"columnSize": 6
+				"columnSize": 7
 			},
 			{
 				"name": "design",

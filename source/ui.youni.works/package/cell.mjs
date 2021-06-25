@@ -5,14 +5,11 @@ export default {
 		type$: "View",
 		type$textUtil: "/base/util/Text",
 		getCaption() {
-			return this.conf.caption || this.textUtil.captionize(this.conf.name);
+			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
 		},
 		draw() {
 			this.super(draw);
-			this.peer.classList.add(this.conf.name);
-			let s = +(this.conf.columnSize) || 1;
-			this.style.flexBasis = `${s * 5}mm`;
-//			this.style.minWidth = `${s}em`;
+			if (this.conf.name) this.peer.classList.add(this.conf.name);
 		}
 	},
 	Value: {
@@ -48,19 +45,18 @@ export default {
 		draw: function draw() {
 			this.super(draw);
 			if (!this.rule) this.createRule();
-			this.peer.draggable = true;
 			this.peer.innerText = this.getCaption();
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
 		},
 		bind: function(model) {
 		},
 		createRule() {
-			if (this.conf.name != "issued") return;
+			let flex = (+(this.conf.columnSize) * 5 || 5) + "mm";
 			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
 			this.rule = this.owner.createStyle(selector, {
-				background: "red"
+				"flex-basis": flex
 			});
-
+			console.log(this.rule);
 			function getParentId(node) {
 				for (; node; node = node.parentNode) {
 					if (node.id) return node.id;

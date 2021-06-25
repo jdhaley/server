@@ -52,7 +52,10 @@ export default {
 					body: {
 						type$: "Composite",
 						elementType: {
-							type$: "Caption"
+							type$: "Caption",
+							getCaption() {
+								return "";
+							}
 						}
 					}
 				}
