@@ -3,9 +3,14 @@ export default {
 	type$Caption: "/cell/Caption",
 	type$Property: "/cell/Property",
 	type$Key: "/cell/Key",
-	Value: {
-		type$: "Record",
-		type$elementType: "/cell/Property"
+	Section: {
+		type$: "Structure",
+		direction: "vertical",
+		members: {
+			type$header: "View",
+			type$body: "View",
+			type$footer: "View"
+		}
 	},
 	Row: {
 		type$: "Structure",
@@ -15,21 +20,9 @@ export default {
 			type$value: "View"
 		}
 	},
-	Columns: {
-		type$: "Row",
-		members: {
-			type$key: "Key",
-			type$value: "View"
-		}
-	},
-	Section: {
-		type$: "Structure",
-		direction: "vertical",
-		members: {
-			type$header: "View",
-			type$body: "Collection",
-			type$footer: "View"
-		}
+	Value: {
+		type$: "Record",
+		type$elementType: "/cell/Property"
 	},
 	Sheet: {
 		type$: "Section",
