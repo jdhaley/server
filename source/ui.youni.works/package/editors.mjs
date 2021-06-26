@@ -3,46 +3,33 @@ const pkg = {
 	Editor: {
 		type$: "View",
 		dataType: "",
-		get$inputType() {
-			return this.dataType;
-		},
-		bind(value) {
-			this.peer.textContent = value;
-		},
-		draw() {
-			this.super(draw);
-			this.peer.type = this.inputType;
-			this.peer.contentEditable = this.conf.readOnly ? false : true;
-		}
 	},
 	Input: {
 		type$: "Editor",
 		nodeName: "input",
-		bind(value) {
-			this.peer.value = value;
+		get$inputType() {
+			return this.dataType;
 		},
 		draw() {
 			this.super(draw);
-			delete this.peer.contentEditable;
 			this.peer.type = this.inputType;
 			if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
+		},
+		bind(value) {
+			this.peer.value = value;
 		}
-	},
-	String: {
-		type$: "Editor",
-		dataType: "string",
 	},
 	Number: {
 		type$: "Input",
 		dataType: "number"
 	},
-	Date: {
-		type$: "Input",
-		dataType: "date"
-	},
 	Boolean: {
 		type$: "Input",
 		dataType: "checkbox"
+	},
+	Date: {
+		type$: "Input",
+		dataType: "date"
 	},
 	Datetime: {
 		type$: "Date",
@@ -58,14 +45,18 @@ const pkg = {
 		dataType: "string",
 		inputType: "password"
 	},
-	//more work needed...
-	Object: {
+	String: {
 		type$: "Editor",
-		dataType: "object",
+		dataType: "string",
 		bind(value) {
-			this.textContent = "...";
+			this.peer.textContent = value;
+		},
+		draw() {
+			this.super(draw);
+			this.peer.contentEditable = this.conf.readOnly ? false : true;
 		}
 	},
+	//more work needed...
 	Collection: {
 		type$: "Editor",
 		dataType: "object",
@@ -73,17 +64,18 @@ const pkg = {
 			this.textContent = "...";
 		}
 	},
-	Link: {
+	Object: {
 		type$: "Editor",
-		extend$conf: {
-			readOnly: true,
-			linkControl: {
-				type$: "/shape/Pane",
-				elementType: "/grid/PropertySheet"
-			}
-		},
+		dataType: "object",
+		bind(value) {
+			this.textContent = "...";
+		}
+	},
+	LinkNav: {
+		type$: "View",
+		nodeName: "img",
 		draw() {
-			this.super(draw);
+			this.peer.src = "/target/link.svg";
 			this.peer.tabIndex = 1;
 		},
 		extend$actions: {
@@ -94,17 +86,41 @@ const pkg = {
 				if (event.key == "Enter" || event.key == " ") this.receive("navigate");
 			},
 			navigate(event) {
-				let model = this.owner.origin.data[this.conf.dataset][this.peer.textContent];
-				let type = this.owner.origin.types[this.conf.objectType];
-				let view = this.owner.create(this.conf.linkControl, type);
-				this.owner.append(view);
+				if (!this.pane) {
+					let type = this.owner.origin.types[this.conf.objectType];
+					let model = this.owner.origin.data[this.conf.dataset][this.of.model];
+
+					this.pane = this.owner.create(this.conf.linkControl, type);	
+					this.pane.view(model);
+				}
+				if (!this.pane.peer.parentNode) {
+					this.owner.append(this.pane);
+				}
 				let b = this.bounds;
-				view.bounds = {
+				this.pane.bounds = {
 					left: b.left,
 					top: b.bottom
 				};
-				view.view(model);
 			}
+		}
+	},
+	Link: {
+		type$: "Editor",
+		extend$conf: {
+			type$linkNavControl: "LinkNav",
+			linkControl: {
+				type$: "/shape/Pane",
+				elementType: "/grid/PropertySheet"
+			},
+			type$editorControl: "String"
+		},
+		draw() {
+			this.super(draw);
+			this.value = this.owner.create(this.conf.editorControl, this.conf);
+			this.peer.tabIndex = 1;
+			this.append(this.value);
+			this.icon = this.owner.create(this.conf.linkNavControl, this.conf);
+			this.append(this.icon);
 		}
 	}
 }

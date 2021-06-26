@@ -33,12 +33,12 @@
 			{
 				"name": "issued",
 				"dataType": "date",
-				"columnSize": 3.5,
+				"columnSize": 4,
 				"flex": false
 			},
 			{
 				"name": "design",
-				"columnSize": 2,
+				"columnSize": 3,
 				"flex": false,
 				"dataType": "link",
 				"objectType": "Design",
@@ -52,7 +52,7 @@
 			},
 			{
 				"name": "colors",
-				"columnSize": 1.5,
+				"columnSize": 2,
 				"flex": false,
 				"inputType": "color"
 			},
