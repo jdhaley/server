@@ -79,7 +79,7 @@ const pkg = {
 			readOnly: true,
 			linkControl: {
 				type$: "/shape/Pane",
-				elementType: "/grid/Sheet"
+				elementType: "/grid/PropertySheet"
 			}
 		},
 		draw() {

@@ -7,19 +7,19 @@ export default {
 		type$: "Record",
 		type$elementType: "/cell/Property"
 	},
-	Columns: {
-		type$: "Record",
-		type$elementType: "/cell/Caption"
+	Row: {
+		type$: "Structure",
+		direction: "horizontal",
+		members: {
+			type$key: "Key",
+			type$value: "View"
+		}
 	},
-	Sheet: {
-		type$: "Record",
-		elementType: {
-			type$: "Structure",
-			className: "part",
-			members: {
-				type$header: "Caption",
-				type$body: "Property"
-			}
+	Columns: {
+		type$: "Row",
+		members: {
+			type$key: "Key",
+			type$value: "View"
 		}
 	},
 	Section: {
@@ -31,26 +31,33 @@ export default {
 			type$footer: "View"
 		}
 	},
-	Sheet2: {
+	Sheet: {
 		type$: "Section",
 		members: {
-			type$header: "Row",
+			type$header: "View",
 			type$body: "Rows",
-			type$footer: "Row"
-		}
-	},
-	Row: {
-		type$: "Structure",
-		direction: "horizontal",
-		members: {
-			type$key: "Key",
-			type$value: "Value"
+			type$footer: "View"
 		}
 	},
 	Rows: {
 		type$: "Collection",
 		type$elementType: "Row",
 		direction: "vertical"
+	},
+	PropertySheet: {
+		type$: "Sheet",
+		members: {
+			body: {
+				type$: "Record",
+				elementType: {
+					type$: "Row",
+					members: {
+						type$key: "Caption",
+						type$value: "Property"
+					}
+				}
+			}
+		}
 	},
 	Table: {
 		type$: "Section",

@@ -44,7 +44,9 @@ INPUT[type="date" i] {
 	display: flex;
 	flex-direction: column;
 }
-
+.propertySheet>.record {
+	flex-direction: column;
+}
 .table *, .sheet * {
 	border-width: 0;
 	border-style: solid;
@@ -98,29 +100,4 @@ INPUT[type="date" i] {
 	box-shadow: 0 0 10px silver;
 	min-width: 24px;
 	min-height: 18px;
-}
-.list {
-	overflow: auto;
-	background: window;
-}
-.list>.property {
-	border-bottom: 1px solid gainsboro;
-	font-size: 16px;
-	padding: 2px;
-	min-height: 24px;
-}
-
-
-.sheet {
-	display: grid;
-	grid-template-columns: 1fr 3fr;
-	background: white;
-	overflow: auto;
-}
-.sheet>.part {
-	display: contents;
-}
-.dynamic LABEL {
-	font-style: italic;
-	font-weight: bold;
 }
