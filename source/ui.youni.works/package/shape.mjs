@@ -112,7 +112,7 @@ export default {
 			}
 		}
 	},
-	type$Display: "/view/Display",
+	type$Display: "/display/Display",
 	Pane: {
 		type$: ["Display", "Shape"],
 		extend$conf: {

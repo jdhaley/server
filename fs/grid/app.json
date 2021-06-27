@@ -3,7 +3,7 @@
 	"icon": "/file/grid/icon.png",
 	"styles": "/file/grid/styles.css",
 	"components": {
-		"Frame": "/view/Frame",
+		"Frame": "/display/Frame",
 		"Object": "/grid/Table"
 	},
 	"objectType": "Issue",

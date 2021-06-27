@@ -1,10 +1,10 @@
 const pkg = {
-	type$: "/view",
+	type$: "/display",
 	use: {
 		type$command: "/base/command"
 	},
 	$public: {
-		type$: "/view",
+		type$: "/display",
 		DrawCommand: {
 			type$: "use/command/Command",
 			title: "Move/Size Shape",

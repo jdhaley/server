@@ -1,5 +1,5 @@
 export default {
-	type$: "/view",
+	type$: "/display",
 	Structure: {
 		type$: ["Display", "Container"],
 		parts: {

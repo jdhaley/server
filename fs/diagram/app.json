@@ -3,7 +3,7 @@
 	"icon": "/file/diagram/icon.png",
 	"styles": "/file/diagram/styles.css",
 	"components": {
-		"Frame": "/ui.youni.works/view/Frame",
+		"Frame": "/ui.youni.works/display/Frame",
 		"Object": "/ui.youni.works/diagram/Diagram"
 	},
 	"dataSource": "/file/diagram/diagram.json"

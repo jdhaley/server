@@ -3,7 +3,7 @@
 	"icon": "/file/test/icon.png",
 	"styles": "/file/test/styles.css",
 	"components": {
-		"Frame": "/ui.youni.works/view/Frame",
+		"Frame": "/ui.youni.works/display/Frame",
 		"Object": "/ui.youni.works/grid/Sheet"
 	},
 	"objectType": "Issues",

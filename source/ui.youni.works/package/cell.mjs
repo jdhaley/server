@@ -1,5 +1,5 @@
 export default {
-    type$: "/view",
+    type$: "/display",
     type$Shape: "/shape/Shape",
 	Cell: {
 		type$: "Display",
