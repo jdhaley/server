@@ -16,7 +16,7 @@ const pkg = {
 		bind(model) {
 			this.model = model;
 		},
-		bindElement(view) {
+		bindContent(view) {
 			view.bind(this.model);
 		},
 		view(data) {
@@ -30,9 +30,36 @@ const pkg = {
 				for (let view of this.to) {
 					view.unbind();
 					view.draw();
-					this.bindElement(view);
+					this.bindContent(view);
 				}
 			}
+		}
+	},
+	Container: {
+		type$: "View",
+		/**
+		 * The common content type.
+		 * TODO: rename to contentType
+		 */
+		get$contentType() {
+			return this.conf.contentType;
+		},
+		createContent(value, key, object) {
+			let type = this.typeFor(value, key);
+			let conf = this.configurationFor(value, key);
+			let control = this.owner.create(type, conf);
+			control.peer.$key = this.keyFor(value, key);
+			this.append(control);
+			return control;
+		},
+		keyFor(value, key) {
+			return key;
+		},
+		typeFor(value, key) {
+			return this.contentType;
+		},
+		configurationFor(value, key) {
+			return this.conf;
 		}
 	},
 	Frame: {
@@ -54,14 +81,7 @@ const pkg = {
 				return selection.getRangeAt(0);
 			}
 			return this.document.createRange();
-		},
-		link(attrs) {
-			let ele = this.createNode("link");
-			for (let attr in attrs) {
-				ele.setAttribute(attr, attrs[attr]);
-			}
-			this.peer.ownerDocument.head.append(ele);
-		},              
+		},          
 		toPixels(measure) {
 			let node = this.createNode("div");
 			node.style.height = measure;
@@ -69,11 +89,6 @@ const pkg = {
 			let px = node.getBoundingClientRect().height;
 			node.parentNode.removeChild(node);
 			return px;
-		},
-		createId() {
-			let id = this.document.$lastId || 0;
-			this.document.$lastId = ++id;
-			return id;
 		},
 		createStyle(selector, object) {
 			let out = selector + " {";

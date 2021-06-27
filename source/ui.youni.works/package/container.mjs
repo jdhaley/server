@@ -1,43 +1,5 @@
 export default {
 	type$: "/view",
-	Container: {
-		type$: "View",
-		/**
-		 * The common content type.
-		 * TODO: rename to contentType
-		 */
-		get$contentType() {
-			return this.conf.contentType;
-		},
-		forEach(object, method) {
-			if (object && typeof object.length == "number") {
-				for (let i = 0, length = object.length; i < length; i++) {
-					method.call(this, object[i], i, object);
-				}
-			} else {
-				for (let name in object) {
-					method.call(this, object[name], name, object);
-				}
-			}
-		},
-		createContent(value, key, object) {
-			let type = this.typeFor(value, key);
-			let conf = this.configurationFor(value, key);
-			let control = this.owner.create(type, conf);
-			control.peer.$key = this.keyFor(value, key);
-			this.append(control);
-			return control;
-		},
-		keyFor(value, key) {
-			return key;
-		},
-		typeFor(value, key) {
-			return this.contentType;
-		},
-		configurationFor(value, key) {
-			return this.conf;
-		}
-	},
 	Structure: {
 		type$: "Container",
 		parts: {
@@ -81,7 +43,7 @@ export default {
 			this.unobserve(this.model);
 			this.model = undefined;
 		},
-		bindElement(view) {
+		bindContent(view) {
 			view.bind(this.model[view.peer.$key]);
 		}
 	},

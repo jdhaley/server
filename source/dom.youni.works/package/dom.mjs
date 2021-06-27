@@ -17,6 +17,19 @@ export default {
 				return this.document.createElement(name);
 			}
 		},
+		createId() {
+			let id = this.document.$lastId || 0;
+			this.document.$lastId = ++id;
+			return id;
+		},
+		link(attrs) {
+			let node = this.createNode("link");
+			for (let attr in attrs) {
+				node.setAttribute(attr, attrs[attr]);
+			}
+			this.document.head.append(node);
+			return node;
+		},
 		sense(on, event) {
 			this.super(sense, on, event);
 			if (event.preventDefault && !event.subject) event.preventDefault();
