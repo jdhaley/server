@@ -104,9 +104,19 @@ export default {
 				return decl;
 			},
 			extend: function(decl) {
-				if (typeof decl.expr != "object") throw new Error("extend facet requires an object expression.");
+				if (typeof decl.expr != "object") throw new Error("extend facet requires an object or array expression.");
 				decl.define = function(object) {
 					let ext = Object.create(object[decl.name] || null);
+					if (decl.expr[Symbol.iterator]) {
+						for (let value of decl.expr) {
+							if (value && value.name) {
+								ext[value.name] = value;
+							}
+							else {
+								console.warn("Array extend element does not contain a name property. Igonoring.");
+							}
+						}
+					}
 					for (let name in decl.expr) {
 						ext[name] = decl.expr[name];
 					}

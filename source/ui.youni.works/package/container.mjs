@@ -51,6 +51,8 @@ export default {
 		type$: ["Structure", "Observer"],
 		type$typing: "/base/util/Typing",
 		isDynamic: false,
+		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
+		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
 		once$members() {
 			let members = this.conf.members;
 			if (members && typeof members.length == "number") {
