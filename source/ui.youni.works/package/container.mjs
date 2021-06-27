@@ -118,5 +118,14 @@ export default {
 			this.properties = props;
 			this.forEach(props, this.createElement);
 		}
+	},
+	Section: {
+		type$: "Structure",
+		direction: "vertical",
+		members: {
+			type$header: "View",
+			type$body: "View",
+			type$footer: "View"
+		}
 	}
 }

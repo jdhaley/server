@@ -3,15 +3,6 @@ export default {
 	type$Caption: "/cell/Caption",
 	type$Property: "/cell/Property",
 	type$Key: "/cell/Key",
-	Section: {
-		type$: "Structure",
-		direction: "vertical",
-		members: {
-			type$header: "View",
-			type$body: "View",
-			type$footer: "View"
-		}
-	},
 	Row: {
 		type$: "Structure",
 		direction: "horizontal",
