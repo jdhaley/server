@@ -36,7 +36,7 @@ const pkg = {
 		}
 	},
 	Frame: {
-		type$: ["View", "DomOwner"],
+		type$: ["View", "Document"],
 		$window: null,
 		//
 		get$owner() {

@@ -1,6 +1,6 @@
 export default {
 	type$: "/base/control",
-	DomOwner: {
+	Document: {
 		type$: "Owner",
 		document: null,
 		get$peer() {
@@ -28,9 +28,9 @@ export default {
 			return signal;
 		}
 	},
-	DomNode: {
+	Element: {
 		type$: "Node",
-		type$owner: "DomOwner",
+		type$owner: "Document",
 		once$nodeName() {
 			return this.className;
 		},
@@ -66,7 +66,7 @@ export default {
 		}
 	},
 	HtmlElement: {
-		type$: "DomNode",
+		type$: "Element",
 		nodeName: "div",
 		extend$conf: {
 			minWidth: 0,
