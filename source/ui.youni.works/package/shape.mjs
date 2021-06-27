@@ -112,9 +112,9 @@ export default {
 			}
 		}
 	},
-	type$View: "/view/View",
+	type$Display: "/view/Display",
 	Pane: {
-		type$: ["View", "Shape"],
+		type$: ["Display", "Shape"],
 		extend$conf: {
 			zone: {
 				border: {

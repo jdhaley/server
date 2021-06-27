@@ -1,7 +1,7 @@
 export default {
 	type$: "/view",
 	Structure: {
-		type$: "Container",
+		type$: ["Display", "Container"],
 		parts: {
 		},
 		get$members() {
@@ -33,7 +33,7 @@ export default {
 		}
 	},
 	Collection: {
-		type$: ["Container", "Observer"],
+		type$: ["Display", "Container", "Observer"],
 		bind(model) {
 			this.observe(model);
 			this.model = model;
@@ -85,9 +85,9 @@ export default {
 		type$: "Structure",
 		direction: "vertical",
 		members: {
-			type$header: "View",
-			type$body: "View",
-			type$footer: "View"
+			type$header: "Display",
+			type$body: "Display",
+			type$footer: "Display"
 		}
 	}
 }

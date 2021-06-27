@@ -1,69 +1,35 @@
 const pkg = {
 	type$: "/dom/dom",
-	View: {
-		type$: "HtmlElement",
+	Display: {
+		type$: "Element",
 		type$owner: "Frame",
-		virtual$model() {
+		nodeName: "div",
+		extend$conf: {
+			minWidth: 0,
+			minHeight: 0	
+		},
+		get$style() {
+			return this.peer.style;
+		},
+		virtual$bounds() {
 			if (arguments.length) {
-				this.peer.$model = arguments[0];
-				return;
+				let rect = arguments[0];
+				if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
+				if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
+				if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
+				if (rect.left !== undefined) this.style.left = rect.left + "px";
+				if (rect.top !== undefined) this.style.top = rect.top + "px";
+			} else {
+				return this.peer.getBoundingClientRect();
 			}
-			return this.peer.$model;
 		},
-		unbind() {
-			this.model = undefined;
-		},
-		bind(model) {
-			this.model = model;
-		},
-		bindContent(view) {
-			view.bind(this.model);
-		},
-		view(data) {
-			this.unbind();
-			this.draw();
-			this.bind(data);
-			this.owner.send(this, "view");
-		},
-		extend$actions: {
-			view(event) {
-				for (let view of this.to) {
-					view.unbind();
-					view.draw();
-					this.bindContent(view);
-				}
-			}
-		}
-	},
-	Container: {
-		type$: "View",
-		/**
-		 * The common content type.
-		 * TODO: rename to contentType
-		 */
-		get$contentType() {
-			return this.conf.contentType;
-		},
-		createContent(value, key, object) {
-			let type = this.typeFor(value, key);
-			let conf = this.configurationFor(value, key);
-			let control = this.owner.create(type, conf);
-			control.peer.$key = this.keyFor(value, key);
-			this.append(control);
-			return control;
-		},
-		keyFor(value, key) {
-			return key;
-		},
-		typeFor(value, key) {
-			return this.contentType;
-		},
-		configurationFor(value, key) {
-			return this.conf;
+		draw() {
+			this.peer.textContext = "";
+			this.peer.classList.add(this.className);
 		}
 	},
 	Frame: {
-		type$: ["View", "Document"],
+		type$: ["Display", "Document"],
 		$window: null,
 		//
 		get$owner() {
@@ -136,7 +102,7 @@ const pkg = {
 		}
 	},
 	$public: {
-		type$View: "View",
+		type$Display: "Display",
 		type$Frame: "Frame"
 	}
 }

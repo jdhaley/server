@@ -5,7 +5,7 @@ export default {
 		direction: "horizontal",
 		members: {
 			context: {
-                type$: "View"
+                type$: "Display"
             },
 			sidebar: {
                 type$: "Collection",
@@ -15,7 +15,7 @@ export default {
                 type$: "Structure",
                 members: {
                     tabs: {
-                        type$: "View"
+                        type$: "Display"
                     },
 
                 }

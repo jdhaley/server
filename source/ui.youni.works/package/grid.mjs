@@ -8,7 +8,7 @@ export default {
 		direction: "horizontal",
 		members: {
 			type$key: "Key",
-			type$value: "View"
+			type$value: "Display"
 		}
 	},
 	Value: {
@@ -18,9 +18,9 @@ export default {
 	Sheet: {
 		type$: "Section",
 		members: {
-			type$header: "View",
+			type$header: "Display",
 			type$body: "Rows",
-			type$footer: "View"
+			type$footer: "Display"
 		}
 	},
 	Rows: {
@@ -71,7 +71,7 @@ export default {
 			},
 			footer: {
 				type$: "Rows",
-				type$contentType: "View"
+				type$contentType: "Display"
 				// members: {
 				// 	type$key: "Key",
 				// 	value: {

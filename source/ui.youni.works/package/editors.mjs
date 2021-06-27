@@ -1,7 +1,7 @@
 const pkg = {
 	type$: "/view",
 	Editor: {
-		type$: "View",
+		type$: "Display",
 		dataType: "",
 	},
 	Input: {
@@ -72,7 +72,7 @@ const pkg = {
 		}
 	},
 	LinkNav: {
-		type$: "View",
+		type$: "Display",
 		nodeName: "img",
 		draw() {
 			this.peer.src = "/target/link.svg";

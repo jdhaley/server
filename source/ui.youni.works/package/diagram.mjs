@@ -37,7 +37,7 @@ const pkg = {
 			}
 		},
 		Diagram: {
-			type$: ["View", "Observer"],
+			type$: ["Display", "Observer"],
 			//DOC why use.Commands & type$commands.
 			//TODO rationalize the use vs. type. Come up with a better pattern.
 			use: {
@@ -91,7 +91,7 @@ const pkg = {
 			}
 		},
 		Shape: {
-			type$: ["View", "Observer"],
+			type$: ["Display", "Observer"],
 			use: {
 				type$DrawCommand: "DrawCommand"
 			},
@@ -251,7 +251,7 @@ const pkg = {
 			}
 		},
 		Text: {
-			type$: "View",
+			type$: "Display",
 			bind: function(model) {
 				this.model = model.content;
 			},
@@ -275,7 +275,7 @@ const pkg = {
 			}
 		},
 		Connector: {
-			type$: "View"
+			type$: "Display"
 		}
 	},
 	ZONE_CURSOR: {

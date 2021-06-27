@@ -42,7 +42,7 @@ export default {
 		}
 	},
 	Element: {
-		type$: "Node",
+		type$: "View",
 		type$owner: "Document",
 		once$nodeName() {
 			return this.className;
@@ -76,33 +76,6 @@ export default {
 		},
 		append(control) {
 			this.peer.append(control.peer);
-		}
-	},
-	HtmlElement: {
-		type$: "Element",
-		nodeName: "div",
-		extend$conf: {
-			minWidth: 0,
-			minHeight: 0	
-		},
-		get$style() {
-			return this.peer.style;
-		},
-		draw() {
-			this.peer.textContext = "";
-			this.peer.classList.add(this.className);
-		},
-		virtual$bounds() {
-			if (arguments.length) {
-				let rect = arguments[0];
-				if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
-				if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
-				if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
-				if (rect.left !== undefined) this.style.left = rect.left + "px";
-				if (rect.top !== undefined) this.style.top = rect.top + "px";
-			} else {
-				return this.peer.getBoundingClientRect();
-			}
 		}
 	}
 }

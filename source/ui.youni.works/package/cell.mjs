@@ -2,7 +2,7 @@ export default {
     type$: "/view",
     type$Shape: "/shape/Shape",
 	Cell: {
-		type$: "View",
+		type$: "Display",
 		type$textUtil: "/base/util/Text",
 		getCaption() {
 			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
