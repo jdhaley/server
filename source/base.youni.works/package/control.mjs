@@ -20,6 +20,18 @@ export default {
 		type$to: "Array",		//The arcs. Each arc should be a Node.
 		append(component) {
 			Array.prototype.push.call(this.to, component);
+		},
+		forEach(data, method) {
+			if (data && data[Symbol.iterator]) {
+				let i = 0;
+				for (let datum of data) {
+					method.call(this, datum, i++, data);
+				}
+			} else {
+				for (let name in data) {
+					method.call(this, data[name], name, data);
+				}
+			}
 		}
 	},
 	Owner: {
