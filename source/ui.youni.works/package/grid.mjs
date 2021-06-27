@@ -13,7 +13,7 @@ export default {
 	},
 	Value: {
 		type$: "Record",
-		type$elementType: "/cell/Property"
+		type$contentType: "/cell/Property"
 	},
 	Sheet: {
 		type$: "Section",
@@ -25,7 +25,7 @@ export default {
 	},
 	Rows: {
 		type$: "Collection",
-		type$elementType: "Row",
+		type$contentType: "Row",
 		direction: "vertical"
 	},
 	PropertySheet: {
@@ -33,7 +33,7 @@ export default {
 		members: {
 			body: {
 				type$: "Record",
-				elementType: {
+				contentType: {
 					type$: "Row",
 					members: {
 						type$key: "Caption",
@@ -52,31 +52,31 @@ export default {
 					type$key: "Key",
 					value: {
 						type$: "Record",
-						type$elementType: "Caption"
+						type$contentType: "Caption"
 					}
 				}
 			},
 			body: {
 				type$: "Rows",
-				elementType: {
+				contentType: {
 					type$: "Row",
 					members: {
 						type$key: "Key",
 						value: {
 							type$: "Record",
-							type$elementType: "Property"
+							type$contentType: "Property"
 						}
 					}
 				}
 			},
 			footer: {
 				type$: "Rows",
-				type$elementType: "View"
+				type$contentType: "View"
 				// members: {
 				// 	type$key: "Key",
 				// 	value: {
 				// 		type$: "Record",
-				// 		elementType: {
+				// 		contentType: {
 				// 			type$: "Caption",
 				// 			getCaption() {
 				// 				return "";

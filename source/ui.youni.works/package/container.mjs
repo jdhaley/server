@@ -6,8 +6,8 @@ export default {
 		 * The common content type.
 		 * TODO: rename to contentType
 		 */
-		get$elementType() {
-			return this.conf.elementType;
+		get$contentType() {
+			return this.conf.contentType;
 		},
 		forEach(object, method) {
 			if (object && typeof object.length == "number") {
@@ -32,7 +32,7 @@ export default {
 			return key;
 		},
 		typeFor(value, key) {
-			return this.elementType;
+			return this.contentType;
 		},
 		configurationFor(value, key) {
 			return this.conf;
@@ -61,10 +61,10 @@ export default {
 		},
 		typeFor(value, key) {
 			if (value && typeof value == "object") {
-				return value.receive ? value : value.elementType || this.elementType;
+				return value.receive ? value : value.contentType || this.contentType;
 			}
 			debugger;
-			return this[Symbol.for("owner")].forName("" + value) || this.elementType;
+			return this[Symbol.for("owner")].forName("" + value) || this.contentType;
 		},
 		configurationFor(value, key) {
 			return value && typeof value == "object" && !value.receive ? value : this.conf;

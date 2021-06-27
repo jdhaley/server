@@ -14,12 +14,12 @@ export default {
 	},
 	Property: {
 		type$: "Cell",
-		get$elementType() {
+		get$contentType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
 		draw() {
 			this.super(draw);
-			let ele = this.owner.create(this.elementType, this.conf);
+			let ele = this.owner.create(this.contentType, this.conf);
 			this.append(ele);
 		},
 		bind(model) {

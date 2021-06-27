@@ -133,15 +133,15 @@ export default {
 				}
 			},	
 		},
-		get$elementType() {
-			return this.conf.elementType;
+		get$contentType() {
+			return this.conf.contentType;
 		},
 		get$elementConf() {
 			return this.conf;
 		},
 		draw() {
 			this.super(draw);
-			let type = this.elementType;
+			let type = this.contentType;
 			let conf = this.elementConf;
 			let control = this.owner.create(type, conf);
 			this.append(control);

@@ -9,7 +9,7 @@ export default {
             },
 			sidebar: {
                 type$: "Collection",
-                type$elementType: "Section"
+                type$contentType: "Section"
             },
 			main: {
                 type$: "Structure",
