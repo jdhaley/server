@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+    background: lightsteelblue;
+}
+*::-webkit-scrollbar-track {
+	background: ghostwhite;
+}
+* {
+	box-sizing: border-box;
+	display: flex;
+	align-items: stretch;
+	flex: 1 1;
+	outline: 0;
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+HEAD {
+	display: none;
+}
+HTML {
+	flex-direction: column;
+	height: 100%;
+}
+BODY {
+	display: grid;
+	flex-direction: column;
+	overflow: hidden;
+}
+.workbench {
+	min-width: 100%;
+	min-height: 100%;
+}
+.workbench * {
+	flex-direction: column;
+	border: 1px solid gainsboro;
+	border-width: 0 0 1px 1px;
+	overflow: auto;
+}
+.workbench>.context {
+	min-width: 48px;
+	flex: 0 0;
+}
+.workbench>.sidebar {
+	min-width: 240px;
+	max-width: 480px;
+	flex: 1 1;
+}
+.workbench>.main {
+	flex: 3 3;
+}

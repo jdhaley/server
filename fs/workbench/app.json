@@ -1,0 +1,13 @@
+{
+	"title": "Test",
+	"icon": "/file/workbench/icon.png",
+	"styles": "/file/workbench/styles.css",
+	"components": {
+		"Frame": "/view/Frame",
+		"Object": "/workbench/Workbench"
+	},
+	"objectType": "Issue",
+	"dataset": "Issue",
+	"dataSource": "/file/workbench/data.json",
+	"typeSource": "/file/workbench/types.json"
+}
