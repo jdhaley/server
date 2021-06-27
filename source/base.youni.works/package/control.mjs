@@ -1,12 +1,14 @@
 export default {
 	type$: "/system/core",
-	Control: {
-		type$: "Instance",
+	Configurable: {
 		conf: {
 		},
 		start(conf) {
 			if (conf) this.let("conf", conf, "extend");
 		},
+	},
+	Control: {
+		type$: ["Instance", "Configurable"],
 		receive(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];
 			action && action.call(this, signal);			
