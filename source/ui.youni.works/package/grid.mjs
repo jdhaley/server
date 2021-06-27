@@ -1,8 +1,5 @@
 export default {
-	type$: "/container",
-	type$Caption: "/cell/Caption",
-	type$Property: "/cell/Property",
-	type$Key: "/cell/Key",
+	type$: "/cell",
 	Row: {
 		type$: "Structure",
 		direction: "horizontal",
@@ -10,10 +7,6 @@ export default {
 			type$key: "Key",
 			type$value: "Display"
 		}
-	},
-	Value: {
-		type$: "Record",
-		type$contentType: "/cell/Property"
 	},
 	Sheet: {
 		type$: "Section",

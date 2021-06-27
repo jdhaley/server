@@ -1,5 +1,5 @@
 export default {
-	type$: "/container",
+	type$: "/cell",
 	Workbench: {
         type$: "Structure",
 		direction: "horizontal",
@@ -20,6 +20,6 @@ export default {
 
                 }
             }
-		}       
+		}
     }
 }

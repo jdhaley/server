@@ -29,33 +29,5 @@ export default {
 				}
 			}
 		}
-	},
-	Container: {
-		//TODO general issue with interfaces.  Implementing container will override the model logic
-		//if the Container extends from View.
-		//type$: "View",
-		/**
-		 * The common content type.
-		 */
-		get$contentType() {
-			return this.conf.contentType;
-		},
-		createContent(value, key, object) {
-			let type = this.typeFor(value, key);
-			let conf = this.configurationFor(value, key);
-			let control = this.owner.create(type, conf);
-			control.peer.$key = this.keyFor(value, key);
-			this.append(control);
-			return control;
-		},
-		keyFor(value, key) {
-			return key;
-		},
-		typeFor(value, key) {
-			return this.contentType;
-		},
-		configurationFor(value, key) {
-			return this.conf;
-		}
 	}
 }
