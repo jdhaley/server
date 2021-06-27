@@ -20,7 +20,7 @@ export default {
 				}
 			}
 		},
-		createElement(value, key, object) {
+		createContent(value, key, object) {
 			let type = this.typeFor(value, key);
 			let conf = this.configurationFor(value, key);
 			let control = this.owner.create(type, conf);
@@ -51,7 +51,7 @@ export default {
 		},
 		draw() {
 			this.super(draw);
-			this.forEach(this.members, this.createElement);
+			this.forEach(this.members, this.createContent);
 		},
 		append(control) {
 			this.super(append, control);
@@ -75,7 +75,7 @@ export default {
 		bind(model) {
 			this.observe(model);
 			this.model = model;
-			this.forEach(model, this.createElement);
+			this.forEach(model, this.createContent);
 		},
 		unbind() {
 			this.unobserve(this.model);
@@ -116,7 +116,7 @@ export default {
 				}
 			}
 			this.properties = props;
-			this.forEach(props, this.createElement);
+			this.forEach(props, this.createContent);
 		}
 	},
 	Section: {
