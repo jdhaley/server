@@ -1,5 +1,5 @@
 export default {
-	type$: "/base/control",
+	type$: "/base/view",
 	Document: {
 		type$: "Owner",
 		document: null,
