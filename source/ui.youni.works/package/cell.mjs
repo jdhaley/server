@@ -4,21 +4,36 @@ export default {
     type$Shape: "/shape/Shape",
 	Structure: {
 		type$: ["Display", "container/Structure"],
-		// parts: {
-		// },
-		// start(conf) {
-		// 	this.super(start, conf);
-		// 	this.let("parts", Object.create(null));
-		// },
+		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
 		draw() {
 			this.super(draw);
+			this.parts = Object.create(null);
 			this.forEach(this.members, this.createContent);
 		},
 		append(control) {
 			this.super(append, control);
 			let key = control.peer.$key;
 			if (isNaN(+key)) control.peer.classList.add(key);
-	//		this.parts[key] = control;
+			this.parts[key] = control;
+		},
+        extend$actions: {
+			collapse(event) {
+				if (this.collapsed === "false") {
+					this.parts.body.style.display = "none";
+					this.collapsed = "true";
+				}
+			},
+			expand(event) {
+				if (this.collapsed === "true") {
+					this.parts.body.style.removeProperty("display");
+					this.collapsed = "false";
+				}
+			},
+			click(event) {
+				if (event.target == this.parts.header.peer) {
+					this.receive(this.collapsed === "true" ? "expand" : "collapse");
+				}
+			}
 		}
 	},
 	Collection: {

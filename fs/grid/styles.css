@@ -94,16 +94,13 @@ INPUT {
 }
 .pane {
 	position: absolute;
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
 	background:  ghostwhite;
 	border: 1px solid gainsboro;
-	width: 120px;
-	padding-bottom: 6px;
 	overflow: hidden;
 	box-shadow: 0 0 10px silver;
-	min-width: 24px;
-	min-height: 18px;
 }
 .link {
 	display: flex;
@@ -116,4 +113,27 @@ INPUT {
 .link>IMG {
 	align-self: flex-start;
 	max-width: 24px;
+}
+
+.panel {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column-reverse;
+}
+.panel>.header {
+	font-weight: bold;
+	flex: 0 0;
+	padding: 6px;
+}
+.panel>.footer {
+	display: none;
+}
+.panel>.body {
+	padding: 6px;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1;
+	background: white;
+	overflow-y: auto;
+	overflow-x: hidden;
 }

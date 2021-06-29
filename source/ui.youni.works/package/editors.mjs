@@ -110,7 +110,8 @@ const pkg = {
 			type$linkNavControl: "LinkNav",
 			linkControl: {
 				type$: "/shape/Pane",
-				contentType: "/grid/PropertySheet"
+			//	contentType: "/grid/PropertySheet"
+				contentType: "/panel/Panel"
 			},
 			type$editorControl: "String"
 		},

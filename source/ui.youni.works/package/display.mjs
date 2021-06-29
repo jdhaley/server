@@ -14,14 +14,23 @@ const pkg = {
 		virtual$bounds() {
 			if (arguments.length) {
 				let rect = arguments[0];
-				if (rect.width !== undefined) this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
-				if (rect.height !== undefined) this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";		
+				if (rect.width !== undefined) {
+					this.style.width = Math.max(rect.width, this.conf.minWidth) + "px";
+					this.style.minWidth = this.style.width;
+				}
+				if (rect.height !== undefined) {
+					this.style.height = Math.max(rect.height, this.conf.minHeight) + "px";
+					this.style.minHeight = this.style.height;
+				} 	
 				if (rect.left !== undefined || rect.top !== undefined) this.style.position = "absolute";
 				if (rect.left !== undefined) this.style.left = rect.left + "px";
 				if (rect.top !== undefined) this.style.top = rect.top + "px";
 			} else {
 				return this.peer.getBoundingClientRect();
 			}
+		},
+		size(x, y) {
+			this.shape && this.shape.size(x, y);
 		},
 		draw() {
 			this.peer.textContext = "";

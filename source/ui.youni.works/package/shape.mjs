@@ -59,6 +59,9 @@ export default {
     },
 	Shape: {
 		type$: "Zoned",
+		get$shape(){
+			return this;
+		},
 		extend$actions: {
 			grab(event) {
 				if (event.track && event.track != this) return;
@@ -94,11 +97,8 @@ export default {
 			},
 			size(event) {
 				if (event.track == this) {
-					let b = this.bounds;
-					this.bounds = {
-						width: event.clientX - b.left,
-						height: event.clientY - b.top
-					}
+					let r = this.shape.peer.getBoundingClientRect();
+					this.shape.size(event.clientX - r.left, event.clientY - r.top);
 				}
 			},
 			moveover(event) {
@@ -115,6 +115,7 @@ export default {
 	type$Display: "/display/Display",
 	Pane: {
 		type$: ["Display", "Shape"],
+		var$shape: null,
 		extend$conf: {
 			zone: {
 				border: {
@@ -143,9 +144,8 @@ export default {
 			this.super(draw);
 			let type = this.contentType;
 			let conf = this.elementConf;
-			let control = this.owner.create(type, conf);
-			this.append(control);
-			return control;
+			this.shape = this.owner.create(type, conf);
+			this.append(this.shape);
 		}
 	}
 }
