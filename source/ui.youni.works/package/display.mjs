@@ -29,8 +29,7 @@ const pkg = {
 				return this.peer.getBoundingClientRect();
 			}
 		},
-		size(x, y) {
-			this.shape && this.shape.size(x, y);
+		size(w, y) {
 		},
 		draw() {
 			this.peer.textContext = "";
