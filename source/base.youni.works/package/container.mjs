@@ -34,10 +34,29 @@ export default {
     Structure: {
 		type$: "Container",
 		extend$conf: {
+			memberKeyProperty: "name",
 			type$members: "" //object or array
 		},
-		get$members() {
-			return this.conf.members;
+		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
+		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
+		once$members() {
+			let members = this.conf.members;
+			let keyProp = this.conf.memberKeyProperty || "name";
+			if (members && members[Symbol.iterator]) {
+				members = Object.create(null);
+				for (let member of this.conf.members) {
+					let key = member[keyProp];
+					if (key) members[key] = member;
+				}
+			} else {
+				for (let key in members) {
+					let member = members[key];
+					if (!member[keyProp]) member[keyProp] = key;
+				}
+			}
+			return members;
+		},
+		var$parts: {
 		},
 		// key(key) {
 		// },
@@ -51,7 +70,7 @@ export default {
 			this.super(append, control);
 			let key = control.peer.$key;
 			if (isNaN(+key)) control.peer.classList.add(key);
-	//		this.parts[key] = control;
+			this.parts[key] = control;
 		},
 		typeFor(value, key) {
 			if (value && typeof value == "object") {

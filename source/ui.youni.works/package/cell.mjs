@@ -28,18 +28,6 @@ export default {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
 		isDynamic: false,
-		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
-		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
-		once$members() {
-			let members = this.conf.members;
-			if (members && typeof members.length == "number") {
-				members = Object.create(null);
-				for (let member of this.conf.members) {
-					members[member.name] = member;
-				}
-			}
-			return members;
-		},
 		bind(model) {
 			this.observe(model);
 			this.model = model;
@@ -66,7 +54,7 @@ export default {
 			type$header: "Display",
 			type$body: "Display",
 			type$footer: "Display"
-		}
+		},
 	},
 	Cell: {
 		type$: "Display",

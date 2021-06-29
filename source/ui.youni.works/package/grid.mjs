@@ -63,20 +63,19 @@ export default {
 				}
 			},
 			footer: {
-				type$: "Rows",
-				type$contentType: "Display"
-				// members: {
-				// 	type$key: "Key",
-				// 	value: {
-				// 		type$: "Record",
-				// 		contentType: {
-				// 			type$: "Caption",
-				// 			getCaption() {
-				// 				return "";
-				// 			}
-				// 		}
-				// 	}
-				// }
+				type$: "Row",
+				members: {
+					type$key: "Key",
+					value: {
+						type$: "Record",
+						contentType: {
+							type$: "Caption",
+							getCaption() {
+								return "";
+							}
+						}
+					}
+				}
 			}
 		},
 		get$id() {
