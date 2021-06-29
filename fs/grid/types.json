@@ -3,11 +3,11 @@
 		"members": [
 			{
 				"name": "id",
-				"ColumnSize": 4
+				"columnSize": 4
 			},
 			{
 				"name": "shape",
-				"size": 6,
+				"columnSize": 4,
 				"choice": {
 					"r": "Rectangle",
 					"t": "Triangle",
