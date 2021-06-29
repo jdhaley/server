@@ -92,6 +92,7 @@ const pkg = {
 
 					this.pane = this.owner.create(this.conf.linkControl, type);	
 					this.pane.view(model);
+					this.owner.send(this.pane, "view");
 				}
 				if (!this.pane.peer.parentNode) {
 					this.owner.append(this.pane);

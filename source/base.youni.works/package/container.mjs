@@ -85,16 +85,15 @@ export default {
 	Collection: {
 		type$: ["Container", "Observer"],
 		bind(model) {
-			this.observe(model);
+			if (this.model && this.model != model) {
+				this.unobserve(this.model);
+			}
 			this.model = model;
+			this.observe(model);
 			this.forEach(model, this.createContent);
 		},
-		unbind() {
-			this.unobserve(this.model);
-			this.model = undefined;
-		},
-		bindContent(view) {
-			view.bind(this.model[view.peer.$key]);
+		contentModel(contentView) {
+			return this.model[contentView.peer.$key];
 		}
 	},
 }

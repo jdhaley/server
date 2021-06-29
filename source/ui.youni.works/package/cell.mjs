@@ -116,6 +116,7 @@ export default {
 					top: b.bottom
 				};
 				view.view(model);
+				this.owner.send(view, "view");
 			}
 		}
 	},

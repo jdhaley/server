@@ -37,6 +37,7 @@ export default {
         extend$actions: {
             view(msg) {
                 this.view.view(this.data[this.conf.dataset]);
+                this.owner.send(this.view, "view");
             },
             initializeApp(msg) {
                 let conf = msg.response 
