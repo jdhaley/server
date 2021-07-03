@@ -5,8 +5,8 @@ const pkg = {
 		type$owner: "Frame",
 		nodeName: "div",
 		extend$conf: {
-			minWidth: 0,
-			minHeight: 0	
+			minWidth: 16,
+			minHeight: 16	
 		},
 		get$style() {
 			return this.peer.style;
@@ -32,8 +32,9 @@ const pkg = {
 		size(w, y) {
 		},
 		display() {
+			this.textContent = "";
 			this.peer.classList.add(this.className);
-		},
+		}
 	},
 	Frame: {
 		type$: ["Display", "Document"],

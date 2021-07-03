@@ -2,7 +2,7 @@ export default {
     type$: "/display",
 	type$view: "/base/view",
     type$Shape: "/shape/Shape",
-	Cell: {
+	View: {
 		type$: ["Display", "view/View"],
 		type$textUtil: "/base/util/Text",
 		getCaption() {
@@ -14,11 +14,10 @@ export default {
 		},
 		view(data) {
 			this.display();
-			this.super(view, data);
 		}
 	},
 	Collection: {
-		type$: ["Display", "view/Collection"],
+		type$: ["View", "view/Collection"],
 		view(data) {
 			this.display();
 			this.model = data;
@@ -26,13 +25,17 @@ export default {
 		}
 	},
 	Structure: {
-		type$: ["Display", "view/Structure"],
+		type$: ["View", "view/Structure"],
 		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
+		display() {
+			this.super(display);
+			this.parts = Object.create(null);
+			this.forEach(this.members, this.createContent);
+
+		},
 		view(data) {
 			this.display();
 			this.model = data;
-			this.parts = Object.create(null);
-			this.forEach(this.members, this.createContent);
 		},
 		append(control) {
 			this.super(append, control);
@@ -97,16 +100,18 @@ export default {
 		},
 	},
 	Property: {
-		type$: "Cell",
+		type$: "View",
 		get$contentType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
-		view(model) {
-			this.super(view, model);
-			this.textContent = "";
-			this.model = model && model[this.conf.name];
+		display() {
+			this.super(display);
 			let ele = this.owner.create(this.contentType, this.conf);
 			this.append(ele);
+		},
+		view(model) {
+			this.display();
+			this.model = model && model[this.conf.name];
 		},
 		extend$actions: {
 			activate(event) {
@@ -125,9 +130,9 @@ export default {
 		}
 	},
 	Caption: {
-		type$: ["Cell", "Shape"],
-		view() {
-			this.display();
+		type$: ["View", "Shape"],
+		display() {
+			this.super(display);
 			if (!this.rule) this.createRule();
 			this.peer.innerText = this.getCaption();
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
@@ -148,9 +153,9 @@ export default {
 		}
 	},
 	Key: {
-		type$: ["Cell", "Shape"],
-		view() {
-			this.display();
+		type$: ["View", "Shape"],
+		display() {
+			this.super(display);
 			let key = this.of.peer.$key || "";
 			this.peer.textContent = key;
 		}
