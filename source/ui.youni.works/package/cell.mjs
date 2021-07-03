@@ -1,7 +1,6 @@
 export default {
     type$: "/display",
 	type$view: "/base/view",
-    type$Shape: "/shape/Shape",
 	View: {
 		type$: ["Display", "view/View"],
 		type$textUtil: "/base/util/Text",
@@ -18,6 +17,12 @@ export default {
 	},
 	Collection: {
 		type$: ["View", "view/Collection"],
+		extend$conf: {
+			type$contentType: "View"
+		},
+		get$contentType() {
+			return this.conf.contentType;
+		},
 		view(data) {
 			this.display();
 			this.model = data;
@@ -26,23 +31,19 @@ export default {
 	},
 	Structure: {
 		type$: ["View", "view/Structure"],
-		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
-		display() {
-			if (this.isDrawn) return;
-			this.super(display);
-			this.parts = Object.create(null);
-			this.forEach(this.members, this.createContent);
-			this.isDrawn = true;
-		},
 		view(data) {
 			this.display();
 			this.model = data;
 		},
+		display() {
+			if (this.parts) return;
+			this.super(display);
+			this.let("parts", Object.create(null));
+			this.forEach(this.members, this.createContent);
+		},
 		append(control) {
-			this.super(append, control);
-			let key = control.peer.$key;
-			if (isNaN(+key)) control.peer.classList.add(key);
-			this.parts[key] = control;
+			this.super(append, control)
+			control.peer.classList.add(control.key);
 		}
 	},
 	Record: {
@@ -51,7 +52,7 @@ export default {
 		isDynamic: false,
 		extend$conf: {
 			memberKeyProperty: "name",
-			type$members: "" //object or array
+			members: []
 		},
 		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
 		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
@@ -89,6 +90,7 @@ export default {
 	},
 	Section: {
 		type$: "Structure",
+		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
 		members: {
 			type$header: "Display",
 			type$body: "Display",
@@ -153,35 +155,4 @@ export default {
 			}
 		}
 	},
-	Caption: {
-		type$: ["View", "Shape"],
-		display() {
-			this.super(display);
-			if (!this.rule) this.createRule();
-			this.peer.innerText = this.getCaption();
-			if (this.conf.dynamic) this.peer.classList.add("dynamic");
-		},
-		createRule() {
-			let flex = +(this.conf.columnSize);
-			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
-			this.rule = this.owner.createStyle(selector, {
-				"flex": (this.conf.flex === false ? "0 0 " : "1 1 ") + flex + "cm",
-				"min-width": flex / 2 + "cm"
-			});
-			console.log(this.rule);
-			function getParentId(node) {
-				for (; node; node = node.parentNode) {
-					if (node.id) return node.id;
-				}
-			}
-		}
-	},
-	Key: {
-		type$: ["View", "Shape"],
-		display() {
-			this.super(display);
-			let key = this.of.peer.$key || "";
-			this.peer.textContent = key;
-		}
-	}
 }

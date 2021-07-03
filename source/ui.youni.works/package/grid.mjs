@@ -1,5 +1,37 @@
 export default {
 	type$: "/cell",
+	type$Shape: "/shape/Shape",
+	Caption: {
+		type$: ["View", "Shape"],
+		display() {
+			this.super(display);
+			if (!this.rule) this.createRule();
+			this.peer.innerText = this.getCaption();
+			if (this.conf.dynamic) this.peer.classList.add("dynamic");
+		},
+		createRule() {
+			let flex = +(this.conf.columnSize);
+			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
+			this.rule = this.owner.createStyle(selector, {
+				"flex": (this.conf.flex === false ? "0 0 " : "1 1 ") + flex + "cm",
+				"min-width": flex / 2 + "cm"
+			});
+			console.log(this.rule);
+			function getParentId(node) {
+				for (; node; node = node.parentNode) {
+					if (node.id) return node.id;
+				}
+			}
+		}
+	},
+	Key: {
+		type$: ["View", "Shape"],
+		display() {
+			this.super(display);
+			let key = this.of.key || "";
+			this.peer.textContent = key;
+		}
+	},
 	Row: {
 		type$: "Structure",
 		direction: "horizontal",
