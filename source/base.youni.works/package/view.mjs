@@ -9,7 +9,7 @@ export default {
 		bind(model) {
 			this.model = model;
 		},
-		contentModel(contentView) {
+		modelFor(contentView) {
 			return this.model;
 		},
 		view(data) {
@@ -19,7 +19,7 @@ export default {
 		extend$actions: {
 			view(event) {
 				for (let view of this.to) {
-					view.view(this.contentModel(view));
+					view.view(this.modelFor(view));
 				}
 			}
 		}
@@ -116,7 +116,7 @@ export default {
 			this.observe(model);
 			this.forEach(model, this.createContent);
 		},
-		contentModel(contentView) {
+		modelFor(contentView) {
 			return this.model[contentView.peer.$key];
 		}
 	}
