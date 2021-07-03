@@ -140,8 +140,8 @@ export default {
 		get$elementConf() {
 			return this.conf;
 		},
-		draw() {
-			this.super(draw);
+		view(data) {
+			this.super(view, data);
 			let type = this.contentType;
 			let conf = this.elementConf;
 			this.shape = this.owner.create(type, conf);

@@ -1,8 +1,7 @@
 const pkg = {
 	type$: "/dom/dom",
-	type$View: "/base/view/View",
 	Display: {
-		type$: ["Element", "View"],
+		type$: "Element",
 		type$owner: "Frame",
 		nodeName: "div",
 		extend$conf: {
@@ -32,10 +31,9 @@ const pkg = {
 		},
 		size(w, y) {
 		},
-		draw() {
-			this.peer.textContext = "";
+		display() {
 			this.peer.classList.add(this.className);
-		}
+		},
 	},
 	Frame: {
 		type$: ["Display", "Document"],

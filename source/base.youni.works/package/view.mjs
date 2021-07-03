@@ -5,16 +5,7 @@ export default {
 		//requires$: "Node",
 		var$model: undefined,
 		view(data) {
-			this.draw();
-			if (this.model && this.model != data) this.unobserve(this.model);
 			this.model = data;
-			this.observe(data);
-		},
-		draw() {
-		},
-		observe(object) {
-		},
-		unobserve(object) {
 		},
 		modelFor(contentView) {
 			return this.model;
@@ -28,6 +19,7 @@ export default {
 		}
 	},
 	Container: {
+		type$: "View",
 		conf: {
 			type$contentType: "View"
 		},
@@ -90,8 +82,9 @@ export default {
 		// get(key) {
 
 		// },
-		draw() {
+		view(model) {
 			this.forEach(this.members, this.createContent);
+			this.super(view, model);
 		},
 		append(control) {
 			this.super(append, control);
@@ -111,12 +104,8 @@ export default {
 	},
 	Collection: {
 		type$: ["Container", "Observer"],
-		observe(model) {
-			if (this.model && this.model != model) {
-				this.unobserve(this.model);
-			}
-			this.model = model;
-			this.super(observe, model);
+		view(model) {
+			this.super(view, model);
 			this.forEach(model, this.createContent);
 		},
 		modelFor(contentView) {

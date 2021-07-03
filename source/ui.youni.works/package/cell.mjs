@@ -2,11 +2,35 @@ export default {
     type$: "/display",
 	type$view: "/base/view",
     type$Shape: "/shape/Shape",
+	Cell: {
+		type$: ["Display", "view/View"],
+		type$textUtil: "/base/util/Text",
+		getCaption() {
+			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
+		},
+		display() {
+			this.super(display);
+			if (this.conf && this.conf.name) this.peer.classList.add(this.conf.name);
+		},
+		view(data) {
+			this.display();
+			this.super(view, data);
+		}
+	},
+	Collection: {
+		type$: ["Display", "view/Collection"],
+		view(data) {
+			this.display();
+			this.model = data;
+			this.forEach(this.model, this.createContent);
+		}
+	},
 	Structure: {
 		type$: ["Display", "view/Structure"],
 		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
-		draw() {
-			this.super(draw);
+		view(data) {
+			this.display();
+			this.model = data;
 			this.parts = Object.create(null);
 			this.forEach(this.members, this.createContent);
 		},
@@ -36,21 +60,13 @@ export default {
 			}
 		}
 	},
-	Collection: {
-		type$: ["Display", "view/Collection"]
-	},
 	Record: {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
 		isDynamic: false,
-		observe(model) {
-			this.super(observe, model);
-			this.model = model;
+		view(model) {
+			this.super(view, model);
 			if (this.isDynamic) this.bindDynamic();
-		},
-		unbind() {
-			this.unobserve(this.model);
-			this.model = undefined;
 		},
 		bindDynamic() {
 			let props = Object.create(null);
@@ -80,29 +96,17 @@ export default {
 			this.parts.body.style.maxHeight = y + "px";
 		},
 	},
-	Cell: {
-		type$: "Display",
-		type$textUtil: "/base/util/Text",
-		getCaption() {
-			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
-		},
-		draw() {
-			this.super(draw);
-			if (this.conf.name) this.peer.classList.add(this.conf.name);
-		}
-	},
 	Property: {
 		type$: "Cell",
 		get$contentType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
-		draw() {
-			this.super(draw);
+		view(model) {
+			this.super(view, model);
+			this.textContent = "";
+			this.model = model && model[this.conf.name];
 			let ele = this.owner.create(this.contentType, this.conf);
 			this.append(ele);
-		},
-		observe(model) {
-			this.model = model && model[this.conf.name];
 		},
 		extend$actions: {
 			activate(event) {
@@ -122,13 +126,11 @@ export default {
 	},
 	Caption: {
 		type$: ["Cell", "Shape"],
-		draw: function draw() {
-			this.super(draw);
+		view() {
+			this.display();
 			if (!this.rule) this.createRule();
 			this.peer.innerText = this.getCaption();
 			if (this.conf.dynamic) this.peer.classList.add("dynamic");
-		},
-		bind: function(model) {
 		},
 		createRule() {
 			let flex = +(this.conf.columnSize);
@@ -147,7 +149,8 @@ export default {
 	},
 	Key: {
 		type$: ["Cell", "Shape"],
-		observe(model) {
+		view() {
+			this.display();
 			let key = this.of.peer.$key || "";
 			this.peer.textContent = key;
 		}

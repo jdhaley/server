@@ -10,13 +10,11 @@ const pkg = {
 		get$inputType() {
 			return this.dataType;
 		},
-		draw() {
-			this.super(draw);
+		view(data) {
+			this.super(view, data);
 			this.peer.type = this.inputType;
+			this.peer.value = data;
 			if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
-		},
-		observe(value) {
-			this.peer.value = value;
 		}
 	},
 	Number: {
@@ -48,11 +46,9 @@ const pkg = {
 	String: {
 		type$: "Editor",
 		dataType: "string",
-		observe(value) {
+		view(value) {
+			this.model = value;
 			this.peer.textContent = value;
-		},
-		draw() {
-			this.super(draw);
 			this.peer.contentEditable = this.conf.readOnly ? false : true;
 		}
 	},
@@ -60,21 +56,24 @@ const pkg = {
 	Collection: {
 		type$: "Editor",
 		dataType: "object",
-		observe(value) {
+		view(value) {
+			this.model = data;
 			this.textContent = "...";
 		}
 	},
 	Object: {
 		type$: "Editor",
 		dataType: "object",
-		observe(value) {
+		view(value) {
+			this.model = data;
 			this.textContent = "...";
 		}
 	},
 	LinkNav: {
 		type$: "Display",
 		nodeName: "img",
-		draw() {
+		view(data) {
+			this.model = data;
 			this.peer.src = "/target/link.svg";
 			this.peer.tabIndex = 1;
 		},
@@ -116,8 +115,8 @@ const pkg = {
 			},
 			type$editorControl: "String"
 		},
-		draw() {
-			this.super(draw);
+		view(data) {
+			this.super(view, data);
 			this.value = this.owner.create(this.conf.editorControl, this.conf);
 			this.peer.tabIndex = 1;
 			this.append(this.value);
