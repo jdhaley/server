@@ -42,7 +42,7 @@ export default {
 		}
 	},
 	Element: {
-		type$: "View",
+		type$: "Node",
 		type$owner: "Document",
 		once$nodeName() {
 			return this.className;

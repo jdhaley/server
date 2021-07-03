@@ -1,9 +1,9 @@
 export default {
     type$: "/display",
-	type$container: "/base/container",
+	type$view: "/base/view",
     type$Shape: "/shape/Shape",
 	Structure: {
-		type$: ["Display", "container/Structure"],
+		type$: ["Display", "view/Structure"],
 		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
 		draw() {
 			this.super(draw);
@@ -37,7 +37,7 @@ export default {
 		}
 	},
 	Collection: {
-		type$: ["Display", "container/Collection"]
+		type$: ["Display", "view/Collection"]
 	},
 	Record: {
 		type$: ["Structure", "Observer"],

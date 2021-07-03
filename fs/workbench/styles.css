@@ -46,6 +46,8 @@ BODY {
 .workbench>.context {
 	min-width: 48px;
 	flex: 0 0;
+	background: black;
+	color: white;
 }
 .workbench>.sidebar {
 	min-width: 240px;

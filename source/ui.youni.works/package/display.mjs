@@ -1,7 +1,8 @@
 const pkg = {
 	type$: "/dom/dom",
+	type$View: "/base/view/View",
 	Display: {
-		type$: "Element",
+		type$: ["Element", "View"],
 		type$owner: "Frame",
 		nodeName: "div",
 		extend$conf: {
