@@ -15,7 +15,7 @@ const pkg = {
 			this.peer.type = this.inputType;
 			if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
 		},
-		bind(value) {
+		observe(value) {
 			this.peer.value = value;
 		}
 	},
@@ -48,7 +48,7 @@ const pkg = {
 	String: {
 		type$: "Editor",
 		dataType: "string",
-		bind(value) {
+		observe(value) {
 			this.peer.textContent = value;
 		},
 		draw() {
@@ -60,14 +60,14 @@ const pkg = {
 	Collection: {
 		type$: "Editor",
 		dataType: "object",
-		bind(value) {
+		observe(value) {
 			this.textContent = "...";
 		}
 	},
 	Object: {
 		type$: "Editor",
 		dataType: "object",
-		bind(value) {
+		observe(value) {
 			this.textContent = "...";
 		}
 	},

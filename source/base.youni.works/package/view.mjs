@@ -4,17 +4,20 @@ export default {
 		//A View requires a Node prototype.
 		//requires$: "Node",
 		var$model: undefined,
+		view(data) {
+			this.draw();
+			if (this.model && this.model != data) this.unobserve(this.model);
+			this.model = data;
+			this.observe(data);
+		},
 		draw() {
 		},
-		bind(model) {
-			this.model = model;
+		observe(object) {
+		},
+		unobserve(object) {
 		},
 		modelFor(contentView) {
 			return this.model;
-		},
-		view(data) {
-			this.draw();
-			this.bind(data);
 		},
 		extend$actions: {
 			view(event) {
@@ -108,12 +111,12 @@ export default {
 	},
 	Collection: {
 		type$: ["Container", "Observer"],
-		bind(model) {
+		observe(model) {
 			if (this.model && this.model != model) {
 				this.unobserve(this.model);
 			}
 			this.model = model;
-			this.observe(model);
+			this.super(observe, model);
 			this.forEach(model, this.createContent);
 		},
 		modelFor(contentView) {

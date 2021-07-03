@@ -43,8 +43,8 @@ export default {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
 		isDynamic: false,
-		bind(model) {
-			this.observe(model);
+		observe(model) {
+			this.super(observe, model);
 			this.model = model;
 			if (this.isDynamic) this.bindDynamic();
 		},
@@ -101,7 +101,7 @@ export default {
 			let ele = this.owner.create(this.contentType, this.conf);
 			this.append(ele);
 		},
-		bind(model) {
+		observe(model) {
 			this.model = model && model[this.conf.name];
 		},
 		extend$actions: {
@@ -147,7 +147,7 @@ export default {
 	},
 	Key: {
 		type$: ["Cell", "Shape"],
-		bind(model) {
+		observe(model) {
 			let key = this.of.peer.$key || "";
 			this.peer.textContent = key;
 		}

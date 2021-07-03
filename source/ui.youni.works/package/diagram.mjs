@@ -130,7 +130,7 @@ const pkg = {
 					case "number":
 						let ctl = this.owner.create(this.defaultContent);
 						this.append(ctl);
-						ctl.bind(content);
+						ctl.observe(content);
 						break;
 					case "boolean":
 					case "undefined":
