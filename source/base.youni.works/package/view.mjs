@@ -20,7 +20,7 @@ export default {
 	},
 	Container: {
 		type$: "View",
-		conf: {
+		extend$conf: {
 			type$contentType: "View"
 		},
 		//TODO general issue with interfaces.  Implementing container will override the model logic
@@ -52,39 +52,13 @@ export default {
 	},
     Structure: {
 		type$: "Container",
-		extend$conf: {
-			memberKeyProperty: "name",
-			type$members: "" //object or array
-		},
-		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
-		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
-		once$members() {
-			let members = this.conf.members;
-			let keyProp = this.conf.memberKeyProperty || "name";
-			if (members && members[Symbol.iterator]) {
-				members = Object.create(null);
-				for (let member of this.conf.members) {
-					let key = member[keyProp];
-					if (key) members[key] = member;
-				}
-			} else {
-				for (let key in members) {
-					let member = members[key];
-					if (!member[keyProp]) member[keyProp] = key;
-				}
-			}
-			return members;
+		members: {
 		},
 		var$parts: {
 		},
-		// key(key) {
-		// },
-		// get(key) {
-
-		// },
 		view(model) {
-			this.forEach(this.members, this.createContent);
 			this.super(view, model);
+			this.forEach(this.members, this.createContent);
 		},
 		append(control) {
 			this.super(append, control);

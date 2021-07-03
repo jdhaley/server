@@ -28,10 +28,11 @@ export default {
 		type$: ["View", "view/Structure"],
 		var$collapsed: "false", //3 states: ["true", "false", "" (non-collapseable)]
 		display() {
+			if (this.isDrawn) return;
 			this.super(display);
 			this.parts = Object.create(null);
 			this.forEach(this.members, this.createContent);
-
+			this.isDrawn = true;
 		},
 		view(data) {
 			this.display();
@@ -42,31 +43,35 @@ export default {
 			let key = control.peer.$key;
 			if (isNaN(+key)) control.peer.classList.add(key);
 			this.parts[key] = control;
-		},
-        extend$actions: {
-			collapse(event) {
-				if (this.collapsed === "false") {
-					this.parts.body.style.display = "none";
-					this.collapsed = "true";
-				}
-			},
-			expand(event) {
-				if (this.collapsed === "true") {
-					this.parts.body.style.removeProperty("display");
-					this.collapsed = "false";
-				}
-			},
-			click(event) {
-				if (event.target == this.parts.header.peer) {
-					this.receive(this.collapsed === "true" ? "expand" : "collapse");
-				}
-			}
 		}
 	},
 	Record: {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
 		isDynamic: false,
+		extend$conf: {
+			memberKeyProperty: "name",
+			type$members: "" //object or array
+		},
+		//TODO - work in logic with the extend$ facet (it can accept arrays containing element.name objects)
+		//TOOD - re above - more generally - thinking about converting arrays based on key/id value.
+		once$members() {
+			let members = this.conf.members;
+			let keyProp = this.conf.memberKeyProperty || "name";
+			if (members && members[Symbol.iterator]) {
+				members = Object.create(null);
+				for (let member of this.conf.members) {
+					let key = member[keyProp];
+					if (key) members[key] = member;
+				}
+			} else {
+				for (let key in members) {
+					let member = members[key];
+					if (!member[keyProp]) member[keyProp] = key;
+				}
+			}
+			return members;
+		},
 		view(model) {
 			this.super(view, model);
 			if (this.isDynamic) this.bindDynamic();
@@ -98,6 +103,25 @@ export default {
 			this.style.maxWidth = x + "px";
 			this.parts.body.style.maxHeight = y + "px";
 		},
+		extend$actions: {
+			collapse(event) {
+				if (this.collapsed === "false") {
+					this.parts.body.style.display = "none";
+					this.collapsed = "true";
+				}
+			},
+			expand(event) {
+				if (this.collapsed === "true") {
+					this.parts.body.style.removeProperty("display");
+					this.collapsed = "false";
+				}
+			},
+			click(event) {
+				if (event.target == this.parts.header.peer) {
+					this.receive(this.collapsed === "true" ? "expand" : "collapse");
+				}
+			}
+		}
 	},
 	Property: {
 		type$: "View",
