@@ -1,5 +1,5 @@
 export default {
-    type$: "/cell",
+    type$: "/view",
     Panel: {
 		type$: "Section",
 		view(data) {

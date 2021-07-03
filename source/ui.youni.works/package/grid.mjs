@@ -1,5 +1,5 @@
 export default {
-	type$: "/cell",
+	type$: "/view",
 	type$Shape: "/shape/Shape",
 	Caption: {
 		type$: ["View", "Shape"],
