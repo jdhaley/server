@@ -1,7 +1,7 @@
 const pkg = {
-	type$: "/display",
+	type$: "/view",
 	Editor: {
-		type$: "Display",
+		type$: "View",
 		dataType: "",
 	},
 	Input: {
@@ -47,7 +47,7 @@ const pkg = {
 		type$: "Editor",
 		dataType: "string",
 		view(value) {
-			this.model = value;
+			this.super(view, value);
 			this.peer.textContent = value;
 			this.peer.contentEditable = this.conf.readOnly ? false : true;
 		}
@@ -122,7 +122,7 @@ const pkg = {
 			this.append(this.value);
 			this.icon = this.owner.create(this.conf.linkNavControl, this.conf);
 			this.append(this.icon);
-		}
+		},
 	}
 }
 export default pkg;

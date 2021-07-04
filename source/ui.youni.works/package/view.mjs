@@ -132,27 +132,15 @@ export default {
 		},
 		display() {
 			this.super(display);
-			let ele = this.owner.create(this.contentType, this.conf);
-			this.append(ele);
+			let editor = this.owner.create(this.contentType, this.conf);
+			this.append(editor);
 		},
 		view(model) {
 			this.display();
-			this.model = model && model[this.conf.name];
+			this.model = model;
 		},
-		extend$actions: {
-			activate(event) {
-				let model = this.owner.origin.data[this.conf.dataset][this.model];
-				let type = this.owner.origin.types[this.conf.objectType];
-				let view = this.owner.create(this.conf.linkControl, type);
-				this.owner.append(view);
-				let b = this.bounds;
-				view.bounds = {
-					left: b.left,
-					top: b.bottom
-				};
-				view.view(model);
-				this.owner.send(view, "view");
-			}
+		modelFor(editor) {
+			return this.model && this.model[this.conf.name] || "";
 		}
 	},
 }
