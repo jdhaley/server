@@ -2,7 +2,7 @@ export default {
 	type$: "/view",
 	type$Shape: "/shape/Shape",
 	Caption: {
-		type$: ["View", "Shape"],
+		type$: ["Member", "Shape"],
 		display() {
 			this.super(display);
 			if (!this.rule) this.createRule();
@@ -25,7 +25,7 @@ export default {
 		}
 	},
 	Key: {
-		type$: ["View", "Shape"],
+		type$: ["Display", "Shape"],
 		display() {
 			this.super(display);
 			let key = this.of.key || "";

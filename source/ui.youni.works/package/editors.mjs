@@ -1,7 +1,7 @@
 const pkg = {
 	type$: "/view",
 	Editor: {
-		type$: "View",
+		type$: "Display",
 		dataType: "",
 	},
 	Input: {

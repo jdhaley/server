@@ -1,7 +1,7 @@
 const pkg = {
 	type$: "/dom/dom",
 	Display: {
-		type$: "Element",
+		type$: ["Element", "/base/view/View"],
 		type$owner: "Frame",
 		nodeName: "div",
 		extend$conf: {
@@ -34,6 +34,40 @@ const pkg = {
 		display() {
 			this.textContent = "";
 			this.peer.classList.add(this.className);
+		},
+		view(data) {
+			this.display();
+		}
+	},
+	Collection: {
+		type$: ["Display", "/base/view/Collection"],
+		extend$conf: {
+			type$contentType: "Display"
+		},
+		view(data) {
+			this.display();
+			this.model = data;
+			this.forEach(this.model, this.createContent);
+		},
+		get$contentType() {
+			return this.conf.contentType;
+		}
+	},
+	Structure: {
+		type$: ["Display", "/base/view/Structure"],
+		view(data) {
+			this.display();
+			this.model = data;
+		},
+		display() {
+			if (this.parts) return;
+			this.super(display);
+			this.let("parts", Object.create(null));
+			this.forEach(this.members, this.createContent);
+		},
+		append(control) {
+			this.super(append, control)
+			control.peer.classList.add(control.key);
 		}
 	},
 	Frame: {

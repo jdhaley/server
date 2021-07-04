@@ -1,51 +1,5 @@
 export default {
     type$: "/display",
-	type$view: "/base/view",
-	View: {
-		type$: ["Display", "view/View"],
-		type$textUtil: "/base/util/Text",
-		getCaption() {
-			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
-		},
-		display() {
-			this.super(display);
-			if (this.conf && this.conf.name) this.peer.classList.add(this.conf.name);
-		},
-		view(data) {
-			this.display();
-		}
-	},
-	Collection: {
-		type$: ["View", "view/Collection"],
-		extend$conf: {
-			type$contentType: "View"
-		},
-		get$contentType() {
-			return this.conf.contentType;
-		},
-		view(data) {
-			this.display();
-			this.model = data;
-			this.forEach(this.model, this.createContent);
-		}
-	},
-	Structure: {
-		type$: ["View", "view/Structure"],
-		view(data) {
-			this.display();
-			this.model = data;
-		},
-		display() {
-			if (this.parts) return;
-			this.super(display);
-			this.let("parts", Object.create(null));
-			this.forEach(this.members, this.createContent);
-		},
-		append(control) {
-			this.super(append, control)
-			control.peer.classList.add(control.key);
-		}
-	},
 	Record: {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
@@ -125,8 +79,22 @@ export default {
 			}
 		}
 	},
+	Member: {
+		type$: "Display",
+		type$textUtil: "/base/util/Text",
+		get$name() {
+			return this.conf.name;
+		},
+		getCaption() {
+			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
+		},
+	},
 	Property: {
-		type$: "View",
+		type$: "Member",
+		type$textUtil: "/base/util/Text",
+		getCaption() {
+			return this.conf.caption || this.textUtil.captionize(this.conf.name || "");
+		},
 		get$contentType() {
 			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
 		},
