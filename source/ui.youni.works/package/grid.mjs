@@ -1,5 +1,6 @@
 export default {
-	type$: "/view",
+	type$: "/record",
+	type$Section: "/panel/Section",
 	type$Shape: "/shape/Shape",
 	Caption: {
 		type$: ["Member", "Shape"],
