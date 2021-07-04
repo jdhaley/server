@@ -1,5 +1,8 @@
 export default {
     type$: "/display",
+	/**
+	 * A Record supports an object model view.
+	 */
 	Record: {
 		type$: ["Structure", "Observer"],
 		type$typing: "/util/Typing",
@@ -42,6 +45,11 @@ export default {
 			this.forEach(props, this.createContent);
 		}
 	},
+	/**
+	 * A member can support the following types:
+	 * string, number, boolean, date, values, record, link
+	 * All types are composite parts of a record except link.
+	 */
 	Member: {
 		type$: "Display",
 		type$textUtil: "/base/util/Text",
