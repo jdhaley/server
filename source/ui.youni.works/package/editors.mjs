@@ -74,7 +74,7 @@ const pkg = {
 		nodeName: "img",
 		view(data) {
 			this.model = data;
-			this.peer.src = "/target/link.svg";
+			this.peer.src = "/res/link.svg";
 			this.peer.tabIndex = 1;
 		},
 		extend$actions: {
