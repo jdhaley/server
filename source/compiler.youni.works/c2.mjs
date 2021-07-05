@@ -1,44 +1,19 @@
 
-import fs from "fs";
-
-export default function compileAll(sourceDir, targetDir) {
-    let dir = fs.readdirSync(sourceDir);
-    for (let name of dir) {
-        load(sourceDir, name).then(manifest => compile(targetDir, manifest));
+export default function compile(source, targetDir) {
+    for (let name in source) {
+        compileModule(source[name], target);
     }   
 }
 
-async function load(sourceDir, name) {
-    let index;
-    try {
-        index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
-    } catch (err) {
-        if (err.code == "ERR_MODULE_NOT_FOUND") {
-            console.warn(`Directory "${name}" is missing index.mjs; skipping`);
-            return;
-        }
-        console.error(err);
-        return;
-    }
-    let module = index && index.module;
-    if (!module) throw new Error(`Module "${name}" is missing module.mjs`);
-    if (module.name && module.name != name) {
-        log("Warning: module name doesn't match folder name. Using folder name");
-    }
-    module.name = name;
-    module.package = Object.create(null);
-    let dir = fs.readdirSync(sourceDir + "/" + module.name + "/package");
-    for (let fname of dir) {
-        let index = fname.lastIndexOf(".");
-        let name = fname.substring(0, index);
-        let ext = fname.substring(index + 1);
-        if (ext == "mjs") {
-            fname = "./" + sourceDir + "/" + module.name + "/package/" + fname;
-            module.package[name] = (await import(fname)).default;    
-        }
-    }
+async function compileModule(source, target) {
+    let module = source["module.mjs"];
+    module.package = source.package;
+    // if (module.name && module.name != name) {
+    //     log("Warning: module name doesn't match folder name. Using folder name");
+    // }
+    // module.name = name;
+    // module.package = Object.create(null);
     return index;
-}
 
 function compile(targetDir, manifest) {
     if (!manifest) return;
@@ -52,7 +27,7 @@ function compile(targetDir, manifest) {
     let out = "";
     let use = "";
     for (let name in uses) {
-        out += `import ${name} from ${JSON.stringify("./" + uses[name] + ".mjs")};\n`;
+        out += `import ${name} from ${JSON.stringify("/target/" + uses[name] + ".mjs")};\n`;
         use += "\t" + JSON.stringify(name) + ": " + name + ",\n";
     }
     out += "const module = " + compileValue(module) + ";\n";
