@@ -6,8 +6,8 @@
 		"Frame": "/display/Frame",
 		"Object": "/workbench/Workbench"
 	},
-	"objectType": "Issue",
-	"dataset": "Issue",
+	"objectType": "Module",
+	"dataset": "source",
 	"dataSource": "/file/workbench/data.json",
 	"typeSource": "/file/workbench/types.json"
 }

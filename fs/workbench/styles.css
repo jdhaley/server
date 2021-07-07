@@ -11,37 +11,35 @@
 }
 * {
 	box-sizing: border-box;
-	display: flex;
-	align-items: stretch;
-	flex: 1 1;
 	outline: 0;
 	margin: 0;
 	border: 0;
 	padding: 0;
-	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 16px;
+}
+HTML {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	overflow: hidden;
 }
 HEAD {
 	display: none;
 }
-HTML {
-	flex-direction: column;
-	height: 100%;
-}
 BODY {
-	display: grid;
+	display: flex;
 	flex-direction: column;
+	flex: 1;
 	overflow: hidden;
 }
+
 .workbench {
-	min-width: 100%;
-	min-height: 100%;
+	display: flex;
+	flex: 1 1 auto;
+
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	font-size: 12pt;
 }
 .workbench * {
-	flex-direction: column;
-	border: 1px solid gainsboro;
-	border-width: 0 0 1px 1px;
-	overflow: auto;
 }
 .workbench>.context {
 	min-width: 48px;
@@ -53,7 +51,18 @@ BODY {
 	min-width: 240px;
 	max-width: 480px;
 	flex: 1 1;
+	border-right: 1px solid lightsteelblue;
 }
 .workbench>.main {
 	flex: 3 3;
+}
+.directory {
+	border-bottom: 1px solid lightsteelblue;
+}
+.directory>.header {
+	padding: 3px;
+	cursor: default;
+}
+.directory>.body {
+	min-height: 50px;
 }
