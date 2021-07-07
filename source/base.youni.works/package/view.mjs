@@ -24,12 +24,12 @@ export default {
 			let type = this.typeFor(value, key);
 			let conf = this.configurationFor(value, key);
 			let control = this.owner.create(type, conf);
-			control.key = this.keyFor(value, key);
+			this.control(control, key);
 			this.append(control);
 			return control;
 		},
-		keyFor(value, key) {
-			return key;
+		control(control, key) {
+			control.key = key;
 		},
 		typeFor(value, key) {
 		},
@@ -63,9 +63,9 @@ export default {
 			}
 			this.model = model;
 		},
-		append(control) {
-			this.super(append, control);
-			this.parts[key] = control.key;
+		control(part, key) {
+			this.super(control, part, key);
+			this.parts[key] = part;
 		},
 		typeFor(value, key) {
 			if (value && typeof value == "object") {

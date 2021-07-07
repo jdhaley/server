@@ -65,9 +65,9 @@ const pkg = {
 			this.let("parts", Object.create(null));
 			this.forEach(this.members, this.createContent);
 		},
-		append(control) {
-			this.super(append, control)
-			control.peer.classList.add(control.key);
+		control(part, key) {
+			this.perform("/base/view/Structure/control", part, key);
+			part.peer.classList.add(key);
 		}
 	},
 	Frame: {
