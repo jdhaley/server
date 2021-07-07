@@ -76,6 +76,9 @@ let pkg = {
             //To some degree, this logic assume a Module as owner.
             let ctx = this.extend(this, {
                 _owner: this.extend(this.conf.ownerType, {
+                    forName: function(name) {
+                        return ctx.forName(name);
+                    },
                     create: function () {
                         switch (arguments.length) {
                             case 0:

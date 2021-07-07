@@ -19,6 +19,10 @@ const pkg = {
 			}
 			throw new TypeError("Invalid method argument.");
 		},
+        perform: function(name, ...args) {
+			let method = this[Symbol.for("owner")].forName(name);
+			return method.apply(this, args);
+        },
         toString() {
             return Object.prototype.toString.call(this);
         },
