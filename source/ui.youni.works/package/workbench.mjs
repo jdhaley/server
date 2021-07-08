@@ -34,7 +34,7 @@ export default {
         },
         view(model) {
             this.super(view, model);
-            if (typeof model == "object" && Object.keys(model).length) {
+            if (model && typeof model == "object" && Object.keys(model).length) {
                 this.state = "expanded";
             } else {
                 this.state = "empty";

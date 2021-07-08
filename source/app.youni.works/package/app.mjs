@@ -36,7 +36,7 @@ export default {
         },
         extend$actions: {
             view(msg) {
-                this.view.view(this.data[this.conf.dataset]);
+                this.view.view(this.data);
                 this.owner.send(this.view, "view");
             },
             initializeApp(msg) {

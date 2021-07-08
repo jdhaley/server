@@ -8,6 +8,6 @@
 	},
 	"objectType": "Module",
 	"dataset": "source",
-	"dataSource": "/file/workbench/data.json",
+	"dataSource": "/sources",
 	"typeSource": "/file/workbench/types.json"
 }

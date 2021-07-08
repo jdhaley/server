@@ -39,8 +39,6 @@ BODY {
 	font-family: Roboto, Arial, Helvetica, sans-serif;
 	font-size: 12pt;
 }
-.workbench * {
-}
 .workbench>.context {
 	min-width: 48px;
 	flex: 0 0;
