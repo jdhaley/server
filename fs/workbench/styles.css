@@ -56,13 +56,13 @@ BODY {
 .workbench>.main {
 	flex: 3 3;
 }
-.directory {
-	border-bottom: 1px solid lightsteelblue;
-}
-.directory>.header {
+.folder>.header {
 	padding: 3px;
 	cursor: default;
 }
-.directory>.body {
-	min-height: 50px;
+.folder>.header>IMG {
+	width: 12px;
+}
+.folder>.body {
+	padding-left: 20px;
 }

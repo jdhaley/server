@@ -9,7 +9,7 @@ export default {
             },
 			sidebar: {
                 type$: "Collection",
-                type$contentType: "Directory"
+                type$contentType: "Folder"
             },
 			main: {
                 type$: "Structure",
@@ -21,39 +21,61 @@ export default {
             }
 		}
     },
-    Directory: {
-        type$: "Section",
+    FolderHeader: {
+        type$: "Display",
+        states: {
+            "collapsed": "/res/icons/chevron-right.svg",
+            "expanded": "/res/icons/chevron-bottom.svg",
+            "empty": "/res/icons/bag.svg"
+        },
+        display() {
+            this.super(display);
+            this.peer.innerHTML = "<img src='/res/icons/chevron-bottom.svg'> " + this.of.key;
+        },
         view(model) {
             this.super(view, model);
-            this.parts.header.peer.textContent = this.key;
+            if (typeof model == "object" && Object.keys(model).length) {
+                this.state = "expanded";
+            } else {
+                this.state = "empty";
+            }
         },
-        size(x, y) {
-			// for (let part of this.to) {
-			// 	if (part != this.parts.body) y -= part.bounds.height;
-			// }
-			// this.style.minWidth = x + "px";
-            // this.style.maxWidth = x + "px";
-			// this.parts.body.style.minHeight = y + "px";
-			// this.parts.body.style.maxHeight = y + "px";
-		},
+        virtual$state(value) {
+            if (!arguments.length) return this.peer.$state;
+            this.peer.$state = value;
+            this.peer.firstChild.src = this.states[value];
+        },
+        extend$actions: {
+            click(event) {
+                if (this.state === "collapsed") {
+                    this.state = "expanded";
+                } else if (this.state == "expanded") {
+                    this.state = "collapsed";
+                } else {
+                }
+                event.subject = this.state;
+            }
+        }
+    },
+    Folder: {
+        type$: "Section",
+        members: {
+            header: {
+                type$: "FolderHeader"
+            },
+            body: {
+                type$: "Collection",
+                type$contentType: "Folder"
+            }
+        },
 		extend$actions: {
-			collapse(event) {
-				if (this.collapsed === "false") {
-					this.parts.body.style.display = "none";
-					this.parts.body.style.maxHeight = "0";
-					this.collapsed = "true";
-				}
+			collapsed(event) {
+                this.parts.body.style.display = "none";
+                event.subject = "";
 			},
-			expand(event) {
-				if (this.collapsed === "true") {
-					this.parts.body.style.removeProperty("display");
-					this.collapsed = "false";
-				}
-			},
-			click(event) {
-				if (event.target == this.parts.header.peer) {
-					this.receive(this.collapsed === "true" ? "expand" : "collapse");
-				}
+			expanded(event) {
+                this.parts.body.style.removeProperty("display");
+                event.subject = "";
 			}
 		}
     }
