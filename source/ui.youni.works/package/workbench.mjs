@@ -28,6 +28,11 @@ export default {
             "expanded": "/res/icons/chevron-bottom.svg",
             "empty": "/res/icons/bag.svg"
         },
+        virtual$state(value) {
+            if (!arguments.length) return this.peer.$state;
+            this.peer.$state = value;
+            this.peer.firstChild.src = this.states[value];
+        },
         display() {
             this.super(display);
             this.peer.innerHTML = "<img src='/res/icons/chevron-right.svg'> " + this.of.key;
@@ -39,11 +44,6 @@ export default {
             } else {
                 this.state = "empty";
             }
-        },
-        virtual$state(value) {
-            if (!arguments.length) return this.peer.$state;
-            this.peer.$state = value;
-            this.peer.firstChild.src = this.states[value];
         },
         extend$actions: {
             click(event) {
@@ -57,56 +57,23 @@ export default {
             }
         }
     },
-    XXXXXXFolder: {
-        type$: "Section",
-        members: {
-            header: {
-                type$: "FolderHeader"
-            },
-            body: {
-                type$: "Collection",
-                type$contentType: "Folder",
-                var$first: true,
-                view(model) {
-                    if (this.first) return;
-                    this.first = false;
-                    this.super(view, model);
-                }
+    FolderBody: {
+        type$: "Collection",
+        type$contentType: "Folder",
+        view(model) {
+            if (this.peer.$show) {
+                this.super(view, model);
+                this.owner.send(this, "view");
+            } else {
+                this.peer.$show = true;
             }
-        },
-		extend$actions: {
-			collapsed(event) {
-                this.parts.body.style.display = "none";
-                event.subject = "";
-			},
-			expanded(event) {
-                this.parts.body.style.removeProperty("display");
-                event.subject = "";
-			}
-		}
+        }
     },
     Folder: {
 		type$: "Structure",
         members: {
-            header: {
-                type$: "FolderHeader"
-            },
-            body: {
-                type$: "Collection",
-                type$contentType: "Folder",
-                var$first: true,
-                view(model) {
-                    if (this.first) {
-                        this.first = false;
-                    } else {
-                        this.super(view, model);
-                        this.owner.send(this, "view");
-                    }
-                }
-            }
-        },
-        view(model) {
-            this.super(view, model);
+            type$header: "FolderHeader",
+            type$body: "FolderBody"
         },
 		extend$actions: {
 			collapsed(event) {
