@@ -30,12 +30,12 @@ export default {
         },
         display() {
             this.super(display);
-            this.peer.innerHTML = "<img src='/res/icons/chevron-bottom.svg'> " + this.of.key;
+            this.peer.innerHTML = "<img src='/res/icons/chevron-right.svg'> " + this.of.key;
         },
         view(model) {
             this.super(view, model);
             if (model && typeof model == "object" && Object.keys(model).length) {
-                this.state = "expanded";
+                this.state = "collapsed";
             } else {
                 this.state = "empty";
             }
@@ -57,7 +57,7 @@ export default {
             }
         }
     },
-    Folder: {
+    XXXXXXFolder: {
         type$: "Section",
         members: {
             header: {
@@ -65,7 +65,13 @@ export default {
             },
             body: {
                 type$: "Collection",
-                type$contentType: "Folder"
+                type$contentType: "Folder",
+                var$first: true,
+                view(model) {
+                    if (this.first) return;
+                    this.first = false;
+                    this.super(view, model);
+                }
             }
         },
 		extend$actions: {
@@ -74,6 +80,43 @@ export default {
                 event.subject = "";
 			},
 			expanded(event) {
+                this.parts.body.style.removeProperty("display");
+                event.subject = "";
+			}
+		}
+    },
+    Folder: {
+		type$: "Structure",
+        members: {
+            header: {
+                type$: "FolderHeader"
+            },
+            body: {
+                type$: "Collection",
+                type$contentType: "Folder",
+                var$first: true,
+                view(model) {
+                    if (this.first) {
+                        this.first = false;
+                    } else {
+                        this.super(view, model);
+                        this.owner.send(this, "view");
+                    }
+                }
+            }
+        },
+        view(model) {
+            this.super(view, model);
+        },
+		extend$actions: {
+			collapsed(event) {
+                this.parts.body.style.display = "none";
+                event.subject = "";
+			},
+			expanded(event) {
+                if (!this.parts.body.peer.childNodes.length) {
+                    this.parts.body.view(this.model);
+                }
                 this.parts.body.style.removeProperty("display");
                 event.subject = "";
 			}

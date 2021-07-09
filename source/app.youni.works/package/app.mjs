@@ -71,7 +71,7 @@ export default {
             },
             initializeData(msg) {
                 let data = JSON.parse(msg.response);
-                this.data = this.create(data);
+                this.data = data; // this.create(data);
                 if (this.view) this.receive("view");
             }
        }

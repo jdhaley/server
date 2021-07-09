@@ -1,15 +1,22 @@
 
 import fs from "fs";
-export default function loader(dir) {
+const dir = Object.create(null);
+
+export default function loader(path) {
+    try {
+       load(path, dir);
+    } catch (err) {
+        console.log(err);
+    }
     return function loader(req, res) {
-        let content = load(dir);
+        let content = dir;
         content = JSON.stringify(content);
         res.set("Content-Type", "text/plain");
         res.send(content);
     }
 }
-function load(path) {
-    const dir = Object.create(null);
+function load(path, dir) {
+    if (!dir) dir = Object.create(null);
     dir[Symbol.for("dir")] = path;
     loaddir(dir, "./" + path);
     
@@ -22,12 +29,17 @@ function loaddir(dir, path) {
     }
 }
 
-/*async */ function loadFile(dir, path, name) {
+async  function loadFile(dir, path, name) {
     const pathname = path + "/" + name;
     let file = fs.statSync(pathname);
     if (name.endsWith(".mjs")) {
-//        let o = await import(pathname);
-        dir[name] = null; //o.default;
+        try {
+            let o = await import(pathname);
+            dir[name] = o.default;    
+        } catch (err) {
+            console.log(err);
+            dir[name] = null;
+        }
     } else if (file.isDirectory(pathname)) {
         dir[name] = Object.create(null);
         dir[name][Symbol.for("dir")] = pathname;
