@@ -26,8 +26,13 @@ export default {
         facets: {
             folder: "/res/icons/folder-open.svg",
             package: "/res/icons/gift.svg",
+            file: "/res/icons/file.svg",
             method: "/res/icons/compose.svg",
-            type: "/res/icons/link.svg"
+            string: "/res/icons/tag.svg",
+            object: "/res/icons/fullscreen.svg",
+            type: "/res/icons/link.svg",
+            get: "/res/icons/minus.svg",
+            virtual: "/res/icons/plus.svg"
         },
         states: {
             "collapsed": "/res/icons/chevron-right.svg",
@@ -41,7 +46,8 @@ export default {
         },
         view(model) {
             let facet = model && model.facet || "";
-            let ico = this.facets[facet] || "/res/icons/empty.svg";
+            if (!facet) facet = (model && typeof model.expr) || "undefined";
+            let ico = this.facets[facet] || "/res/icons/flag.svg";
             let type = model && typeof model.expr || "";
             if (facet || type == "object") type = "";
 
