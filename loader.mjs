@@ -9,13 +9,16 @@ export default function loader(path) {
     }
     return function loader(req, res) {
         let content = dir;
-        content = JSON.stringify(content);
+        content = JSON.stringify({
+            [path]: content
+        });
         res.set("Content-Type", "text/plain");
         res.send(content);
     }
 
     function load(path, dir) {
         if (!dir) dir = Object.create(null);
+
         dir[Symbol.for("dir")] = path;
         loaddir(dir, "./" + path);
         
@@ -23,8 +26,10 @@ export default function loader(path) {
     }
 
     function loaddir(dir, path) {
+        dir.facet = "folder";
+        dir.expr = Object.create(null);
         for (let name of fs.readdirSync(path)) {
-            loadFile(dir, path, name);
+            loadFile(dir.expr, path, name);
         }
     }
 
@@ -34,7 +39,10 @@ export default function loader(path) {
         if (name.endsWith(".mjs")) {
             try {
                 let o = await import(pathname);
-                dir[name] = membersFor(o.default);
+                dir[name] = {
+                    facet: "package",
+                    expr: membersFor(o.default)
+                }
             } catch (err) {
                 console.log(err);
                 dir[name] = null;
@@ -44,7 +52,9 @@ export default function loader(path) {
             dir[name][Symbol.for("dir")] = pathname;
             loaddir(dir[name], pathname);
         } else {
-            dir[name] = null;
+            dir[name] = {
+                facet: "file"
+            }
         }
     }
 

@@ -37,7 +37,7 @@ BODY {
 	flex: 1 1 auto;
 
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 12pt;
+	font-size: 18px;
 }
 .workbench>.context {
 	min-width: 48px;
@@ -46,8 +46,8 @@ BODY {
 	color: white;
 }
 .workbench>.sidebar {
-	min-width: 240px;
-	max-width: 480px;
+	min-width: 480px;
+	max-width: 640px;
 	flex: 1 1;
 	border-right: 1px solid lightsteelblue;
 }
@@ -58,8 +58,12 @@ BODY {
 	padding: 3px;
 	cursor: default;
 }
+.folder>.header>I {
+	font-size: 12px;
+	color: gainsboro;
+}
 .folder>.header>IMG {
-	width: 12px;
+	width: 18px;
 }
 .folder>.body {
 	padding-left: 20px;

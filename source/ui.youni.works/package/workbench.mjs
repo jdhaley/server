@@ -23,27 +23,38 @@ export default {
     },
     FolderHeader: {
         type$: "Display",
+        facets: {
+            folder: "/res/icons/folder-open.svg",
+            package: "/res/icons/gift.svg",
+            method: "/res/icons/compose.svg",
+            type: "/res/icons/link.svg"
+        },
         states: {
             "collapsed": "/res/icons/chevron-right.svg",
             "expanded": "/res/icons/chevron-bottom.svg",
-            "empty": "/res/icons/bag.svg"
+            "empty": "/res/icons/empty.svg"
         },
         virtual$state(value) {
             if (!arguments.length) return this.peer.$state;
             this.peer.$state = value;
             this.peer.firstChild.src = this.states[value];
         },
-        display() {
-            this.super(display);
-            this.peer.innerHTML = "<img src='/res/icons/chevron-right.svg'> " + this.of.key;
-        },
         view(model) {
-            this.super(view, model);
-            if (model && typeof model == "object" && Object.keys(model).length) {
+            let facet = model && model.facet || "";
+            let ico = this.facets[facet] || "/res/icons/empty.svg";
+            let type = model && typeof model.expr || "";
+            if (facet || type == "object") type = "";
+
+            this.peer.innerHTML = `<img> <img src="${ico}" title="${facet}"> ${this.of.key} <i>${facet}</i> <u>${type}</u>`;
+
+            if (model && typeof model.expr == "object") {
                 this.state = "collapsed";
             } else {
                 this.state = "empty";
             }
+
+        //    this.super(view, model);
+
         },
         extend$actions: {
             click(event) {
@@ -62,7 +73,9 @@ export default {
         type$contentType: "Folder",
         view(model) {
             if (this.peer.$show) {
-                this.super(view, model);
+                let content = model;
+                if (content.expr && typeof content.expr == "object") content = model.expr;
+                this.super(view, content);
                 this.owner.send(this, "view");
             } else {
                 this.peer.$show = true;
