@@ -34,7 +34,7 @@ export default function loader(path) {
         if (name.endsWith(".mjs")) {
             try {
                 let o = await import(pathname);
-                dir[name] = doValue(o.default);
+                dir[name] = membersFor(o.default);
             } catch (err) {
                 console.log(err);
                 dir[name] = null;
@@ -48,18 +48,40 @@ export default function loader(path) {
         }
     }
 
-    function doValue(value) {
-        if (typeof value == "function") {
-            return {
-                type$: "function",
-                value: value.toString()
-            }
+    function facetOf(decl) {
+        if (typeof decl == "symbol") return "";
+        decl = "" + decl;
+        let index = decl.indexOf("$");
+        return index < 0 ? "" : decl.substr(0, index);
+    }
+    function nameOf(decl) {
+        if (typeof decl == "symbol") return decl;
+        decl = "" + decl;
+        let index = decl.indexOf("$");
+        return index < 0 ? decl : decl.substring(index + 1);
+    }
+    function memberFor(expr, name, facet) {
+        let member = Object.create(null);
+        member.facet  = facet;
+        if (typeof expr == "function") {
+            if (!facet) member.facet = "method";
+            member.expr = expr.toString();
+        } else if (expr && typeof expr == "object") {
+            //TODO check if array.
+            member.expr = membersFor(expr);
+        } else {
+            member.expr = expr;
         }
-        if (value && typeof value == "object") {
-            let object = Object.create(null);
-            for (let key in value) object[key] = doValue(value[key]);
-            value = object
+        return member;
+
+    }
+    function membersFor(source) {
+        let members = Object.create(null);
+        for (let decl in source) {
+            let name = nameOf(decl);
+            let member = memberFor(source[decl], name, facetOf(decl));
+            members[name] = member;
         }
-        return value;
+        return members;
     }
 }
