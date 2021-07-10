@@ -1,8 +1,58 @@
 export default {
     type$: "/ui/base/control",
     type$Origin: "/ui/base/origin/Origin",
+    DataConverter: {
+        facetOf(decl) {
+            if (typeof decl == "symbol") return "";
+            decl = "" + decl;
+            let index = decl.indexOf("$");
+            return index < 0 ? "" : decl.substr(0, index);
+        },
+        nameOf(decl) {
+            if (typeof decl == "symbol") return decl;
+            decl = "" + decl;
+            let index = decl.indexOf("$");
+            return index < 0 ? decl : decl.substring(index + 1);
+        },
+        memberFor(expr, name, facet) {
+            let member = Object.create(null);
+            if (expr && expr.type$ == "Function") {
+                if (!facet) {
+                    member.facet = "method";
+                    member.expr = expr.source;
+                    return member;
+                }
+            }
+            member.facet  = facet;
+            member.expr = this.convert(expr);
+            return member;
+
+        },
+        membersFor(source) {
+            let members = Object.create(null);
+            for (let decl in source) {
+                let name = this.nameOf(decl);
+                let member = this.memberFor(source[decl], name, this.facetOf(decl));
+                members[name] = member;
+            }
+            return members;
+        },
+        convert(value) {
+            if (value && typeof value == "object") {
+                if (value.type$ == "Function") {
+                    return {
+                        facet: "method",
+                        expr: value.source
+                    }
+                }
+                return this.membersFor(value);
+            }
+            return value;
+        }
+    },
     App: {
         type$: ["Control", "Origin", "Factory"],
+        type$converter: "DataConverter",
         type$context: "AppContext",
         type$owner: "Owner",
         get$folder() {
@@ -71,6 +121,7 @@ export default {
             },
             initializeData(msg) {
                 let data = JSON.parse(msg.response);
+                data = this.converter.convert(data);
                 console.debug(data);
                 this.data = data; // this.create(data);
                 if (this.view) this.receive("view");

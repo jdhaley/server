@@ -25,9 +25,9 @@ export default {
         type$: "Display",
         facets: {
             folder: "/res/icons/folder-open.svg",
-            package: "/res/icons/gift.svg",
+            pkg: "/res/icons/gift.svg",
             file: "/res/icons/file.svg",
-            method: "/res/icons/compose.svg",
+            method: "/res/icons/settings.svg",
             string: "/res/icons/tag.svg",
             object: "/res/icons/fullscreen.svg",
             type: "/res/icons/link.svg",
@@ -45,6 +45,9 @@ export default {
             this.peer.firstChild.src = this.states[value];
         },
         view(model) {
+            if (!model) {
+                console.log(this.of.key);
+            }
             let facet = model && model.facet || "";
             if (!facet) facet = (model && typeof model.expr) || "undefined";
             let ico = this.facets[facet] || "/res/icons/flag.svg";
