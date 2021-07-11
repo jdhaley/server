@@ -24,15 +24,38 @@ export default {
     FolderHeader: {
         type$: "Display",
         facets: {
-            folder: "/res/icons/folder-open.svg",
-            pkg: "/res/icons/gift.svg",
-            file: "/res/icons/file.svg",
-            method: "/res/icons/settings.svg",
-            string: "/res/icons/tag.svg",
-            object: "/res/icons/fullscreen.svg",
-            type: "/res/icons/link.svg",
-            get: "/res/icons/minus.svg",
-            virtual: "/res/icons/plus.svg"
+            folder: {
+                icon: "/res/icons/folder-open.svg",
+            },
+            pkg: {
+                icon: "/res/icons/gift.svg",
+            },
+            file: {
+                icon: "/res/icons/file.svg",
+            },
+            method: {
+                icon: "/res/icons/settings.svg",
+            },
+            string: {
+                icon: "/res/icons/tag.svg",
+                title: true
+            },
+            object: {
+                icon: "/res/icons/fullscreen.svg",
+                title: true
+            },
+            type: {
+                icon: "/res/icons/link.svg",
+                title: true
+            },
+            get: {
+                icon: "/res/icons/minus.svg",
+                title: true
+            },
+            virtual: {
+                icon: "/res/icons/plus.svg",
+                title: true
+            }
         },
         states: {
             "collapsed": "/res/icons/chevron-right.svg",
@@ -48,13 +71,12 @@ export default {
             if (!model) {
                 console.log(this.of.key);
             }
-            let facet = model && model.facet || "";
-            if (!facet) facet = (model && typeof model.expr) || "undefined";
-            let ico = this.facets[facet] || "/res/icons/flag.svg";
-            let type = model && typeof model.expr || "";
-            if (facet || type == "object") type = "";
-
-            this.peer.innerHTML = `<img> <img src="${ico}" title="${facet}"> ${this.of.key} <i>${facet}</i> <u>${type}</u>`;
+            let type = model && model.facet || "";
+            if (!type) type = (model && typeof model.expr) || "undefined";
+            let facet = this.facets[type];
+            let ico = facet ? facet.icon : "/res/icons/flag.svg";
+            let title = facet && facet.title ? type : "";
+            this.peer.innerHTML = `<img> <img src="${ico}" title="${type}"> ${this.of.key} <i>${title}</i>`;
 
             if (model && typeof model.expr == "object") {
                 this.state = "collapsed";
