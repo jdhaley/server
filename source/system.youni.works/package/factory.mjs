@@ -4,16 +4,48 @@ export default {
             facets: {
             }
         },
-        symbolOf(key) {
-            if (key == "iterator") return Symbol.iterator;
-            return Symbol.for(key);
-        },
         create(...sources) {
+            return null;
         },
         implement(object, ...sources) {
         },
         declare(object, name, value, facet) {
-        }
+            return null;
+        },
+        define(object, name, value, facet) {
+            return this.declare(object, name, value, facet).define(object);
+		},
+        symbolOf(key) {
+            if (key == "iterator") return Symbol.iterator;
+            return Symbol.for(key);
+        },
+        facetOf(decl) {
+			if (typeof decl == "symbol") return "";
+			decl = "" + decl;
+			let index = decl.indexOf("$");
+			return index < 0 ? "" : decl.substr(0, index);
+		},
+		nameOf(decl) {
+			if (typeof decl == "symbol") return decl;
+			decl = "" + decl;
+			let index = decl.indexOf("$");
+			return index < 0 ? decl : decl.substring(index + 1);
+		},
+        isSource(value) {
+			return value && typeof value == "object" && (
+                Object.getPrototypeOf(value) == Object.prototype ||
+                Object.getPrototypeOf(value) == Array.prototype
+            );
+		},
+        isType(value) {
+            return value &&
+                typeof value == "object" &&
+                Object.prototype.hasOwnProperty.call(value, Symbol.for("type"))
+        },
+        isTypeName(name) {
+            let first = name.substring(0, 1);
+            return first == first.toUpperCase() && first != first.toLowerCase() ? true : false;
+        },
     },
     Factory: {
         conf: {
@@ -130,14 +162,14 @@ export default {
                 expr: value
             });
 		},
-        define(object, name, value, facet) {
-            return this.declare(object, name, value, facet).define(object);
-		},
         defineClass(object, name, supertype) {
             object[Symbol.toStringTag] = name;
             object[Symbol.for("type")] = Object.create(supertype || null);
             object[Symbol.for("owner")] = this._owner;
-        },        
+        },
+        define(object, name, value, facet) {
+            return this.declare(object, name, value, facet).define(object);
+		},
         facetOf(decl) {
 			if (typeof decl == "symbol") return "";
 			decl = "" + decl;

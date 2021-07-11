@@ -82,9 +82,9 @@ export default {
         type$contentType: "Folder",
         view(model) {
             if (this.peer.$show) {
-                let content = model;
-                if (content.expr && typeof content.expr == "object") content = model.expr;
-                this.super(view, content);
+                // let content = model;
+                // if (content.expr && typeof content.expr == "object") content = model.expr;
+                this.super(view, model.expr);
                 this.owner.send(this, "view");
             } else {
                 this.peer.$show = true;
