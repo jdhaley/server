@@ -22,7 +22,7 @@ export default function main(conf) {
 	};
 	const httpsServer = https.createServer(credentials, app);
 
-	httpsServer.listen(conf.port, () => console.log(`NEW HTTPS Server listening on port "${conf.port}"`));
+	httpsServer.listen(conf.port, () => console.log(`HTTPS Server listening on port "${conf.port}"`));
 	return httpsServer;
 }
 
