@@ -12,7 +12,7 @@ export default {
                 members: {
                     tree: {
                         type$: "Collection",
-                        type$contentType: "Folder"
+                        type$contentType: "Item"
                     },
                     value: {
                         type$: "Display",
@@ -40,7 +40,7 @@ export default {
             }
 		}
     },
-    FolderHeader: {
+    ItemHeader: {
         type$: "Display",
         type$isUpperCase: "/base/util/Text/isUpperCase",
         facets: {
@@ -138,9 +138,9 @@ export default {
             }
         }
     },
-    FolderBody: {
+    ItemBody: {
         type$: "Collection",
-        type$contentType: "Folder",
+        type$contentType: "Item",
         view(model) {
             if (this.peer.$show) {
                 // let content = model;
@@ -152,11 +152,11 @@ export default {
             }
         }
     },
-    Folder: {
+    Item: {
 		type$: "Structure",
         members: {
-            type$header: "FolderHeader",
-            type$body: "FolderBody"
+            type$header: "ItemHeader",
+            type$body: "ItemBody"
         },
 		extend$actions: {
             empty(event) {

@@ -39,7 +39,7 @@ BODY {
 	max-height: 100%;
 
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 }
 .workbench>.context {
 	min-width: 48px;
@@ -53,22 +53,21 @@ BODY {
 	min-width: 480px;
 	max-width: 640px;
 	flex: 1 1;
-	border-right: 1px solid lightsteelblue;
 }
 .workbench>.main {
 	flex: 3 3;
 }
-.folder>.header {
+.item>.header {
 	padding: 3px;
 	cursor: default;
 }
-.folder>.header>I {
+.item>.header>I {
 	color: lightsteelblue;
 }
-.folder>.header>IMG {
+.item>.header>IMG {
 	width: 16px;
 }
-.folder>.body {
+.item>.body {
 	padding-left: 20px;
 }
 .sidebar>.tree {
