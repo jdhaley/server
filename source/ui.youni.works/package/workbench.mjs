@@ -42,15 +42,19 @@ export default {
     },
     FolderHeader: {
         type$: "Display",
+        type$isUpperCase: "/base/util/Text/isUpperCase",
         facets: {
             folder: {
                 icon: "/res/icons/folder-open.svg",
             },
             pkg: {
-                icon: "/res/icons/gift.svg",
+                icon: "/res/icons/archive.svg",
             },
             file: {
                 icon: "/res/icons/file.svg",
+            },
+            interface: {
+                icon: "/res/icons/gift.svg",
             },
             method: {
                 icon: "/res/icons/settings.svg",
@@ -79,7 +83,8 @@ export default {
         states: {
             "collapsed": "/res/icons/chevron-right.svg",
             "expanded": "/res/icons/chevron-bottom.svg",
-            "empty": "/res/icons/empty.svg"
+            "empty": "/res/icons/empty.svg",
+            "hidden": ""
         },
         virtual$state(value) {
             if (!arguments.length) return this.peer.$state;
@@ -91,14 +96,28 @@ export default {
             if (!model) {
                 console.log(this.of.key);
             }
+            let key = this.of.key;
             let type = model && model.facet || "";
+            if (!type && this.isUpperCase(key.charAt(0))) type = "interface";
             if (!type) type = (model && typeof model.expr) || "undefined";
             let facet = this.facets[type];
             let ico = facet ? facet.icon : "/res/icons/flag.svg";
             let title = facet && facet.title ? type : "";
-            this.peer.innerHTML = `<img> <img src="${ico}" title="${type}"> ${this.of.key} <i>${title}</i>`;
+            if (model && model.expr && model.expr[""]) {
+                title = model.expr[""].expr;
+                if (typeof title != "string") {
+                    let out = "";
+                    for (let i in title) out += title[i].expr + " & ";
+                    title = out.substring(0, out.length - 3);
+                }
+            }
+            if (type == "type" && typeof model.expr == "string") title = model.expr;
+            this.peer.innerHTML = `<img> <img src="${ico}" title="${type}"> ${key} <i>${title}</i>`;
 
-            if (model && typeof model.expr == "object") {
+            if (!key) {
+                this.state = "hidden";
+                this.of.style.display = "none";
+            } else if (model && typeof model.expr == "object") {
                 this.state = "collapsed";
             } else {
                 this.state = "empty";

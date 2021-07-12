@@ -63,9 +63,7 @@ BODY {
 	cursor: default;
 }
 .folder>.header>I {
-	vertical-align: super;
-	font-size: 10px;
-	color: steelblue;
+	color: lightsteelblue;
 }
 .folder>.header>IMG {
 	width: 16px;
