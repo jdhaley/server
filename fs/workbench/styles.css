@@ -48,11 +48,12 @@ BODY {
 	color: white;
 }
 .workbench>.sidebar {
+	display: flex;
+	flex-direction: column;
 	min-width: 480px;
 	max-width: 640px;
 	flex: 1 1;
 	border-right: 1px solid lightsteelblue;
-	overflow: scroll;
 }
 .workbench>.main {
 	flex: 3 3;
@@ -71,4 +72,13 @@ BODY {
 }
 .folder>.body {
 	padding-left: 20px;
+}
+.sidebar>.tree {
+	flex: 1 1;
+	overflow: scroll;
+}
+.sidebar>.value {
+	padding: 6px;
+	flex: 0 0 120px;
+	overflow: scroll;
 }

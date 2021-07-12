@@ -8,8 +8,27 @@ export default {
                 type$: "Display"
             },
 			sidebar: {
-                type$: "Collection",
-                type$contentType: "Folder"
+                type$: "Structure",
+                members: {
+                    tree: {
+                        type$: "Collection",
+                        type$contentType: "Folder"
+                    },
+                    value: {
+                        type$: "Display",
+                        nodeName: "pre",
+                        extend$actions: {
+                            showValue(event) {
+                                this.peer.innerText = event.value;
+                            }
+                        }
+                    }
+                },
+                extend$actions: {
+                    showValue(event) {
+                        this.owner.send(this.parts.value, event);
+                    }
+                }
             },
 			main: {
                 type$: "Structure",
@@ -68,6 +87,7 @@ export default {
             this.peer.firstChild.src = this.states[value];
         },
         view(model) {
+            this.model = model;
             if (!model) {
                 console.log(this.of.key);
             }
@@ -89,11 +109,11 @@ export default {
         },
         extend$actions: {
             click(event) {
+                event.value = this.model.expr;
                 if (this.state === "collapsed") {
                     this.state = "expanded";
                 } else if (this.state == "expanded") {
                     this.state = "collapsed";
-                } else {
                 }
                 event.subject = this.state;
             }
@@ -120,6 +140,9 @@ export default {
             type$body: "FolderBody"
         },
 		extend$actions: {
+            empty(event) {
+                event.subject = "showValue";
+            },
 			collapsed(event) {
                 this.parts.body.style.display = "none";
                 event.subject = "";
