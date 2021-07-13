@@ -39,7 +39,8 @@ BODY {
 	max-height: 100%;
 
 	font-family: Roboto, Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-size: 15px;
+	color: darkslategray;
 }
 .workbench>.context {
 	min-width: 48px;
@@ -65,7 +66,7 @@ BODY {
 	color: lightsteelblue;
 }
 .item>.header>IMG {
-	width: 16px;
+	width: 14px;
 }
 .item>.body {
 	padding-left: 20px;
