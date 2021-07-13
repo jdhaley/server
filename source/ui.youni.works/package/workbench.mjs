@@ -59,18 +59,10 @@ export default {
             method: {
                 icon: "/res/icons/settings.svg",
             },
-            string: {
-                icon: "/res/icons/tag.svg",
-                title: true
-            },
-            object: {
-                icon: "/res/icons/fullscreen.svg",
-                title: true
-            },
             type: {
                 icon: "/res/icons/link.svg",
-                title: true
             },
+
             get: {
                 icon: "/res/icons/minus.svg",
                 title: true
@@ -78,7 +70,8 @@ export default {
             virtual: {
                 icon: "/res/icons/plus.svg",
                 title: true
-            }
+            },
+    
         },
         states: {
             "collapsed": "/res/icons/chevron-right.svg",
@@ -92,39 +85,25 @@ export default {
             this.peer.firstChild.src = this.states[value];
         },
         view(model) {
-            this.model = model;
+            this.super(view, model);
             if (!model) {
                 console.log(this.of.key);
             }
-            let key = this.of.key;
-            let type = model && model.facet || "";
-            if (!type && this.isUpperCase(key.charAt(0))) type = "interface";
-            if (!type) type = (model && typeof model.expr) || "undefined";
-            let facet = this.facets[type];
+            let facet = this.facets[model.facet];
             let ico = facet ? facet.icon : "/res/icons/flag.svg";
-            let title = facet && facet.title ? type : "";
-            if (model && model.expr && model.expr[""]) {
-                title = model.expr[""].expr;
-                if (typeof title != "string") {
-                    let out = "";
-                    for (let i in title) out += title[i].expr + " & ";
-                    title = out.substring(0, out.length - 3);
-                }
+            let type = model.type;
+            switch (type) {
+                case "function":
+                case "object":
+                    type = "";
             }
-            if (type == "type" && typeof model.expr == "string") title = model.expr;
-            this.peer.innerHTML = `<img> <img src="${ico}" title="${type}"> ${key} <i>${title}</i>`;
+            this.peer.innerHTML = `<img> <img src="${ico}" title="${model.facet}"> ${model.name} <i>${type}</i>`;
 
-            if (!key) {
-                this.state = "hidden";
-                this.of.style.display = "none";
-            } else if (model && typeof model.expr == "object") {
+            if (typeof model.expr == "object") {
                 this.state = "collapsed";
             } else {
                 this.state = "empty";
             }
-
-        //    this.super(view, model);
-
         },
         extend$actions: {
             click(event) {
@@ -157,6 +136,24 @@ export default {
         members: {
             type$header: "ItemHeader",
             type$body: "ItemBody"
+        },
+        view(model) {
+            if (!model) throw new Error();
+            this.super(view, model);
+            // let facet = this.facets[type];
+            // let ico = facet ? facet.icon : "/res/icons/flag.svg";
+            // let title = facet && facet.title ? type : "";
+
+            // this.peer.innerHTML = `<img> <img src="${ico}" title="${type}"> ${key} <i>${title}</i>`;
+
+            // if (!key) {
+            //     this.state = "hidden";
+            //     this.of.style.display = "none";
+            // } else if (model && typeof model.expr == "object") {
+            //     this.state = "collapsed";
+            // } else {
+            //     this.state = "empty";
+            // }
         },
 		extend$actions: {
             empty(event) {

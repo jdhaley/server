@@ -37,6 +37,7 @@ const pkg = {
 		},
 		view(data) {
 			this.display();
+			this.model = data;
 		}
 	},
 	Collection: {

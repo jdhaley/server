@@ -2,6 +2,7 @@ export default {
     type$: "/ui/base/control",
     type$Origin: "/ui/base/origin/Origin",
     DataConverter: {
+        type$util: "/ui/base/util",
         facetOf(decl) {
             if (typeof decl == "symbol") return "";
             decl = "" + decl;
@@ -14,41 +15,67 @@ export default {
             let index = decl.indexOf("$");
             return index < 0 ? decl : decl.substring(index + 1);
         },
-        memberFor(expr, name, facet) {
-            let member = Object.create(null);
-            if (expr && expr.type$ == "Function") {
-                if (!facet) {
-                    member.facet = "method";
-                    member.expr = expr.source;
-                    return member;
+        processMember(member) {
+            if (member.expr == null) member.type = "Any";
+            if (member.expr == undefined) member.type = "Void";
+
+            if (member.type == "object") {    
+                if (member.expr.type$ == "Function") {
+                    member.type = "function";
+                    if (!member.facet) member.facet = "method";
+                    member.expr = member.expr.source;
+                } else {
+                    if (member.expr.type$) {
+                        member.type = member.expr.type$;
+                        if (typeof member.type != "string") {
+                            let type = "";
+                            for (let i in member.type) type += member.type[i] + " & ";
+                            member.type = type.substring(0, type.length - 3);
+                        }
+                    }    
+                    member.expr = this.convert(member.expr);
                 }
             }
-            member.facet  = facet;
-            member.expr = this.convert(expr);
+            if (this.util.Text.isUpperCase(member.name.charAt(0)) && !member.facet) {
+                member.facet = "interface";
+            }
+            if (member.facet == "type") {
+                member.type = member.expr;
+                member.expr = null;
+            }
+        },
+        memberFor(key, value) {
+            let member = Object.create(null);
+            member.facet = this.facetOf(key);
+            member.name = this.nameOf(key);
+            member.type = typeof value;
+            member.expr = value;
             return member;
-
         },
         membersFor(source) {
             let members = Object.create(null);
             for (let decl in source) {
-                let name = this.nameOf(decl);
-                let member = this.memberFor(source[decl], name, this.facetOf(decl));
-                members[name] = member;
+                let member = this.memberFor(decl, source[decl]);
+                member.members = members;
+                if (member.name) {
+                    this.processMember(member);
+                    members[member.name] = member;
+                }
             }
             return members;
         },
         convert(value) {
             if (value && typeof value == "object") {
-                if (value.type$ == "Function") {
-                    return {
-                        facet: "method",
-                        expr: value.source
+                if (value instanceof Array) {
+                    for (let i = 0; i < value.length; i++) {
+                        value[i] = this.convert(value[i]);
                     }
+                } else {
+                    value = this.membersFor(value);
                 }
-                return this.membersFor(value);
             }
             return value;
-        }
+        },
     },
     App: {
         type$: ["Control", "Origin", "Factory"],
