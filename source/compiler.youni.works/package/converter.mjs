@@ -1,5 +1,15 @@
 export default {
     type$: "/system/core",
+    Member: {
+        // sys: this,
+        // declaredBy: object,
+        facet: "",
+        name: "",
+        type: "",
+        expr: null,
+        configurable: true,
+        enumerable: true
+    },
     Converter: {
         type$util: "/base/util",
         facetOf(decl) {
@@ -15,14 +25,14 @@ export default {
             return index < 0 ? decl : decl.substring(index + 1);
         },
         processMember(member) {
-            if (member.expr == null) member.type = "Any";
-            if (member.expr == undefined) member.type = "Void";
+            if (member.expr === null) member.type = "any";
+            if (member.expr === undefined) member.type = "void";
 
             if (member.type == "object") {    
                 if (member.expr.type$ == "Function") {
                     member.type = "function";
                     if (!member.facet) member.facet = "method";
-                    member.expr = member.expr.source;
+                    member.expr = member.expr.source.replace(/\t/g, "\u00B7");
                 } else {
                     if (member.expr.type$) {
                         member.type = member.expr.type$;
@@ -55,7 +65,7 @@ export default {
             let members = Object.create(null);
             for (let decl in source) {
                 let member = this.memberFor(decl, source[decl]);
-                member.members = members;
+                // member.members = members;
                 if (member.name) {
                     this.processMember(member);
                     members[member.name] = member;

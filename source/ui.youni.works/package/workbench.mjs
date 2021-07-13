@@ -90,14 +90,31 @@ export default {
                 console.log(this.of.key);
             }
             let facet = this.facets[model.facet];
-            let ico = facet ? facet.icon : "/res/icons/flag.svg";
+            let icon = facet ? facet.icon : "/res/icons/fullscreen.svg";
             let type = model.type;
+            let value = "";
             switch (type) {
                 case "function":
                 case "object":
                     type = "";
+                    break;
+                case "number":
+                    type = "";
+                    value = model.expr;
+                    icon = "/res/icons/fullscreen-exit.svg";
+                    break;
+                case "string":
+                    type = "";
+                    value = model.expr;
+                    icon = "/res/icons/tag.svg";
+                    break;
+                case "boolean":
+                    type = "";
+                    value = model.expr ? true : false;
+                    icon = "/res/icons/flag.svg";
+                    break;
             }
-            this.peer.innerHTML = `<img> <img src="${ico}" title="${model.facet}"> ${model.name} <i>${type}</i>`;
+            this.peer.innerHTML = `<img> <img src="${icon}" title="${model.facet}"> ${model.name} <i>${type}</i> <span>${value}</span>`;
 
             if (typeof model.expr == "object") {
                 this.state = "collapsed";
