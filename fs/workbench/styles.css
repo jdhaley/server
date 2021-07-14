@@ -33,23 +33,59 @@ BODY {
 	height: 100%;
 	overflow: hidden;
 }
-
 .workbench {
 	display: flex;
+	flex-direction: column;
 	flex: 1 1 100%;
 	max-height: 100%;
-
+}
+.workbench>.body {
+	display: flex;
+	flex: 1 1 100%;
 	font-family: Roboto, Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	color: darkslategray;
 }
-.workbench>.context {
+.workbench>.header {
+	display: none;
+}
+.workbench>.footer {
+	flex: 0 0 24px;
+	min-height: 24px;
+	background: ghostwhite;
+	border-top: 1px solid gainsboro;
+}
+.main {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 100%;
+	align-content: stretch;
+	border-left: 1px solid gainsboro;
+}
+.tabs {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1;
+}
+.tabs>.header {
+	flex: 0 0;
+	min-height: 36px;
+	background-color: gainsboro;
+}
+.tables {
+	min-height: 48px;
+}
+.tabs>.body {
+	flex: 1 1;
+	background: linen;
+}
+.workbench>.body>.context {
 	min-width: 48px;
 	flex: 0 0;
 	background: black;
 	color: white;
 }
-.workbench>.sidebar {
+.workbench>.body>.sidebar {
 	display: flex;
 	flex-direction: column;
 	min-width: 480px;
@@ -57,7 +93,7 @@ BODY {
 	flex: 1 1;
 	padding-right: 4px;
 }
-.workbench>.main {
+.workbench>.body>.main {
 	flex: 3 3;
 }
 .item>.header {
@@ -79,12 +115,10 @@ BODY {
 .sidebar>.tree {
 	flex: 1 1;
 	overflow: scroll;
-	border-right: 1px solid gainsboro;
 }
 .sidebar>.value {
 	padding: 6px;
 	flex: 0 0 120px;
 	overflow: scroll;
-	border-right: 1px solid gainsboro;
 	border-top: 1px solid gainsboro;
 }
