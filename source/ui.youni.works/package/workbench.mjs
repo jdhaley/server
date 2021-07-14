@@ -1,5 +1,6 @@
 export default {
 	type$: "/panel",
+    type$Shape: "/shape/Shape",
 	Workbench: {
         type$: "Structure",
 		direction: "horizontal",
@@ -8,7 +9,7 @@ export default {
                 type$: "Display"
             },
 			sidebar: {
-                type$: "Structure",
+                type$: ["Structure", "Shape"],
                 members: {
                     tree: {
                         type$: "Collection",
@@ -24,10 +25,35 @@ export default {
                         }
                     }
                 },
+                extend$conf: {
+                    zone: {
+                        border: {
+                            right: 6
+                        },
+                        cursor: {
+                            "TR": "ew-resize",
+                            "CR": "ew-resize",
+                            "BR": "ew-resize",
+                        },
+                        subject: {
+                            "TR": "size",
+                            "CR": "size",
+                            "BR": "size",
+                        }
+                    },	
+                },        
                 extend$actions: {
                     showValue(event) {
                         this.owner.send(this.parts.value, event);
-                    }
+                    },
+                    size(event) {
+                        if (event.track == this) {
+                            let r = this.bounds;
+                            this.bounds = {
+                                width: event.clientX - r.left
+                            }
+                        }
+                    }        
                 }
             },
 			main: {

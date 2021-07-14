@@ -40,16 +40,16 @@ export default {
 			y -= rect.y;
 			let zone;
 
-			if (y < border.top) {
+			if (y <= border.top) {
 				zone = "T";
-			} else if (y > rect.height - border.bottom) {
+			} else if (y >= rect.height - border.bottom) {
 				zone = "B";
 			} else {
 				zone = "C";
 			}
-			if (x < border.left) {
+			if (x <= border.left) {
 				zone += "L";
-			} else if (x > rect.width - border.right) {
+			} else if (x >= rect.width - border.right) {
 				zone += "R";
 			} else {
 				zone += "C";
