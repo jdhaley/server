@@ -61,23 +61,47 @@ BODY {
 	flex: 1 1 100%;
 	align-content: stretch;
 	border-left: 1px solid gainsboro;
+	overflow: hidden;
 }
 .tabs {
 	display: flex;
 	flex-direction: column;
 	flex: 1 1;
+	overflow: hidden;
 }
 .tabs>.header {
+	display: flex;
 	flex: 0 0;
 	min-height: 36px;
-	background-color: gainsboro;
+	background-color: ghostwhite;
+	overflow: scroll;
+}
+.tabs>.header::-webkit-scrollbar {
+	width: 2px;
+	height: 2px;
+}
+.tabs>.header::-webkit-scrollbar-track {
+	background: white;
+}
+.tabs>.header::-webkit-scrollbar-thumb {
+    background: none;
+}
+.tabs>.header:hover::-webkit-scrollbar-thumb {
+    background: lightsteelblue;
+}
+
+.tab {
+	flex: 1 1;
+	max-width: 150px;
+	color: gainsboro;
+	padding: 8px;
 }
 .tables {
 	min-height: 48px;
 }
 .tabs>.body {
 	flex: 1 1;
-	background: linen;
+	border-bottom: 1px solid gainsboro;
 }
 .workbench>.body>.context {
 	min-width: 48px;
