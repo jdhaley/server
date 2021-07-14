@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 *::-webkit-scrollbar {
-	width: 6px;
-	height: 6px;
+	width: 8px;
+	height: 8px;
 }
 *::-webkit-scrollbar-thumb {
     background: lightsteelblue;
@@ -39,15 +39,16 @@ BODY {
 	flex: 1 1 100%;
 	max-height: 100%;
 }
+.workbench>.header {
+	display: none;
+}
 .workbench>.body {
 	display: flex;
-	flex: 1 1 100%;
+	flex: 1 1;
 	font-family: Roboto, Arial, Helvetica, sans-serif;
 	font-size: 15px;
 	color: darkslategray;
-}
-.workbench>.header {
-	display: none;
+	overflow: hidden;
 }
 .workbench>.footer {
 	flex: 0 0 24px;
@@ -58,50 +59,11 @@ BODY {
 .main {
 	display: flex;
 	flex-direction: column;
-	flex: 1 1 100%;
+	flex: 1 1;
 	align-content: stretch;
-	border-left: 1px solid gainsboro;
 	overflow: hidden;
-}
-.tabs {
-	display: flex;
-	flex-direction: column;
-	flex: 1 1;
-	overflow: hidden;
-}
-.tabs>.header {
-	display: flex;
-	flex: 0 0;
-	min-height: 36px;
-	background-color: ghostwhite;
-	overflow: scroll;
-}
-.tabs>.header::-webkit-scrollbar {
-	width: 2px;
-	height: 2px;
-}
-.tabs>.header::-webkit-scrollbar-track {
-	background: white;
-}
-.tabs>.header::-webkit-scrollbar-thumb {
-    background: none;
-}
-.tabs>.header:hover::-webkit-scrollbar-thumb {
-    background: lightsteelblue;
-}
 
-.tab {
-	flex: 1 1;
-	max-width: 150px;
-	color: gainsboro;
-	padding: 8px;
-}
-.tables {
-	min-height: 48px;
-}
-.tabs>.body {
-	flex: 1 1;
-	border-bottom: 1px solid gainsboro;
+	border-left: 1px solid gainsboro;
 }
 .workbench>.body>.context {
 	min-width: 48px;
@@ -120,6 +82,7 @@ BODY {
 .workbench>.body>.main {
 	flex: 3 3;
 }
+
 .item>.header {
 	padding: 3px;
 	cursor: default;
@@ -128,7 +91,7 @@ BODY {
 	color: lightsteelblue;
 }
 .item>.header>SPAN {
-	color: lightseagreen;
+	color: seagreen;
 }
 .item>.header>IMG {
 	width: 14px;
@@ -136,13 +99,73 @@ BODY {
 .item>.body {
 	padding-left: 20px;
 }
+
+.sidebar {
+	background: ghostwhite;
+}
 .sidebar>.tree {
 	flex: 1 1;
 	overflow: scroll;
+	border-right: 1px solid gainsboro;
+	background: white;
 }
 .sidebar>.value {
 	padding: 6px;
 	flex: 0 0 120px;
 	overflow: scroll;
 	border-top: 1px solid gainsboro;
+	border-right: 1px solid gainsboro;
+	background: white;
+}
+
+.tabs {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1;
+	overflow: hidden;
+}
+.tabs>.header {
+	display: flex;
+	flex: 0 0;
+	min-height: 36px;
+	color: darkgray;
+	background-color: ghostwhite;
+	overflow: scroll;
+}
+.tabs>.header::-webkit-scrollbar {
+	width: 2px;
+	height: 2px;
+}
+.tabs>.header::-webkit-scrollbar-track {
+	background: white;
+}
+.tabs>.header::-webkit-scrollbar-thumb {
+    background: none;
+}
+.tabs>.header:hover::-webkit-scrollbar-thumb {
+    background: lightsteelblue;
+}
+.tabs>.body {
+	color: darkslategrey;
+	padding: 8px;
+}
+.tab {
+	flex: 1 1;
+	cursor: pointer;
+	max-width: 150px;
+	color: gray;
+	padding: 8px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.activeTab {
+	color: seagreen;
+	background-color: white;
+}
+.tables {
+	min-height: 48px;
+}
+.tabs>.body {
+	flex: 1 1;
+	border-bottom: 1px solid gainsboro;
 }

@@ -1,6 +1,7 @@
 export default {
 	type$: "/panel",
     type$tree: "/tree",
+    type$tabs: "/tabs",
     type$Shape: "/shape/Shape",
 	Workbench: {
         type$: "Section",
@@ -23,62 +24,11 @@ export default {
             main: {
                 type$: "Structure",
                 members: {
-                    type$tabs: "Tabs",
+                    type$tabs: "tabs/Tabs",
                     type$tables: "Display"
                 }
             }
 		}
-    },
-    Tabs: {
-        type$: "Section",
-        conf: {
-            type$tab: "Tab"
-        },
-        var$activeTab: null,
-        members: {
-            header: {
-                type$: "Collection"
-            },
-            body: {
-                type$: "Display"
-            }
-        },
-        add(title, body) {
-            let tab = this.owner.create(this.conf.tab);
-            tab.peer.innerText = title;
-            this.parts.header.append(tab);
-            if (!this.activeTab) this.activeTab = tab;
-            return tab;
-        },
-        display() {
-            this.super(display);
-            this.add("Tree");
-            this.add("Other");
-            this.add("Other");
-            this.add("Other");
-            this.add("Other");
-            this.add("Other");
-            this.add("Other");
-            this.add("Other");
-        },
-        extend$actions: {
-            showTab(event) {
-                this.activeTab.style.removeProperty("background");
-                this.activeTab.style.removeProperty("color");
-                this.activeTab = event.tab;
-                this.activeTab.style.background = "white";
-                this.activeTab.style.color = "darkslategray"
-            }
-        }
-    },
-    Tab: {
-        type$: "Display",
-        extend$actions: {
-            click(event) {
-                event.subject = "showTab";
-                event.tab = this;
-            }
-        }
     },
     Sidebar: {
         type$: ["Structure", "Shape"],
@@ -100,7 +50,7 @@ export default {
         extend$conf: {
             zone: {
                 border: {
-                    right: 6
+                    right: 4
                 },
                 cursor: {
                     "TR": "ew-resize",
