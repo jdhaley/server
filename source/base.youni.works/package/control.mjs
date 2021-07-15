@@ -11,7 +11,7 @@ export default {
 		type$: ["Instance", "Configurable"],
 		receive(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];
-			action && action.call(this, signal);			
+			action && action.call(this, signal);
 		},
 		actions: {
 		}
@@ -57,7 +57,7 @@ export default {
 				if (on.to) for (on of on.to) {
 					down(on, message);
 				}
-			}			
+			}
 		},
 		sense(on, event) {
 			if (on.owner != this) console.warn("sensing on a node not owned by this.");
