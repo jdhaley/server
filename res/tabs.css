@@ -34,8 +34,10 @@
 	flex: 1 1;
 	cursor: pointer;
 	max-width: 150px;
+	min-width: 100px;
 	color: gray;
 	padding: 8px;
+	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	border-right: 1px solid gainsboro;

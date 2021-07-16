@@ -37,6 +37,7 @@ export default {
         display() {
             this.super(display);
             this.add("Tree");
+            this.draw(this.add("Draw", this.owner.create("/pen/Canvas")));
             this.add("Other One");
             this.add("Other Two");
             this.add("Other Three");
@@ -45,6 +46,9 @@ export default {
             this.add("Other 6");
             this.add("Other 7");
         },
+        draw(tab) {
+       //     tab.body.peer.setAttribute("viewBox", "0 0 320 320");
+        },
         extend$actions: {
             activateTab(event) {
                 this.activate(event.tab);
@@ -52,12 +56,37 @@ export default {
         }
     },
     Tab: {
-        type$: "Display",
+        type$: ["Display", "/shape/Shape"],
         var$body: null,
+        extend$conf: {
+            zone: {
+                border: {
+                    right: 4
+                },
+                cursor: {
+                    "TR": "ew-resize",
+                    "CR": "ew-resize",
+                    "BR": "ew-resize",
+                },
+                subject: {
+                    "TR": "size",
+                    "CR": "size",
+                    "BR": "size",
+                }
+            },	
+        },        
         extend$actions: {
             click(event) {
                 event.subject = "activateTab";
                 event.tab = this;
+            },
+            size(event) {
+                if (event.track == this) {
+                    let r = this.bounds;
+                    this.bounds = {
+                        width: event.clientX - r.left
+                    }
+                }
             }
         }
     }

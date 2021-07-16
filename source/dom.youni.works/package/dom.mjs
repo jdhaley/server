@@ -12,7 +12,7 @@ export default {
 		createNode(name) {
 			if (name.indexOf("/") >= 0) {
 				let idx = name.lastIndexOf("/");
-				return this.document.createElementNs(name.substring(0, idx), name.substring(idx + 1));
+				return this.document.createElementNS(name.substring(0, idx), name.substring(idx + 1));
 			} else {
 				return this.document.createElement(name);
 			}
@@ -72,6 +72,11 @@ export default {
 		once$peer() {
 			let peer = this.owner.createNode(this.nodeName);
 			peer.$peer = this;
+			if (typeof this.at == "object") {
+				for (let name in this.at) {
+					peer.setAttribute(name, this.at[name]);
+				}
+			}
 			return peer;
 		},
 		append(control) {

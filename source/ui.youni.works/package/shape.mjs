@@ -1,6 +1,9 @@
 export default {
     Zoned: {
         type$: "",
+		get$zones() {
+			return this.conf.zone;
+		},
         extend$conf: {
 			zone: {
 				border: {
@@ -34,8 +37,8 @@ export default {
 			}
 		},
         getZone(x, y) {
+			let border = this.zones.border;
 			let rect = this.peer.getBoundingClientRect();
-			let border = this.conf.zone.border;
 			x -= rect.x;
 			y -= rect.y;
 			let zone;
@@ -66,9 +69,9 @@ export default {
 			grab(event) {
 				if (event.track && event.track != this) return;
 				let zone = this.getZone(event.clientX, event.clientY);
-				let subject = this.conf.zone.subject[zone] || "";
+				let subject = this.zones.subject[zone] || "";
 				if (!subject) return;
-				this.style.cursor = this.conf.zone.cursor[zone];
+				this.style.cursor = this.zones.cursor[zone];
 				let b = this.bounds;
 				this.peer.$tracking = {
 					subject: subject,
@@ -102,10 +105,12 @@ export default {
 				}
 			},
 			moveover(event) {
+//				if (this.nodeName == "pre") debugger;
 				let zone = this.getZone(event.clientX, event.clientY);
-				let cursor = this.conf.zone.cursor[zone];
+				let cursor = this.zones.cursor[zone];
 				if (cursor) {
 					this.style.cursor = cursor;
+					event.subject = "";
 				} else {
 					this.style.removeProperty("cursor");
 				}

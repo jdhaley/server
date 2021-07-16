@@ -19,7 +19,7 @@ export default {
         type$: "Structure",
 		direction: "horizontal",
 		members: {
-			type$context: "Display",
+			type$context: "Context",
 			type$sidebar: "Sidebar",
             main: {
                 type$: "Structure",
@@ -30,6 +30,18 @@ export default {
             }
 		}
     },
+    Context: {
+        type$: "Display",
+        add(icon) {
+            let button = this.owner.create("/pen/Path");
+            this.append(button);
+            return button;
+        },
+        display() {
+            this.super(display);
+            this.add("/res/icons/folder.svg");
+        }
+    },
     Sidebar: {
         type$: ["Structure", "Shape"],
         members: {
@@ -38,32 +50,49 @@ export default {
                 type$contentType: "tree/Item"
             },
             value: {
-                type$: "Display",
+                type$: ["Display", "Shape"],
                 nodeName: "pre",
+                zones: {
+                    border: {
+                        top: 8
+                    },
+                    cursor: {
+                        "TC": "ns-resize"
+                    },
+                    subject: {
+                        "TC": "size"
+                    }
+                },
                 extend$actions: {
                     showValue(event) {
                         this.peer.innerText = event.value;
+                    },
+                    size(event) {
+                        if (event.track == this) {
+                            let r = this.bounds;
+                            this.bounds = {
+                                height: r.bottom - event.clientY
+                            }
+                        }
                     }
-                }
+                }        
             }
         },
-        extend$conf: {
-            zone: {
-                border: {
-                    right: 4
-                },
-                cursor: {
-                    "TR": "ew-resize",
-                    "CR": "ew-resize",
-                    "BR": "ew-resize",
-                },
-                subject: {
-                    "TR": "size",
-                    "CR": "size",
-                    "BR": "size",
-                }
-            },	
-        },        
+        zones: {
+            border: {
+                right: 4
+            },
+            cursor: {
+                "TR": "ew-resize",
+                "CR": "ew-resize",
+                "BR": "ew-resize",
+            },
+            subject: {
+                "TR": "size",
+                "CR": "size",
+                "BR": "size",
+            }
+        },	
         extend$actions: {
             showValue(event) {
                 this.owner.send(this.parts.value, event);
