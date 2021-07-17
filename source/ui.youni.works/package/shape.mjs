@@ -1,46 +1,42 @@
 export default {
     Zoned: {
         type$: "",
-		get$zones() {
-			return this.conf.zone;
-		},
-        extend$conf: {
-			zone: {
-				border: {
-					top: 0,
-					right: 6,
-					bottom: 6,
-					left: 0
-				},
-				cursor: {
-					// "TL": "move",
-					// "TC": "move",
-					// "TR": "move",
-					// "CL": "move",
-					// "CC": "move",
-					// "CR": "move",
-					// "BL": "move",
-					// "BC": "move",
-					"BR": "nwse-resize",
-				},
-				subject: {
-					// "TL": "position",
-					// "TC": "position",
-					// "TR": "position",
-					// "CL": "position",
-					// "CC": "position",
-					// "CR": "position",
-					// "BL": "position",
-					// "BC": "position",
-					"BR": "size",
-				}
+		zones: {
+			border: {
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0
+			},
+			cursor: {
+				"TL": "",
+				"TC": "",
+				"TR": "",
+				"CL": "",
+				"CC": "",
+				"CR": "",
+				"BL": "",
+				"BC": "",
+				"BR": "",
+			},
+			subject: {
+				"TL": "",
+				"TC": "",
+				"TR": "",
+				"CL": "",
+				"CC": "",
+				"CR": "",
+				"BL": "",
+				"BC": "",
+				"BR": "",
 			}
 		},
         getZone(x, y) {
-			let border = this.zones.border;
 			let rect = this.peer.getBoundingClientRect();
 			x -= rect.x;
 			y -= rect.y;
+
+			let border = this.zones.border;
 			let zone;
 
 			if (y <= border.top) {

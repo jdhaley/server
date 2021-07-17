@@ -4,6 +4,17 @@ export default {
 	type$Shape: "/shape/Shape",
 	Caption: {
 		type$: ["Member", "Shape"],
+		zones: {
+			border: {
+				right: 6
+			},
+			cursor: {
+				"CR": "ew-resize"
+			},
+			subject: {
+				"CR": "size",
+			}
+		},
 		display() {
 			this.super(display);
 			if (!this.rule) this.createRule();
@@ -15,7 +26,7 @@ export default {
 			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
 			this.rule = this.owner.createStyle(selector, {
 				"flex": (this.conf.flex === false ? "0 0 " : "1 1 ") + flex + "cm",
-				"min-width": flex / 2 + "cm"
+				"min-width": flex / 4 + "cm"
 			});
 			console.log(this.rule);
 			function getParentId(node) {
@@ -23,6 +34,14 @@ export default {
 					if (node.id) return node.id;
 				}
 			}
+		},
+		extend$actions: {
+			size(event) {
+				if (event.track == this) {
+					let r = this.bounds;
+					this.rule.style.minWidth = (event.clientX - r.left) + "px";
+				}
+			}	
 		}
 	},
 	Key: {
