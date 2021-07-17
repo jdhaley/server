@@ -150,3 +150,17 @@ const pkg = {
 	}
 }
 export default pkg;
+
+// function defineStyleProperties(object, prefix) {
+// 	if (!prefix) prefix = "";
+// 	let out = "";
+// 	for (let name in object) {
+// 		let value = object[name];
+// 		if (typeof value == "object") {
+// 			out += defineStyleProperties(value, prefix + name + "-");
+// 		} else {
+// 			out += "\t" + prefix + name + ": " + value + ";\n"
+// 		}
+// 	}
+// 	return out;
+// }

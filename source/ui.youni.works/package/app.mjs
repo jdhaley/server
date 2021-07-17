@@ -1,11 +1,8 @@
 export default {
-    type$: "/ui/base/control",
-    type$Origin: "/ui/base/origin/Origin",
-    type$DataConverter: "/compiler/converter/Converter",
+    type$: "/base/control",
+    type$Origin: "/base/origin/Origin",
     App: {
         type$: ["Control", "Origin", "Factory"],
-        type$converter: "DataConverter",
-        type$context: "AppContext",
         type$owner: "Owner",
         get$folder() {
             let name = this.conf.window.location.pathname;
@@ -63,8 +60,6 @@ export default {
                 } else {
                     this.types = this.create();
                 }
-                let ctx = this.create(this.context);
-                ctx.start(this.types);
                 //Create the view after the types have been initialized
                 this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
                 this.view.file =  this.conf.dataSource;
@@ -73,48 +68,12 @@ export default {
             },
             initializeData(msg) {
                 let data = JSON.parse(msg.response);
-                data = this.converter.convert(data);
+                let converter = this[Symbol.for("owner")].create(this.conf.dataConverter);
+                data = converter.convert(data);
                 console.debug(data);
                 this.data = data; // this.create(data);
                 if (this.view) this.receive("view");
             }
        }
-    },
-    AppContext: {
-        type$: "Context",
-        start(conf) {
-            console.log(conf);
-        }
     }
-}
-
-
-//this.window.styles = createStyleSheet(this.window.document);
-//createRule: function(selector, properties) {
-//	let out = `${selector} {\n`;
-//	out += defineStyleProperties(properties);
-//	out += "\n}";
-//	let index = this.window.styles.insertRule(out);
-//	return this.window.styles.cssRules[index];
-//},
-
-function createStyleSheet(document) {
-	let ele = document.createElement("style");
-	ele.type = "text/css";
-	document.head.appendChild(ele);
-	return ele.sheet;
-}
-
-function defineStyleProperties(object, prefix) {
-	if (!prefix) prefix = "";
-	let out = "";
-	for (let name in object) {
-		let value = object[name];
-		if (typeof value == "object") {
-			out += defineStyleProperties(value, prefix + name + "-");
-		} else {
-			out += "\t" + prefix + name + ": " + value + ";\n"
-		}
-	}
-	return out;
 }
