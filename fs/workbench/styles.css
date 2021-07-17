@@ -69,8 +69,6 @@ BODY {
 	flex: 1 1;
 	align-content: stretch;
 	overflow: hidden;
-
-	border-left: 1px solid gainsboro;
 }
 .workbench>.body>.context {
 	min-width: 48px;
@@ -101,7 +99,6 @@ BODY {
 	min-width: 480px;
 	max-width: 640px;
 	flex: 1 1;
-	background: ghostwhite;
 	padding-right: 4px;
 	overflow: hidden;
 }
