@@ -95,7 +95,8 @@ export default {
 				decl.configurable = true;
 				decl.enumerable = true;
 				decl.get = function getType() {				
-					return decl.sys.forName(decl.expr, decl[decl.sys.conf.symbols.name]);
+					return decl.sys.forName(decl.expr 
+						/*TODO add back: , decl[decl.sys.symbolOf("name") ]*/);
 				}
 				decl.define = function(object) {
 					return Reflect.defineProperty(object, this.name, this);
@@ -103,32 +104,28 @@ export default {
 				return decl;
 			},
 			extend: function(decl) {
-				if (typeof decl.expr != "object") throw new Error("extend facet requires an object expression.");
-				let sys = decl.sys;
-				decl.enumerable = true;
-				decl.get = function() {
-					let proto = Object.getPrototypeOf(this);
-					let value = sys.extend(proto ? proto[decl.name] : null);
-					if (this.interface) for (let type of this.interface.implements) {
-						sys.implement(value, type.class[decl.name]);
+				if (typeof decl.expr != "object") throw new Error("extend facet requires an object or array expression.");
+				decl.define = function(object) {
+					let ext = Object.create(object[decl.name] || null);
+					if (decl.expr[Symbol.iterator]) {
+						for (let value of decl.expr) {
+							if (value && value.name) {
+								ext[value.name] = value;
+							}
+							else {
+								console.warn("Array extend element does not contain a name property. Igonoring.");
+							}
+						}
 					}
 					for (let name in decl.expr) {
-						value[name] = decl.expr[name];
+						ext[name] = decl.expr[name];
 					}
-					Reflect.defineProperty(this, decl.name, {
-						configurable: true,
-						enumerable: true,
-						value: value
-					});
-					return value;
-				}
-				decl.define = function(object) {
-					return Reflect.defineProperty(object, this.name, this);
+					return decl.sys.define(object, decl.name, ext, "const");
 				}
 				return decl;
 			},
 			symbol: function(decl) {
-				decl.symbol = decl.sys.conf.symbols[decl.name];
+				decl.symbol = decl.sys.symbolOf(decl.name);
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.configurable = true;
 				decl.value = decl.expr;

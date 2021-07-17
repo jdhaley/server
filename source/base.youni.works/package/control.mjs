@@ -1,13 +1,15 @@
 export default {
 	type$: "/system/core",
-	Control: {
-		type$: "Instance",
+	Configurable: {
 		conf: {
 		},
-		start: function(conf) {
+		start(conf) {
 			if (conf) this.let("conf", conf, "extend");
 		},
-		receive: function(signal) {
+	},
+	Control: {
+		type$: ["Instance", "Configurable"],
+		receive(signal) {
 			let action = this.actions[typeof signal == "string" ? signal : signal.subject];
 			action && action.call(this, signal);			
 		},
@@ -18,23 +20,31 @@ export default {
 		type$: "Control",
 		type$owner: "Owner",	//The graph.
 		type$to: "Array",		//The arcs. Each arc should be a Node.
-		append: function(component) {
+		append(component) {
 			Array.prototype.push.call(this.to, component);
+		},
+		forEach(data, method) {
+			if (data && data[Symbol.iterator]) {
+				let i = 0;
+				for (let datum of data) {
+					method.call(this, datum, i++, data);
+				}
+			} else {
+				for (let name in data) {
+					method.call(this, data[name], name, data);
+				}
+			}
 		}
 	},
 	Owner: {
-		type$: "",
-		create: function(controlType, conf) {
-			if (typeof controlType != "object") {
-				controlType = this.sys.forName(controlType);
-			}
-			let control = this.sys.extend(controlType, {
-				owner: this
-			});
+		create(controlType, conf) {
+			let module = this[Symbol.for("owner")];
+			let control = module.create(controlType);
+			module.define(control, "owner", this, "const");
 			control.start(conf);
 			return control;
 		},
-		send: function(to, msg) {
+		send(to, msg) {
 			if (to.owner != this) console.warn("sending to a node not owned by this.");
 			msg = this.prepareSignal(msg);
 			this.log(to, msg);
@@ -49,7 +59,7 @@ export default {
 				}
 			}			
 		},
-		sense: function(on, event) {
+		sense(on, event) {
 			if (on.owner != this) console.warn("sensing on a node not owned by this.");
 			event = this.prepareSignal(event);
 			this.log(on, event);
@@ -61,7 +71,7 @@ export default {
 				on = on.of;
 			}
 		},
-		notify: function(on, signal) {
+		notify(on, signal) {
 			let model = signal.model || on.model;
 			let observers = model && model[Symbol.for("observers")];
 			if (!observers) return;
@@ -73,13 +83,13 @@ export default {
 				ctl.receive(signal);
 			}
 		},
-		prepareSignal: function(signal) {
+		prepareSignal(signal) {
 			if (typeof signal != "object") return {
 				subject: signal
 			}
 			return signal;
 		},
-		log: function(on, event) {
+		log(on, event) {
 			// const DONTLOG = ["receive", "track", "mousemove", "selectionchange"];
 			// for (let subject of DONTLOG) {
 			// 	if (event.subject == subject) return;
@@ -87,68 +97,8 @@ export default {
 			// console.debug(event.subject + " " + on.nodeName + " " + on.className);
 		}
 	},
-	DomOwner: {
-		type$: "Owner",
-		document: null,
-		createNode: function(name) {
-			if (name.indexOf("/") >= 0) {
-				let idx = name.lastIndexOf("/");
-				return this.document.createElementNs(name.substring(0, idx), name.substring(idx + 1));
-			} else {
-				return this.document.createElement(name);
-			}
-		},
-		sense: function sense(on, event) {
-			this.super(sense, on, event);
-			if (event.preventDefault && !event.subject) event.preventDefault();
-		},
-		prepareSignal: function prepareSignal(signal) {
-			signal = this.super(prepareSignal, signal);
-			signal.stopPropagation && signal.stopPropagation();
-			if (!signal.subject) signal.subject = signal.type;
-			return signal;
-		}
-	},
-	DomNode: {
-		type$: "Node",
-		type$owner: "DomOwner",
-		once$nodeName: function() {
-			return this.className;
-		},
-		once$className: function() {
-			return this[Symbol.toStringTag].charAt(0).toLowerCase() + this[Symbol.toStringTag].substring(1);
-		},
-		get$to: function() {
-			const nodes = this.peer.childNodes;
-			if (!nodes.$to) nodes.$to = this.sys.extend(null, {
-				symbol$iterator: function*() {
-					for (let i = 0, len = nodes.length; i < len; i++) {
-						let node = nodes[i];
-						if (node.$peer) yield node.$peer;
-					}
-				}
-			});
-			return nodes.$to;
-		},
-		/**
-		 * Dom Nodes are rooted tree nodes, i.e. more-or-less equivalent to an undirected graph.
-		 * "of" is a generic whole-part relationship and for Dom Nodes the default is its parentNode.
-		 */
-		get$of: function() {
-			return this.peer.parentNode.$peer;
-		},
-		once$peer: function() {
-			let peer = this.owner.createNode(this.nodeName);
-			peer.$peer = this;
-			return peer;
-		},
-		append: function(control) {
-			this.peer.append(control.peer);
-		}
-	},
 	Observer: {
-		type$: "",
-		observe: function(object) {
+		observe(object) {
 			const OBSERVERS = Symbol.for("observers");
 			if (typeof object != "object" || object == null) return; //Only observe objects.
 			let observers = object[OBSERVERS];
@@ -162,7 +112,7 @@ export default {
 			}
 			observers.push(this);
 		},
-		unobserve: function(control, object) {
+		unobserve(control, object) {
 			const OBSERVERS = Symbol.for("observers");
 			let list = object ? object[OBSERVERS] : null;
 			if (list) for (let i = 0, len = list.length; i < len; i++) {

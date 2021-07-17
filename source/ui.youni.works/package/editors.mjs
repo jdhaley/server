@@ -1,48 +1,33 @@
 const pkg = {
-	type$: "/view",
+	type$: "/record",
 	Editor: {
-		type$: "View",
+		type$: "Display",
 		dataType: "",
-		get$inputType: function() {
-			return this.dataType;
-		},
-		bind: function(value) {
-			this.peer.textContent = value;
-		},
-		draw: function draw() {
-			this.super(draw);
-			this.peer.type = this.inputType;
-			this.peer.contentEditable = this.conf.readOnly ? false : true;
-		}
 	},
 	Input: {
 		type$: "Editor",
 		nodeName: "input",
-		bind: function(value) {
-			this.peer.value = value;
+		get$inputType() {
+			return this.dataType;
 		},
-		draw: function draw() {
-			this.super(draw);
-			delete this.peer.contentEditable;
+		view(data) {
+			this.super(view, data);
 			this.peer.type = this.inputType;
+			this.peer.value = data;
 			if (this.conf.readOnly) this.peer.setAttribute("disabled", true);
 		}
-	},
-	String: {
-		type$: "Editor",
-		dataType: "string",
 	},
 	Number: {
 		type$: "Input",
 		dataType: "number"
 	},
-	Date: {
-		type$: "Input",
-		dataType: "date"
-	},
 	Boolean: {
 		type$: "Input",
 		dataType: "checkbox"
+	},
+	Date: {
+		type$: "Input",
+		dataType: "date"
 	},
 	Datetime: {
 		type$: "Date",
@@ -58,38 +43,86 @@ const pkg = {
 		dataType: "string",
 		inputType: "password"
 	},
-	//more work needed...
-	Object: {
+	String: {
 		type$: "Editor",
-		dataType: "object",
-		bind: function(value) {
-			this.textContent = "...";
+		dataType: "string",
+		view(value) {
+			this.super(view, value);
+			this.peer.textContent = value;
+			this.peer.contentEditable = this.conf.readOnly ? false : true;
 		}
 	},
+	//more work needed...
 	Collection: {
 		type$: "Editor",
 		dataType: "object",
-		bind: function(value) {
+		view(value) {
+			this.model = data;
 			this.textContent = "...";
+		}
+	},
+	Object: {
+		type$: "Editor",
+		dataType: "object",
+		view(value) {
+			this.model = data;
+			this.textContent = "...";
+		}
+	},
+	LinkNav: {
+		type$: "Display",
+		nodeName: "img",
+		view(data) {
+			this.model = data;
+			this.peer.src = "/res/link.svg";
+			this.peer.tabIndex = 1;
+		},
+		extend$actions: {
+			click(event) {
+				this.receive("navigate");
+			},
+			keydown(event) {
+				if (event.key == "Enter" || event.key == " ") this.receive("navigate");
+			},
+			navigate(event) {
+				if (!this.pane) {
+					let type = this.owner.origin.types[this.conf.objectType];
+					let model = this.owner.origin.data[this.conf.dataset][this.of.model];
+
+					this.pane = this.owner.create(this.conf.linkControl, type);	
+					this.pane.view(model);
+					this.owner.send(this.pane, "view");
+				}
+				if (!this.pane.peer.parentNode) {
+					this.owner.append(this.pane);
+				}
+				let b = this.bounds;
+				this.pane.bounds = {
+					left: b.left,
+					top: b.bottom
+				};
+			}
 		}
 	},
 	Link: {
 		type$: "Editor",
 		extend$conf: {
-			readOnly: true
-		},
-		draw: function draw() {
-			this.super(draw);
-			this.peer.tabIndex = 1;
-		},
-		extend$actions: {
-			click: function(event) {
-				event.subject = "activate";
+			type$linkNavControl: "LinkNav",
+			linkControl: {
+				type$: "/shape/Pane",
+			//	contentType: "/grid/PropertySheet"
+				contentType: "/panel/Panel"
 			},
-			keydown: function(event) {
-				if (event.key == "Enter" || event.key == " ") event.subject = "activate";
-			}
-		}
+			type$editorControl: "String"
+		},
+		view(data) {
+			this.super(view, data);
+			this.value = this.owner.create(this.conf.editorControl, this.conf);
+			this.peer.tabIndex = 1;
+			this.append(this.value);
+			this.icon = this.owner.create(this.conf.linkNavControl, this.conf);
+			this.append(this.icon);
+		},
 	}
 }
 export default pkg;

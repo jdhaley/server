@@ -1,25 +1,29 @@
 export default {
-	type$: "/ui/base/util",
+    type$: "/ui/base/control",
+    type$Origin: "/ui/base/origin/Origin",
+    type$DataConverter: "/compiler/converter/Converter",
     App: {
-        type$: ["Control", "Origin"],
+        type$: ["Control", "Origin", "Factory"],
+        type$converter: "DataConverter",
+        type$context: "AppContext",
         type$owner: "Owner",
-        get$folder: function() {
+        get$folder() {
             let name = this.conf.window.location.pathname;
             name = name.substring(name.lastIndexOf("/") + 1);
             name = name.substring(0, name.lastIndexOf("."));
             return "/file/" + name;
         },
-        runScript: function(name) {
+        runScript(name) {
             import(name).then(v => {
                 v.default.call(this);
             });
         },
-        start: function(conf) {
+        start(conf) {
             this.let("conf", conf);
             this.open(this.folder + "/app.json", "initializeApp");
             this.runScript(this.folder + "/index.mjs");
          },
-        initializeOwner: function() {
+        initializeOwner() {
             this.owner.origin = this;
             this.owner.editors = this.conf.editors;
             this.owner.start(this.conf);
@@ -33,43 +37,54 @@ export default {
             });
         },
         extend$actions: {
-            view: function(msg) {
-                this.view.view(this.data[this.conf.dataset]);
+            view(msg) {
+                this.view.view(this.data);
+                this.owner.send(this.view, "view");
             },
-            initializeApp: function(msg) {
+            initializeApp(msg) {
                 let conf = msg.response 
-                    ? this.sys.extend(this.conf, JSON.parse(msg.response)) 
-                    : this.sys.extend();
+                    ? this.create(this.conf, JSON.parse(msg.response)) 
+                    : this.create();
                 this.let("conf", conf);
-                this.let("owner", this.sys.extend(conf.ownerType || this.owner));
+                this.let("owner", this.create(conf.ownerType || this.owner));
                 this.initializeOwner();
 
                 if (conf.typeSource) {
-                    this.open(conf.typeSource, "initializeTypes");                 
+                    this.open(conf.typeSource, "initializeContext");                 
                 } else {
-                    this.owner.send(this, "initializeTypes");
+                    this.owner.send(this, "initializeContext");
                 }
                 this.open(conf.dataSource, "initializeData");
             },
-            initializeTypes: function(msg) {
+            initializeContext(msg) {
                 if (msg.response) {
                     let types = JSON.parse(msg.response);
-                    this.types = this.sys.extend(null, types);    
+                    this.types = this.create(types);
                 } else {
-                    this.types = Object.create(null);
+                    this.types = this.create();
                 }
+                let ctx = this.create(this.context);
+                ctx.start(this.types);
                 //Create the view after the types have been initialized
                 this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
                 this.view.file =  this.conf.dataSource;
                 this.owner.append(this.view);
                 if (this.data) this.receive("view");
             },
-            initializeData: function(msg) {
+            initializeData(msg) {
                 let data = JSON.parse(msg.response);
-                this.data = this.sys.extend(null, data);
+                data = this.converter.convert(data);
+                console.debug(data);
+                this.data = data; // this.create(data);
                 if (this.view) this.receive("view");
             }
        }
+    },
+    AppContext: {
+        type$: "Context",
+        start(conf) {
+            console.log(conf);
+        }
     }
 }
 

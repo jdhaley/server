@@ -9,7 +9,17 @@ export default function compileAll(sourceDir, targetDir) {
 }
 
 async function load(sourceDir, name) {
-    let index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
+    let index;
+    try {
+        index = (await import("./" + sourceDir + "/" + name + "/index.mjs")).default;
+    } catch (err) {
+        if (err.code == "ERR_MODULE_NOT_FOUND") {
+            console.warn(`Directory "${name}" is missing index.mjs; skipping`);
+            return;
+        }
+        console.error(err);
+        return;
+    }
     let module = index && index.module;
     if (!module) throw new Error(`Module "${name}" is missing module.mjs`);
     if (module.name && module.name != name) {
@@ -31,6 +41,7 @@ async function load(sourceDir, name) {
 }
 
 function compile(targetDir, manifest) {
+    if (!manifest) return;
     let module = manifest.module;
     console.log("Compiling: " + module.name + "-" + module.version);
     let uses = module.use;
@@ -41,7 +52,7 @@ function compile(targetDir, manifest) {
     let out = "";
     let use = "";
     for (let name in uses) {
-        out += `import ${name} from ${JSON.stringify("/target/" + uses[name] + ".mjs")};\n`;
+        out += `import ${name} from ${JSON.stringify("./" + uses[name] + ".mjs")};\n`;
         use += "\t" + JSON.stringify(name) + ": " + name + ",\n";
     }
     out += "const module = " + compileValue(module) + ";\n";
@@ -76,7 +87,9 @@ function compileValue(value, depth) {
         case "string":
             return JSON.stringify(value);
         case "function":
-            return value.toString();
+            let source = value.toString();
+            if (source.startsWith("function(") || source.startsWith("function ") ) return source;
+            return "function " + source;
         case "object":
             if (!value) return "null";
             if (Object.getPrototypeOf(value) == Array.prototype) return compileArray(value, depth || 0);
@@ -131,5 +144,5 @@ function indent(depth) {
 
 //TODO this is dependent on naming system.youni.works "system".
 function loadModule(module) {
-    return module.use.system.sys.load(module);
+    return module.use.system.load(module);
 }

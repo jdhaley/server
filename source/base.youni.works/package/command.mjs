@@ -1,44 +1,44 @@
 export default {
 	type$: "/system/core",
 	Command: {
-		type$: "Instance",
+		type$: "Factory",
 		type$prior: "Command",
 		type$next: "Command",
-		exec: function() {
+		exec() {
 		},
-		undo: function() {
+		undo() {
 		},
-		instance: function() {
-			return this.sys.extend(this, {
+		instance() {
+			return this.create(this, {
 				prior: null,
 				next: null
 			});
 		}
 	},
 	Commands: {
-		type$: "Instance",
+		type$: "Factory",
 		type$lastCommand: "Command",
-		undo: function() {
+		undo() {
 			let command = this.lastCommand;
 			if (!command.prior) return;
 			command.undo();
 			this.lastCommand = command.prior;
 		},
-		redo: function() {
+		redo() {
 			let command = this.lastCommand;
 			if (!command.next) return;
 			command = command.next;
 			command.exec();
 			this.lastCommand = command;
 		},
-		addCommand: function(command) {
+		addCommand(command) {
 			this.lastCommand.next = command;
 			command.prior = this.lastCommand;
 			this.lastCommand = command;
 			return command;
 		},
-		instance: function() {
-			return this.sys.extend(this, {
+		instance() {
+			return this.create(this, {
 				lastCommand: this.lastCommand.instance()
 			});
 		}
@@ -46,13 +46,13 @@ export default {
 	BatchCommand: {
 		type$: "Command",
 		commands: null,
-		undo: function() {
+		undo() {
 			//To undo a batch, each command must be done in reverse order.
 			for (let i = this.commands.length - 1; i >= 0; i--) {
 				this.commands[i].undo();
 			}
 		},
-		exec: function() {
+		exec() {
 			for (let cmd of this.commands) {
 				cmd.exec();
 			}

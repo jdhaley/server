@@ -1,10 +1,10 @@
 const pkg = {
-	type$: "/view",
+	type$: "/display",
 	use: {
 		type$command: "/base/command"
 	},
 	$public: {
-		type$: "/view",
+		type$: "/display",
 		DrawCommand: {
 			type$: "use/command/Command",
 			title: "Move/Size Shape",
@@ -23,11 +23,11 @@ const pkg = {
 			},
 			instance: function(control) {
 				let model = control.model;
-				let before = this.sys.extend();
+				let before = this.create();
 				control.set(before, model);
-				let after = this.sys.extend();
+				let after = this.create();
 				control.set(after, model);
-				return this.sys.extend(this, {
+				return this.create(this, {
 					prior: null,
 					next: null,
 					control: control,
@@ -37,7 +37,7 @@ const pkg = {
 			}
 		},
 		Diagram: {
-			type$: ["View", "Observer"],
+			type$: ["Display", "Observer"],
 			//DOC why use.Commands & type$commands.
 			//TODO rationalize the use vs. type. Come up with a better pattern.
 			use: {
@@ -91,7 +91,7 @@ const pkg = {
 			}
 		},
 		Shape: {
-			type$: ["View", "Observer"],
+			type$: ["Display", "Observer"],
 			use: {
 				type$DrawCommand: "DrawCommand"
 			},
@@ -130,7 +130,7 @@ const pkg = {
 					case "number":
 						let ctl = this.owner.create(this.defaultContent);
 						this.append(ctl);
-						ctl.bind(content);
+						ctl.observe(content);
 						break;
 					case "boolean":
 					case "undefined":
@@ -251,7 +251,7 @@ const pkg = {
 			}
 		},
 		Text: {
-			type$: "View",
+			type$: "Display",
 			bind: function(model) {
 				this.model = model.content;
 			},
@@ -275,7 +275,7 @@ const pkg = {
 			}
 		},
 		Connector: {
-			type$: "View"
+			type$: "Display"
 		}
 	},
 	ZONE_CURSOR: {

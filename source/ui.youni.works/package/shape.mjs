@@ -2,62 +2,92 @@ export default {
     Zoned: {
         type$: "",
         extend$conf: {
-			border: 6
+			zone: {
+				border: {
+					top: 0,
+					right: 6,
+					bottom: 6,
+					left: 0
+				},
+				cursor: {
+					// "TL": "move",
+					// "TC": "move",
+					// "TR": "move",
+					// "CL": "move",
+					// "CC": "move",
+					// "CR": "move",
+					// "BL": "move",
+					// "BC": "move",
+					"BR": "nwse-resize",
+				},
+				subject: {
+					// "TL": "position",
+					// "TC": "position",
+					// "TR": "position",
+					// "CL": "position",
+					// "CC": "position",
+					// "CR": "position",
+					// "BL": "position",
+					// "BC": "position",
+					"BR": "size",
+				}
+			}
 		},
-        getZone: function(x, y, border) {
+        getZone(x, y) {
 			let rect = this.peer.getBoundingClientRect();
+			let border = this.conf.zone.border;
 			x -= rect.x;
 			y -= rect.y;
 			let zone;
 
-			if (y < border) {
+			if (y <= border.top) {
 				zone = "T";
-			} else if (y > rect.height - border) {
+			} else if (y >= rect.height - border.bottom) {
 				zone = "B";
 			} else {
 				zone = "C";
 			}
-			if (x < border) {
+			if (x <= border.left) {
 				zone += "L";
-			} else if (x > rect.width - border) {
+			} else if (x >= rect.width - border.right) {
 				zone += "R";
 			} else {
 				zone += "C";
 			}
 			return zone;
-		},
-        extend$actions: {
-
-        }
+		}
     },
 	Shape: {
 		type$: "Zoned",
+		get$shape(){
+			return this;
+		},
 		extend$actions: {
-			grab: function(event) {
+			grab(event) {
+				if (event.track && event.track != this) return;
+				let zone = this.getZone(event.clientX, event.clientY);
+				let subject = this.conf.zone.subject[zone] || "";
+				if (!subject) return;
+				this.style.cursor = this.conf.zone.cursor[zone];
 				let b = this.bounds;
 				this.peer.$tracking = {
+					subject: subject,
+					cursor: this.style.cursor,
 					insideX: event.x - b.left,
 					insideY: event.y - b.top
 				}
-                if (event.altKey) {
-					event.track = this;
-					this.peer.$tracking.subject = "position";
-					this.owner.style.cursor = "move";
-				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					event.track = this;
-					this.peer.$tracking.subject = "size";
-					this.style.cursor = "nwse-resize";
-				}
+				event.track = this;
+			//	event.subject = "";
 			},
-			drag: function(event) {
+			drag(event) {
 				event.subject = this.peer.$tracking.subject;
 				this.receive(event)
 			},
-			release: function(event) {
+			release(event) {
 				delete this.peer.$tracking;
                 this.owner.style.removeProperty("cursor");
 			},
-			position: function(event) {
+			position(event) {
 				if (event.track == this) {
 					this.bounds = {
 						left: event.x - this.peer.$tracking.insideX,
@@ -65,25 +95,57 @@ export default {
 					}
 				}
 			},
-			size: function(event) {
+			size(event) {
 				if (event.track == this) {
-					let b = this.bounds;
-					this.bounds = {
-						width: event.clientX - b.left,
-						height: event.clientY - b.top
-					}
+					let r = this.shape.peer.getBoundingClientRect();
+					this.shape.size(event.clientX - r.left, event.clientY - r.top);
 				}
 			},
-			mousemove: function(event) {
-				//Hit test in bottom right (BR) zone to track movement.
-				if (event.altKey) {
-					this.style.cursor = "move";
-				} else if (this.getZone(event.clientX, event.clientY, this.conf.border) == "BR") {
-					this.style.cursor = "nwse-resize";
+			moveover(event) {
+				let zone = this.getZone(event.clientX, event.clientY);
+				let cursor = this.conf.zone.cursor[zone];
+				if (cursor) {
+					this.style.cursor = cursor;
 				} else {
 					this.style.removeProperty("cursor");
 				}
 			}
+		}
+	},
+	type$Display: "/display/Display",
+	Pane: {
+		type$: ["Display", "Shape"],
+		var$shape: null,
+		extend$conf: {
+			zone: {
+				border: {
+					top: 0,
+					right: 8,
+					bottom: 12,
+					left: 0
+				},
+				cursor: {
+					"BC": "move",
+					"BR": "nwse-resize",
+				},
+				subject: {
+					"BC": "position",
+					"BR": "size",
+				}
+			},	
+		},
+		get$contentType() {
+			return this.conf.contentType;
+		},
+		get$elementConf() {
+			return this.conf;
+		},
+		view(data) {
+			this.super(view, data);
+			let type = this.contentType;
+			let conf = this.elementConf;
+			this.shape = this.owner.create(type, conf);
+			this.append(this.shape);
 		}
 	}
 }

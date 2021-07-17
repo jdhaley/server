@@ -1,143 +1,122 @@
 export default {
-	type$: "/container",
-	Sheet: {
-		type$: "Object",
-		elementType: {
-			type$: "Composite",
-			className: "part",
-			members: {
-				type$header: "Caption",
-				type$body: "Cell"
+	type$: "/record",
+	type$Section: "/panel/Section",
+	type$Shape: "/shape/Shape",
+	Caption: {
+		type$: ["Member", "Shape"],
+		display() {
+			this.super(display);
+			if (!this.rule) this.createRule();
+			this.peer.innerText = this.getCaption();
+			if (this.conf.dynamic) this.peer.classList.add("dynamic");
+		},
+		createRule() {
+			let flex = +(this.conf.columnSize);
+			let selector = "#" + getParentId(this.peer) + " ." + this.conf.name;
+			this.rule = this.owner.createStyle(selector, {
+				"flex": (this.conf.flex === false ? "0 0 " : "1 1 ") + flex + "cm",
+				"min-width": flex / 2 + "cm"
+			});
+			console.log(this.rule);
+			function getParentId(node) {
+				for (; node; node = node.parentNode) {
+					if (node.id) return node.id;
+				}
 			}
 		}
 	},
-	Grid: {
-		type$: "Composite",
+	Key: {
+		type$: ["Display", "Shape"],
+		display() {
+			this.super(display);
+			let key = this.of.key || "";
+			this.peer.textContent = key;
+		}
+	},
+	Row: {
+		type$: "Structure",
+		direction: "horizontal",
+		members: {
+			type$key: "Key",
+			type$value: "Display"
+		}
+	},
+	Sheet: {
+		type$: "Section",
+		members: {
+			type$header: "Display",
+			type$body: "Rows",
+			type$footer: "Display"
+		}
+	},
+	Rows: {
+		type$: "Collection",
+		type$contentType: "Row",
+		direction: "vertical"
+	},
+	PropertySheet: {
+		type$: "Sheet",
+		members: {
+			body: {
+				type$: "Record",
+				contentType: {
+					type$: "Row",
+					members: {
+						type$key: "Caption",
+						type$value: "Property"
+					}
+				}
+			}
+		}
+	},
+	Table: {
+		type$: "Section",
 		members: {
 			header: {
-				type$: "Composite",
+				type$: "Row",
 				members: {
-					header: {
-						type$: "View",
-						className: "handle"
-					},
-					body: {
-						type$: "Composite", //or Record?
-						type$elementType: "Caption"
+					type$key: "Key",
+					value: {
+						type$: "Record",
+						type$contentType: "Caption"
 					}
 				}
 			},
 			body: {
-				type$: "Collection",
-				elementType: {
-					type$: "Composite",
-					className: "object",
+				type$: "Rows",
+				contentType: {
+					type$: "Row",
 					members: {
-						type$header: "Handle",
-						body: {
+						type$key: "Key",
+						value: {
 							type$: "Record",
-							type$elementType: "Cell"
+							type$contentType: "Property"
 						}
 					}
 				}
 			},
 			footer: {
-				type$: "Composite",
+				type$: "Row",
 				members: {
-					header: {
-						type$: "View",
-						className: "handle"
-					},
-					body: {
-						type$: "Composite",
-						elementType: {
-							type$: "View",
-							className: "caption"
+					type$key: "Key",
+					value: {
+						type$: "Record",
+						contentType: {
+							type$: "Caption",
+							getCaption() {
+								return "";
+							}
 						}
 					}
 				}
 			}
-		}
-	},
-	Handle: {
-		type$: "View",
-		bind: function(model) {
-			let key = this.of.peer.$key;
-			this.peer.textContent = key;
-		}
-	},
-	Property: {
-		type$: ["View", "Shape"],
-		use: {
-			type$Naming: "/base/util/Naming"
 		},
-		getCaption: function() {
-			return this.conf.caption || this.use.Naming.captionize(this.conf.name);
+		get$id() {
+			return this.peer.id;
 		},
-		draw: function draw() {
-			this.super(draw);
-			this.peer.classList.add(this.conf.name);
-//			let s = +(this.conf.columnSize) || 1;
-//			this.style.flex = `${s} 1`;
-//			this.style.minWidth = `${s * 3}mm`;
-//			this.style.maxWidth = `${s}mm`;
-		}
-	},
-	Cell: {
-		type$: "Property",
-		get$elementType: function() {
-			return this.owner.editors[this.conf.inputType || this.conf.dataType] || this.owner.editors.string;
+		start(conf) {
+			this.super(start, conf);
+			this.peer.id = "I" + this.owner.createId();
 		},
-		bind: function(model) {
-			this.model = model && model[this.conf.name];
-		},
-		draw: function draw() {
-			this.super(draw);
-			let ele = this.owner.create(this.elementType, this.conf);
-			this.append(ele);
-		},
-		extend$actions: {
-			activate: function(event) {
-				let model = this.owner.origin.data[this.conf.dataset][this.model];
-				let type = this.owner.origin.types[this.conf.objectType];
-				let view = this.owner.create(this.conf.linkControl, type);
-				this.owner.append(view);
-				let b = this.bounds;
-				view.bounds = {
-					left: b.left,
-					top: b.bottom
-				};
-				view.view(model);
-			}
-		}
-	},
-	Caption: {
-		type$: "Property",
-		draw: function draw() {
-			this.super(draw);
-			this.peer.draggable = true;
-			this.peer.innerText = this.getCaption();
-			if (this.conf.dynamic) this.peer.classList.add("dynamic");
-		},
-		bind: function(model) {
-		}
 	}
 }
-
-//		extend$actions: {
-// 			mousedown: function(event) {
-// 				event.preventDefault();
-// 				this.$peer
-// //				if (!this.pane) this = this.own
-// 				let pane = this.$peer.owner.create("/ui.youni.works/grid/ViewPane");
-// 				pane.from = this.$peer;
-// 				pane.bounds = {
-// 					top: pane.from.bounds.bottom,
-// 					left: pane.from.bounds.left,
-// 					width: 80,
-// 					height: 200
-// 				}
-// 				pane.owner.append(pane);
-// 				pane.peer.textContent = "Pop";
-// 			}
-//		}

@@ -1,44 +1,49 @@
 let pkg = {
-    type$Factory: "/core/Factory",
+    type$Factory: "/factory/Factory",
     Context: {
-        forName: function(name) {
+        // _dir: {
+        // },
+        forName(name) {
             if (name === "") return null;
-            if (name.startsWith("/")) name = name.substring(1);
-            return this.resolve(this.$context, name);
+            name = "" + name;
+            return this.resolve(this._dir, name);
         },
-        resolve: function(component, pathname) {
+        resolve(component, pathname) {
             pathname = "" + pathname;
+            if (pathname.startsWith("/")) pathname = pathname.substring(1);
             let componentName = "";
             for (let name of pathname.split("/")) {
                 if (typeof component != "object") {
                     throw new Error(`Unable to resolve "${pathname}": "${componentName}" is not an object.`);
                 }
                 if (component[name] === undefined) {
-                    throw new Error(`Unable to resolve "${pathname}": "${componentName}" does not contain "${name}".`);
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName || "/"}" does not contain "${name}".`);
                 }
-                if (component.$loading) this.$loading = component;
                 component = this.getProperty(component, name);
                 componentName += "/" + name;
             }
             return component;
         },
-        getProperty: function(component, name) {
+        getProperty(component, name) {
             return component[name];
         }
     },
     FactoryContext: {
         type$: ["Factory", "Context"],
-        getProperty: function(component, name) {
+        getProperty(component, name) {
             let value = component[name];
             if (this.isSource(value)) {
                 if (Object.getPrototypeOf(value) == Array.prototype) {
                     value = this.create(value);
                 } else {
-                    let object;
-                    //Allow for forward/inner references creating the instance, putting in context, then implementing.
-                    //TODO might be issues with screwy type decls.
                     let type = value[this.conf.typeProperty];
-                    object = this.extend(type);
+                    /*
+                        Create the object from its prototype, put it in context, then implement
+                        rather than just creating / extending before putting in context.
+                        This way, forward/inner type references (then back-references) from properties
+                        will resolve to the target object in the context rather than the source.
+                    */
+                    let object = this.extend(type);
                     component[name] = object;
                     this.implement(object, value);
                     value = object;
@@ -49,19 +54,56 @@ let pkg = {
     },
     Loader: {
         type$: "FactoryContext",
-        load: function(module) {
-            for (let name in module.use) {
-                module.package[name] = module.use[name].package;
+        extend$conf: {
+            type$ownerType: "/core/Module"
+        },
+        load(source) {
+            let pkg = source.package;
+            for (let name in source.use) {
+                pkg[name] = source.use[name].package
             }
-            let loader = this.extend(this);
-            loader.$context = module.package;
-            module = loader.create(module);
-            loader.$context = module.package;
-            module.loader = loader;
-            loader.module = module;
+            delete source.package;
+            let ctx = this.createContext();
+            ctx._dir = pkg;
+            ctx._dir = ctx.compile(pkg); //make sure everything is compiled
+            let module = ctx._owner;
+            ctx.implement(module, source);
             console.log(module);
             return module;
-        }
+        },
+        createContext() {
+            //Create a context and have its owner close over it.
+            //To some degree, this logic assume a Module as owner.
+            let ctx = this.extend(this, {
+                _owner: this.extend(this.conf.ownerType, {
+                    forName: function(name) {
+                        return ctx.forName(name);
+                    },
+                    create: function () {
+                        switch (arguments.length) {
+                            case 0:
+                                return ctx.extend();
+                            case 1:
+                                let arg = arguments[0];
+                                let isSource = ctx.isSource(arg);
+                                return isSource ? ctx.extend(null, arg) : ctx.extend(arg);
+                            case 2:
+                                return ctx.extend(arguments[0], arguments[1]);
+                            default:
+                                console.warn("Create expects two arguments");
+                                return ctx.extend.apply(arguments);
+                        }
+                    },
+                    define: function (object, name, value, facet) {
+                        return ctx.define(object, name, value, facet);
+                    },
+                    get$package: function () {
+                        return ctx._dir;
+                    }
+                })
+            });
+            return ctx;
+        }   
     }
 }
 export default pkg;
