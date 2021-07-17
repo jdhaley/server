@@ -83,14 +83,10 @@ export default {
                 right: 4
             },
             cursor: {
-                "TR": "ew-resize",
                 "CR": "ew-resize",
-                "BR": "ew-resize",
             },
             subject: {
-                "TR": "size",
                 "CR": "size",
-                "BR": "size",
             }
         },	
         extend$actions: {

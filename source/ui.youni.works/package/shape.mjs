@@ -105,7 +105,6 @@ export default {
 				}
 			},
 			moveover(event) {
-//				if (this.nodeName == "pre") debugger;
 				let zone = this.getZone(event.clientX, event.clientY);
 				let cursor = this.zones.cursor[zone];
 				if (cursor) {

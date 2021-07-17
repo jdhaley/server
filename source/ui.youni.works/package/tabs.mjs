@@ -57,24 +57,22 @@ export default {
     },
     Tab: {
         type$: ["Display", "/shape/Shape"],
+        zones: {
+            border: {
+                right: 4
+            },
+            cursor: {
+                "TR": "ew-resize",
+                "CR": "ew-resize",
+                "BR": "ew-resize",
+            },
+            subject: {
+                "TR": "size",
+                "CR": "size",
+                "BR": "size",
+            }
+        },	
         var$body: null,
-        extend$conf: {
-            zone: {
-                border: {
-                    right: 4
-                },
-                cursor: {
-                    "TR": "ew-resize",
-                    "CR": "ew-resize",
-                    "BR": "ew-resize",
-                },
-                subject: {
-                    "TR": "size",
-                    "CR": "size",
-                    "BR": "size",
-                }
-            },	
-        },        
         extend$actions: {
             click(event) {
                 event.subject = "activateTab";
