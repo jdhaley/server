@@ -1,6 +1,11 @@
 export default {
 	Shape: {
 		type$: "/display/Display",
+		get$graphic() {
+			for (let node = this.peer; node; node = node.parentNode) {
+				if (node.nodeName == "svg") return node.$peer;
+			}
+		},
 		get$nodeName() {
 			return "http://www.w3.org/2000/svg/" + this.name
 		},
@@ -15,11 +20,6 @@ export default {
 	Point: {
 		type$: "Shape",
 		name: "circle",
-		get$graphic() {
-			for (let node = this.peer; node; node = node.parentNode) {
-				if (node.nodeName == "svg") return node.$peer;
-			}
-		},
 		at: {
 			r: 3,
 			class: "point"
