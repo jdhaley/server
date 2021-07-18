@@ -30,6 +30,18 @@ const pkg = {
             return Object.prototype.valueOf.call(this);
         }
     },
+    Devt_Owner: {
+        forName(name) {
+            return this[Symbol.for("owner")].forName(name);
+        },
+        /**
+         * @param from The prototype, a source declaration, or a type string.
+         * @returns object
+         */
+        create(from) {
+            return this[Symbol.for("owner")].create(from);
+        }
+    },
     Context: {
         /*
             Return the same instance or a new instance each time.
