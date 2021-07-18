@@ -39,10 +39,11 @@ export default {
                 this.owner.send(this.view, "view");
             },
             initializeApp(msg) {
-                let conf = msg.response 
-                    ? this.create(this.conf, JSON.parse(msg.response)) 
-                    : this.create();
-                this.let("conf", conf);
+                if (msg.response) {
+                    let conf = this.create(this.conf || null, JSON.parse(msg.response)) 
+                    this.let("conf", conf);
+                }
+                
                 this.let("owner", this.create(conf.ownerType || this.owner));
                 this.initializeOwner();
 
@@ -61,7 +62,8 @@ export default {
                     this.types = this.create();
                 }
                 //Create the view after the types have been initialized
-                this.view = this.owner.create(this.conf.components.Object, this.types[this.conf.objectType]);
+                this.view = this.owner.create(this.conf.components.Object);
+                this.view.start(this.types[this.conf.objectType]);
                 this.view.file =  this.conf.dataSource;
                 this.owner.append(this.view);
                 if (this.data) this.receive("view");
