@@ -40,9 +40,9 @@ export default {
             },
             initializeApp(msg) {
                 if (msg.response) {
-                    let conf = this.create(this.conf || null, JSON.parse(msg.response)) 
-                    this.let("conf", conf);
+                    this[Symbol.for("owner")].define(this, "conf", JSON.parse(msg.response), "extend");
                 }
+                let conf = this.conf;
                 
                 this.let("owner", this.create(conf.ownerType || this.owner));
                 this.initializeOwner();
