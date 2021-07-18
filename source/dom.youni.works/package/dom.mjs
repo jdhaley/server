@@ -47,6 +47,12 @@ export default {
 		once$nodeName() {
 			return this.className;
 		},
+		get(name) {
+			return this.peer.getAttribute(name);
+		},
+		set(name, value) {
+			this.peer.setAttribute(name, value);
+		},
 		once$className() {
 			return this[Symbol.toStringTag].charAt(0).toLowerCase() + this[Symbol.toStringTag].substring(1);
 		},

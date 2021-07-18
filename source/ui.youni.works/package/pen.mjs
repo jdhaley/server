@@ -45,24 +45,24 @@ export default {
 			return "http://www.w3.org/2000/svg/" + this.name
 		},
 		name: "",
-		get(name) {
-			return this.peer.getAttribute(name);
-		},
-		set(name, value) {
-			this.peer.setAttribute(name, value);
-		},
-		// markup: "",
-		// display() {
-		// 	this.super(display);
-		// 	this.draw();
-		// 	this.peer.innerHTML = this.markup;
-		// },
-		// draw() {
-		// }
 	},
 	Point: {
 		type$: ["Shape", "Circle"],
 		name: "circle",
+		get$next() {
+			let p;
+			for (let point of this.vector.points) {
+				if (p == this) return point;
+				p = point;
+			}
+		},
+		get$index() {
+			let i = 0;
+			for (let point of this.vector.points) {
+				if (point == this) return i;
+				i++;
+			}
+		},
 		toString() {
 			return this.cmd + " " + this.get("cx") + " " + this.get("cy") + " ";
 		},
@@ -90,6 +90,16 @@ export default {
 				this.y = Math.round((event.y - b.top) / b.height * 32) * 10;
 				this.vector.display();
 			},
+			dblclick(event) {
+				event.subject = "";
+				let next = this.next;
+				if (this.cmd == "L") {
+					this.cmd = "Q";
+					
+					next.cmd = "";
+				}
+				this.vector.display();
+			}
 		}
 	},
 	Vector: {
@@ -114,9 +124,12 @@ export default {
 			if (!this.points) {
 				this.points = [point];
 				point.cmd = "M";
-			} else {
+			} else if (this.points[this.points.length - 1].cmd == "Q") {
+				point.cmd = "";
 				this.points.push(point);
+			} else {
 				point.cmd = type || "L";
+				this.points.push(point);
 			}
 			point.display();
 			this.display();
@@ -147,7 +160,7 @@ export default {
 				let b = this.bounds;
 				let x = Math.round((event.x - b.left) / b.width * 32) * 10;
 				let y = Math.round((event.y - b.top) / b.height * 32) * 10;
-				this.vector.add(x, y);
+				this.vector.add(x, y, event.shiftKey ? "Q" : undefined);
 			}
 		}
 
