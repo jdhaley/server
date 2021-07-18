@@ -33,7 +33,7 @@ export default {
     Context: {
         type$: "Display",
         add(icon) {
-            let button = this.owner.create("/pen/Path");
+            let button = this.owner.create("/pen/Image");
             this.append(button);
             return button;
         },

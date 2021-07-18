@@ -24,6 +24,7 @@ export default function events() {
 			paste: TARGET_EVENT,
 	
 			keydown: TARGET_EVENT,
+			dblclick: TARGET_EVENT,
 			click: TARGET_EVENT,		//call it "push"
 			// click: function(event) {
 			// 	if (NO_CLICK) {

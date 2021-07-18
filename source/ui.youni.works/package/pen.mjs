@@ -1,7 +1,55 @@
 export default {
+	Graphic: {
+		var$markup: "",
+		draw() {
+			this.markup = "";
+		}
+	},
+	Path: {
+		type$: "Graphic",
+		var$path: "",
+		get$markup() {
+			this.draw();
+			return `<path d="${this.path}"/>`
+		},
+		mv(x, y) {
+			this.path += `M${x},${y} `;
+		},
+		ln(x, y) {
+			this.path += `L${x},${y} `;
+		},
+		v(x, y) {
+			this.path += `l${x},${y} `;
+		},
+		c(cx, cy, x, y) {
+			this.path += `Q${cx},${cy} ${x},${y} `;
+		},
+	},
+	Circle: {
+		type$: "Graphic",
+		var$x: 0,
+		var$y: 0,
+		var$r: 0,
+		get$markup() {
+			return `<circle cx="${this.x}" cy="${this.cy}" r="${this.r}"/>`
+		}
+	},
+	Grid: {
+		type$: "Path",
+		draw() {
+			for (let y = 0; y <= 320; y += 10) {
+				this.mv(0, y);
+				this.ln(320, y);
+			}
+			for (let x = 0; x <= 320; x += 10) {
+				this.mv(x, 0);
+				this.ln(x, 320);
+			}
+		},
+	},
 	Shape: {
 		type$: "/display/Display",
-		get$graphic() {
+		get$image() {
 			for (let node = this.peer; node; node = node.parentNode) {
 				if (node.nodeName == "svg") return node.$peer;
 			}
@@ -16,10 +64,19 @@ export default {
 		set(name, value) {
 			this.peer.setAttribute(name, value);
 		},
+		// markup: "",
+		// display() {
+		// 	this.super(display);
+		// 	this.draw();
+		// 	this.peer.innerHTML = this.markup;
+		// },
+		// draw() {
+		// }
 	},
 	Point: {
-		type$: "Shape",
+		type$: ["Shape", "Circle"],
 		name: "circle",
+		var$cmd: "",
 		at: {
 			r: 3,
 			class: "point"
@@ -38,27 +95,25 @@ export default {
 				event.preventDefault();
 			},
 			drag(event) {
-				let b = this.graphic.bounds;
+				let b = this.image.bounds;
 				this.x = Math.round((event.x - b.left) / b.width * 32) * 10;
 				this.y = Math.round((event.y - b.top) / b.height * 32) * 10;
 			},
 		}
 	},
-	Graphic: {
+	Image: {
 		type$: "Shape",
 		name: "svg",
 		at: {
 			class: "icon",
 			viewBox: "0 0 320 320"
 		},
-		graphic: "",
+		type$grid: "Grid",
 		display() {
-			this.draw();
-			this.peer.innerHTML = this.graphic;
+			this.peer.innerHTML = this.grid.markup;
 		},
-		circle(x, y, r) {
-			this.peer.innerHTML += `<circle cx="${x}" cy="${y}" r="${r}" fill="green"/>`;
-		},
+		var$points: null,
+		var$vector: "",
 		extend$actions: {
 			moveover(event) {
 				let r = this.bounds;
@@ -66,53 +121,35 @@ export default {
 				let y = Math.round((event.y - r.top) / r.height * 320);
 				//console.log(x, y);
 			},
-			click(event) {
-				if (!event.shiftKey) return;
+			contextmenu(event) {
+				event.preventDefault();
+			},
+			dblclick(event) {
+				console.log(event.buttons);
 				let point = this.owner.create("/pen/Point");
+				if (!this.points) {
+					this.points = [point];
+					point.cmd = "m";
+				} else {
+					this.points.push(point);
+					point.cmd = "l";
+				}
 				this.append(point);
 				let b = this.bounds;
 				point.x = Math.round((event.x - b.left) / b.width * 32) * 10;
 				point.y = Math.round((event.y - b.top) / b.height * 32) * 10;
 				point.display();
+
 			}
 		}
 
-	},
-	Path: {
-		type$: "Graphic",
-		var$path: "",
-		once$graphic() {
-			return `<path d="${this.path}"/>`
-		},
-		mv(x, y) {
-			this.path += `M${x},${y} `;
-		},
-		ln(x, y) {
-			this.path += `L${x},${y} `;
-		},
-		v(x, y) {
-			this.path += `l${x},${y} `;
-		},
-		c(cx, cy, x, y) {
-			this.path += `Q${cx},${cy} ${x},${y} `;
-		},
-		draw() {
-			for (let y = 0; y <= 320; y += 10) {
-				this.mv(0, y);
-				this.ln(320, y);
-			}
-			for (let x = 0; x <= 320; x += 10) {
-				this.mv(x, 0);
-				this.ln(x, 320);
-			}
-		},
 	},
 	Canvas: {
 		type$: "/display/Display",
 		var$shape: null,
 		display() {
 			this.super(display);
-			this.shape = this.owner.create("/pen/Path");
+			this.shape = this.owner.create("/pen/Image");
 			this.append(this.shape);
 		},
 	}
