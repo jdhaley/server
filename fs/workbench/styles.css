@@ -130,6 +130,11 @@ SVG {
 	stroke-width: 0;
 	fill: green;
 }
+.vector {
+	stroke: green;
+	stroke-width: 2px;
+	fill: rgba(0, 255, 0, .1)
+}
 .point:hover {
 	stroke-width: 0;
 	fill: orange;

@@ -34,19 +34,6 @@ export default {
 			return `<circle cx="${this.x}" cy="${this.cy}" r="${this.r}"/>`
 		}
 	},
-	Grid: {
-		type$: "Path",
-		draw() {
-			for (let y = 0; y <= 320; y += 10) {
-				this.mv(0, y);
-				this.ln(320, y);
-			}
-			for (let x = 0; x <= 320; x += 10) {
-				this.mv(x, 0);
-				this.ln(x, 320);
-			}
-		},
-	},
 	Shape: {
 		type$: "/display/Display",
 		get$image() {
@@ -59,7 +46,7 @@ export default {
 		},
 		name: "",
 		get(name) {
-			this.peer.getAttribute(name);
+			return this.peer.getAttribute(name);
 		},
 		set(name, value) {
 			this.peer.setAttribute(name, value);
@@ -76,10 +63,13 @@ export default {
 	Point: {
 		type$: ["Shape", "Circle"],
 		name: "circle",
+		toString() {
+			return this.cmd + " " + this.get("cx") + " " + this.get("cy") + " ";
+		},
+		var$vector: null,
 		var$cmd: "",
 		at: {
 			r: 3,
-			class: "point"
 		},
 		virtual$x() {
 			if (!arguments.length) return this.get("cx");
@@ -98,7 +88,38 @@ export default {
 				let b = this.image.bounds;
 				this.x = Math.round((event.x - b.left) / b.width * 32) * 10;
 				this.y = Math.round((event.y - b.top) / b.height * 32) * 10;
+				this.vector.display();
 			},
+		}
+	},
+	Vector: {
+		type$: "Shape",
+		name: "path",
+		var$points: null,
+		display() {
+			this.super(display);
+			let path = "";
+			if (this.points) for (let point of this.points) {
+				path += point.toString();
+			}
+			this.set("d", path);
+		},
+		add(x, y, type) {
+			let point = this.owner.create("/pen/Point");
+			this.image.append(point);
+			console.log(point.peer.getAttribute("r"));
+			point.x = x;
+			point.y = y;
+			point.vector = this;
+			if (!this.points) {
+				this.points = [point];
+				point.cmd = "M";
+			} else {
+				this.points.push(point);
+				point.cmd = type || "L";
+			}
+			point.display();
+			this.display();
 		}
 	},
 	Image: {
@@ -111,38 +132,38 @@ export default {
 		type$grid: "Grid",
 		display() {
 			this.peer.innerHTML = this.grid.markup;
+			this.vector = this.owner.create("/pen/Vector");
+			this.append(this.vector);
 		},
 		var$points: null,
 		var$vector: "",
 		extend$actions: {
-			moveover(event) {
-				let r = this.bounds;
-				let x = Math.round((event.x - r.left) / r.width * 320);
-				let y = Math.round((event.y - r.top) / r.height * 320);
-				//console.log(x, y);
-			},
-			contextmenu(event) {
-				event.preventDefault();
-			},
+			// moveover(event) {
+			// 	let r = this.bounds;
+			// 	let x = Math.round((event.x - r.left) / r.width * 320);
+			// 	let y = Math.round((event.y - r.top) / r.height * 320);
+			// },
 			dblclick(event) {
-				console.log(event.buttons);
-				let point = this.owner.create("/pen/Point");
-				if (!this.points) {
-					this.points = [point];
-					point.cmd = "m";
-				} else {
-					this.points.push(point);
-					point.cmd = "l";
-				}
-				this.append(point);
 				let b = this.bounds;
-				point.x = Math.round((event.x - b.left) / b.width * 32) * 10;
-				point.y = Math.round((event.y - b.top) / b.height * 32) * 10;
-				point.display();
-
+				let x = Math.round((event.x - b.left) / b.width * 32) * 10;
+				let y = Math.round((event.y - b.top) / b.height * 32) * 10;
+				this.vector.add(x, y);
 			}
 		}
 
+	},
+	Grid: {
+		type$: "Path",
+		draw() {
+			for (let y = 0; y <= 320; y += 10) {
+				this.mv(0, y);
+				this.ln(320, y);
+			}
+			for (let x = 0; x <= 320; x += 10) {
+				this.mv(x, 0);
+				this.ln(x, 320);
+			}
+		},
 	},
 	Canvas: {
 		type$: "/display/Display",
