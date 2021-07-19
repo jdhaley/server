@@ -57,6 +57,16 @@ const pkg = {
             return module.create.apply(module, arguments);
         }
     },
+    Component: {
+        forName(name) {
+        },
+        create(from) {
+        },
+        implement(object, ...source) {
+        },
+        define(object, name, value, facet) {
+        }
+    },
     Module: {
         type$: "Factory",
         name: "",
@@ -66,16 +76,6 @@ const pkg = {
         package: {
         },
         define(object, name, value, facet) {
-        }
-    },
-    Component: {
-        forName(name) {
-            return this[Symbol.for("owner")].forName(name);
-        },
-        create(from) {
-            return this[Symbol.for("owner")].create(from);
-        },
-        implement(object, ...source) {
         }
     },
     F2: {
