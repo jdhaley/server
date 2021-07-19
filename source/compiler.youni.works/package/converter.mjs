@@ -1,7 +1,6 @@
 export default {
     type$: "/system/core",
     Member: {
-        // sys: this,
         // declaredBy: object,
         facet: "",
         name: "",

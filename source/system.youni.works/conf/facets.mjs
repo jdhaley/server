@@ -92,11 +92,17 @@ export default {
 				if (typeof decl.expr != "string") {
 					throw new Error("type facet requires a string.");
 				}
+				let sys = this;
 				decl.configurable = true;
 				decl.enumerable = true;
-				decl.get = function getType() {				
-					return decl.sys.forName(decl.expr 
-						/*TODO add back: , decl[decl.sys.symbolOf("name") ]*/);
+				decl.get = function getType() {
+					try {
+						return sys.forName(decl.expr)
+					}	
+					catch (error) {
+						//TODO add back:decl.pathname 
+						throw new Error(`In ${decl.name}: ${error.message}`);
+					}
 				}
 				decl.define = function(object) {
 					return Reflect.defineProperty(object, this.name, this);
@@ -105,6 +111,7 @@ export default {
 			},
 			extend: function(decl) {
 				if (typeof decl.expr != "object") throw new Error("extend facet requires an object or array expression.");
+				let  sys = this;
 				decl.define = function(object) {
 					let ext = Object.create(object[decl.name] || null);
 					if (decl.expr[Symbol.iterator]) {
@@ -120,12 +127,12 @@ export default {
 					for (let name in decl.expr) {
 						ext[name] = decl.expr[name];
 					}
-					return decl.sys.define(object, decl.name, ext, "const");
+					return sys.define(object, decl.name, ext, "const");
 				}
 				return decl;
 			},
 			symbol: function(decl) {
-				decl.symbol = decl.sys.symbolOf(decl.name);
+				decl.symbol = this.symbolOf(decl.name);
 				if (!decl.symbol) throw new Error(`Symbol "${decl.name}" is not defined.`);
 				decl.configurable = true;
 				decl.value = decl.expr;

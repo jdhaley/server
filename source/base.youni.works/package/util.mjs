@@ -103,7 +103,7 @@ export default {
 		objectType(value) {
 			if (value instanceof Date) return "date";
 			if (value[Symbol.iterable] && typeof value.length == "number") return "array";
-			if (value.sys) return "instance";
+			if (value[Symbol.for("owner")]) return "instance";
 			let proto = Object.getPrototypeOf(value);
 			if (!proto) return "object";
 			return proto == Object.prototype ? "source" : "other";	

@@ -1,5 +1,70 @@
 export default { 
+    Resolver: {
+        resolve(object, pathname) {
+            pathname = "" + pathname;
+            if (pathname === "") return null;
+            if (pathname.startsWith("/")) pathname = pathname.substring(1);
+
+            let componentName = "";
+            for (let name of pathname.split("/")) {
+                if (typeof object != "object") {
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName}" is not an object.`);
+                }
+                if (object[name] === undefined) {
+                    throw new Error(`Unable to resolve "${pathname}": "${componentName || "/"}" does not contain "${name}".`);
+                }
+                object = this.resolveProperty(object, name);
+                componentName += "/" + name;
+            }
+            return object;
+        },
+        resolveProperty(object, name) {
+            return object[name];
+        }
+    },
+    FactoryResolver: {
+        type$: "Resolver",
+        // _dir: {
+        // },
+        resolveProperty(object, name) {
+            let value = object[name];
+            if (!this.isSource(value)) return value;
+            if (Object.getPrototypeOf(value) == Array.prototype) {
+                value = this.create(value);
+            }
+            if (Object.getPrototypeOf(value) == Array.prototype) {
+                let array = this.creat(this.conf.arrayType);
+                for (let ele of value) {
+                    ele = this.compile(ele);
+                    Array.prototype.push.call(array, ele);
+                }
+                return array;
+            }
+            else {
+                let type = value[this.conf.typeProperty];
+                //TODO
+                if (type == "Function") {
+                    //create the function from value.source
+                }
+                /*
+                    Create the object from its prototype, put it in context, then implement
+                    rather than just creating / extending before putting in context.
+                    This way, forward/inner type references (then back-references) from properties
+                    will resolve to the target object in the context rather than the source.
+                */
+                let object = this.creat(type);
+                object[name] = object;
+                this.implement(object, value);
+                value = object;
+            }
+
+            if (this.isSource(value)) {
+            }
+            return value;
+        }
+    },
     Factory: {
+        type$: "FactoryResolver",
         conf: {
             facets: {
             },
@@ -7,7 +72,18 @@ export default {
             type$arrayType: "/core/Array",
         },
         //_owner: object
-        forName(name, fromName) {
+        forName(pathname) {
+            if (!pathname || typeof pathname != "string") {
+                throw new Error(`Pathname must be a non-empty string.`);
+            }
+            if (pathname.startsWith("/")) pathname = pathname.substring(1);
+
+            let object = this._dir;
+            if (this.isSource(object)) {
+                object = this.compile(object);
+                this._dir = object;
+            }
+            return this.resolve(object, pathname);
         },
         compile(value, typeName) {
             if (!value || typeof value != "object") {
