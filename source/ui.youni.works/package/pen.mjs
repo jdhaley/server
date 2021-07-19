@@ -173,6 +173,11 @@ export default {
 			}
 			point.display();
 			this.display();
+		},
+		extend$actions: {
+			moveover(event) {
+				console.log("over");
+			}
 		}
 	},
 	Image: {
