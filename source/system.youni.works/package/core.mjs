@@ -67,6 +67,17 @@ const pkg = {
         },
         define(object, name, value, facet) {
         }
+    },
+    Component: {
+        type$: "Module",
+        forName(name) {
+            return this[Symbol.for("owner")].forName(name);
+        },
+        create(from) {
+            return this[Symbol.for("owner")].create(from);
+        },
+        implement(object, ...source) {
+        }
     }
 }
 export default pkg;

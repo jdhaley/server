@@ -43,7 +43,7 @@ let pkg = {
                         This way, forward/inner type references (then back-references) from properties
                         will resolve to the target object in the context rather than the source.
                     */
-                    let object = this.extend(type);
+                    let object = this.creat(type);
                     component[name] = object;
                     this.implement(object, value);
                     value = object;
@@ -71,10 +71,16 @@ let pkg = {
             console.log(module);
             return module;
         },
+        extend(from, source) {
+            let object = this.creat(from);
+            if (source) this.implement(object, source);
+            return object;
+        },
         createContext() {
             //Create a context and have its owner close over it.
             //To some degree, this logic assume a Module as owner.
-            let ctx = this.extend(this, {
+            let ctx = this.creat(this);
+            this.implement(ctx, {
                 _owner: this.extend(this.conf.ownerType, {
                     forName: function(name) {
                         return ctx.forName(name);
@@ -82,7 +88,7 @@ let pkg = {
                     create: function () {
                         switch (arguments.length) {
                             case 0:
-                                return ctx.extend();
+                                return ctx.creat();
                             case 1:
                                 let arg = arguments[0];
                                 let isSource = ctx.isSource(arg);

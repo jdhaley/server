@@ -59,7 +59,7 @@ export default {
             if (!value || typeof value != "object") {
                 return value;
             } else if (Object.getPrototypeOf(value) == Array.prototype) {
-                let array = this.extend(this.conf.arrayType);
+                let array = this.creat(this.conf.arrayType);
                 for (let ele of value) {
                     ele = this.compile(ele);
                     Array.prototype.push.call(array, ele);
@@ -91,11 +91,6 @@ export default {
             args[0] = target;
             if (args.length > 1) this.implement.apply(this, args);
             return target;
-        },
-        extend(from, source) {
-            let object = this.creat(from);
-            if (source) this.implement(object, source);
-            return object;
         },
         implement(object, ...sources) {
             //TODO determine the guards or defaults for the object arg.

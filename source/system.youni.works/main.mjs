@@ -8,7 +8,7 @@ export default function main(module, conf) {
 	factory.implement(factory, pkg.context.FactoryContext);
 	factory._dir = pkg;
 	pkg = factory.compile(pkg);
-	let loader = factory.extend(pkg.context.Loader);
+	let loader = factory.creat(pkg.context.Loader);
 	factory.define(loader, "conf", conf);
 	module.load = function(module) {
 		return loader.load(module);	
