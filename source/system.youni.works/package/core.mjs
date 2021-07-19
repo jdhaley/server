@@ -69,7 +69,6 @@ const pkg = {
         }
     },
     Component: {
-        type$: "Module",
         forName(name) {
             return this[Symbol.for("owner")].forName(name);
         },

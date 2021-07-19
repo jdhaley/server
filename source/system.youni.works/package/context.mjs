@@ -37,6 +37,10 @@ let pkg = {
                     value = this.create(value);
                 } else {
                     let type = value[this.conf.typeProperty];
+                    //TODO
+                    if (type == "Function") {
+                        //create the function from value.source
+                    }
                     /*
                         Create the object from its prototype, put it in context, then implement
                         rather than just creating / extending before putting in context.
@@ -60,6 +64,7 @@ let pkg = {
         load(source) {
             let pkg = source.package;
             for (let name in source.use) {
+                if (pkg[name]) console.error(`Package name "${name}" conflict with use "${name}"`);
                 pkg[name] = source.use[name].package
             }
             delete source.package;
