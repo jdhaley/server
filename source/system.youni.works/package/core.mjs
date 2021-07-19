@@ -30,27 +30,6 @@ const pkg = {
             return Object.prototype.valueOf.call(this);
         }
     },
-    Devt_Owner: {
-        forName(name) {
-            return this[Symbol.for("owner")].forName(name);
-        },
-        /**
-         * @param from The prototype, a source declaration, or a type string.
-         * @returns object
-         */
-        create(from) {
-            return this[Symbol.for("owner")].create(from);
-        }
-    },
-    Context: {
-        /*
-            Return the same instance or a new instance each time.
-            A context doesn't support declarations / configuration arguments -
-            Those dependencies are "configured in".
-        */
-        forName(name) {
-        }
-    },
     Factory: {
         create() {
             let module = this[Symbol.for("owner")];
@@ -66,16 +45,6 @@ const pkg = {
         package: {
         },
         define(object, name, value, facet) {
-        }
-    },
-    Component: {
-        forName(name) {
-            return this[Symbol.for("owner")].forName(name);
-        },
-        create(from) {
-            return this[Symbol.for("owner")].create(from);
-        },
-        implement(object, ...source) {
         }
     }
 }

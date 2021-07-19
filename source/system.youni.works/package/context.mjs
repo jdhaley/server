@@ -1,14 +1,8 @@
 let pkg = {
     type$Factory: "/factory/Factory",
-    Context: {
-        // _dir: {
-        // },
-        forName(name) {
-            if (name === "") return null;
-            name = "" + name;
-            return this.resolve(this._dir, name);
-        },
+    Resolver: {
         resolve(component, pathname) {
+            if (pathname === "") return null;
             pathname = "" + pathname;
             if (pathname.startsWith("/")) pathname = pathname.substring(1);
             let componentName = "";
@@ -19,18 +13,24 @@ let pkg = {
                 if (component[name] === undefined) {
                     throw new Error(`Unable to resolve "${pathname}": "${componentName || "/"}" does not contain "${name}".`);
                 }
-                component = this.getProperty(component, name);
+                component = this.resolveProperty(component, name);
                 componentName += "/" + name;
             }
             return component;
         },
-        getProperty(component, name) {
+        resolveProperty(component, name) {
             return component[name];
         }
     },
     FactoryContext: {
-        type$: ["Factory", "Context"],
-        getProperty(component, name) {
+        type$: ["Factory", "Resolver"],
+                // _dir: {
+        // },
+        forName(name) {
+            name = "" + name;
+            return this.resolve(this._dir, name);
+        },
+        resolveProperty(component, name) {
             let value = component[name];
             if (this.isSource(value)) {
                 if (Object.getPrototypeOf(value) == Array.prototype) {
