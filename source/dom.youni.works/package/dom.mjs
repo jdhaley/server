@@ -44,6 +44,7 @@ export default {
 	Element: {
 		type$: "Node",
 		type$owner: "Document",
+		namespace: "",
 		once$nodeName() {
 			return this.className;
 		},
@@ -76,7 +77,8 @@ export default {
 			return this.peer.parentNode.$peer;
 		},
 		once$peer() {
-			let peer = this.owner.createNode(this.nodeName);
+			let name = (this.namespace ? this.namespace + "/" : "") + this.nodeName;
+			let peer = this.owner.createNode(name);
 			peer.$peer = this;
 			if (typeof this.at == "object") {
 				for (let name in this.at) {

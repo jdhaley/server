@@ -1,12 +1,64 @@
 export default {
-	Graphic: {
+	Box: {
+		top: 0,
+		right: 0,
+		bottom: 0,
+		left: 0
+	},
+	C: {
+		rx: 0,
+		rx: 0
+	},
+	XXX: {
 		var$markup: "",
 		draw() {
 			this.markup = "";
+		},
+		get$top() {
+			return this.y;
+		},
+		get$right() {
+			return this.x + this.width;
+		},
+		get$bottom() {
+			return this.y + this.height;
+		},
+		get$left() {
+			return this.x;
+		}
+	},
+	Circle: {
+		var$x: 0,
+		var$y: 0,
+		var$r: 0,
+		get$markup() {
+			return `<circle cx="${this.x}" cy="${this.y}" r="${this.r}"/>`
+		}
+	},
+	Rect: {
+		var$x: 0,
+		var$y: 0,
+		var$width: 0,
+		var$height: 0,
+		get$markup() {
+			return `<rect x="${this.x}" y="${this.y}" width="${this.width}" height="${this.height}"/>`
+		}
+	},
+	Ellipse: {
+		type$: "Rect",
+		var$x: 0,
+		var$y: 0,
+		var$width: 0,
+		var$height: 0,
+		get$markup() {
+			let rx = this.width / 2;
+			let ry = this.height / 2;
+			let x = this.x + rx;
+			let y = this.y + ry;
+			return `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}"/>`
 		}
 	},
 	Path: {
-		type$: "Graphic",
 		var$path: "",
 		get$markup() {
 			this.draw();
@@ -25,30 +77,18 @@ export default {
 			this.path += `Q${cx},${cy} ${x},${y} `;
 		},
 	},
-	Circle: {
-		type$: "Graphic",
-		var$x: 0,
-		var$y: 0,
-		var$r: 0,
-		get$markup() {
-			return `<circle cx="${this.x}" cy="${this.cy}" r="${this.r}"/>`
-		}
-	},
 	Shape: {
 		type$: "/display/Display",
+		namespace: "http://www.w3.org/2000/svg",
 		get$image() {
 			for (let node = this.peer; node; node = node.parentNode) {
 				if (node.nodeName == "svg") return node.$peer;
 			}
-		},
-		get$nodeName() {
-			return "http://www.w3.org/2000/svg/" + this.name
-		},
-		name: "",
+		}
 	},
 	Point: {
 		type$: ["Shape", "Circle"],
-		name: "circle",
+		nodeName: "circle",
 		get$next() {
 			let p;
 			for (let point of this.vector.points) {
@@ -104,7 +144,7 @@ export default {
 	},
 	Vector: {
 		type$: "Shape",
-		name: "path",
+		nodeName: "path",
 		var$points: null,
 		display() {
 			this.super(display);
@@ -137,7 +177,7 @@ export default {
 	},
 	Image: {
 		type$: "Shape",
-		name: "svg",
+		nodeName: "svg",
 		at: {
 			class: "icon",
 			viewBox: "0 0 320 320"
