@@ -1,6 +1,5 @@
 export default {
     Zoned: {
-        type$: "",
 		zones: {
 			border: {
 				top: 0,

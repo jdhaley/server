@@ -2,9 +2,6 @@ let pkg = {
     type$Factory: "/factory/Factory",
     Resolver: {
         resolve(component, pathname) {
-            if (pathname === "") return null;
-            pathname = "" + pathname;
-            if (pathname.startsWith("/")) pathname = pathname.substring(1);
             let componentName = "";
             for (let name of pathname.split("/")) {
                 if (typeof component != "object") {
@@ -26,9 +23,19 @@ let pkg = {
         type$: ["Factory", "Resolver"],
                 // _dir: {
         // },
-        forName(name) {
-            name = "" + name;
-            return this.resolve(this._dir, name);
+        forName(pathname) {
+            if (!pathname || typeof pathname != "string") {
+                throw new Error(`Pathname must be a non-empty string.`);
+            }
+            if (pathname.startsWith("/")) pathname = pathname.substring(1);
+
+            let object = this._dir;
+            //TRIGGERS RECURSION
+            // if (this.isSource(object)) {
+            //     object = this.compile(object);
+            //     this._dir = object;
+            // }
+            return this.resolve(object, pathname);
         },
         resolveProperty(component, name) {
             let value = component[name];
