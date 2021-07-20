@@ -38,9 +38,9 @@ export default {
 	},
 	Owner: {
 		create(controlType, conf) {
-			let module = this[Symbol.for("owner")];
-			let control = module.create(controlType);
-			module.define(control, "owner", this, "const");
+			let owner = this[Symbol.for("owner")];
+			let control = owner.create(controlType);
+			owner.define(control, "owner", this, "const");
 			control.start(conf);
 			return control;
 		},

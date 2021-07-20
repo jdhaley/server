@@ -6,7 +6,7 @@
 		"Frame": "/display/Frame",
 		"Object": "/workbench/Workbench"
 	},
-	"objectType": "Module",
+	"objectType": "Component",
 	"dataset": "source",
 	"dataSource": "/sources",
 	"typeSource": "/file/workbench/types.json"

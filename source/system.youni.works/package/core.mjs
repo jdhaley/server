@@ -7,8 +7,6 @@ const pkg = {
 	},
     Instance: {
 		let: function(name, value, facet) {
-			if (!facet) facet = "const";
-			if (facet == "var") facet = "";
 			this[Symbol.for("owner")].define(this, name, value, facet);
 		},
         super: function(method, ...args) {
@@ -31,29 +29,25 @@ const pkg = {
         }
     },
     Factory: {
-        create() {
-            let module = this[Symbol.for("owner")];
-            return module.create.apply(module, arguments);
+        create(from) {
+            return this[Symbol.for("owner")].create(from);
         }
     },
     Component: {
-        forName(name) {
-        },
-        create(from) {
-        },
-        extend(object, from) {
-        },
-        define(object, name, value, facet) {
-        }
-    },
-    Module: {
-        type$: "Factory",
         name: "",
         version: "0.0.0",
         use: {
         },
         package: {
         },
+        forName(name) {
+        },
+        create(from) {
+        },
+        implement(object, from) {
+        },
+        define(object, name, value, facet) {
+        }
     }
 }
 export default pkg;

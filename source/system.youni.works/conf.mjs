@@ -4,5 +4,5 @@ export default 	{
     facets: facets,
     typeProperty: "type$",
     type$arrayType: "/core/Array",
-    type$ownerType: "/core/Module"
+    type$ownerType: "/core/Component"
 }
