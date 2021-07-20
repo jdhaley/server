@@ -1,74 +1,82 @@
 export default { 
-    Context: {
-        forName(name) {
-        },
-        create(source) {
-        },
-    },
     Factory: {
+        //_owner: object
         conf: {
             facets: {
             },
             typeProperty: "type",
             type$arrayType: "/core/Array",
         },
-        //_owner: object
         forName(name, fromName) {
+            throw new Error(`Cannot resolve "${name}"`);
         },
-        compile(value, typeName) {
-            if (!value || typeof value != "object") {
-                return value;
-            } else if (Object.getPrototypeOf(value) == Array.prototype) {
-                let array = this.creat(this.conf.arrayType);
-                for (let ele of value) {
-                    ele = this.compile(ele);
+        compile(source, name, component) {
+            if (Object.getPrototypeOf(source) == Array.prototype) {
+                let array = Object.create(this.conf.arrayType);
+                if (component) component[name] = array;
+                for (let ele of source) {
+                    if (this.isSource(ele)) ele = this.compile(ele);
                     Array.prototype.push.call(array, ele);
                 }
                 return array;
-            } else if (Object.getPrototypeOf(value) == Object.prototype) {
-                let object = this.creat(value[this.conf.typeProperty]);
-                typeName && this.defineClass(object, typeName);
-                this.implement(object, value);
-                if (value.$public) {
-                    object = object.public;
+            }
+            let type = source[this.conf.typeProperty];
+            let object = creat.call(this, type, name, component);
+            if (this.isTypeName(name)) {
+                object[Symbol.toStringTag] = name;
+                object[Symbol.for("type")] = Object.create(object[Symbol.for("type")] || null);
+                object[Symbol.for("owner")] = this._owner;
+            }
+            if (type && typeof type == "object" && Object.getPrototypeOf(type) == Array.prototype) {
+                for (let i = 1; i < type.length; i++) {
+                    this.implement(object, this.forName(type[i]));
                 }
+            }
+            this.implement(object, source);
+            return source.$public ? object.public : object;
+    
+            function creat(type, name, component) {
+                if (type === undefined || type === "") {
+                    type = null;
+                } else if (Object.getPrototypeOf(type) == Array.prototype) {
+                    type = this.forName(type[0]);
+                 } else {
+                    type = this.forName(type)
+                }
+                let object = Object.create(type);
+                if (component) component[name] = object;
                 return object;
-            } else {
-                return value;
             }
         },
-        creat(from) {
-            let args = [];
-            if (from && typeof from == "object" && from[Symbol.iterator]) {
-                let i = 0;
-                for (let arg of from) {
-                    if (!i) from = arg; else args[i] = arg;
-                    i++;
-                }
+        create(source) {
+            if (arguments.length == 0) source = null;
+    
+            if (this.isSource(source)) {
+                return this.compile(source);
+            } else if (typeof source == "object") {
+                return Object.create(source);
+            } else if (source && typeof source == "string") {
+                return Object.create(this.forName(source));
             }
-            from = (typeof from == "string" ? this.forName(from) : from) || null;
-            let target = Object.create(from);
-            args[0] = target;
-            if (args.length > 1) this.implement.apply(this, args);
-            return target;
-        },
-        implement(object, ...sources) {
+    
+            throw new TypeError(`Invalid argument "${source}" for object creation.`);
+        },  
+        implement(object, source) {
             //TODO determine the guards or defaults for the object arg.
             let objectType = this.isType(object) ? object[Symbol.for("type")] : null;
-            for (let source of sources) {
-                if (typeof source == "string") {
-                    let from = this.forName(source);
-                    if (!from) throw new Error(`Type "${source}" not found.`);
-                    source = from;
-                }
-                if (this.isType(source)) {
-                    implementType(source[Symbol.for("type")]);
-                } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
-                    implementSource(source, this);
-                } else {
-                    throw new TypeError("Declarations must be a source or type object.");
-                }    
+
+            if (typeof source == "string") {
+                let from = this.forName(source);
+                if (!from) throw new Error(`Type "${source}" not found.`);
+                source = from;
             }
+            if (this.isType(source)) {
+                implementType(source[Symbol.for("type")]);
+            } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
+                implementSource(source, this);
+            } else {
+                throw new TypeError("Declarations must be a source or type object.");
+            }    
             function implementType(type) {
                 for (let name in type) {
                     if (objectType) objectType[name] = type[name];
@@ -105,7 +113,9 @@ export default {
 		declare(object, name, value, facet) {
             let fn = this.conf.facets[facet || "const"];
 			if (!fn) throw new Error(`Facet "${facet}" does not exist.`);
-            value = this.compile(value, this.typeNameOf(name));
+            if (this.isSource(value)) {
+                value = this.compile(value, name);
+            }
             return fn.call(this, {
                 declaredBy: object,
                 facet: facet,
@@ -116,11 +126,6 @@ export default {
         define(object, name, value, facet) {
             return this.declare(object, name, value, facet).define(object);
 		},
-        defineClass(object, name) {
-            object[Symbol.toStringTag] = name;
-            object[Symbol.for("type")] = Object.create(object[Symbol.for("type")] || null);
-            object[Symbol.for("owner")] = this._owner;
-        },
         symbolOf(key) {
             if (key == "iterator") return Symbol.iterator;
             return Symbol.for(key);
@@ -148,9 +153,10 @@ export default {
                 typeof value == "object" &&
                 Object.prototype.hasOwnProperty.call(value, Symbol.for("type"))
         },
-        typeNameOf(name) {
+        isTypeName(name) {
+            if (!name) return false;
             let first = name.substring(0, 1);
-            return first == first.toUpperCase() && first != first.toLowerCase() ? name : "";
+            return first == first.toUpperCase() && first != first.toLowerCase() ? true : false;
         }
     }
 }
