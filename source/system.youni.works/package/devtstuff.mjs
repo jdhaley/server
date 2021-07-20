@@ -1,4 +1,54 @@
 const pkg = {
+    implement(object, source) {
+        //TODO determine the guards or defaults for the object arg.
+        let objectType = this.isType(object) ? object[Symbol.for("type")] : null;
+        for (let source of sources) {
+            if (typeof source == "string") {
+                let from = this.forName(source);
+                if (!from) throw new Error(`Type "${source}" not found.`);
+                source = from;
+            }
+            if (this.isType(source)) {
+                implementType(source[Symbol.for("type")]);
+            } else if (source && Object.getPrototypeOf(source) == Object.prototype) {
+                implementSource(source, this);
+            } else {
+                throw new TypeError("Declarations must be a source or type object.");
+            }    
+        }
+        function implementType(type) {
+            for (let name in type) {
+                if (objectType) objectType[name] = type[name];
+                type[name].define(object);
+            }
+        }
+        function implementSource(source, sys) {
+            for (let decl in source) {
+                if (decl != sys.conf.typeProperty) {
+                    decl = sys.declare(object, sys.nameOf(decl), source[decl], sys.facetOf(decl));
+                    if (objectType) {
+                        objectType[decl.name] = decl;
+                    }
+                    if (!decl.define(object)) {
+                        console.warn("Unable to define declaration: ", decl);
+                    }
+                    if (decl.facet === "" && typeof decl.expr == "function") {
+                        decl.expr.$super = getSuper(object, decl.name);
+                    }
+                }
+            }
+        }
+
+        function getSuper(object, name) {
+            if (!object) return;
+            const sub = object[name];
+            const OGP = Object.getPrototypeOf;
+            if (sub) for (object = OGP(object); object; object = OGP(object)) {
+                let sup = object[name];
+                if (sup !== sub) return sup;
+            }
+        }    
+    },
 	Array: {
 		var$length: 0,
 		symbol$iterator: function *() {

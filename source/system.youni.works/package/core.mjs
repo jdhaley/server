@@ -36,6 +36,16 @@ const pkg = {
             return module.create.apply(module, arguments);
         }
     },
+    Component: {
+        forName(name) {
+        },
+        create(from) {
+        },
+        extend(object, from) {
+        },
+        define(object, name, value, facet) {
+        }
+    },
     Module: {
         type$: "Factory",
         name: "",
@@ -44,8 +54,6 @@ const pkg = {
         },
         package: {
         },
-        define(object, name, value, facet) {
-        }
     }
 }
 export default pkg;

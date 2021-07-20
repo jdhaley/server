@@ -1,12 +1,9 @@
 const pkg = {
 	type$: "/display",
-	use: {
-		type$command: "/base/command"
-	},
 	$public: {
 		type$: "/display",
 		DrawCommand: {
-			type$: "use/command/Command",
+			type$: "/base/command/Command",
 			title: "Move/Size Shape",
 			control: null,
 			before: null,
@@ -42,9 +39,9 @@ const pkg = {
 			//TODO rationalize the use vs. type. Come up with a better pattern.
 			use: {
 				type$Shape: "Shape",
-				type$Commands: "use/command/Commands"
+				type$Commands: "/base/command/Commands"
 			},
-			type$commands: "use/command/Commands",
+			type$commands: "/base/command/Commands",
 			start: function(conf) {
 				if (conf) this.let("conf", conf);
 				this.let("commands", this.use.Commands.instance());			

@@ -1,4 +1,10 @@
 export default { 
+    Context: {
+        forName(name) {
+        },
+        create(source) {
+        },
+    },
     Factory: {
         conf: {
             facets: {
