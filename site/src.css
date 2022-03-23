@@ -67,41 +67,35 @@ DIV[aria-level='0'] {
 DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
-	padding-top: 4px;
 	color: steelblue;
-
-	padding-top: 2px;
 	margin-left: 10em;
+	border: 0;
 }
 SECTION {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
+	padding: 2px;
 	color: darkslategray;
-}
-P[role=listitem]::before {
-	display: inline-block;
-	margin-left: -1em;
-	min-width: 1em;
-	text-align: center;
-	content: "•";
+	/* background: ghostwhite;
+	border-radius: 3px; */
 }
 DIV[role=row][aria-level='1'] {
-	margin-left: 2em;
+	margin-left: 0em;
 }
 DIV[role=row][aria-level='2'] {
-	margin-left: 4em;
+	margin-left: 2em;
 }
 DIV[role=row][aria-level='3'] {
-	margin-left: 6em;
+	margin-left: 4em;
 }
 DIV[role=row][aria-level='4'] {
-	margin-left: 8em;
+	margin-left: 6em;
 }
 DIV[role=row][aria-level='5'] {
-	margin-left: 10em;
+	margin-left: 8em;
 }
 DIV[role=row][aria-level='6'] {
-	margin-left: 12em;
+	margin-left: 10em;
 }
 
 P {

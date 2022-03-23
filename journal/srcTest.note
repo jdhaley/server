@@ -8,7 +8,7 @@
 			<s value="&quot;hello&quot;" />
 		</s>
 		<s key="factor" facets="get" value="(this, : Void, num: Number, value: Number) ^ Number)">
-			<s value="This is a silly little function for testing ." />
+			<section>This is a silly little function for testing.</section>
 			<s key="if" value="num">
 				<s key="return" value="num add(value) mul(5)" />
 			</s>
