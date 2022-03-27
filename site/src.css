@@ -24,40 +24,56 @@ ARTICLE {
 	content: "]";
 	color: red;
 }
-[data-cell='facets'] {
-	color: steelblue;
+
+DIV>CODE {
+	display: block;
 }
-[data-cell='key'] {
-	color: steelblue;
+
+*::before, *::after {
+	color: lightsteelblue;
+}
+
+error {
+	color: red;
+}
+
+sym, decl {
 	font-weight: bold;
 }
-[data-model='exprs']::before {
-	content: "(";
-	color: gray;
+
+decl::after {
+	content: ": ";
 }
-[data-model='exprs']::after {
+
+exprs::after {
 	content: ")";
-	color: gray;
 }
-[data-model='exprs']>*::before {
-	content: ",";
-	color: gray;
+
+exprs::before, expr>exprs::before {
+	content: "(";
 }
-[data-model='exprs']>*:first-child::before {
+
+exprs>*::before {
+	content: ", ";
+}
+exprs>*:first-child:before {
 	content: "";
 }
 
-[data-model='list']::before {
+index::before {
 	content: "[";
-	color: gray;
 }
-[data-model='list']::after {
+index::after {
 	content: "]";
-	color: gray;
 }
 
-[data-model='error'] {
-	color: red;
+
+id::before, string::before, number::before, sym::before, error::before {
+	content: " ";
+}
+id:first-child:before, string:first-child:before, number:first-child:before,
+		sym:first-child:before, error:first-child:before {
+	content: "";
 }
 
 /* Any aria-level that isn't defined in this css is invalid.*/
@@ -67,35 +83,34 @@ DIV[aria-level='0'] {
 DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
-	color: steelblue;
-	margin-left: 10em;
-	border: 0;
+	border-bottom: 1px solid ghostwhite;
+}
+DIV[role=row]:active {
+	border-bottom: 1px solid lightsteelblue;
 }
 SECTION {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
 	padding: 2px;
-	color: darkslategray;
-	/* background: ghostwhite;
-	border-radius: 3px; */
+	color: green;
 }
 DIV[role=row][aria-level='1'] {
-	margin-left: 0em;
+	padding-left: 0em;
 }
 DIV[role=row][aria-level='2'] {
-	margin-left: 2em;
+	padding-left: 2em;
 }
 DIV[role=row][aria-level='3'] {
-	margin-left: 4em;
+	padding-left: 4em;
 }
 DIV[role=row][aria-level='4'] {
-	margin-left: 6em;
+	padding-left: 6em;
 }
 DIV[role=row][aria-level='5'] {
-	margin-left: 8em;
+	padding-left: 8em;
 }
 DIV[role=row][aria-level='6'] {
-	margin-left: 10em;
+	padding-left: 10em;
 }
 
 P {
@@ -176,9 +191,9 @@ Q {
 }
 Q::before {
 	content: "\201C";
-	color: gray;
+	color: lightsteelblue;
 }
 Q::after {
 	content: "\201D";
-	color: gray;
+	color: lightsteelblue;
 }
