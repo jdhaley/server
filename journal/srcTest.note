@@ -10,7 +10,7 @@
 		<s value="get factor: (this: Void, num: Number, value: Number) ^ Number">
 			<section>This is a silly little function for testing.</section>
 			<s value="if: num">
-				<s value="return: num add(value + 2) mul(5)" />
+				<s value="return: num add(value) mul(5)" />
 			</s>
 			<s value="else if: num eq(2)">
 				<s value="num = 4" />

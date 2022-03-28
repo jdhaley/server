@@ -30,7 +30,7 @@ DIV>CODE {
 }
 
 *::before, *::after {
-	color: lightsteelblue;
+	color: gray;
 }
 
 error {
@@ -84,6 +84,7 @@ DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
 	border-bottom: 1px solid ghostwhite;
+	color: steelblue;
 }
 DIV[role=row]:active {
 	border-bottom: 1px solid lightsteelblue;
@@ -92,7 +93,7 @@ SECTION {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
 	padding: 2px;
-	color: green;
+	color: darkslategray;
 }
 DIV[role=row][aria-level='1'] {
 	padding-left: 0em;
