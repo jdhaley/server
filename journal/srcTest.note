@@ -1,5 +1,44 @@
 <s>
-	<s value="test: Object">
+	<s value="public type any:">
+		<s value="eq: (value: any) ^ any"/>
+		<s value="ne: (value: any) ^ any"/>
+	</s>
+	<s value="public type void: any"/>
+	<s value="public type object: any"/>
+	<s value="public type container: object">
+		<s value="at: (key: any) ^ any"/>
+	</s>
+	<s value="public type type: container">
+		<s value="generalizes: (type: type) ^ boolean"/>
+		<s value="categorizes: (value: any) ^ boolean"/>
+	</s>
+	<s value="public type function: any">
+		<s value="apply: (receiver: any, args: array ^ any) ^ any"/>
+	</s>
+	<s value="public type boolean: any"/>
+	<s value="public type number: any">
+		<s value="neg: number"/>
+		<s value="add: (value: number) ^ number"/>
+		<s value="sub: (value: number) ^ number"/>
+		<s value="mul: (value: number) ^ number"/>
+		<s value="div: (value: number) ^ number"/>
+		<s value="mod: (value: number) ^ number"/>
+		<s value="gt: (value: number) ^ number"/>
+		<s value="lt: (value: number) ^ number"/>
+		<s value="ge: (value: number) ^ number"/>
+		<s value="le: (value: number) ^ number"/>
+	</s>
+	<s value="public type strand: container">
+		<s value="length: number"/>
+		<s value="at: (value: number) ^ any"/>
+		<s value="indexOf: (search: any, opt start: number) ^ number"/>
+		<s value="slice: (start: number, opt end: number) ^ number"/>
+		<s value="concat: (rest values: any) ^ strand"/>
+	</s>
+	<s value="public type string: strand ^ string"/>
+	<s value="public type array: strand"/>
+
+	<s value="test: object">
 		<s value="&quot;an expression&quot;: Number">
 			<section>A statement can contain a comment section. A key can be a string.</section>
 			<s value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)" />
@@ -21,7 +60,7 @@
 			</s>
 		</s>
 	</s>
-	<s value="const static test2: Array">
+	<s value="const static test2: array">
 		<s value="10" />
 		<s value="&quot;hello&quot;" />
 		<s value="20" />
