@@ -83,11 +83,11 @@ DIV[aria-level='0'] {
 DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
-	border-bottom: 1px solid ghostwhite;
+	border-top: 1px dotted gainsboro;
 	color: steelblue;
 }
 DIV[role=row]:active {
-	border-bottom: 1px solid lightsteelblue;
+	border-top: 1px solid lightsteelblue;
 }
 SECTION {
 	font-family: 'IBM Plex Sans';
