@@ -1,5 +1,5 @@
 <s>
-	<s value="public any:">
+	<s value="public type any:">
 		<s value="eq: (value: any) ^ any"/>
 		<s value="ne: (value: any) ^ any"/>
 		<s value="and: (defer value: any) ^ any"/>
