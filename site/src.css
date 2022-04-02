@@ -37,10 +37,12 @@ error {
 	color: red;
 }
 
-sym, decl {
+decl>*:last-child {
+	color: steelblue;
+}
+code>decl>*:last-child {
 	font-weight: bold;
 }
-
 decl::after {
 	content: ": ";
 }
@@ -84,7 +86,7 @@ DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
 	border-top: 1px dotted gainsboro;
-	color: steelblue;
+	color: darkslategray;
 }
 DIV[role=row]:active {
 	border-top: 1px solid lightsteelblue;
@@ -93,7 +95,7 @@ SECTION {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
 	padding: 2px;
-	color: darkslategray;
+	color: green;
 }
 DIV[role=row][aria-level='1'] {
 	padding-left: 0em;
