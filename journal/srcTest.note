@@ -44,14 +44,14 @@
 		<s value="concat: (rest values: contained) ^ strand"/>
 	</s>
 	<s value="test: object">
-		<s value="&quot;an expression&quot;: Number">
+		<s value="&quot;an expression&quot;: number">
 			<section>A statement can contain a comment section. A key can be a string.</section>
 			<s value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)" />
 		</s>
-		<s value="other: String">
+		<s value="other: string">
 			<s value="&quot;hello&quot;" />
 		</s>
-		<s value="get factor: (this: Void, num: Number, value: Number) ^ Number">
+		<s value="get factor: (this: void, num: number, value: number) ^ number">
 			<section>This is a silly little function for testing.</section>
 			<s value="if: num">
 				<s value="return: num add(value) mul(5)" />
