@@ -1,0 +1,11 @@
+<s>
+	<s value='field1: "hello"'/>
+	<s value='field2: 13'>
+		<section>The value is set to 13 because</section>
+	</s> 
+	<s value='field3: false'/> 
+	<s>
+		<s value='a: one'/>
+		<s value='b: two'/>
+	</s>
+</s>
