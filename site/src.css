@@ -27,6 +27,7 @@ ARTICLE {
 
 DIV>CODE {
 	display: block;
+	border-top: 1px dotted gainsboro;
 }
 
 *::before, *::after {
@@ -85,17 +86,10 @@ DIV[aria-level='0'] {
 DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
-	border-top: 1px dotted gainsboro;
-	color: darkslategray;
+	color: black;
 }
 DIV[role=row]:active {
 	border-top: 1px solid lightsteelblue;
-}
-SECTION {
-	font-family: 'IBM Plex Sans';
-	font-size: 11pt;
-	padding: 2px;
-	color: green;
 }
 DIV[role=row][aria-level='1'] {
 	padding-left: 0em;
@@ -116,27 +110,35 @@ DIV[role=row][aria-level='6'] {
 	padding-left: 10em;
 }
 
+SECTION {
+	font-family: 'IBM Plex Sans';
+	font-size: 10pt;
+	padding: 0;
+	margin: 0;
+}
+
 P {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
-	padding-top: 4px;
-	color: darkslategray;
+	padding: 2px;
+	padding-left: 2px;
+	color: slategray;
 }
 /* Any aria-level that isn't defined in this css is invalid.*/
 P[aria-level='0'] {
 	color: orange;
 }
 P[role=listitem] {
-	padding-top: 2px;
+	padding-top: 0;
 	margin-left: 10em;
 }
-/* P[role=listitem]::before {
+ P[role=listitem]::before {
 	display: inline-block;
 	margin-left: -1em;
 	min-width: 1em;
 	text-align: center;
 	content: "•";
-} */
+}
 P[role=listitem][aria-level='1'] {
 	margin-left: 2em;
 }
