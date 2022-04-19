@@ -25,11 +25,12 @@ ARTICLE {
 	color: red;
 }
 
-DIV>CODE {
-	display: block;
-	border-top: 1px dotted gainsboro;
+CODE {
+	display: flex;
 }
-
+CODE>* {
+	display: inline-block;
+}
 *::before, *::after {
 	color: gray;
 }
@@ -37,15 +38,31 @@ DIV>CODE {
 error {
 	color: red;
 }
-
-decl>*:last-child {
+decl {
+	display: block;
 	color: steelblue;
 }
-code>decl>*:last-child {
-	font-weight: bold;
-}
 decl::after {
-	content: ": ";
+	content: ":";
+}
+
+type {
+	display: block;
+	color: green;
+	/*
+	border-left: 1px solid gainsboro;
+	border-right: 1px solid gainsboro;
+	*/
+}
+
+type::before {
+	content: "\a0";
+}	
+type::after {
+	content: "\a0";
+}
+expr {
+	display: block;
 }
 
 exprs::after {
@@ -87,32 +104,34 @@ DIV[role=row] {
 	font-family: 'IBM Plex Mono';
 	font-size: 10pt;
 	color: black;
+	border-bottom: 1px solid #ececec;
 }
 DIV[role=row]:active {
-	border-top: 1px solid lightsteelblue;
+	border-bottom: 1px solid lightsteelblue;
 }
-DIV[role=row][aria-level='1'] {
-	padding-left: 0em;
+DIV[role=row][aria-level='1']> {
+	margin-left: 0em;
 }
 DIV[role=row][aria-level='2'] {
-	padding-left: 2em;
+	margin-left: 2em;
 }
 DIV[role=row][aria-level='3'] {
-	padding-left: 4em;
+	margin-left: 4em;
 }
 DIV[role=row][aria-level='4'] {
-	padding-left: 6em;
+	margin-left: 6em;
 }
 DIV[role=row][aria-level='5'] {
-	padding-left: 8em;
+	margin-left: 8em;
 }
 DIV[role=row][aria-level='6'] {
-	padding-left: 10em;
+	margin-left: 10em;
 }
 
 SECTION {
 	font-family: 'IBM Plex Sans';
-	font-size: 10pt;
+	font-size: 11pt;
+	color: slategray;
 	padding: 0;
 	margin: 0;
 }
