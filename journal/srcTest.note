@@ -15,44 +15,41 @@
 		<s key="apply" type="(receiver: any, args: array ^ any) ^ any"/>
 	</s>
 	<s key="public type boolean" type="any"/>
-	<s value="public type number: any">
-		<s value="neg: number"/>
-		<s value="add: (value: number) ^ number"/>
-		<s value="sub: (value: number) ^ number"/>
-		<s value="mul: (value: number) ^ number"/>
-		<s value="div: (value: number) ^ number"/>
-		<s value="mod: (value: number) ^ number"/>
-		<s value="gt: (value: number) ^ number"/>
-		<s value="lt: (value: number) ^ number"/>
-		<s value="ge: (value: number) ^ number"/>
-		<s value="le: (value: number) ^ number"/>
+	<s key="public type number" type="any">
+		<s key="neg" type="number"/>
+		<s key="add" type="(value: number) ^ number"/>
+		<s key="sub" type="(value: number) ^ number"/>
+		<s key="mul" type="(value: number) ^ number"/>
+		<s key="div" type="(value: number) ^ number"/>
+		<s key="mod" type="(value: number) ^ number"/>
+		<s key="gt" type="(value: number) ^ number"/>
+		<s key="lt" type="(value: number) ^ number"/>
+		<s key="ge" type="(value: number) ^ number"/>
+		<s key="le" type="(value: number) ^ number"/>
 	</s>
-	<s value="public type string: strand ^ string"/>
-	<s value="public type type: container">
-		<s value="generalizes: (type: type) ^ boolean"/>
-		<s value="categorizes: (value: any) ^ boolean"/>
+	<s key="public type string" type="strand ^ string"/>
+	<s key="public type type" type="container">
+		<s key="generalizes" type="(type: type) ^ boolean"/>
+		<s key="categorizes" type="(value: any) ^ boolean"/>
 	</s>
-	<s value="public type container: object">
-		<s value="at: (key: any) ^ contained"/>
+	<s key="public type container" type="object">
+		<s key="at" type="(key: any) ^ contained"/>
 	</s>
-	<s value="public type contained: any"/>
-	<s value="public type strand: container">
-		<s value="length: number"/>
-		<s value="at: (value: number) ^ contained"/>
-		<s value="indexOf: (search: contained, opt start: number) ^ number"/>
-		<s value="slice: (start: number, opt end: number) ^ number"/>
-		<s value="concat: (rest values: contained) ^ strand"/>
+	<s key="public type contained" type="any"/>
+	<s key="public type strand" type="container">
+		<s key="length" type="number"/>
+		<s key="at" type="(value: number) ^ contained"/>
+		<s key="indexOf" type="(search: contained, opt start: number) ^ number"/>
+		<s key="slice" type="(start: number, opt end: number) ^ number"/>
+		<s key="concat" type="(rest values: contained) ^ strand"/>
 	</s>
-	<s value="test: object">
-		<s value="&quot;an expression&quot;: number">
-			<section>A statement can contain a comment section. A key can be a string.</section>
-			<s value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)" />
+	<s key="test: object">
+		<s key="&quot;an expression&quot;" type="number" value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)">
+			<section><p>A key can be a string.</p></section>
 		</s>
-		<s value="other: string">
-			<s value="&quot;hello&quot;" />
-		</s>
+		<s key="other" type="string" value="&quot;hello&quot;"/>
 		<s key="get factor" type="(this: void, num: number, value: number) ^ number">
-			<section>This is a silly little function for testing.</section>
+			<section><p>This is a silly little function for testing.</p></section>
 			<s key="if" value="num">
 				<s key="return" value="num add(value) mul(5)" />
 			</s>

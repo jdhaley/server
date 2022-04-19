@@ -24,9 +24,35 @@ ARTICLE {
 	content: "]";
 	color: red;
 }
+/* Any aria-level that isn't defined in this css is invalid.*/
+DIV[aria-level='0'] {
+	color: orange;
+}
+DIV[role=row] {
+	font-family: 'IBM Plex Mono';
+	font-size: 10pt;
+	color: black;
+	margin: 2px;
+	padding: 0;
+	border: 1px solid #ececec;
+	border-radius: 5px;
+	/*
+	border: 1px solid #ececec;
+	border-width: 1px 1px 0 1px;
+	border-radius: 5px 5px 0 0;
+	*/
+}
+DIV[role=row]:active {
+	border-bottom: 1px solid lightsteelblue;
+}
 
 CODE {
 	display: flex;
+	align-items: baseline;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	background-color: ghostwhite;
+	padding: 2px;
 }
 CODE>* {
 	display: inline-block;
@@ -40,24 +66,22 @@ error {
 }
 decl {
 	display: block;
-	color: steelblue;
+	color: green;
 }
 decl::after {
-	content: ":";
+	content: ":\a0";
 }
 
 type {
 	display: block;
-	color: green;
+	color: steelblue;
+
 	/*
+	font-weight: lighter;
 	border-left: 1px solid gainsboro;
 	border-right: 1px solid gainsboro;
 	*/
 }
-
-type::before {
-	content: "\a0";
-}	
 type::after {
 	content: "\a0";
 }
@@ -96,19 +120,6 @@ id:first-child:before, string:first-child:before, number:first-child:before,
 	content: "";
 }
 
-/* Any aria-level that isn't defined in this css is invalid.*/
-DIV[aria-level='0'] {
-	color: orange;
-}
-DIV[role=row] {
-	font-family: 'IBM Plex Mono';
-	font-size: 10pt;
-	color: black;
-	border-bottom: 1px solid #ececec;
-}
-DIV[role=row]:active {
-	border-bottom: 1px solid lightsteelblue;
-}
 DIV[role=row][aria-level='1']> {
 	margin-left: 0em;
 }
@@ -132,7 +143,6 @@ SECTION {
 	font-family: 'IBM Plex Sans';
 	font-size: 11pt;
 	color: slategray;
-	padding: 0;
 	margin: 0;
 }
 
@@ -151,7 +161,7 @@ P[role=listitem] {
 	padding-top: 0;
 	margin-left: 10em;
 }
- P[role=listitem]::before {
+P[role=listitem]::before {
 	display: inline-block;
 	margin-left: -1em;
 	min-width: 1em;
