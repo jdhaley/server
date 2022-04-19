@@ -1,12 +1,12 @@
 <s>
-	<s value='field1: "hello"'/>
-	<s value='field2: 13'>
+	<s key='field1' value='"hello" slice(1)'/>
+	<s key='field2' value='13'>
 		<section><p>The value is set to 13 because</p></section>
 	</s> 
-	<s value='field3: false'/> 
+	<s key='field3' value='false'/> 
 	<s>
-		<s value='a: one'/>
-		<s value='b: two'/>
+		<s key='a' value='one'/>
+		<s key='b' value='two'/>
 		<s value='not a property'/>
 	</s>
 </s>
