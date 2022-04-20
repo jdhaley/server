@@ -1,7 +1,7 @@
 <module>
 	<s key='field1' value='"hello" slice(1)'/>
 	<s key='field2' value='13'>
-		<section><p>The value is set to 13 because</p></section>
+		<note><p>The value is set to 13 because</p></note>
 	</s> 
 	<s key='field3' value='false'/> 
 	<s key='container'>

@@ -45,11 +45,11 @@
 	</s>
 	<s key="test: object">
 		<s key="&quot;an expression&quot;" type="number" value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)">
-			<section><p>A key can be a string.</p></section>
+			<note><p>A key can be a string.</p></note>
 		</s>
 		<s key="other" type="string" value="&quot;hello&quot;"/>
 		<s key="get factor" type="(this: void, num: number, value: number) ^ number">
-			<section><p>This is a silly little function for testing.</p></section>
+			<note><p>This is a silly little function for testing.</p></note>
 			<s key="if" value="num">
 				<s key="return" value="num add(value) mul(5)" />
 			</s>
