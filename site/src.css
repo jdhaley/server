@@ -30,30 +30,38 @@ DIV[aria-level='0'] {
 }
 DIV[role=row] {
 	font-family: 'IBM Plex Mono';
-	font-size: 10pt;
+	font-size: 9pt;
 	color: black;
-	margin: 2px;
-	padding: 0;
-	border: 1px solid #ececec;
-	border-radius: 5px;
-	/*
-	border: 1px solid #ececec;
-	border-width: 1px 1px 0 1px;
-	border-radius: 5px 5px 0 0;
-	*/
+	/* border: 1px solid gainsboro; 
+	border-width: 0 0 1px 1px;
+	border-radius: 0 0 0 5px; */
+	border-top: 1px solid gainsboro; 
 }
 DIV[role=row]:active {
-	border-bottom: 1px solid lightsteelblue;
+	border-top: 1px solid lightsteelblue;
+}
+DIV[role=row]:hover {
+	background-color: ghostwhite;
+}
+
+SECTION {
+	padding-bottom: 3px;
 }
 
 CODE {
 	display: flex;
 	align-items: baseline;
 	justify-content: flex-start;
-	flex-wrap: wrap;
-	background-color: ghostwhite;
-	padding: 2px;
+	flex-wrap: wrap;	
+	padding-left: 2px;
 }
+P {
+	font-family: 'IBM Plex Sans';
+	font-size: 10pt;
+	padding-left: 2px;
+	color: slategray;
+}
+
 CODE>* {
 	display: inline-block;
 }
@@ -139,20 +147,6 @@ DIV[role=row][aria-level='6'] {
 	margin-left: 10em;
 }
 
-SECTION {
-	font-family: 'IBM Plex Sans';
-	font-size: 11pt;
-	color: slategray;
-	margin: 0;
-}
-
-P {
-	font-family: 'IBM Plex Sans';
-	font-size: 11pt;
-	padding: 2px;
-	padding-left: 2px;
-	color: slategray;
-}
 /* Any aria-level that isn't defined in this css is invalid.*/
 P[aria-level='0'] {
 	color: orange;
