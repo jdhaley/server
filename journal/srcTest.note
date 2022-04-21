@@ -1,5 +1,5 @@
 <s>
-	<s key="public type any">
+	<s key="any" facets="public type">
 		<s key="eq" type="(value: any) ^ any"/>
 		<s key="ne" type="(value: any) ^ any"/>
 		<s key="and" type="(defer value: any) ^ any"/>
@@ -8,14 +8,14 @@
 		<s key="str" type="string"/>
 		<s key="num" type="number"/>
 	</s>
-	<s key="public type void" type="any"/>
-	<s key="public type object" type="any"/>
-	<s key="public type array" type="strand"/>
-	<s key="public type function" type="any">
+	<s key="void" facets="public type" type="any"/>
+	<s key="object" facets="public type" type="any"/>
+	<s key="array" facets="public type" type="strand"/>
+	<s key="function" facets="public type" type="any">
 		<s key="apply" type="(receiver: any, args: array ^ any) ^ any"/>
 	</s>
-	<s key="public type boolean" type="any"/>
-	<s key="public type number" type="any">
+	<s key="boolean" facets="public type" type="any"/>
+	<s key="number" facets="public type" type="any">
 		<s key="neg" type="number"/>
 		<s key="add" type="(value: number) ^ number"/>
 		<s key="sub" type="(value: number) ^ number"/>
@@ -27,42 +27,42 @@
 		<s key="ge" type="(value: number) ^ number"/>
 		<s key="le" type="(value: number) ^ number"/>
 	</s>
-	<s key="public type string" type="strand ^ string"/>
-	<s key="public type type" type="container">
+	<s key="string" facets="public type" type="strand ^ string"/>
+	<s key="type" facets="public type" type="container">
 		<s key="generalizes" type="(type: type) ^ boolean"/>
 		<s key="categorizes" type="(value: any) ^ boolean"/>
 	</s>
-	<s key="public type container" type="object">
+	<s key="container" facets="public type" type="object">
 		<s key="at" type="(key: any) ^ contained"/>
 	</s>
-	<s key="public type contained" type="any"/>
-	<s key="public type strand" type="container">
+	<s key="contained" facets="public type" type="any"/>
+	<s key="strand" facets="public type" type="container">
 		<s key="length" type="number"/>
 		<s key="at" type="(value: number) ^ contained"/>
 		<s key="indexOf" type="(search: contained, opt start: number) ^ number"/>
 		<s key="slice" type="(start: number, opt end: number) ^ number"/>
 		<s key="concat" type="(rest values: contained) ^ strand"/>
 	</s>
-	<s key="test: object">
+	<s key="test" type="object">
 		<s key="&quot;an expression&quot;" type="number" value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)">
 			<note><p>A key can be a string.</p></note>
 		</s>
 		<s key="other" type="string" value="&quot;hello&quot;"/>
 		<s key="get factor" type="(this: void, num: number, value: number) ^ number">
 			<note><p>This is a silly little function for testing.</p></note>
-			<s key="if" value="num">
-				<s key="return" value="num add(value) mul(5)" />
+			<s keyword="if" value="num">
+				<s keyword="return" value="num add(value) mul(5)" />
 			</s>
-			<s key="else if" value="num eq(2)">
+			<s keyword="else if" value="num eq(2)">
 				<s value="num = 4" />
-				<s key="return" value="num" />
+				<s keyword="return" value="num" />
 			</s>
-			<s key="else">
-				<s key="return" value="3" />
+			<s keyword="else">
+				<s keyword="return" value="3" />
 			</s>
 		</s>
 	</s>
-	<s value="const static test2: array">
+	<s key="test2" facets="const static" type="array">
 		<s value="10" />
 		<s value="&quot;hello&quot;" />
 		<s value="20" />

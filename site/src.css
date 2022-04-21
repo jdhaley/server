@@ -35,10 +35,10 @@ DIV[role=row] {
 	/* border: 1px solid gainsboro; 
 	border-width: 0 0 1px 1px;
 	border-radius: 0 0 0 5px; */
-	border-top: 1px solid gainsboro; 
+	border-bottom: 1px solid gainsboro; 
 }
 DIV[role=row]:active {
-	border-top: 1px solid lightsteelblue;
+	border-bottom: 1px solid lightsteelblue;
 }
 DIV[role=row]:hover {
 	background-color: ghostwhite;
@@ -72,11 +72,21 @@ CODE>* {
 error {
 	color: red;
 }
+expr {
+	/*flex: 1 0;*/
+}
 decl {
 	display: block;
 	color: green;
 }
 decl::after {
+	content: ":\a0";
+}
+keyword {
+	display: block;
+	font-weight: bold;
+}
+keyword::after {
 	content: ":\a0";
 }
 
@@ -92,9 +102,6 @@ type {
 }
 type::after {
 	content: "\a0";
-}
-expr {
-	display: block;
 }
 
 exprs::after {
