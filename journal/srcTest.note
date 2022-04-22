@@ -10,7 +10,7 @@
 	</s>
 	<s key="void" facets="public type" type="any"/>
 	<s key="object" facets="public type" type="any"/>
-	<s key="array" facets="public type" type="strand"/>
+	<s key="array" facets="public type" type="sequence"/>
 	<s key="function" facets="public type" type="any">
 		<s key="apply" type="(receiver: any, args: array ^ any) ^ any"/>
 	</s>
@@ -27,7 +27,13 @@
 		<s key="ge" type="(value: number) ^ number"/>
 		<s key="le" type="(value: number) ^ number"/>
 	</s>
-	<s key="string" facets="public type" type="strand ^ string"/>
+	<s key="string" facets="public type" type="sequence">
+		<s key="length" type="number"/>
+		<s key="at" type="(value: number) ^ string"/>
+		<s key="indexOf" type="(search: string, opt start: number) ^ number"/>
+		<s key="slice" type="(start: number, opt end: number) ^ string"/>
+		<s key="concat" type="(rest values: contained) ^ string"/>
+	</s>
 	<s key="type" facets="public type" type="container">
 		<s key="generalizes" type="(type: type) ^ boolean"/>
 		<s key="categorizes" type="(value: any) ^ boolean"/>
@@ -36,12 +42,12 @@
 		<s key="at" type="(key: any) ^ contained"/>
 	</s>
 	<s key="contained" facets="public type" type="any"/>
-	<s key="strand" facets="public type" type="container">
+	<s key="sequence" facets="public type" type="container">
 		<s key="length" type="number"/>
 		<s key="at" type="(value: number) ^ contained"/>
 		<s key="indexOf" type="(search: contained, opt start: number) ^ number"/>
-		<s key="slice" type="(start: number, opt end: number) ^ number"/>
-		<s key="concat" type="(rest values: contained) ^ strand"/>
+		<s key="slice" type="(start: number, opt end: number) ^ sequence"/>
+		<s key="concat" type="(rest values: contained) ^ sequence"/>
 	</s>
 	<s key="test" type="object">
 		<s key="&quot;an expression&quot;" type="number" value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)">
