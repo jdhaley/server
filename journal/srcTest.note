@@ -50,7 +50,7 @@
 		<s key="concat" type="(rest values: contained) ^ sequence"/>
 	</s>
 	<s key="test" type="object">
-		<s key="&quot;an expression&quot;" type="number" value="this[&quot;hello, world&quot;] slice(0, 5) indexOf(&quot;o&quot;)">
+		<s key="&quot;an expression&quot;" type="number" value="&quot;hello, world&quot; slice(0, 5) indexOf(&quot;o&quot;)">
 			<note><p>A key can be a string.</p></note>
 		</s>
 		<s key="other" type="string" value="&quot;hello&quot;"/>
