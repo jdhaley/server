@@ -1,4 +1,6 @@
 <module>
+	<use href="core">
+	</use>
 	<s key='field1' value='"hello" slice(1)'/>
 	<s key='field2' value='13'>
 		<note><p>The value is set to 13 because</p></note>
