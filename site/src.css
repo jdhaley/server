@@ -2,8 +2,6 @@
 	margin: 0;
 	padding: 0;
 	outline: 0;
-	font-family: sans-serif;
-	font-size: 11pt;
 }
 HTML {
 	display: flex;
@@ -18,18 +16,39 @@ ARTICLE {
 	flex: 1 0;
 	padding: 15px;
 }
+
+CODE {
+	display: flex;
+	align-items: baseline;
+	justify-content: flex-start;
+	flex-wrap: wrap;	
+	padding-left: 2px;
+}
+
+SECTION {
+	padding-bottom: 3px;
+}
+
+P {
+	padding-left: 2px;
+	color: slategray;
+	font-size: 11pt;
+}
+
+*::before, *::after {
+	color: gray;
+}
+
 #start-edit::BEFORE {
 	content: "[";
 	color: red;
 }
+
 #end-edit::AFTER {
 	content: "]";
 	color: red;
 }
-/* Any aria-level that isn't defined in this css is invalid.*/
-DIV[aria-level='0'] {
-	color: orange;
-}
+
 DIV[role=row] {
 	color: black;
 	/* border: 1px solid gainsboro; 
@@ -44,35 +63,8 @@ DIV[role=row]:hover {
 	background-color: ghostwhite;
 }
 
-SECTION {
-	padding-bottom: 3px;
-}
-
-CODE {
-	display: flex;
-	align-items: baseline;
-	justify-content: flex-start;
-	flex-wrap: wrap;	
-	padding-left: 2px;
-}
-P {
-	padding-left: 2px;
-	color: slategray;
-}
-
-CODE>* {
-	display: inline-block;
-}
-*::before, *::after {
-	color: gray;
-}
-
 error {
 	color: red;
-}
-expr {
-	font-family: monospace;
-	/*flex: 1 0;*/
 }
 decl {
 	display: block;
@@ -128,14 +120,25 @@ id:first-child:before, string:first-child:before, number:first-child:before,
 	content: "";
 }
 
-DIV[role=row][aria-level='1']> {
+/* Any aria-level that isn't defined in this css is invalid.*/
+DIV[aria-level='0'] {
+	color: orange;
+}
+DIV[role=row][aria-level='1'] {
 	margin-left: 0em;
+}
+DIV[role=row][aria-level='1'] > CODE {
+	font-family: sans-serif;
+	font-size: 14pt;
+	font-weight: bold;
 }
 DIV[role=row][aria-level='2'] {
 	margin-left: 2em;
+	font-size: 10pt;
 }
 DIV[role=row][aria-level='3'] {
 	margin-left: 4em;
+	font-size: 10pt;
 }
 DIV[role=row][aria-level='4'] {
 	margin-left: 6em;
