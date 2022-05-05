@@ -1,21 +1,6 @@
 <s>
-	<s key="any" facets="public type">
-		<s key="eq" type="(value: any) ^ any"/>
-		<s key="ne" type="(value: any) ^ any"/>
-		<s key="and" type="(defer value: any) ^ any"/>
-		<s key="or" type="(defer value: any) ^ any"/>
-		<s key="then" type="(defer true: any, defer false: any) ^ any"/>
-		<s key="str" type="string"/>
-		<s key="num" type="number"/>
-	</s>
-	<s key="void" facets="public type" type="any"/>
-	<s key="object" facets="public type" type="any"/>
-	<s key="array" facets="public type" type="sequence"/>
-	<s key="function" facets="public type" type="any">
-		<s key="apply" type="(receiver: any, args: array ^ any) ^ any"/>
-	</s>
-	<s key="boolean" facets="public type" type="any"/>
-	<s key="number" facets="public type" type="any">
+	<s key="boolean" facets="public type"/>
+	<s key="number" facets="public type">
 		<s key="neg" type="number"/>
 		<s key="add" type="(value: number) ^ number"/>
 		<s key="sub" type="(value: number) ^ number"/>
@@ -32,21 +17,38 @@
 		<s key="at" type="(value: number) ^ string"/>
 		<s key="indexOf" type="(search: string, opt start: number) ^ number"/>
 		<s key="slice" type="(start: number, opt end: number) ^ string"/>
-		<s key="concat" type="(rest values: contained) ^ string"/>
+		<s key="concat" type="(rest values: product) ^ string"/>
 	</s>
-	<s key="type" facets="public type" type="container">
+	<s key="object" facets="public type"/>
+	<s key="array" facets="public type" type="sequence"/>
+	<s key="function" facets="public type" type="producer">
+		<s key="apply" type="(receiver: any, args: array ^ any) ^ product"/>
+	</s>
+	<s key="void" facets="public type"/>
+	<s key="type" facets="public type" type="parcel">
 		<s key="generalizes" type="(type: type) ^ boolean"/>
 		<s key="categorizes" type="(value: any) ^ boolean"/>
 	</s>
-	<s key="container" facets="public type" type="object">
-		<s key="at" type="(key: any) ^ contained"/>
+	<s key="value" facets="public type">
+		<s key="eq" type="(value: any) ^ any"/>
+		<s key="ne" type="(value: any) ^ any"/>
+		<s key="and" type="(defer value: any) ^ any"/>
+		<s key="or" type="(defer value: any) ^ any"/>
+		<s key="then" type="(defer true: any, defer false: any) ^ any"/>
+		<s key="str" type="string"/>
+		<s key="num" type="number"/>
 	</s>
-	<s key="contained" facets="public type" type="any"/>
-	<s key="sequence" facets="public type" type="container">
+	<s key="sequence" facets="public type" type="parcel">
 		<s key="length" type="number"/>
-		<s key="at" type="(value: number) ^ contained"/>
-		<s key="indexOf" type="(search: contained, opt start: number) ^ number"/>
+		<s key="at" type="(value: number) ^ product"/>
+		<s key="indexOf" type="(search: product, opt start: number) ^ number"/>
 		<s key="slice" type="(start: number, opt end: number) ^ sequence"/>
-		<s key="concat" type="(rest values: contained) ^ sequence"/>
+		<s key="concat" type="(rest values: product) ^ sequence"/>
 	</s>
+	<s key="parcel" facets="public type" type="producer">
+		<s key="at" type="(key: any) ^ product"/>
+	</s>
+	<s key="producer" facets="public type"/>
+	<s key="product" facets="public type"/>
+	<s key="any" facets="public type"/>
 </s>
