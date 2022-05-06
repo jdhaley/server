@@ -1,4 +1,4 @@
-import serveFile from "./module/noted/service/serveFile.js";
+import serveFile from "./module/core/service/actions/serveFile.js";
 export default {
 	//For viewing .ts only
 	"/noted": "../noted",
