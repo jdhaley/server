@@ -30,6 +30,12 @@
 		<s key="categorizes" type="(value: any) ^ boolean"/>
 	</s>
 	<s key="value" facets="public type">
+		<s key="of" type="(value: type) ^ type">
+			<note><p>
+				If the value is an instance of type, return the
+				value's type, otherwise return null.
+			</p></note>
+		</s>
 		<s key="eq" type="(value: any) ^ any"/>
 		<s key="ne" type="(value: any) ^ any"/>
 		<s key="and" type="(defer value: any) ^ any"/>
