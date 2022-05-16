@@ -10,6 +10,6 @@ export default {
 	"/journal": serveFile,
 
 	//Src app
-	"/src": "site",
-	"/src/app": "site/src.html",
+	"/src": "../lang/app/site",
+	"/src/app": "../lang/app/site/src.html",
 }
