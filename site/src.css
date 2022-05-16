@@ -26,7 +26,9 @@ CODE {
 }
 
 SECTION {
-	padding-bottom: 3px;
+	padding-left: 6pt;
+	margin-bottom: 3px;
+	/* border-left: 2px solid gainsboro; */
 }
 
 P {
@@ -66,16 +68,27 @@ DIV[role=row]:hover {
 error {
 	color: red;
 }
-decl {
+
+facets {
+	display: block;
+	color: steelblue;
+	padding-right: 6pt;
+}
+key {
 	display: block;
 	color: steelblue;
 	font-weight: bold;
+	padding-right: 6pt;
 }
-decl::after {
-	content: ":\a0";
-	margin-right: 0;
-	padding-right: 0;
+type {
+	display: block;
+	color: steelblue;
+	padding-right: 6pt;
 }
+type::after {
+	content: ":";
+}
+
 keyword {
 	display: block;
 	font-weight: bold;
@@ -84,12 +97,10 @@ keyword::after {
 	content: ":\a0";
 }
 
-type {
-	padding-right: 6pt;
-	display: block;
-	color: steelblue;
+expr {
+	color: darkslategray;
+	flex: 1;
 }
-
 exprs::after {
 	content: ")";
 }
