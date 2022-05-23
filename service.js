@@ -12,4 +12,8 @@ export default {
 	//Src app
 	"/src": "../lang/app/site",
 	"/src/app": "../lang/app/site/src.html",
+
+	//Testing
+	"/test": "../lang/test/site",
+	"/test/app": "../lang/test/site/test.html",
 }
