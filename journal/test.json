@@ -1,18 +1,13 @@
 [
-	{
-		"type$": "property",
-		"facets": "public type",
-		"key": "string",
-		"type": "sequence",
-		"expr": "​",
-		"note": []
-	},
-	{
-		"type$": "property",
-		"facets": "public type",
-		"key": "any",
-		"type": "​",
-		"expr": "​",
-		"note": []
-	}
+  {
+    "type$": "property",
+    "facets": "public type",
+    "key": "string",
+    "type": "sequence"
+  },
+  {
+    "type$": "property",
+    "facets": "public type",
+    "key": "any"
+  }
 ]
