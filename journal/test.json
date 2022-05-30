@@ -3,11 +3,16 @@
 		"type$": "property",
 		"facets": "public type",
 		"key": "string",
-		"type": "sequence"
+		"type": "sequence",
+		"expr": "​",
+		"note": []
 	},
 	{
 		"type$": "property",
 		"facets": "public type",
-		"key": "any"
+		"key": "any",
+		"type": "​",
+		"expr": "​",
+		"note": []
 	}
 ]
