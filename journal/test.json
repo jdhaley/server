@@ -3,7 +3,8 @@
     "type$": "property",
     "facets": "public type",
     "key": "string",
-    "type": "sequence"
+    "type": "sequence",
+    "x-note": ["<p><b>Hello</b> world!</p>"]
   },
   {
     "type$": "property",
