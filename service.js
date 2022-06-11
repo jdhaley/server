@@ -20,5 +20,6 @@ export default {
 
 	//Dsp
 	"/test2": "../dsp/resources",
+	"/test2/youni.works": "module/dsp/youni.works",
 	"/test2/app": "../dsp/resources/dsp.html",
 }
