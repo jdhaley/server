@@ -4,8 +4,7 @@ export default {
 	"/noted": "../noted",
 	"/core": "../core",
 	"/lang": "../lang",
-	"/v2.youni.works": "../youni.works/v2.youni.works",
-
+	"/youni.works": "../youni.works",
 
 	//For all apps
 	"/module": "module",
@@ -20,7 +19,6 @@ export default {
 	"/test/app": "../lang/test/site/test.html",
 
 	//Dsp
-	"/dsp": "../dsp/resources",
-	"/dsp/app": "../dsp/resources/dsp.html",
-	"/dsp/youni.works": "../youni.works/modules/v2.youni.works",
+	"/dsp": "app/dsp/site",
+	"/dsp/youni.works": "module/youni.works/v2"
 }
