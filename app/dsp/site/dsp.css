@@ -37,12 +37,12 @@ UI-RECORD:hover {
 	background-color: ghostwhite;
 }
 
-#start-edit::BEFORE {
+#start-marker::BEFORE {
 	content: "[";
 	color: red;
 }
 
-#end-edit::AFTER {
+#end-marker::AFTER {
 	content: "]";
 	color: red;
 }
