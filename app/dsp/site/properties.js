@@ -9,5 +9,6 @@ export default {
 	controllers: controllers,
 	baseTypes: baseTypes,
 	types: types,
+	unknownType: "text",
 	type: "properties"
 }
