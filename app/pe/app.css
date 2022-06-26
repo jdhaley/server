@@ -27,14 +27,13 @@ UI-RECORD {
 	justify-content: flex-start;
 	flex-wrap: wrap;	
 	color: black;
+	border-bottom: 1px solid gainsboro; 
 }
 UI-RECORD>* {
-	border: 1px solid gainsboro;
+	border: 1px solid ghostwhite;
 	margin: 1px;
-	flex: 1;
 }
-
-UI-RECORD>*:hover {
+UI-RECORD:hover {
 	background-color: ghostwhite;
 }
 
@@ -58,12 +57,22 @@ UI-RECORD>*:hover {
 	font-weight: bold;
 	padding-right: 6pt;
 }
+[data-name=key]::after {
+	content: ":";
+}
+
 [data-name=type]  {
 	color: steelblue;
 	padding-right: 6pt;
 }
+[data-name=type]::after {
+	content: "\a0=";
+}
 [data-name=keyword]  {
 	font-weight: bold;
+}
+[data-name=keyword]::after {
+	content: ":\a0";
 }
 
 [data-name=expr]  {
