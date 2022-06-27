@@ -31,6 +31,7 @@ UI-RECORD {
 UI-RECORD>* {
 	border: 1px solid gainsboro;
 	margin: 1px;
+	padding: 1px;
 	flex: 1;
 }
 
