@@ -9,6 +9,18 @@
   {
     "type$": "property",
     "facets": "public type",
+    "key": "x1",
+    "type": "sequence"
+  },
+  {
+    "type$": "property",
+    "facets": "public type",
+    "key": "x2",
+    "type": "sequence"
+  },
+  {
+    "type$": "property",
+    "facets": "public type",
     "key": "any"
   }
 ]
