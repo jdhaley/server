@@ -25,5 +25,10 @@ export default {
 	//Property editor
 	"/pe": "app/pe",
 	"/pe/app": "app/pe/app.html",
-	"/pe/youni.works": "module/youni.works/v2"
+	"/pe/youni.works": "module/youni.works/v2",
+
+	//Noted
+	"/noted": "app/noted",
+	"/noted/app": "app/noted/note.html",
+	"/noted/module": "module/noted/source"
 }
