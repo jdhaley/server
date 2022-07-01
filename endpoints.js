@@ -30,5 +30,5 @@ export default {
 	//Noted
 	"/noted": "app/noted",
 	"/noted/app": "app/noted/note.html",
-	"/noted/module": "module/noted/source"
+	"/noted/module": "module/noted/v2"
 }
