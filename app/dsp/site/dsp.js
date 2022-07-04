@@ -1,6 +1,5 @@
 
-import {Frame} from "./youni.works/ui/ui.js";
-import {Article} from "./youni.works/ui/display.js";
+import {Frame, Article} from "./youni.works/ui/ui.js";
 import conf from "./properties.js";
 
 let frame = new Frame(window, conf.controllers.frame);
