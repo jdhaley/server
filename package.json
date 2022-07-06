@@ -1,15 +1,11 @@
 {
-  "name": "server",
-  "version": "0.2.0",
-  "description": "youni server",
-  "main": "index.mjs",
-  "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "jdh",
-  "license": "UNLICENSED"
+	"name": "server",
+	"description": "common server for various projects.",
+	"author": "jdhaley@gmail.com",
+	"license": "COPYRIGHT jdhaley@gmail.com",
+	"type": "module",
+	"dependencies": {
+		"express": "4.17.2",
+		"typescript": "^4.6.2"
+	}
 }

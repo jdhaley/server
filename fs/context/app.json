@@ -1,9 +1,0 @@
-{
-	"components": {
-		"Frame": "/ui.youni.works/display/Frame",
-		"Object": "/ui.youni.works/display/Display"
-	},
-	"objectType": "Issues",
-	"dataSource": "/file/test/data.json",
-	"typeSource": "/file/test/types.json"
-}

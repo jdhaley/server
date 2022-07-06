@@ -1,0 +1,17 @@
+[
+	{
+		"type$": "property",
+		"facets": "public type",
+		"key": "string",
+		"type": "sequence",
+		"note": ["this is a note", "second para"],
+		"body": []
+	},
+	{
+		"type$": "property",
+		"facets": "public type",
+		"key": "any",
+		"type": "sequence",
+		"body": []
+	}
+]
