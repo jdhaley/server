@@ -1,14 +1,15 @@
 import shortcuts from "./youni.works/ui/conf/shortcuts.js";
 import controllers from "./youni.works/ui/conf/controllers.js";
 import baseTypes from "./youni.works/ui/conf/types.js";
-import types from "./types.js";
+import viewTypes from "./views.js";
 
 export default {
-	shortcuts: shortcuts,
 	sources: "/journal",
-	controllers: controllers,
 	baseTypes: baseTypes,
-	types: types,
+	viewTypes: viewTypes,
 	unknownType: "text",
-	type: "properties"
+	type: "properties",
+
+	shortcuts: shortcuts,
+	controllers: controllers,
 }
