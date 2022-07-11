@@ -11,7 +11,7 @@ export default {
 	},
 	baseTypes: baseTypes,
 	viewTypes: viewTypes,
-	unknownType: "text",
+	unknownType: "unknown",
 
 	sources: "/journal",
 	type: "properties"

@@ -54,5 +54,6 @@ export default {
 		conf: {
 			title: "Properties",
 		}
-	}
+	},
+	unknown: "text"
 }
