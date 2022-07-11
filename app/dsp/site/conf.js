@@ -5,7 +5,7 @@ import article from "./youni.works/ui/controllers/article.js";
 import frame from "./youni.works/ui/controllers/frame.js";
 
 export default {
-	controllers: {
+	actions: {
 		frame: frame,
 		article: article
 	},
