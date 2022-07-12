@@ -7,7 +7,9 @@
 *::before, *::after {
 	color: lightsteelblue;
 }
-
+* HEADER::selection {
+	background-color: ghostwhite;
+}
 HTML {
 	display: flex;
 	min-height: 100%;
@@ -21,21 +23,21 @@ BODY>* {
 	flex: 1 0;
 	padding: 15px;
 }
-UI-RECORD {
+UI-RECORD>DIV {
 	display: flex;
 	align-items: baseline;
 	justify-content: flex-start;
 	flex-wrap: wrap;	
 	color: black;
 }
-UI-RECORD>* {
+UI-RECORD>DIV>* {
 	border: 1px solid gainsboro;
 	margin: 1px;
 	padding: 1px;
 	flex: 1;
 }
 
-UI-RECORD>*:hover {
+UI-RECORD>DIV:hover {
 	background-color: ghostwhite;
 }
 
@@ -50,31 +52,31 @@ UI-RECORD>*:hover {
 }
 
 
-[data-name=facets] {
+[data-name=facets]>DIV {
 	color: steelblue;
 	padding-right: 6pt;
 }
-[data-name=key]  {
+[data-name=key]>DIV  {
 	color: steelblue;
 	font-weight: bold;
 	padding-right: 6pt;
 }
-[data-name=type]  {
+[data-name=type]>DIV  {
 	color: steelblue;
 	padding-right: 6pt;
 }
-[data-name=keyword]  {
+[data-name=keyword]>DIV  {
 	font-weight: bold;
 }
 
-[data-name=expr]  {
+[data-name=expr]>DIV  {
 	color: darkslategray;
 	flex: 1;
 }
 
 [data-name=note] {
 	flex: 0 0 100%;
-	border-width: 0px;
+	/* border-width: 0px; */
 }
 
 error {
