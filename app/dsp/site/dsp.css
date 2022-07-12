@@ -8,7 +8,7 @@
 	color: lightsteelblue;
 }
 * HEADER::selection {
-	background-color: ghostwhite;
+	background-color: inherit;
 }
 HTML {
 	display: flex;
@@ -23,21 +23,21 @@ BODY>* {
 	flex: 1 0;
 	padding: 15px;
 }
-UI-RECORD>DIV {
+UI-RECORD.view, UI-RECORD>.view {
 	display: flex;
 	align-items: baseline;
 	justify-content: flex-start;
 	flex-wrap: wrap;	
 	color: black;
 }
-UI-RECORD>DIV>* {
+UI-RECORD.view>*, UI-RECORD>.view>* {
 	border: 1px solid gainsboro;
 	margin: 1px;
 	padding: 1px;
 	flex: 1;
 }
 
-UI-RECORD>DIV:hover {
+UI-RECORD>.view .view:hover {
 	background-color: ghostwhite;
 }
 
