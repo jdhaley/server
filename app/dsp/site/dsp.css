@@ -8,7 +8,7 @@
 	color: lightsteelblue;
 }
 * HEADER::selection {
-	background-color: inherit;
+	background-color: gainsboro;
 }
 HEADER {
 	color: darkslategray;
