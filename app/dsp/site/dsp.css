@@ -33,11 +33,17 @@ UI-RECORD.view, UI-RECORD>.view {
 	flex-wrap: wrap;	
 	color: black;
 }
-UI-RECORD.view>*, UI-RECORD>.view>* {
+UI-RECORD>.view>* {
+	flex: 1
+}
+UI-RECORD>.view>*>HEADER {
+	font-size: smaller;
+	padding: 2px;
+}
+UI-RECORD>.view>*>.view {
 	border: 1px solid gainsboro;
 	margin: 1px;
 	padding: 1px;
-	flex: 1;
 }
 
 UI-RECORD>.view .view:hover {
