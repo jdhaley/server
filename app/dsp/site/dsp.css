@@ -7,8 +7,12 @@
 *::before, *::after {
 	color: lightsteelblue;
 }
+::selection {
+	background-color: lightsteelblue;
+}
 * HEADER::selection {
 	background-color: inherit;
+	color: lightsteelblue;
 }
 HEADER {
 	color: darkslategray;
