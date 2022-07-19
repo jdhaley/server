@@ -8,10 +8,12 @@
 	color: lightsteelblue;
 }
 * HEADER::selection {
-	background-color: gainsboro;
+	background-color: inherit;
 }
 HEADER {
 	color: darkslategray;
+	cursor: context-menu;
+	overflow: hidden;
 }
 HTML {
 	display: flex;
@@ -26,19 +28,21 @@ BODY>* {
 	flex: 1 0;
 	padding: 15px;
 }
-UI-RECORD.view, UI-RECORD>.view {
+/* UI-RECORD.view, UI-RECORD>.view {
 	display: flex;
 	align-items: baseline;
 	justify-content: flex-start;
 	flex-wrap: wrap;	
 	color: black;
-}
-UI-RECORD>.view>* {
+} */
+/* UI-RECORD>.view>* {
 	flex: 1
-}
+} */
 UI-RECORD>.view>*>HEADER {
-	font-size: smaller;
+	font-size: 14px;
 	padding: 2px;
+	min-height: 16px;
+	max-height: 16px;
 }
 UI-RECORD>.view>*>.view {
 	border: 1px solid gainsboro;
@@ -60,7 +64,13 @@ UI-RECORD>.view .view:hover {
 	color: red;
 }
 
-
+.view {
+	overflow: scroll;
+}
+[data-type=property]>.view {
+	display: grid;
+	grid-template-columns: 20% 20% 60%;
+}
 [data-name=facets]>DIV {
 	color: steelblue;
 	padding-right: 6pt;
@@ -78,14 +88,19 @@ UI-RECORD>.view .view:hover {
 	font-weight: bold;
 }
 
+[data-name=expr] {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 2;
+}
 [data-name=expr]>DIV  {
 	color: darkslategray;
-	flex: 1;
 }
 
 [data-name=note] {
-	flex: 0 0 100%;
-	/* border-width: 0px; */
+	grid-row-start: 3;
+	grid-column-start: 1;
+	grid-column-end: 4;
 }
 
 error {
