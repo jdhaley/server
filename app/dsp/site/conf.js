@@ -14,5 +14,5 @@ export default {
 	unknownType: "unknown",
 
 	sources: "/journal",
-	type: "properties"
+	type: "task"
 }

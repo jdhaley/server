@@ -14,6 +14,11 @@
 	background-color: inherit;
 	color: lightsteelblue;
 }
+HEADER {
+	color: darkslategray;
+	cursor: context-menu;
+	overflow: hidden;
+}
 HTML {
 	display: flex;
 	min-height: 100%;
@@ -37,19 +42,19 @@ BODY>* {
 /* UI-RECORD>.view>* {
 	flex: 1
 } */
-/* UI-RECORD>.view>*>HEADER {
+UI-RECORD>.view>*>HEADER {
 	font-size: 14px;
 	padding: 2px;
 	min-height: 16px;
 	max-height: 16px;
 }
-UI-TEXT>.view {
-	/* border: 1px solid gainsboro; 
+UI-RECORD>.view>*>.view {
+	border: 1px solid gainsboro;
 	margin: 1px;
 	padding: 1px;
-} */
+}
 
-UI-TEXT>.view:hover {
+UI-RECORD>.view .view:hover {
 	background-color: ghostwhite;
 }
 
@@ -66,43 +71,42 @@ UI-TEXT>.view:hover {
 .view {
 	overflow: scroll;
 }
-HEADER {
-	color: silver;
-	cursor: context-menu;
-	font-size: smaller;	
-}
-[data-type=task] {
-	display: block;
-	border: 1px solid gainsboro;
-	border-radius: 5px;
-	margin: 2px;
-	padding: 2px;
-}
-[data-type=task]>HEADER {
-	font-size: medium;
-	color: steelblue;
-	background-color: ghostwhite;
-}
-[data-type=task]>.view {
+[data-type=property]>.view {
 	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
+	grid-template-columns: 20% 20% 60%;
+}
+[data-name=facets]>DIV {
+	color: steelblue;
+	padding-right: 6pt;
+}
+[data-name=key]>DIV  {
+	color: steelblue;
+	font-weight: bold;
+	padding-right: 6pt;
+}
+[data-name=type]>DIV  {
+	color: steelblue;
+	padding-right: 6pt;
+}
+[data-name=keyword]>DIV  {
+	font-weight: bold;
 }
 
-[data-name=tasks] {
+[data-name=expr] {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 2;
+}
+[data-name=expr]>DIV  {
+	color: darkslategray;
+}
+
+[data-name=note] {
+	grid-row-start: 3;
 	grid-column-start: 1;
-	grid-column-end: 5;
+	grid-column-end: 4;
 }
-[data-name=tasks]>.view {
-	margin: 1px;
-	padding: 1px;
-	padding-left: 1em;
-	/* border-top: 1px solid gainsboro;
-	border-left: 1px solid gainsboro; */
-}
-FOOTER {
-	/* border-left: 1px solid gainsboro;
-	border-bottom: 1px solid gainsboro; */
-}
+
 error {
 	color: red;
 }

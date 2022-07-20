@@ -1,26 +1,31 @@
-[
-  {
-    "type$": "property",
-    "facets": "public type",
-    "key": "string",
-    "type": "sequence",
-    "x-note": ["<p><b>Hello</b> world!</p>"]
-  },
-  {
-    "type$": "property",
-    "facets": "public type",
-    "key": "x1",
-    "type": "sequence"
-  },
-  {
-    "type$": "property",
-    "facets": "public type",
-    "key": "x2",
-    "type": "sequence"
-  },
-  {
-    "type$": "property",
-    "facets": "public type",
-    "key": "any"
-  }
-]
+{
+  "type$": "task",
+  "title": "Morning Routine",
+  "owner": "​John",
+  "type": "​Test",
+  "status": "​Open",
+  "tasks": [
+    {
+      "type$": "task",
+      "title": "Wake up"
+    },
+    {
+      "type$": "task",
+      "title": "Coffee"
+    },
+    {
+      "type$": "task",
+      "title": "Shower",
+      "tasks": [
+        {
+          "type$": "task",
+          "title": "Wash Hair"
+        },
+        {
+          "type$": "task",
+          "title": "Wash Body"
+        }
+      ]
+    }
+  ]
+}
