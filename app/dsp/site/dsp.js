@@ -1,6 +1,6 @@
 
 import {Frame} from "./youni.works/ui/ui.js";
-import {Article} from "./youni.works/ui/editor/edit.js"
+import {Article} from "./youni.works/ui/editor/article.js"
 import conf from "./conf.js";
 
 let frame = new Frame(window, conf.actions.frame);
