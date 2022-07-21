@@ -16,10 +16,11 @@
 }
 HTML {
 	display: flex;
-	min-height: 100%;
+	/* min-height: 100%; */
 }
 BODY {
 	display: flex;
+	/* TOP-LEVEL TASK IS A FORM AND DON'T WANT FLEX */
 	flex: 1 0;
 }
 BODY>* {
@@ -69,7 +70,10 @@ UI-TEXT>.view:hover {
 HEADER {
 	color: silver;
 	cursor: context-menu;
-	font-size: smaller;	
+	padding-right: 2px;
+}
+HEADER::after {
+	content: ": ";
 }
 [data-type=task] {
 	display: block;
@@ -83,7 +87,12 @@ HEADER {
 	color: steelblue;
 	background-color: ghostwhite;
 }
+[data-type=task] {
+	display: flex;
+	flex: 1;
+}
 [data-type=task]>.view {
+	flex: 1;
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
 }
@@ -99,10 +108,10 @@ HEADER {
 	/* border-top: 1px solid gainsboro;
 	border-left: 1px solid gainsboro; */
 }
-FOOTER {
-	/* border-left: 1px solid gainsboro;
-	border-bottom: 1px solid gainsboro; */
+[data-name=title], [data-name=owner], [data-name=status], [data-name=type] {
+	display: flex;
 }
+
 error {
 	color: red;
 }

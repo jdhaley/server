@@ -68,7 +68,7 @@ export default {
 			}
 		},
 		conf: {
-			title: "Task"
+			title: "•"
 		}
 	},
 	tasks: {
