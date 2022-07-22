@@ -49,7 +49,12 @@ UI-TEXT>.view {
 	margin: 1px;
 	padding: 1px;
 } */
-
+UI-TEXT {
+	display: flex;
+}
+UI-TEXT>.view {
+	flex: 1;
+}
 UI-TEXT>.view:hover {
 	background-color: ghostwhite;
 }
@@ -64,9 +69,6 @@ UI-TEXT>.view:hover {
 	color: red;
 }
 
-.view {
-	overflow: scroll;
-}
 HEADER {
 	color: silver;
 	cursor: context-menu;
