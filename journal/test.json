@@ -1,7 +1,7 @@
 {
   "type$": "task",
   "title": "Morning Routine",
-  "owner": "​John",
+  "owner": "​John\n",
   "type": "​Test",
   "status": "​Open",
   "tasks": [
@@ -26,6 +26,10 @@
           "title": "Wash Body"
         }
       ]
+    },
+    {
+      "type$": "task",
+      "title": "Brush Teeth"
     }
   ]
 }
