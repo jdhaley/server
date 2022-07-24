@@ -101,6 +101,7 @@ HEADER::after {
 }
 
 [data-name=tasks] {
+	grid-row: 2;
 	grid-column-start: 1;
 	grid-column-end: 5;
 }
@@ -111,8 +112,12 @@ HEADER::after {
 	/* border-top: 1px solid gainsboro;
 	border-left: 1px solid gainsboro; */
 }
-[data-name=title], [data-name=owner], [data-name=status], [data-name=type] {
+[data-name=title], [data-name=owner], [data-name=status], [data-name=type], [data-name=due] {
 	display: flex;
+
+}
+[data-name=due] {
+	grid-row: 3;
 }
 
 error {

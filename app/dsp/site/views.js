@@ -1,3 +1,4 @@
+import list from "./controller/list.js";
 export default {
 	// protected getRange(): Range {
 	// 	let view = this.owner.frame.getElementById(this.viewId) as ViewElement;
@@ -51,6 +52,12 @@ export default {
 					title: "Type"
 				}
 			},
+			due: {
+				type: "text",
+				conf: {
+					title: "Due Date"
+				}
+			},
 			status: {
 				type: "text",
 				conf: {
@@ -63,7 +70,8 @@ export default {
 					task: "task"
 				},
 				conf: {
-					title: "Sub Tasks"
+					title: "Sub Tasks",
+					controller: list
 				}
 			}
 		},
