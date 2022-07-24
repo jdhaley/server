@@ -87,5 +87,22 @@ export default {
 			title: "Tasks",
 		}
 	},
-	unknown: "text"
+	unknown: "text",
+	note: {
+		type: "list",
+		types: {
+			p: "line",
+			h: "line",
+			text: "line"
+		},
+		conf: {
+			title: "Note"
+		}
+	},
+	line: {
+		type: "text",
+		conf: {
+			panel: false
+		}
+	}
 }
