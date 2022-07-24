@@ -3,7 +3,6 @@
 	margin: 0;
 	padding: 0;
 	outline: 0;
-	overflow: hidden;
 }
 *::before, *::after {
 	color: lightsteelblue;
@@ -55,6 +54,7 @@ UI-TEXT {
 }
 UI-TEXT>.view {
 	flex: 1;
+	overflow: hidden;
 }
 UI-TEXT>.view:hover {
 	background-color: ghostwhite;
