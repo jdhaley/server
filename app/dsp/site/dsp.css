@@ -78,6 +78,19 @@ HEADER {
 HEADER::after {
 	content: ": ";
 }
+UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
+	display: none;
+}
+UI-LIST>HEADER::after {
+	content: " ⇱";
+	color: GRAY;
+	font-size: larger;
+}
+UI-LIST.collapsed>HEADER::after {
+	content: " ⇲"; /*"〈"*/
+	color: GRAY;
+	font-size: larger;
+}
 [data-type=task] {
 	display: block;
 	border: 1px solid gainsboro;

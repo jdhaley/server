@@ -1,4 +1,4 @@
-import list from "./controller/list.js";
+//import list from "./controller/list.js";
 export default {
 	// protected getRange(): Range {
 	// 	let view = this.owner.frame.getElementById(this.viewId) as ViewElement;
@@ -71,7 +71,6 @@ export default {
 				},
 				conf: {
 					title: "Sub Tasks",
-					controller: list
 				}
 			}
 		},
