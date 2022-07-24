@@ -93,7 +93,8 @@ export default {
 		types: {
 			p: "line",
 			h: "line",
-			text: "line"
+			line: "line", //required in binding the view.
+			text: "line", //required for the model.
 		},
 		conf: {
 			title: "Note"
