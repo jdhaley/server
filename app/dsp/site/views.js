@@ -1,4 +1,4 @@
-//import list from "./controller/list.js";
+import {Table} from "./youni.works/ui/article.js";
 export default {
 	// protected getRange(): Range {
 	// 	let view = this.owner.frame.getElementById(this.viewId) as ViewElement;
@@ -65,7 +65,7 @@ export default {
 				}
 			},
 			tasks: {
-				type: "list",
+				type: "table",
 				types: {
 					task: "task"
 				},
