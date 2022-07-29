@@ -1,7 +1,16 @@
 //import {Table} from "./youni.works/ui/article.js";
 export default {
+	tasks: {
+		type: "list",
+		types: {
+			task: "task"
+		},
+		conf: {
+			title: "Tasks",
+		}
+	},
 	task: {
-		type: "record",
+		type: "form",
 		types: {
 			title: {
 				type: "text",
@@ -34,11 +43,12 @@ export default {
 				}
 			},
 			tasks: {
-				type: "list",
+				type: "table",
 				types: {
-					task: "task"
+					task: "taskRow"
 				},
 				conf: {
+					rowType: "task",
 					title: "Sub Tasks",
 				}
 			}
@@ -47,13 +57,36 @@ export default {
 			title: "•"
 		}
 	},
-	tasks: {
-		type: "list",
+	taskRow: {
+		type: "row",
 		types: {
-			task: "task"
+			title: {
+				type: "text",
+				conf: {
+					title: "Title"
+				}
+			},
+			owner: {
+				type: "text",
+				conf: {
+					title: "Owner",
+				}		
+			},
+			due: {
+				type: "text",
+				conf: {
+					title: "Due Date"
+				}
+			},
+			status: {
+				type: "text",
+				conf: {
+					title: "Status",
+				}
+			}
 		},
 		conf: {
-			title: "Tasks",
+			title: ""
 		}
 	},
 	unknown: "text",
