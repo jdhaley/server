@@ -1,8 +1,13 @@
 /* */
+@font-face {
+	font-family: "octicons";
+	src: url("https://cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons-local.ttf");
+}
 * {
 	margin: 0;
 	padding: 0;
 	outline: 0;
+	background: white;
 }
 *::before, *::after {
 	color: lightsteelblue;
@@ -12,7 +17,7 @@
 }
 * HEADER::selection {
 	background-color: inherit;
-	color: lightsteelblue;
+/*	color: lightsteelblue; */
 }
 HTML {
 	display: flex;
@@ -51,14 +56,18 @@ UI-TEXT>.view {
 } */
 UI-TEXT {
 	display: flex;
+	flex-direction: column;
+	padding: 2px;
 }
 UI-TEXT>.view {
 	flex: 1;
 	overflow: hidden;
+	border: 1px solid gainsboro;
+	padding: 2px;
 }
-UI-TEXT>.view:hover {
+/* UI-TEXT>.view:hover {
 	background-color: ghostwhite;
-}
+} */
 
 #start-marker::BEFORE {
 	content: "[";
@@ -73,27 +82,31 @@ UI-TEXT>.view:hover {
 HEADER {
 	color: silver;
 	cursor: context-menu;
-	padding-right: 2px;
+	padding: 2px;
+	font-size: smaller;
 }
-HEADER::after {
+/* HEADER::after {
 	content: ": ";
-}
+} */
 UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
 	display: none;
 }
-UI-LIST>HEADER::after {
-	content: " ⇱";
-	color: GRAY;
-	font-size: larger;
+UI-LIST>HEADER::before {
+	content: "⊖ ";
+	color: green;
+	font-size: 16px;
+	font-weight: bold;
 }
-UI-LIST.collapsed>HEADER::after {
-	content: " ⇲"; /*"〈"*/
-	color: GRAY;
-	font-size: larger;
+UI-LIST.collapsed>HEADER::before {
+	content: "⊕ ";
+	color: red;
+	font-size: 16px;
+	font-weight: bold;
 }
+ 
 [data-type=task] {
 	display: block;
-	border: 1px solid gainsboro;
+	/* border: 1px solid gainsboro; */
 	border-radius: 5px;
 	margin: 2px;
 	padding: 2px;
@@ -102,7 +115,9 @@ UI-LIST.collapsed>HEADER::after {
 	font-size: medium;
 	color: steelblue;
 	background-color: ghostwhite;
+	padding: 4px;
 }
+
 [data-type=task] {
 	display: flex;
 	flex: 1;
@@ -114,14 +129,14 @@ UI-LIST.collapsed>HEADER::after {
 }
 
 [data-name=tasks] {
-	grid-row: 2;
+	grid-row: 3;
 	grid-column-start: 1;
 	grid-column-end: 5;
 }
 [data-name=tasks]>.view {
 	margin: 1px;
-	padding: 1px;
-	padding-left: 1em;
+	padding: 2px;
+	/*padding-left: 1em;*/
 	/* border-top: 1px solid gainsboro;
 	border-left: 1px solid gainsboro; */
 }
@@ -130,7 +145,9 @@ UI-LIST.collapsed>HEADER::after {
 
 }
 [data-name=due] {
-	grid-row: 3;
+	grid-row: 2;
+	grid-column-start: 1;
+	grid-column-end: 5;
 }
 
 error {

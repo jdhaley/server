@@ -15,13 +15,13 @@ export default {
 				type: "text",
 				title: "Type"
 			},
-			due: {
-				type: "text",
-				title: "Due Date"
-			},
 			status: {
 				type: "text",
 				title: "Status"
+			},
+			due: {
+				type: "text",
+				title: "Due Date"
 			},
 			tasks: {
 				type: "list",
