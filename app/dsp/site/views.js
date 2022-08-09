@@ -1,109 +1,57 @@
-//import list from "./controller/list.js";
 export default {
-	// protected getRange(): Range {
-	// 	let view = this.owner.frame.getElementById(this.viewId) as ViewElement;
-	// 	if (!view) throw new Error(`Can't find view element ${this.viewId}`);
-	
-	// 	let range = this.owner.frame.createRange();
-	// 	range.selectNodeContents(view.v_content);
-	// 	return range;
-	// }
-	
-	// export class Item {
-	// 	id: string;
-	// 	type: string;
-	// 	title: string;
-	// 	//path: string; - virtual or physical path
-	// 	/** The Party owning the item.  Geneally a group or individual user */
-	// 	owner: Party;
-	// 	status: string
-	// }
-	
-	// /** All items have the following statuses. Subtypes can have additional ones. */
-	// type ItemStatus = "inactive" | "active" | "review" | "cancelled";
-	
-	// export class Task extends Item {
-	// 	declare status: ItemStatus | "completed";
-	// 	due: Date;
-	// 	priority: "low" | "medium" | "high";
-	// 	assignedTo: Party;
-	// 	artifact?: Artifact
-	// 	comments?: Comment[];
-	// 	subtasks?: Task[];
-	// };
 	task: {
 		type: "record",
+		title: "Task",
 		types: {
 			title: {
 				type: "text",
-				conf: {
-					title: "Title"
-				}
+				title: "Title"
 			},
 			owner: {
 				type: "text",
-				conf: {
-					title: "Owner",
-				}		
+				title: "Owner"
 			},
 			type: {
 				type: "text",
-				conf: {
-					title: "Type"
-				}
+				title: "Type"
 			},
 			due: {
 				type: "text",
-				conf: {
-					title: "Due Date"
-				}
+				title: "Due Date"
 			},
 			status: {
 				type: "text",
-				conf: {
-					title: "Status",
-				}
+				title: "Status"
 			},
 			tasks: {
 				type: "list",
+				title: "Sub Tasks",
 				types: {
 					task: "task"
-				},
-				conf: {
-					title: "Sub Tasks",
 				}
 			}
-		},
-		conf: {
-			title: "•"
 		}
 	},
 	tasks: {
 		type: "list",
+		title: "Tasks",
 		types: {
 			task: "task"
-		},
-		conf: {
-			title: "Tasks",
 		}
 	},
 	unknown: "text",
 	note: {
 		type: "list",
+		title: "Note",
 		types: {
 			p: "line",
 			h: "line",
 			line: "line", //required in binding the view.
 			text: "line", //required for the model.
-		},
-		conf: {
-			title: "Note"
 		}
 	},
 	line: {
 		type: "text",
-		conf: {
-			panel: false
-		}
+		panel: false
 	}
 }
