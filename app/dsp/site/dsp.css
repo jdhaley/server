@@ -92,16 +92,14 @@ UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
 	display: none;
 }
 UI-LIST>HEADER::before {
-	content: "⊖ ";
+	content: "▼";
+	padding-right: 4px;
 	color: green;
-	font-size: 16px;
-	font-weight: bold;
 }
 UI-LIST.collapsed>HEADER::before {
-	content: "⊕ ";
+	content: "▶";
+	padding-right: 4px;
 	color: red;
-	font-size: 16px;
-	font-weight: bold;
 }
  
 [data-type=task] {
