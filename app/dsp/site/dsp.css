@@ -1,4 +1,6 @@
 /* */
+@import url("task.css");
+@import url("person.css");
 @font-face {
 	font-family: "octicons";
 	src: url("https://cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons-local.ttf");
@@ -12,13 +14,14 @@
 *::before, *::after {
 	color: lightsteelblue;
 }
+
 ::selection {
 	background-color: lightsteelblue;
 }
 * HEADER::selection {
 	background-color: inherit;
-/*	color: lightsteelblue; */
 }
+
 HTML {
 	display: flex;
 	/* min-height: 100%; */
@@ -65,9 +68,6 @@ UI-TEXT>.view {
 	border: 1px solid gainsboro;
 	padding: 2px;
 }
-/* UI-TEXT>.view:hover {
-	background-color: ghostwhite;
-} */
 
 #start-marker::BEFORE {
 	content: "[";
@@ -85,214 +85,27 @@ HEADER {
 	padding: 2px;
 	font-size: smaller;
 }
-/* HEADER::after {
-	content: ": ";
+
+/* UI-TEXT>.view:hover {
+	background-color: ghostwhite;
 } */
+
 UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
 	display: none;
 }
+
 UI-LIST>HEADER::before {
 	content: "▼";
 	padding-right: 4px;
 	color: green;
 }
+
 UI-LIST.collapsed>HEADER::before {
 	content: "▶";
 	padding-right: 4px;
 	color: red;
 }
- 
-[data-type=task] {
-	display: block;
-	/* border: 1px solid gainsboro; */
-	border-radius: 5px;
-	margin: 2px;
-	padding: 2px;
-}
-[data-type=task]>HEADER {
-	font-size: medium;
-	color: steelblue;
-	background-color: ghostwhite;
-	padding: 4px;
-}
-[data-type=task]>HEADER::after{
-	content: "•";
-	color: steelblue;
-	font-size: larger;
-}
 
-[data-type=task] {
-	display: flex;
-	flex: 1;
-}
-[data-type=task]>.view {
-	flex: 1;
-	display: grid;
-	grid-template-columns: 25% 25% 25% 25%;
-	border: 2px solid ghostwhite;
-}
-
-[data-name=tasks] {
-	grid-row: 3;
-	grid-column-start: 1;
-	grid-column-end: 5;
-}
-[data-name=tasks]>.view {
-	padding: 2px;
-	/*padding-left: 1em;*/
-	/* border-top: 1px solid gainsboro;
-	border-left: 1px solid gainsboro; */
-}
-[data-name=title], [data-name=owner], [data-name=status], [data-name=type], [data-name=due] {
-	display: flex;
-
-}
-[data-name=title] {
-	grid-column-start: 1;
-	grid-column-end: 5;
-	background: ghostwhite;
-
-}
-
-error {
+.error {
 	color: red;
-}
-
-exprs::after {
-	content: ")";
-}
-
-exprs::before, expr>exprs::before {
-	content: "(";
-}
-
-exprs>*::before {
-	content: ", ";
-}
-exprs>*:first-child:before {
-	content: "";
-}
-
-index::before {
-	content: "[";
-}
-index::after {
-	content: "]";
-}
-
-
-id::before, string::before, number::before, sym::before, error::before {
-	content: " ";
-}
-id:first-child:before, string:first-child:before, number:first-child:before,
-		sym:first-child:before, error:first-child:before {
-	content: "";
-}
-
-/* Any aria-level that isn't defined in this css is invalid.*/
-DIV[aria-level='0'] {
-	color: orange;
-}
-DIV[role=row][aria-level='1'] {
-	margin-left: 0em;
-}
-DIV[role=row][aria-level='1'] > CODE {
-	font-family: sans-serif;
-	font-size: 14pt;
-}
-DIV[role=row][aria-level='2'] {
-	margin-left: 2em;
-	font-size: 10pt;
-}
-DIV[role=row][aria-level='3'] {
-	margin-left: 4em;
-	font-size: 10pt;
-}
-DIV[role=row][aria-level='4'] {
-	margin-left: 6em;
-}
-DIV[role=row][aria-level='5'] {
-	margin-left: 8em;
-}
-DIV[role=row][aria-level='6'] {
-	margin-left: 10em;
-}
-
-/* Any aria-level that isn't defined in this css is invalid.*/
-P[aria-level='0'] {
-	color: orange;
-}
-P[role=listitem] {
-	padding-top: 0;
-	margin-left: 10em;
-}
-P[role=listitem]::before {
-	display: inline-block;
-	margin-left: -1em;
-	min-width: 1em;
-	text-align: center;
-	content: "•";
-}
-P[role=listitem][aria-level='1'] {
-	margin-left: 2em;
-}
-P[role=listitem][aria-level='2'] {
-	margin-left: 4em;
-}
-P[role=listitem][aria-level='3'] {
-	margin-left: 6em;
-}
-P[role=listitem][aria-level='4'] {
-	margin-left: 8em;
-}
-P[role=listitem][aria-level='5'] {
-	margin-left: 10em;
-}
-P[role=listitem][aria-level='6'] {
-	margin-left: 12em;
-}
-P[role=heading] {
-	padding-top: 4px;
-	color: steelblue;
-}
-P[role=heading][aria-level='1'] {
-	font-size: 20pt;
-	font-weight: bold;
-}
-P[role=heading][aria-level='2'] {
-	font-size: 20pt;
-	border-bottom: 1px solid steelblue;
-}
-P[role=heading][aria-level='3'] {
-	font-size: 16pt;
-}
-P[role=heading][aria-level='4'] {
-	font-size: 14pt;
-	font-weight: lighter;
-}
-P[role=heading][aria-level='5'] {
-	font-size: 12pt;
-}
-P[role=heading][aria-level='6'] {
-	font-size: 12pt;
-	font-style: italic;
-	font-weight: lighter;
-}
-CITE {
-	font-style: normal;
-	text-decoration: underline;
-}
-CITE[data-url] {
-	color: steelblue;
-}
-Q {
-	color: darkcyan;
-}
-Q::before {
-	content: "\201C";
-	color: lightsteelblue;
-}
-Q::after {
-	content: "\201D";
-	color: lightsteelblue;
 }

@@ -1,0 +1,53 @@
+[data-type=person] {
+	display: block;
+	/* border: 1px solid gainsboro; */
+	border-radius: 5px;
+	margin: 2px;
+	padding: 2px;
+}
+
+[data-type=person]>.view {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 25% 25% 25% 25%;
+	border: 2px solid gainsboro;
+}
+
+[data-type=person]>HEADER {
+	font-size: medium;
+	color: steelblue;
+	padding: 4px;
+}
+[data-type=task]>HEADER::after{
+	content: "•";
+	color: steelblue;
+	font-size: larger;
+}
+
+[data-type=task] {
+	display: flex;
+	flex: 1;
+}
+
+[data-name=tasks] {
+	grid-row: 3;
+	grid-column-start: 1;
+	grid-column-end: 5;
+}
+[data-name=tasks]>.view {
+	padding: 2px;
+	/*padding-left: 1em;*/
+	/* border-top: 1px solid gainsboro;
+	border-left: 1px solid gainsboro; */
+}
+[data-name=title], [data-name=owner], [data-name=status], [data-name=type], [data-name=due] {
+	display: flex;
+
+}
+[data-name=title] {
+	grid-column-start: 1;
+	grid-column-end: 5;
+	background: ghostwhite;
+
+}
+

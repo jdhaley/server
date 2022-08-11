@@ -1,0 +1,12 @@
+{
+  "firstName": "William",
+  "lastName": "Willy",
+  "email": "billy.willy@kids.com",
+  "address": {
+    "street": "199-233  Rainbow St.",
+    "city": "Ottawa, ON CA",
+    "code": "K1X 2V8",
+    "type$": "address"
+  },
+  "type$": "person"
+}

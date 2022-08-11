@@ -54,5 +54,45 @@ export default {
 	line: {
 		type: "text",
 		panel: false
+	},
+	person: {
+		type: "record",
+		title: "Person",
+		types: {
+			firstName: {
+				type: "text",
+				title: "Given Name",
+			},
+			lastName: {
+				type: "text",
+				title: "Surname",
+			},
+			email: {
+				type: "text",
+				title: "e-mail",
+			},
+			address: {
+				type: "address",
+				title: "Address"
+			}
+		}
+	},
+	address: {
+		type: "record",
+		title: "Address",
+		types: {
+			street: {
+				type: "text",
+				title: "Street"
+			},
+			city: {
+				type: "text",
+				title: "City"
+			},
+			code: {
+				type: "text",
+				title: "Postal Area Code"
+			}
+		}
 	}
 }
