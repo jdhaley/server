@@ -1,0 +1,56 @@
+
+/* UI-RECORD.view, UI-RECORD>.view {
+	display: flex;
+	align-items: baseline;
+	justify-content: flex-start;
+	flex-wrap: wrap;	
+	color: black;
+} */
+/* UI-RECORD>.view>* {
+	flex: 1
+} */
+/* UI-RECORD>.view>*>HEADER {
+	font-size: 14px;
+	padding: 2px;
+	min-height: 16px;
+	max-height: 16px;
+}
+UI-TEXT>.view {
+	/* border: 1px solid gainsboro; 
+	margin: 1px;
+	padding: 1px;
+} */
+[data-name] {
+	display: flex;
+	flex-direction: column;
+	padding: 2px;
+}
+[data-name]>.view {
+	overflow: hidden;
+	border: 1px solid gainsboro;
+	border-radius: 3px;
+	padding: 4px;
+}
+UI-TEXT[data-name]>.view {
+	padding: 2px;
+}
+
+/* UI-TEXT>.view:hover {
+	background-color: ghostwhite;
+} */
+
+UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
+	display: none;
+}
+
+UI-LIST>HEADER::before {
+	content: "▼";
+	padding-right: 4px;
+	color: green;
+}
+
+UI-LIST.collapsed>HEADER::before {
+	content: "▶";
+	padding-right: 4px;
+	color: red;
+}
