@@ -43,7 +43,7 @@ export default {
 	unknown: "text",
 	note: {
 		type: "list",
-		title: "Note",
+		panel: false,
 		types: {
 			p: "line",
 			h: "line",
