@@ -4,10 +4,6 @@
 @import url("task.css");
 @import url("person.css");
 
-/* @font-face {
-	font-family: "octicons";
-	src: url("https://cdnjs.cloudflare.com/ajax/libs/octicons/2.1.2/octicons-local.ttf");
-} */
 * {
 	margin: 0;
 	padding: 0;
@@ -23,6 +19,7 @@
 }
 * HEADER::selection {
 	background-color: inherit;
+	color: lightsteelblue;
 }
 
 HTML {
@@ -38,13 +35,6 @@ BODY>* {
 	display: block;
 	flex: 1 0;
 	padding: 15px;
-}
-
-HEADER {
-	color: gray;
-	cursor: context-menu;
-	padding: 2px;
-	font-size: smaller;
 }
 
 #start-marker::BEFORE {

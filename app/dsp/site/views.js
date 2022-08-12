@@ -5,8 +5,7 @@ export default {
 		types: {
 			title: {
 				type: "text",
-				title: "Title",
-				panel: false
+				title: "Task",
 			},
 			owner: {
 				type: "text",

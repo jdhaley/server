@@ -15,14 +15,16 @@
 	grid-template-columns: 25% 25% 25% 25%;
 }
 
+[data-name=lastName] {
+	grid-column: 2 / 4;
+}
 [data-name=email] {
 	grid-row: 2;
 }
 
 [data-name=address] {
 	grid-row: 2;
-	grid-column-start: 2;
-	grid-column-end: 4;
+	grid-column: 2 / 4;
 }
 [data-name=address]>.view {
 	border: 1px solid gainsboro;

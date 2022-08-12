@@ -8,6 +8,9 @@
     {
       "title": "Wake up",
       "owner": "John​",
+      "type": "Task",
+      "status": "Open",
+      "due": "2033-01-01",
       "type$": "task"
     },
     {
