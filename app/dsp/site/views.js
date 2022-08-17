@@ -40,16 +40,6 @@ export default {
 		}
 	},
 	unknown: "text",
-	note: {
-		type: "list",
-		panel: false,
-		types: {
-			p: "line",
-			h: "line",
-			line: "line", //required in binding the view.
-			text: "line", //required for the model.
-		}
-	},
 	line: {
 		type: "text",
 		panel: false
@@ -93,5 +83,6 @@ export default {
 				title: "Postal Area Code"
 			}
 		}
-	}
+	},
+	note: "note"
 }

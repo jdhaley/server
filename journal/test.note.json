@@ -1,1 +1,15 @@
-["line 1", "line 2", "line 3"]
+[
+	{
+		"type$": "p",
+		"content": "line 1"
+	},
+	{
+		"type$": "p",
+		"content": "line 2"
+	},
+	{
+		"type$": "p",
+		"level": 1,
+		"content": "line 3"
+	}
+]
