@@ -1,15 +1,28 @@
 [
-	{
-		"type$": "p",
-		"content": "line 1"
-	},
-	{
-		"type$": "p",
-		"content": "line 2"
-	},
-	{
-		"type$": "p",
-		"level": 1,
-		"content": "line 3"
-	}
+  {
+    "type$": "P",
+    "content": "line 1"
+  },
+  {
+    "type$": "P",
+    "content": "line 2"
+  },
+  {
+    "type$": "P",
+    "content": "line 3",
+    "level": "1"
+  },
+  {
+    "type$": "P",
+    "content": "line 1"
+  },
+  {
+    "type$": "P",
+    "content": "line 2"
+  },
+  {
+    "type$": "P",
+    "content": "line 3",
+    "level": "1"
+  }
 ]
