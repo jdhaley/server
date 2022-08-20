@@ -9,18 +9,32 @@
 [data-name]>.view {
 	overflow: hidden;
 } */
+.content, HEADER, FOOTER {
+	min-height: 22px;
+	padding: 2px;
+}
 [data-name] {
 	display: flex;
 	flex-direction: column;
 	margin: 3px;
 }
 [data-name]>.view {
-	min-height: 22px;
 	overflow: hidden;
-	padding: 2px;
 	border: 1px solid gainsboro;
 	border-radius: 3px;
 }
+UI-LIST[data-name]>.view  {
+	border-radius: 3px 3px 0 0;
+}
+UI-LIST[data-name]>FOOTER {
+	min-height: 12px;
+	font-size: 10px;
+	border: 1px solid gainsboro;
+	border-top: 12px;
+	background-color: ghostwhite;
+	border-radius: 0 0 3px 3px;
+}
+
 .view:hover {
 	border-color: lightsteelblue;
 }
@@ -29,9 +43,6 @@
 	color: gray;
 	padding: 0px;
 	font-size: smaller;
-}
-UI-LIST>FOOTER {
-	font-size: 10px;
 }
 
 UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
