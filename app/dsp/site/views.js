@@ -84,5 +84,5 @@ export default {
 			}
 		}
 	},
-	note: "note"
+	note: "markup"
 }
