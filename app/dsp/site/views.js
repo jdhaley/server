@@ -40,10 +40,6 @@ export default {
 		}
 	},
 	unknown: "text",
-	line: {
-		type: "text",
-		panel: false
-	},
 	person: {
 		type: "record",
 		title: "Person",
@@ -84,5 +80,11 @@ export default {
 			}
 		}
 	},
-	note: "markup"
+	note: {
+		type: "markup",
+		types: {
+			para: "line",
+			section: "line"
+		}
+	}
 }

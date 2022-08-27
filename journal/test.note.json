@@ -1,28 +1,28 @@
 [
   {
-    "type$": "P",
+    "type$": "para",
     "content": "line 1"
   },
   {
-    "type$": "P",
+    "type$": "para",
     "content": "line 2"
   },
   {
-    "type$": "P",
+    "type$": "para",
     "content": "line 3",
     "level": "1"
   },
   {
-    "type$": "P",
-    "content": "line 1"
+    "type$": "para",
+    "content": "line 4"
   },
   {
-    "type$": "P",
-    "content": "line 2"
+    "type$": "para",
+    "content": "line 5"
   },
   {
-    "type$": "P",
-    "content": "line 3",
+    "type$": "para",
+    "content": "line 6",
     "level": "1"
   }
 ]
