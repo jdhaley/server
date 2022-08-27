@@ -1,37 +1,37 @@
  
-[data-type=task] {
+[data-item=task] {
 	display: block;
 	margin: 2px;
 	padding: 2px;
 }
-[data-type=task] {
+[data-item=task] {
 	display: flex;
 	flex: 1;
 }
-[data-type=task]>HEADER::before {
+[data-item=task]>HEADER::before {
 	content: "●";
 	cursor: e-resize;
 	margin: 2px;
 }
 
-[data-type=task]>.view {
+[data-item=task]>.view {
 	flex: 1;
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
 }
-[data-name=tasks] {
+.field[data-item=tasks] {
 	grid-row: 3;
 	grid-column: 1 / 5;
 }
-[data-name=tasks]>.view {
+.field[data-item=tasks]>.view {
 	padding: 2px;
 }
-[data-name=title], [data-name=owner], [data-name=status], [data-name=type], [data-name=due] {
+.field[data-item=title], .field[data-item=owner], .field[data-item=status], .field[data-item=type], .field[data-item=due] {
 	display: flex;
 }
-[data-name=title] {
+.field[data-item=title] {
 	grid-column: 1 / 5;
 }
-[data-name=title]>.view {
+.field[data-item=title]>.view {
 	background: oldlace;
 }

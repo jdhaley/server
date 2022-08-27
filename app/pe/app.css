@@ -48,39 +48,39 @@ UI-RECORD:hover {
 }
 
 
-[data-name=facets] {
+.field[data-item=facets] {
 	color: steelblue;
 	padding-right: 6pt;
 }
-[data-name=key]  {
+.field[data-item=key]  {
 	color: steelblue;
 	font-weight: bold;
 	padding-right: 6pt;
 }
-[data-name=key]::after {
+.field[data-item=key]::after {
 	content: ":";
 }
 
-[data-name=type]  {
+.field[data-item=type]  {
 	color: steelblue;
 	padding-right: 6pt;
 }
-[data-name=type]::after {
+.field[data-item=type]::after {
 	content: "\a0=";
 }
-[data-name=keyword]  {
+.field[data-item=keyword]  {
 	font-weight: bold;
 }
-[data-name=keyword]::after {
+.field[data-item=keyword]::after {
 	content: ":\a0";
 }
 
-[data-name=expr]  {
+.field[data-item=expr]  {
 	color: darkslategray;
 	flex: 1;
 }
 
-[data-name=note] {
+.field[data-item=note] {
 	flex: 0 0 100%;
 	border-width: 0px;
 }
