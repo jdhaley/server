@@ -14,8 +14,18 @@
       "type$": "task"
     },
     {
-      "title": "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.\n\nCoffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content.",
+      "title": "Make Coffee",
       "owner": "John",
+      "desc": [
+        {
+          "type$": "para",
+          "content": "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee."
+        },
+        {
+          "type$": "para",
+          "content": "Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content."
+        }
+      ],    
       "type$": "task"
     },
     {
