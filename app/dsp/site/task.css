@@ -19,8 +19,12 @@
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
 }
-.field[data-item=tasks] {
+.field[data-item=desc] {
 	grid-row: 3;
+	grid-column: 1 / 5;
+}
+.field[data-item=tasks] {
+	grid-row: 4;
 	grid-column: 1 / 5;
 }
 .field[data-item=tasks]>.view {

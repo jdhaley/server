@@ -63,10 +63,6 @@ export default {
 			address: {
 				type: "address",
 				title: "Address"
-			},
-			bio: {
-				type: "note",
-				title: "Bio"
 			}
 		}
 	},
