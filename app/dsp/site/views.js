@@ -23,6 +23,10 @@ export default {
 				type: "text",
 				title: "Due Date"
 			},
+			desc: {
+				type: "note",
+				title: "Description"
+			},
 			tasks: {
 				type: "list",
 				title: "Sub Tasks",
@@ -59,6 +63,10 @@ export default {
 			address: {
 				type: "address",
 				title: "Address"
+			},
+			bio: {
+				type: "note",
+				title: "Bio"
 			}
 		}
 	},
