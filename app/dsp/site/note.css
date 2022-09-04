@@ -4,3 +4,77 @@
 	margin: 2px;
 	padding: 8px;
 }
+
+P {
+	font-family: 'IBM Plex Sans';
+	font-size: 12pt;
+	padding-top: 4px;
+	color: darkslategray;
+}
+/* Any aria-level that isn't defined in this css is invalid.*/
+P[aria-level='0'] {
+	color: orange;
+}
+P[role=listitem] {
+	padding-top: 2px;
+	margin-left: 10em;
+}
+P[role=listitem]::before {
+	display: inline-block;
+	margin-left: -1em;
+	min-width: 1em;
+	text-align: center;
+	content: "•";
+}
+P[role=listitem][aria-level='1'] {
+	margin-left: 1em;
+}
+P[role=listitem][aria-level='2'] {
+	margin-left: 2em;
+}
+P[role=listitem][aria-level='3'] {
+	margin-left: 3em;
+}
+P[role=listitem][aria-level='4'] {
+	margin-left: 4em;
+}
+P[role=listitem][aria-level='5'] {
+	margin-left: 5em;
+}
+P[role=listitem][aria-level='6'] {
+	margin-left: 6em;
+}
+P[role=heading] {
+	padding-top: 4px;
+	color: steelblue;
+}
+P[role=heading][aria-level='1'] {
+	font-size: 20pt;
+	font-weight: bold;
+}
+P[role=heading][aria-level='2'] {
+	font-size: 20pt;
+	border-bottom: 1px solid steelblue;
+}
+P[role=heading][aria-level='3'] {
+	font-size: 16pt;
+}
+P[role=heading][aria-level='4'] {
+	font-size: 14pt;
+	font-weight: lighter;
+}
+P[role=heading][aria-level='5'] {
+	font-size: 12pt;
+}
+P[role=heading][aria-level='6'] {
+	font-size: 12pt;
+	font-style: italic;
+	font-weight: lighter;
+}
+CITE {
+	font-style: normal;
+	text-decoration: underline;
+}
+CITE[data-url] {
+	color: steelblue;
+}

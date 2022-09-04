@@ -1,15 +1,21 @@
 [
   {
     "type$": "para",
-    "content": "Spanish Johnny drove in from the underworld last night with bruised arms and broken rhythm\nand a beat-up old Buick but dressed just like dynamite. He tried selling his heart to the hard girls over on easy Street\nbut they said \"Johnny, it falls apart so easy\nand you know hearts these days are cheap.\"",
+    "content": "Incident on 57th Street",
     "id": "2",
+    "level": 1
+  },
+  {
+    "type$": "para",
+    "content": "Spanish Johnny drove in from the underworld last night with bruised arms and broken rhythm\nand a beat-up old Buick but dressed just like dynamite. He tried selling his heart to the hard girls over on easy Street\nbut they said \"Johnny, it falls apart so easy\nand you know hearts these days are cheap.\"",
+    "id": "12",
     "level": 1
   },
   {
     "type$": "para",
     "content": "And the pimps swung their axes and said \"Johnny, you're a cheater\". And the pimps swung their axes and said \"Johnny, you're a liar\".",
     "id": "3",
-    "level": 1
+    "level": null
   },
   {
     "type$": "para",
