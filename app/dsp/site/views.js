@@ -88,7 +88,7 @@ export default {
 		type: "markup",
 		types: {
 			para: "line",
-			section: "line"
+			heading: "line"
 		}
 	}
 }
