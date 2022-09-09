@@ -7,12 +7,12 @@
 	flex-direction: column;
 	margin: 3px;
 }
-.field>.view {
-	overflow: hidden;
+.field>.content {
+	overflow: auto;
 	border: 1px solid gainsboro;
 	border-radius: 3px;
 }
-UI-LIST.field>.view  {
+UI-LIST.field>.content  {
 	border-radius: 3px 3px 0 0;
 }
 UI-LIST.field>FOOTER {
@@ -24,10 +24,7 @@ UI-LIST.field>FOOTER {
 	border-radius: 0 0 3px 3px;
 }
 
-/* .view:hover {
-	border-color: lightsteelblue;
-} */
-.view.active {
+.content.active {
 	border-color: black !important;
 	background-color: ghostwhite !important;
 }
@@ -38,7 +35,7 @@ UI-LIST.field>FOOTER {
 	font-size: smaller;
 }
 
-UI-LIST.collapsed>.view, UI-LIST.collapsed>FOOTER {
+UI-LIST.collapsed>.content, UI-LIST.collapsed>FOOTER {
 	display: none;
 }
 
@@ -53,7 +50,3 @@ UI-LIST.collapsed>HEADER::before {
 	padding-right: 4px;
 	color: orange;
 }
-/* 
-UI-TEXT.view::before, UI-LIST.view::before {
-	content: "\200b"
-} */
