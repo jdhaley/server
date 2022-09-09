@@ -24,8 +24,12 @@ UI-LIST.field>FOOTER {
 	border-radius: 0 0 3px 3px;
 }
 
-.view:hover {
+/* .view:hover {
 	border-color: lightsteelblue;
+} */
+.view.active {
+	border-color: black !important;
+	background-color: ghostwhite !important;
 }
 
 .field>HEADER {
