@@ -79,3 +79,10 @@ CITE {
 CITE[data-url] {
 	color: steelblue;
 }
+A {
+	text-decoration: none;
+	color: steelblue;
+}
+A:hover {
+	text-decoration: underline;
+}
