@@ -3,6 +3,7 @@
 @import url("note.css");
 @import url("task.css");
 @import url("person.css");
+@import url("shape.css");
 
 * {
 	margin: 0;
