@@ -1,7 +1,26 @@
 div.shape {
 	overflow: auto;
+	position: relative;
 	padding: 3px;
 	border: 1px solid gainsboro;
 	border-radius: 3px;
 	background: white;
+}
+
+[data-zone="CC"] {
+	cursor: move;
+}
+[data-zone="TL"], [data-zone="BR"] {
+	cursor: nwse-resize;
+	color: red;
+}
+[data-zone="TC"], [data-zone="BC"] {
+	cursor: ns-resize;
+}
+[data-zone="TR"], [data-zone="BL"] {
+	cursor: nesw-resize;
+	color: green;
+}
+[data-zone="CL"], [data-zone="CR"] {
+	cursor: ew-resize;
 }
