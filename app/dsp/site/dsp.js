@@ -1,6 +1,6 @@
 
 import {Frame} from "./youni.works/ui/ui.js";
-import {DisplayOwner} from "./youni.works/ui/display/display.js"
+import {DisplayOwner} from "./youni.works/ui/display/view.js"
 import controller from "./youni.works/ui/controllers/frame.js";
 
 import conf from "./conf.js";
