@@ -1,12 +1,12 @@
-import article from "./youni.works/ui/controllers/article.js";
+import display from "./youni.works/ui/controllers/display.js";
+import editors from "./youni.works/ui/conf/editors.js";
 
-import baseTypes from "./youni.works/ui/conf/types.js";
 import viewTypes from "./views.js";
 
 export default {
-	actions: article,
+	actions: display,
 
-	baseTypes: baseTypes,
+	baseTypes: editors,
 	viewTypes: viewTypes,
 	unknownType: "unknown",
 

@@ -1,3 +1,7 @@
+[data-item] {
+	display: flex;
+	flex-direction: column;
+}
 .content, HEADER, FOOTER {
 	min-height: 22px;
 	padding: 2px;
@@ -7,7 +11,7 @@
 	flex-direction: column;
 	margin: 3px;
 }
-.field>.content {
+.field>.content, UI-TEXT.content {
 	overflow: auto;
 	border: 1px solid gainsboro;
 	border-radius: 3px;
@@ -35,18 +39,20 @@ UI-LIST.field>FOOTER {
 	font-size: smaller;
 }
 
-UI-LIST.collapsed>.content, UI-LIST.collapsed>FOOTER {
+.collapsed>.content, .collapsed>FOOTER {
 	display: none;
 }
 
-UI-LIST>HEADER::before {
+UI-LIST>HEADER::before, UI-RECORD>HEADER::before {
 	content: "▼";
-	padding-right: 4px;
+	font-size: 12px;
+	padding-right: 2px;
 	color: lightsteelblue;
 }
 
-UI-LIST.collapsed>HEADER::before {
+UI-LIST.collapsed>HEADER::before, UI-RECORD.collapsed>HEADER::before {
 	content: "▶";
-	padding-right: 4px;
+	font-size: 12px;
+	padding-right: 2px;
 	color: orange;
 }

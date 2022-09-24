@@ -1,11 +1,12 @@
 export default {
 	task: {
 		type: "record",
-		title: "",
+		title: "Task",
 		types: {
 			title: {
 				type: "text",
-				title: "Task",
+				container: false,
+				title: "Title",
 			},
 			owner: {
 				type: "text",

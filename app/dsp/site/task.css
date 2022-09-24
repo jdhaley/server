@@ -8,16 +8,19 @@
 	display: flex;
 	flex: 1;
 }
-[data-item=task]>HEADER::before {
+/* [data-item=task]>HEADER::before {
 	content: "●";
 	cursor: e-resize;
 	margin: 2px;
-}
+} */
 
 [data-item=task]>.content {
 	flex: 1;
 	display: grid;
 	grid-template-columns: 25% 25% 25% 25%;
+}
+[data-item=task].collapsed>.content {
+	display: none;
 }
 .field[data-item=desc] {
 	grid-row: 3;
