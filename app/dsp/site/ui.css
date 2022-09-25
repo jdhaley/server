@@ -2,10 +2,16 @@
 	display: flex;
 	flex-direction: column;
 }
-.content, HEADER, FOOTER {
+.content {
 	min-height: 22px;
-	padding: 2px;
+	padding: 1px;
 }
+
+HEADER, HEADER>* {
+	cursor: default;
+	user-select: none;
+}
+
 .field {
 	display: flex;
 	flex-direction: column;
@@ -33,7 +39,7 @@ UI-LIST.field>FOOTER {
 	background-color: ghostwhite !important;
 }
 
-.field>HEADER {
+HEADER {
 	color: gray;
 	padding: 0px;
 	font-size: smaller;

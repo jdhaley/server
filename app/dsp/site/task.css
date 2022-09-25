@@ -13,7 +13,13 @@
 	cursor: e-resize;
 	margin: 2px;
 } */
-
+[data-item=task].collapsed>HEADER>B {
+	font-weight: bold;
+	color: steelblue;
+}
+[data-item=task].collapsed {
+	cursor: default;
+}
 [data-item=task]>.content {
 	flex: 1;
 	display: grid;
