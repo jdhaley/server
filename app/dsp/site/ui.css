@@ -1,7 +1,8 @@
-[data-item] {
+UI-RECORD, UI-LIST {
 	display: flex;
 	flex-direction: column;
 }
+
 .content {
 	min-height: 22px;
 	padding: 1px;
@@ -36,7 +37,7 @@ UI-LIST.field>FOOTER {
 
 .content.active {
 	border-color: black !important;
-	background-color: ghostwhite !important;
+	background-color: cornsilk !important;
 }
 
 HEADER {
@@ -61,4 +62,7 @@ UI-LIST.collapsed>HEADER::before, UI-RECORD.collapsed>HEADER::before {
 	font-size: 12px;
 	padding-right: 2px;
 	color: orange;
+}
+P {
+	margin-bottom: 3px;
 }
