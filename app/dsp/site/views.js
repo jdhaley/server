@@ -88,9 +88,12 @@ export default {
 	note: {
 		type: "markup",
 		types: {
-			para: "line",
-			heading: "line",
-			line: "line"
+			para: {
+				type: "line"
+			},
+			heading: {
+				type: "line"
+			}
 		}
 	}
 }
