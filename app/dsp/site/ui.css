@@ -66,3 +66,9 @@ UI-LIST.collapsed>HEADER::before, UI-RECORD.collapsed>HEADER::before {
 P {
 	margin-bottom: 3px;
 }
+UI-ROW {
+	display: flex;
+}
+UI-ROW>UI-TEXT {
+	flex: 1;
+}

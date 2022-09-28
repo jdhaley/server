@@ -93,7 +93,13 @@ export default {
 			},
 			heading: {
 				type: "line"
-			}
+			},
+			row: "row"
 		}
+	},
+	row: "row",
+	column: {
+		type: "text",
+		container: false
 	}
 }
