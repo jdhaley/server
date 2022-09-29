@@ -100,6 +100,7 @@ export default {
 	row: "row",
 	column: {
 		type: "text",
-		container: false
+		container: false,
+		tagName: "ui-cell"
 	}
 }
