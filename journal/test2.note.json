@@ -1,18 +1,19 @@
 [
   {
     "type$": "heading",
-    "content": "Incident on 57th Street",
+    "content": "Monday Oct 11, 2021",
     "level": 1
   },
   {
-    "type$": "para",
-    "content": "Spanish Johnny drove in from the underworld last night with bruised arms and broken rhythm\nand a beat-up old Buick but dressed just like dynamite. He tried selling his heart to the hard girls over on easy Street\nbut they said \"Johnny, it falls apart so easy\nand you know hearts these days are cheap.\""
+    "type$": "heading",
+    "content": "Tas",
+    "level": 2
   },
   {
     "type$": "row",
     "content": {
-      "A": "A",
-      "B": "B"
+      "A": "Category",
+      "B": "Due Date"
     }
   },
   {
@@ -23,21 +24,41 @@
     }
   },
   {
-    "type$": "para",
-    "content": "And the pimps swung their axes and said \"Johnny, you're a cheater\". And the pimps swung their axes and said \"Johnny, you're a liar\"."
+    "type$": "row",
+    "content": {
+      "A": "a"
+    }
   },
   {
-    "type$": "para",
-    "content": "And from out of the shadows came a young girl's voice,\nsaid \"Johnny, don't cry\". Puerto Rican Jane, oh, won't you tell me, what's your name?\nI want to drive you down to the other side of town\nwhere paradise ain't so crowded\nand there'll be action going down on Shanty Lane tonight, all the golden-heeled fairies in a real bitch-fight,\npull thirty-eight's and kiss their girls goodnight.",
-    "level": 1
+    "type$": "row",
+    "content": {
+      "A": "A",
+      "B": "B"
+    }
   },
   {
-    "type$": "para",
-    "content": "Oh, goodnight, it's alright, Jane. Now let them black boys in to light the soul flame.\nWe may find it out on the street tonight, baby\nor we may walk until the daylight, maybe."
+    "type$": "row",
+    "content": null
   },
   {
-    "type$": "para",
-    "content": "Well, like a cool Romeo he made his moves, oh, she looked so fine.\nLike a late Juliet, she knew she'd never be true but then, she really didn't mind.\nUpstairs a band was playing and the singer was singin' something about going home.\nShe whispered \"Spanish Johnny, you can leave me tonight\nbut just don't leave me alone.\""
+    "type$": "heading",
+    "content": "Work",
+    "level": 2
+  },
+  {
+    "type$": "row",
+    "content": {
+      "A": "From"
+    }
+  },
+  {
+    "type$": "heading",
+    "content": "Tasks",
+    "level": 2
+  },
+  {
+    "type$": "heading",
+    "content": ""
   },
   {
     "type$": "para",

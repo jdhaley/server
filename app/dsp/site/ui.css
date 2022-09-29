@@ -36,7 +36,6 @@ UI-LIST.field>FOOTER {
 }
 
 .content.active {
-	border-color: black !important;
 	background-color: cornsilk !important;
 }
 
