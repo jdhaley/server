@@ -1,11 +1,12 @@
-UI-RECORD, UI-LIST {
-	display: flex;
-	flex-direction: column;
+.content {
+	padding: 1px;
+}
+.content.active {
+	background-color: cornsilk !important;
 }
 
-.content {
-	min-height: 22px;
-	padding: 1px;
+.collapsed>.content, .collapsed>FOOTER {
+	display: none;
 }
 
 HEADER, HEADER>* {
@@ -18,12 +19,14 @@ HEADER, HEADER>* {
 	flex-direction: column;
 	margin: 3px;
 }
-.field>.content, UI-TEXT.content {
+ UI-TEXT>.content, UI-TEXT.content {
 	overflow: auto;
 	border: 1px solid gainsboro;
 	border-radius: 3px;
+	min-height: 21px;
 }
-UI-LIST.field>.content  {
+
+/* UI-LIST.field>.content  {
 	border-radius: 3px 3px 0 0;
 }
 UI-LIST.field>FOOTER {
@@ -34,33 +37,30 @@ UI-LIST.field>FOOTER {
 	background-color: ghostwhite;
 	border-radius: 0 0 3px 3px;
 }
-
-.content.active {
-	background-color: cornsilk !important;
+ */
+UI-LIST:empty {
+	height: 0 !important;
 }
+UI-LIST>FOOTER {
+	min-height: 16px;
+	/* display: list-item;
+	list-style-type: disc;
+	margin-left: 16px; */
+}
+/* FOOTER:empty {
+	min-height: 12px;
+}
+FOOTER:empty::before {
+	content: "ADD";
+	font-weight: bold;
+	font-size: 12px;
+	position: absolute;
 
+} */
 HEADER {
 	color: gray;
 	padding: 0px;
 	font-size: smaller;
-}
-
-.collapsed>.content, .collapsed>FOOTER {
-	display: none;
-}
-
-UI-LIST>HEADER::before, UI-RECORD>HEADER::before {
-	content: "▼";
-	font-size: 12px;
-	padding-right: 2px;
-	color: lightsteelblue;
-}
-
-UI-LIST.collapsed>HEADER::before, UI-RECORD.collapsed>HEADER::before {
-	content: "▶";
-	font-size: 12px;
-	padding-right: 2px;
-	color: orange;
 }
 P {
 	margin-bottom: 3px;
@@ -86,4 +86,50 @@ UI-ROW>UI-CELL {
 	border-radius: 0 !important;
 	margin: 0;
 	overflow-x: scroll;
+}
+
+UI-LIST, UI-RECORD {
+	display: list-item;
+	list-style-type: none;
+	position: relative;
+	margin-left: 8px;
+	padding-left: 8px;
+}
+
+UI-LIST::before, UI-RECORD::before {
+	position: absolute;
+	content: "-";
+	font-family: monospace;
+	font-size: 50%;
+	font-weight: bold;
+	vertical-align: top;
+
+	margin-left: -16px;
+	margin-top: 2px;
+	text-align: center;
+	border: 1px solid lightsteelblue;
+	outline: 2px solid white;
+	color: black;
+	background: white;
+	/* content: "▼"; */
+	/* margin-top: 2px;
+	margin-left: -1.2em; */
+	/* font-size: 8px; */
+	/* padding-top: 2px; */
+	width: 12px;
+	height: 12px;
+}
+UI-LIST.collapsed::before, UI-RECORD.collapsed::before {
+	content: "+";
+	/* content: "▶";
+	color: orange; */
+}
+
+UI-RECORD, UI-LIST {
+	display: flex;
+	flex-direction: column;
+}
+
+UI-RECORD, UI-LIST {
+	border-left: 1px solid gainsboro;
 }
