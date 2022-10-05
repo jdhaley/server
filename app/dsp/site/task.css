@@ -1,11 +1,6 @@
  
 [data-item=task] {
-	/* display: block;
-	margin: 2px;
-	padding: 2px; */
 	max-width: 800px;
-}
-[data-item=task] {
 	display: flex;
 	flex: 1;
 }
@@ -45,7 +40,4 @@
 }
 .field[data-item=title] {
 	grid-column: 1 / 5;
-}
-.field[data-item=title]>.content {
-	background: oldlace;
 }
