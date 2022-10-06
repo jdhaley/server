@@ -13,9 +13,9 @@ UI-LIST, UI-RECORD {
 UI-LIST {
 	border-left: 1px solid gainsboro;
 }
-UI-LIST>.content>UI-RECORD {
-	border-left: 1px dashed gainsboro;
-}
+/* UI-LIST>.content>UI-RECORD {
+	border-left: 1px dashed green;
+} */
 UI-TEXT>.content, UI-TEXT.content {
 	overflow: auto;
 	border: 1px solid gainsboro;
@@ -30,8 +30,12 @@ HEADER, HEADER>* {
 }
 
 UI-RECORD>HEADER {
+	color: steelblue;
 	font-weight: bold;
+	border-bottom: 1px solid steelblue;
+	margin-bottom: 4px;
 }
+
 P {
 	margin-bottom: 2px;
 	min-height: 23px;
@@ -52,7 +56,7 @@ P {
 .field {
 	display: flex;
 	flex-direction: column;
-	margin: 3px;
+	margin-right: 4px;
 }
 
 UI-ROW {
@@ -104,7 +108,7 @@ UI-LIST::before, UI-LIST>.content>UI-RECORD::before {
 	padding-top: 2px;
 	*/
 }
-UI-LIST.collapsed::before, UI-RECORD.collapsed::before {
+UI-LIST.collapsed::before, UI-LIST>.content>UI-RECORD.collapsed::before {
 	content: "+";
 	color: steelblue
 	/*
