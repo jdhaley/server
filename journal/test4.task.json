@@ -1,0 +1,7 @@
+{
+  "title": "This is  for testing a single record.",
+  "owner": "John",
+  "type": "Test",
+  "due": "2030-01-01",
+  "type$": "task"
+}
