@@ -1,0 +1,88 @@
+[
+  {
+    "type$": "heading",
+    "content": "Incident on 57th Street",
+    "level": 1
+  },
+  {
+    "type$": "para",
+    "content": "Spanish Johnny drove in from the underworld last night with bruised arms and broken rhythm\nand a beat-up old Buick but dressed just like dynamite. He tried selling his heart to the hard girls over on easy Street\nbut they said \"Johnny, it falls apart so easy\nand you know hearts these days are cheap.\""
+  },
+  {
+    "type$": "para",
+    "content": "And the pimps swung their axes and said \"Johnny, you're a cheater\". And the pimps swung their axes and said \"Johnny, you're a liar\"."
+  },
+  {
+    "type$": "para",
+    "content": "And from out of the shadows came a young girl's voice,\nsaid \"Johnny, don't cry\". Puerto Rican Jane, oh, won't you tell me, what's your name?\nI want to drive you down to the other side of town\nwhere paradise ain't so crowded\nand there'll be action going down on Shanty Lane tonight, all the golden-heeled fairies in a real bitch-fight,\npull thirty-eight's and kiss their girls goodnight."
+  },
+  {
+    "type$": "para",
+    "content": "Oh, goodnight, it's alright, Jane. Now let them black boys in to light the soul flame.\nWe may find it out on the street tonight, baby\nor we may walk until the daylight, maybe."
+  },
+  {
+    "type$": "worktask",
+    "content": {
+      "category": "editor",
+      "title": "add row support to the editor",
+      "due": "next week",
+      "status": "in progress",
+      "priority": "high",
+      "owner": "John"
+    }
+  },
+  {
+    "type$": "worktask",
+    "content": null
+  },
+  {
+    "type$": "para",
+    "content": "Well, like a cool Romeo he made his moves, oh, she looked so fine.\nLike a late Juliet, she knew she'd never be true but then, she really didn't mind.\nUpstairs a band was playing and the singer was singin' something about going home.\nShe whispered \"Spanish Johnny, you can leave me tonight\nbut just don't leave me alone.\""
+  },
+  {
+    "type$": "para",
+    "content": "And Johnny cried \"Puerto Rican Jane, word is down the cops have found the vein.\nOh, them barefoot boys left their homes for the woods.\nThem little barefoot street boys, they said their homes ain't no good,\nthey left the corners, threw away all of their switchblade knives\nand kissed each other goodbye.\""
+  },
+  {
+    "type$": "worktask",
+    "content": {
+      "category": "editor",
+      "title": "add row support",
+      "due": "next week",
+      "status": "in progress",
+      "priority": "high",
+      "owner": "John"
+    }
+  },
+  {
+    "type$": "worktask",
+    "content": {
+      "due": "adsf",
+      "status": "adfd",
+      "priority": "dfa",
+      "owner": "fadf"
+    }
+  },
+  {
+    "type$": "para",
+    "content": "Well, like a cool Romeo he made his moves, oh, she looked so fine.\nLike a late Juliet, she knew she'd never be true but then, she really didn't mind.\nUpstairs a band was playing and the singer was singin' something about going home.\nShe whispered \"Spanish Johnny, you can leave me tonight\nbut just don't leave me alone.\"Johnny was sitting on the fire escape, watching the kids playing down the street.\nHe called down \"hey little heroes, summer's long\nbut I guess it ain't very sweet around here anymore\".\nJaney sleeps in sheets damp with sweat, Johnny sits up alone and watches her dream on, dream on.\nAnd the sister prays for lost souls\nthen breaks down in the chapel after everyone's gone."
+  },
+  {
+    "type$": "worktask",
+    "content": {
+      "category": "about"
+    }
+  },
+  {
+    "type$": "para",
+    "content": "Jane moves over to share her pillow\nbut opens her eyes to see Johnny up and putting his clothes on. She says \"those romantic young boys (those romantic young boys)\nall they ever want to do is fight\".\nThose romantic young boys (those romantic young boys)\nthey're calling through the window\n\"Hey, Spanish Johnny, you want to make a little easy money tonight\"? And Johnny whispered \"goodnight, it's all tight, Jane\nI'll meet you tomorrow night on lover's lane.\nWe may find it out on the street tonight, now, baby\nor we may walk until the daylight, maybe\"."
+  },
+  {
+    "type$": "para",
+    "content": "Oh, goodnight, it's alright, Jane.\nI'm gonna meet you tomorrow night on lover's lane.\nOh, we can find it out on the street tonight, baby or we may walk until the daylight, maybe."
+  },
+  {
+    "type$": "para",
+    "content": "Ah, goodnight, it's alright, Jane\nI'll meet you tomorrow night on lover's lane.\nOh, we may find it out on the street tonight, baby.\nOr we may have to walk until the daylight, maybe (goodnight it's alright, Jane)"
+  }
+]
