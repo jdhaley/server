@@ -1,12 +1,12 @@
-import display from "./youni.works/ui/controllers/display.js";
-import editors from "./youni.works/ui/conf/editors.js";
+import display from "./youni.works/edit/actions/display.js";
+import baseTypes from "./youni.works/ui/conf/types.js";
 
 import viewTypes from "./views.js";
 
 export default {
 	actions: display,
 
-	baseTypes: editors,
+	baseTypes: baseTypes,
 	viewTypes: viewTypes,
 	unknownType: "unknown",
 
