@@ -1,6 +1,6 @@
 
 import {Frame, Display} from "./youni.works/ui/ui.js";
-import controller from "./youni.works/ui/controllers/frame.js";
+import controller from "./youni.works/ui/actions/frame.js";
 
 import conf from "./conf.js";
 

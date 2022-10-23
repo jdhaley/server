@@ -1,4 +1,4 @@
-import display from "./youni.works/edit/actions/display.js";
+import display from "./youni.works/ui/actions/display.js";
 import baseTypes from "./youni.works/ui/conf/types.js";
 import contentTypes from "./youni.works/ui/conf/contentTypes.js";
 
