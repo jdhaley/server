@@ -1,5 +1,7 @@
 
-import {Frame, Display} from "./youni.works/ui/ui.js";
+import { Frame } from "./youni.works/ui/frame.js";
+import { Display } from "./youni.works/ui/box.js";
+
 import controller from "./youni.works/ui/actions/frame.js";
 
 import conf from "./conf.js";
