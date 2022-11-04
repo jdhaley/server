@@ -1,0 +1,157 @@
+{
+	"source": {
+		"title": "Morning Routine",
+		"owner": "John",
+		"type": "Task",
+		"status": "Open",
+		"due": "2033-11-11",
+		"tasks": [
+			{
+				"title": "Wake up",
+				"owner": "John",
+				"type": "Task",
+				"status": "Open",
+				"due": "2033-01-01",
+				"type$": "task"
+			},
+			{
+				"title": "Make Coffee",
+				"owner": "John",
+				"desc": [
+					{
+						"type$": "para",
+						"content": "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee."
+					},
+					{
+						"type$": "para",
+						"content": "Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content."
+					}
+				],
+				"type$": "task"
+			},
+			{
+				"title": "Shower",
+				"owner": "John",
+				"tasks": [
+					{
+						"title": "Wash Hair",
+						"owner": "John",
+						"type$": "task"
+					},
+					{
+						"title": "Wash Body",
+						"owner": "John",
+						"type$": "task"
+					}
+				],
+				"type$": "task"
+			},
+			{
+				"title": "Brush Teeth",
+				"owner": "John",
+				"type$": "task"
+			}
+		],
+		"type$": "task"
+	},
+	"target": {
+		"title": "Morning Routine",
+		"owner": "John",
+		"type": "Task",
+		"status": "Open",
+		"due": "2033-11-11",
+		"tasks": [
+			{
+				"title": "up",
+				"owner": "John",
+				"type": "Task",
+				"status": "Open",
+				"due": "2033-01-01",
+				"type$": "task"
+			},
+			{
+				"title": "Make",
+				"type$": "task"
+			},
+			{
+				"title": "Wake",
+				"type$": "task"
+			},
+			{
+				"title": "Coffee",
+				"owner": "John",
+				"desc": [
+					{
+						"type$": "para",
+						"content": "Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee."
+					},
+					{
+						"type$": "para",
+						"content": "Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content."
+					}
+				],
+				"type$": "task"
+			},
+			{
+				"title": "Shower",
+				"owner": "John",
+				"tasks": [
+					{
+						"title": "Wash Hair",
+						"owner": "John",
+						"type$": "task"
+					},
+					{
+						"title": "Wash Body",
+						"owner": "John",
+						"type$": "task"
+					}
+				],
+				"type$": "task"
+			},
+			{
+				"title": "Brush Teeth",
+				"owner": "John",
+				"type$": "task"
+			}
+		],
+		"type$": "task"
+	},
+	"commands": [
+		{
+			"name": "Cut",
+			"viewId": "8",
+			"before": "<task id=\"9\"><title id=\"10\">Wake<i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"start-marker\"></i> up</title><owner id=\"11\">John</owner><type id=\"12\">Task</type><status id=\"13\">Open</status><due id=\"14\">2033-01-01</due><desc id=\"15\"/><tasks id=\"16\"/></task><task id=\"17\"><title id=\"18\">Make<i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"end-marker\"></i> Coffee</title><owner id=\"19\">John</owner><type id=\"20\"/><status id=\"21\"/><due id=\"22\"/><desc id=\"23\"><para id=\"24\">Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.</para><para id=\"25\">Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content.</para></desc><tasks id=\"26\"/></task>",
+			"after": "<task id=\"9\"><title id=\"10\">Wake<i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"start-marker\"></i></title><owner id=\"11\"></owner><type id=\"12\"></type><status id=\"13\"></status><due id=\"14\"></due><desc id=\"15\"/><tasks id=\"16\"/></task><task id=\"17\"><title id=\"18\"><i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"end-marker\"></i> Coffee</title><owner id=\"19\">John</owner><type id=\"20\"/><status id=\"21\"/><due id=\"22\"/><desc id=\"23\"><para id=\"24\">Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.</para><para id=\"25\">Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content.</para></desc><tasks id=\"26\"/></task>",
+			"range": {
+				"start": "10/0/4",
+				"end": "18/0/4"
+			},
+			"value": []
+		},
+		{
+			"name": "Paste",
+			"viewId": "8",
+			"before": "<i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"start-marker\"></i><i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"end-marker\"></i><task id=\"9\"><title id=\"10\">Wake</title><owner id=\"11\"></owner><type id=\"12\"></type><status id=\"13\"></status><due id=\"14\"></due><desc id=\"15\"/><tasks id=\"16\"/></task><task id=\"17\"><title id=\"18\"> Coffee</title><owner id=\"19\">John</owner><type id=\"20\"/><status id=\"21\"/><due id=\"22\"/><desc id=\"23\"><para id=\"24\">Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.</para><para id=\"25\">Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content.</para></desc><tasks id=\"26\"/></task><task id=\"27\"><title id=\"28\">Shower</title><owner id=\"29\">John</owner><type id=\"30\"/><status id=\"31\"/><due id=\"32\"/><desc id=\"33\"/><tasks id=\"34\"><task id=\"35\"><title id=\"36\">Wash Hair</title><owner id=\"37\">John</owner><type id=\"38\"/><status id=\"39\"/><due id=\"40\"/><desc id=\"41\"/><tasks id=\"42\"/></task><task id=\"43\"><title id=\"44\">Wash Body</title><owner id=\"45\">John</owner><type id=\"46\"/><status id=\"47\"/><due id=\"48\"/><desc id=\"49\"/><tasks id=\"50\"/></task></tasks></task><task id=\"51\"><title id=\"52\">Brush Teeth</title><owner id=\"53\">John</owner><type id=\"54\"/><status id=\"55\"/><due id=\"56\"/><desc id=\"57\"/><tasks id=\"58\"/></task>",
+			"after": "<i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"start-marker\"></i><task id=\"61\"><title id=\"62\">up</title><owner id=\"63\">John</owner><type id=\"64\">Task</type><status id=\"65\">Open</status><due id=\"66\">2033-01-01</due><desc id=\"67\"/><tasks id=\"68\"/></task><task id=\"69\"><title id=\"70\">Make</title><owner id=\"71\"/><type id=\"72\"/><status id=\"73\"/><due id=\"74\"/><desc id=\"75\"/><tasks id=\"76\"/></task><i xmlns=\"http://www.w3.org/1999/xhtml\" id=\"end-marker\"></i><task id=\"9\"><title id=\"10\">Wake</title><owner id=\"11\"></owner><type id=\"12\"></type><status id=\"13\"></status><due id=\"14\"></due><desc id=\"15\"/><tasks id=\"16\"/></task><task id=\"17\"><title id=\"18\"> Coffee</title><owner id=\"19\">John</owner><type id=\"20\"/><status id=\"21\"/><due id=\"22\"/><desc id=\"23\"><para id=\"24\">Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain flowering plants in the Coffea genus. From the coffee fruit, the seeds are separated to produce a stable, raw product: unroasted green coffee. The seeds are then roasted, a process which transforms them into a consumable product: roasted coffee, which is ground into fine particles that are typically steeped in hot water before being filtered out, producing a cup of coffee.</para><para id=\"25\">Coffee is darkly colored, bitter, slightly acidic and has a stimulating effect in humans, primarily due to its caffeine content.</para></desc><tasks id=\"26\"/></task><task id=\"27\"><title id=\"28\">Shower</title><owner id=\"29\">John</owner><type id=\"30\"/><status id=\"31\"/><due id=\"32\"/><desc id=\"33\"/><tasks id=\"34\"><task id=\"35\"><title id=\"36\">Wash Hair</title><owner id=\"37\">John</owner><type id=\"38\"/><status id=\"39\"/><due id=\"40\"/><desc id=\"41\"/><tasks id=\"42\"/></task><task id=\"43\"><title id=\"44\">Wash Body</title><owner id=\"45\">John</owner><type id=\"46\"/><status id=\"47\"/><due id=\"48\"/><desc id=\"49\"/><tasks id=\"50\"/></task></tasks></task><task id=\"51\"><title id=\"52\">Brush Teeth</title><owner id=\"53\">John</owner><type id=\"54\"/><status id=\"55\"/><due id=\"56\"/><desc id=\"57\"/><tasks id=\"58\"/></task>",
+			"range": {
+				"start": "8/0",
+				"end": "8/0"
+			},
+			"value": [
+				{
+					"title": "up",
+					"owner": "John",
+					"type": "Task",
+					"status": "Open",
+					"due": "2033-01-01",
+					"type$": "task"
+				},
+				{
+					"title": "Make",
+					"type$": "task"
+				}
+			]
+		}
+	]
+}

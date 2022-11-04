@@ -13,5 +13,6 @@ export default {
 
 	unknownType: "unknown",
 	defaultType: "task",
-	sources: "/journal"
+	sources: "/journal",
+	recordCommands: true
 }
