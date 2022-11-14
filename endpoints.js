@@ -30,5 +30,9 @@ export default {
 	//Noted
 	"/noted": "app/noted",
 	"/noted/app": "app/noted/note.html",
-	"/noted/module": "module/noted/v2"
+	"/noted/module": "module/noted/v2",
+
+	//Widget
+	"/widget": "app/widget",
+	"/widget/youni.works": "module/youni.works/v2",
 }
