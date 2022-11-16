@@ -35,4 +35,8 @@ export default {
 	//Widget
 	"/widget": "app/widget",
 	"/widget/youni.works": "module/youni.works/v2",
+
+	//x
+	"/x": "app/x",
+	"/x/youni.works": "module/youni.works/v2",
 }
