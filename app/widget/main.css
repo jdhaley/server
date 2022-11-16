@@ -1,4 +1,7 @@
 /* */
+.iron {
+	color: green;
+}
 .dialogue>.content {
 	padding: 4px;
 	border: 0 solid gainsboro;
@@ -8,6 +11,13 @@
 	background-color: lightsteelblue;
 	color: white;
 	padding: 2px;
+}
+.dialogue>.caption {
+	display: flex;
+	flex-direction: row-reverse;
+}
+.dialogue>.caption>.content {
+	flex: 1;
 }
 .person>.content {
 	display: flex;
