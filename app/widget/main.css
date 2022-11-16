@@ -1,5 +1,5 @@
 /* */
-.test>.content {
+.dialogue>.content {
 	padding: 4px;
 	border: 0 solid gainsboro;
 	border-width: 0 1px 1px 1px;
@@ -25,3 +25,19 @@ FOOTER {
 	padding-top: 4px;
 	font-size: x-small;
 }
+
+/*
+by default, names are class names, i.e. converted to ".name"
+slash start a child selector: "/name" becomes ">.name"
+	name: {
+		"/name": {
+			.name>.name
+
+			"/*": {
+			}
+			border: {
+				top: // generates... border-top
+			}
+		}
+	}
+*/
