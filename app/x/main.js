@@ -1,2 +1,2 @@
 
-import "./youni.works/ui/widgets/main.js";
+import "./youni.works/ui/x/main.js";
