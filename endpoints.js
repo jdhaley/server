@@ -36,6 +36,11 @@ export default {
 	"/widget": "app/widget",
 	"/widget/youni.works": "module/youni.works/v2",
 
+	//Simple
+	"/simple": "app/simple",
+	"/simple/fw": "module/simpleedit",
+	"/simpleedit": "../simpleedit",
+
 	//x
 	"/x": "app/x",
 	"/x/youni.works": "module/youni.works/v2",
