@@ -21,6 +21,7 @@ export default {
 	//Dsp
 	"/dsp": "app/dsp/site",
 	"/dsp/app": "app/dsp/site/app.html",
+	"/dsp/test": "app/dsp/site/test.html",
 	"/dsp/youni.works": "module/youni.works/v2",
 	//Property editor
 	"/pe": "app/pe",
