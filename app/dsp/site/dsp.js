@@ -1,6 +1,6 @@
 
 import { Frame } from "./youni.works/control/frame.js";
-import { IArticle } from "./youni.works/control/box.js";
+import { IArticle } from "./youni.works/control/editor.js";
 
 import controller from "./youni.works/ui/actions/frame.js";
 
