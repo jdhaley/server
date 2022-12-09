@@ -49,8 +49,15 @@ P {
 	background-color: cornsilk !important;
 }
 
+.collapsed {
+	cursor: default;
+}
 .collapsed>.content, .collapsed>FOOTER {
-	display: none;
+	display: none!important;
+}
+.collapsed>HEADER>B {
+	font-weight: bold;
+	color: steelblue;
 }
 
 .field {

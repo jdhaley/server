@@ -7,33 +7,78 @@ export default {
 				type: "text",
 				container: false,
 				title: "Title",
+				styles: {
+					this: {
+						grid_column: "1 / 5"
+					}
+				}
 			},
 			owner: {
 				type: "text",
-				title: "Owner"
+				title: "Owner",
+				styles: {
+					this: {
+					}
+				}
 			},
 			type: {
 				type: "text",
-				title: "Type"
+				title: "Type",
+				styles: {
+					this: {
+					}
+				}
 			},
 			status: {
 				type: "text",
-				title: "Status"
+				title: "Status",
+				styles: {
+					this: {
+					}
+				}
 			},
 			due: {
 				type: "text",
-				title: "Due Date"
+				title: "Due Date",
+				styles: {
+					this: {
+					}
+				}
 			},
 			desc: {
 				type: "note",
-				title: "Description"
+				title: "Description",
+				styles: {
+					this: {
+						grid_row: 3,
+						grid_column: "1 / 5"
+					}
+				}
 			},
 			tasks: {
 				type: "list",
 				title: "Sub Tasks",
 				types: {
 					task: "task"
+				},
+				styles: {
+					this: {
+						grid_row: 4,
+						grid_column: "1 / 5"
+					}
 				}
+			}
+		},
+		styles: {
+			this: {
+				max_width: "800px",
+				display: "flex",
+				flex: 1
+			},
+			content: {
+				flex: 1,
+				display: "grid",
+				grid_template_columns: "25% 25% 25% 25%"
 			}
 		}
 	},
