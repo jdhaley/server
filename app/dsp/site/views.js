@@ -6,6 +6,7 @@ export default {
 			title: {
 				type: "text",
 				header: null,
+				body: null,
 				container: false,
 				title: "Title",
 				styles: {
