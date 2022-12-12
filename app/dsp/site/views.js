@@ -5,9 +5,7 @@ export default {
 		types: {
 			title: {
 				type: "text",
-				header: null,
 				body: null,
-				container: false,
 				title: "Title",
 				styles: {
 					this: {
@@ -127,6 +125,7 @@ export default {
 	},
 	note: {
 		type: "markup",
+		body: null,
 		types: {
 			para: {
 				type: "line"
