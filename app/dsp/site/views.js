@@ -5,6 +5,7 @@ export default {
 		types: {
 			title: {
 				type: "text",
+				header: null,
 				container: false,
 				title: "Title",
 				styles: {

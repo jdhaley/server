@@ -1,10 +1,10 @@
-import display from "./youni.works/ui/actions/display.js";
+import article from "./youni.works/ui/actions/article.js";
 import baseTypes from "./youni.works/ui/conf/typeConf.js";
 
 import viewTypes from "./views.js";
 
 export default {
-	actions: display,
+	actions: article,
 
 	baseTypes: baseTypes,
 	viewTypes: viewTypes,
