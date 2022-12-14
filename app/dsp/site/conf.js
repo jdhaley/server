@@ -7,10 +7,10 @@ export default {
 	actions: article,
 
 	baseTypes: baseTypes,
-	viewTypes: viewTypes,
+	articleTypes: viewTypes,
 
-	unknownType: "unknown",
-	defaultType: "task",
+	// unknownType: "unknown",
+	// defaultType: "task",
 	sources: "/journal",
 	recordCommands: true
 }

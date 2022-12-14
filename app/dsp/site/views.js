@@ -47,7 +47,7 @@ export default {
 			},
 			desc: {
 				type: "note",
-				body: "body",
+				body: "display",
 				title: "Description",
 				styles: {
 					this: {
