@@ -1,16 +1,19 @@
+import { implement } from "./youni.works/base/util.js";
 import article from "./youni.works/ui/actions/article.js";
-import baseTypes from "./youni.works/ui/conf/typeConf.js";
+import baseTypes from "./youni.works/ui/conf/baseTypes.js";
+import boxTypes from "./youni.works/ui/conf/editorTypes.js";
+import editorTypes from "./youni.works/ui/conf/editorTypes.js";
 
-import viewTypes from "./views.js";
+import dspTypes from "./types.js";
+
+const articleTypes = implement(dspTypes, boxTypes, editorTypes);
 
 export default {
 	actions: article,
 
 	baseTypes: baseTypes,
-	articleTypes: viewTypes,
+	articleTypes: articleTypes,
 
-	// unknownType: "unknown",
-	// defaultType: "task",
 	sources: "/journal",
 	recordCommands: true
 }
