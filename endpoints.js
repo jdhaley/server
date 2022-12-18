@@ -1,4 +1,5 @@
 import rfs from "./module/youni.works/v2/service/actions/rfs.js";
+import gen from "./module/youni.works/v2/service/actions/gen.js";
 export default {
 	//For viewing .ts only
 	// "/noted": "../noted",
@@ -9,7 +10,7 @@ export default {
 	//For all apps
 	"/module": "module",
 	"/journal": rfs,
-
+	"/gen": gen,
 	// //Src app
 	// "/src": "../lang/app/site",
 	// "/src/app": "../lang/app/site/src.html",

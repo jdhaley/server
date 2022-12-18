@@ -1,0 +1,16 @@
+[
+	{
+		"argName": "arg",
+		"argType": "Person",
+		"templates": 	{
+			"main": "This is ${this.str(arg.name)}."
+		}	
+	},
+	{
+		"argName": "arg",
+		"argType": "string",
+		"templates": 	{
+			"str": "${arg}"
+		}	
+	}
+]
