@@ -6,13 +6,10 @@ import editorTypes from "./youni.works/ui/conf/editorTypes.js";
 
 import dspTypes from "./types.js";
 
-const articleTypes = implement(dspTypes, boxTypes, editorTypes);
-
 export default {
 	actions: article,
 
-	baseTypes: baseTypes,
-	articleTypes: articleTypes,
+	types: implement(null, dspTypes, boxTypes, editorTypes, baseTypes),
 
 	sources: "/journal",
 	recordCommands: true
