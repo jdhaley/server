@@ -47,4 +47,7 @@ export default {
 	//x
 	"/x": "app/x",
 	"/x/youni.works": "module/youni.works/v2",
+	//stamp
+	"/stamp": "app/stamp",
+	"/stamp/module": "module/youni.works/v2",
 }
