@@ -98,7 +98,7 @@ export default {
 			},
 			email: {
 				type: "text",
-				title: "e-mail",
+				title: "E-mail",
 			},
 			address: {
 				type: "address",
