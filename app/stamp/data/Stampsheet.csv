@@ -1,15 +1,17 @@
-﻿date,design,variety,id,denom,colors,subject,width,height,shape,rotation,overprint,purpose,method,separation,wmk,paper,tagging,refs,other,mint,used
-1932-02,1,,,,,Visit of King George V,22,24,Rect,,,Postage,Engr,Perf 10,,Wove,,,,,
-,,1,,1c,green,War Memorial,,,,,,,,,,,,,,1,0
-1933-08-04,,2,,2c,red,Vancouver Island,,,,,,Air,,Perf 11,,,,,,1,0
-,,3,,3c,red,,,,,1,,,,,,,,,,1,0
-1932,2,,,1c,green blue,Anniversary of Something,,,,,,,,,,,,,,,
-1945,1,,,,,Definitive Issue,,,,,,,,Perf 10,Crown,,,,,,
-,,1,,1c,red,,,,,,,,,,,,,,,,
-,,2,,2c,green,,,,,,,,,,,,,,,,
-,A,,,,,,,,,,,,,,Clover,,,,,,
-1946,,1,,1c,red,,,,,,,,,,,,,,,,
-1947,,2,,3c,blue,,,,,,,,,,,,,,,,
-,B,,,,,,,,,,,,,Perf 14,Clover,,,,,,
-1947,,1,,1c,red,,,,,,,,,,,,,,,,
-1947,,2,,2c,green,,,,,,,,,,,,,,,,
+﻿design,variety,denom,colors,subject,date,width,height,shape,rotation,overprint,purpose,method,separation,wmk,paper,tagging,refs,other,mint,used
+1,,,,Visit of King George V,1932-02,22,24,Diamond,,,Postage,Engr,Perf 10,,Wove,,,,,
+,1,1c,green,War Memorial,,,,,,,,,,,,,,,1,0
+,2,2c,red,Vancouver Island,1933-08-04,,,,,,Air,,Perf 11,,,,,,1,0
+,3,3c,green/blue/purple orange,Parliament Hill,,,,,1,,,,,,,,,,1,0
+2,,1c,green blue,Anniversary of Something,1932,,,,,,,,,,,,,,,
+1,,,,Definitive Issue,1945,,,,,,,,Perf 10,Crown,,,,,,
+,1,1c,red,,,,,,,,,,,,,,,,,
+,2,2c,green,,,,,,,,,,,,,,,,,
+A,,,,,,,,,,,,,,Clover,,,,,,
+,1,1c,red,,1946,,,,,,,,,,,,,,,
+,2,3c,blue,,1947,,,,,,,,,,,,,,,
+,2a,3c,lt.blue,,1947,,,,,,,,,,,,,,,
+B,,,,,,,,,,,,,Perf 14,Clover,,,,,,
+,1,1c,red,,1947,,,,,,,,,,,,,,,
+,2,2c,green,,1947,,,,,,,,,,,,,,,
+,,,lt.blue,,,,,,,,,,,,,,,,,

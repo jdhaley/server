@@ -1,0 +1,29 @@
+* {
+	font-size: 9pt;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	text-align: center;
+}
+.set {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end
+}
+.variety {
+	display: flex;
+	flex-direction: column;
+	margin: 1mm;
+}
+.box {
+	padding: 1mm;
+	justify-content: space-between;
+	font-size: 6pt;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.colors {
+	font-variant: small-caps;
+}
