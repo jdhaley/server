@@ -5,24 +5,54 @@
 	justify-content: center;
 	text-align: center;
 }
-.set {
+.page {
+	border: 3px solid black;
+
+}
+.pageTitle {
+	font-size: 16pt;
+}
+.pageBody {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: flex-end
+	align-items: flex-end;
+	justify-content: space-evenly;
+}
+.set {
+	display: flex;
+	flex-direction: column;
+}
+.issue {
+	margin: 0 2mm 0 2mm;
+}
+.issues, .issue, .varieties {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
 }
 .variety {
 	display: flex;
 	flex-direction: column;
-	margin: 1mm;
+	border: 8px solid white;
+}
+.diff {
+	font-style: italic;
 }
 .box {
-	padding: 1mm;
+	padding: 0 1mm 0 1mm;
 	justify-content: space-between;
 	font-size: 6pt;
 	border: 1px solid black;
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
+}
+.denom {
+	padding-top: 1mm;
+}
+.id {
+	padding-bottom: 1mm;
+	color: darkgray;
 }
 .colors {
 	font-variant: small-caps;
