@@ -13,11 +13,12 @@
 	height: 1000px;
 
 }
-.pageTitle {
+.page > .title {
 	font-size: 16pt;
 	padding: 2mm;
 }
-.pageBody {
+
+.page > .body {
 	flex: 1;
 	display: flex;
 	flex-wrap: wrap;
@@ -42,9 +43,10 @@
 	flex-direction: column;
 	padding: 1mm 2mm 2mm 2mm;
 }
-/* .variety .title {
-	line-height: 90%;
-} */
+.variety .title {
+	padding-bottom: 1px;
+	/*line-height: 90%; */
+}
 .diff {
 	font-style: italic;
 }
