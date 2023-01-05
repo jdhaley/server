@@ -5,13 +5,24 @@
 	align-content: center;
 	justify-content: center;
 	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+html {
+	background-color: ghostwhite;
+}
+body {
+	background-color: white;
+	width: 215mm;
 }
 .page {
+	margin: 5mm 5mm 5mm 15mm;
 	border: 3px solid black;
 	display: flex;
 	flex-direction: column;
-	height: 1000px;
-
+	width: 195mm;
+	height: 270mm;
+	page-break-after: always;
 }
 .page > .title {
 	font-size: 16pt;
@@ -26,22 +37,29 @@
 	align-items: flex-end;
 	justify-content: space-evenly;
 }
+
+.issue {
+	margin: 0 2mm 0 2mm;
+}
+.issue > .title {
+	margin-top: 2mm;
+	margin-bottom: 1mm;
+}
+
 .set {
 	display: flex;
 	flex-direction: column;
 }
-.issue {
-	margin: 0 2mm 0 2mm;
-}
-.issues, .issue, .varieties {
+.varieties {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-end;
 }
+
 .variety {
 	display: flex;
 	flex-direction: column;
-	padding: 1mm 2mm 2mm 2mm;
+	padding: 1mm 2mm 1mm 2mm;
 }
 .variety .title {
 	padding-bottom: 1px;
