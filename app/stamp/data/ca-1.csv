@@ -1,5 +1,5 @@
-﻿break?,issue,variety,minor,date,subject,denom,colors,method,purpose,separation,paper,tagging,width,height,shape,rotation,overprint,refs,other,mint,used
-br,1,,,1932-02-01,Visit of King George V,,,Engr,Postage,Perf 10,Wove,,22,25,Diamond,,,,,,
+﻿br,issue,variety,minor,date,subject,denom,colors,method,purpose,separation,paper,tagging,width,height,shape,rotation,overprint,refs,other,mint,used
+,1,,,1932-02-01,Visit of King George V,,,Engr,Postage,Perf 10,Wove,,22,25,Diamond,,,,,,
 ,,1,,,War Memorial,1c,green,,,,,,,,,,,,,1,0
 ,,2,,1933-08-04,Vancouver Island,2c,red,,Air,Perf 11,,,,,,,,,,1,0
 ,,3,,,Parliament Hill,3c,green/blue/purple orange,,,,,,,,,1,,,,1,0
@@ -17,12 +17,12 @@ br,1,,,1932-02-01,Visit of King George V,,,Engr,Postage,Perf 10,Wove,,22,25,Diam
 ,,3,,1947,,3c,blue,,,,,,,,,,,,,,
 ,,,a,,,,lt.blue,,,,,,,,,,,,Shade,,
 ,,,,,,,,,,,,,,,,,,,,,
-,5,,,1950,Sports,,,,,,,,,,,,,,,,
+p,5,,,1950,Sports,,,,,,,,,,,,,,,,
 ,,1,,,,5c,blue,,,,,,,,,,,,,,
 ,,2,,,,5c,blue,,,,,,,,,,,,,,
 ,,3,,,,5c,blue,,,,,,,,,,,,,,
 ,,4,,,,5c,blue,,,,,,,,,,,,,,
-br,,5,,,,5c,blue,,,,,,,,,,,,,,
+l,,5,,,,5c,blue,,,,,,,,,,,,,,
 ,,6,,,,5c,blue,,,,,,,,,,,,,,
 ,,7,,,,5c,blue,,,,,,,,,,,,,,
 ,,8,,,,5c,blue,,,,,,,,,,,,,,

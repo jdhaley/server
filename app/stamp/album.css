@@ -9,11 +9,13 @@
 	padding: 0;
 }
 html {
-	background-color: ghostwhite;
+	background-color: green;
 }
 body {
 	background-color: white;
 	width: 215mm;
+	display: flex;
+	flex-direction: column;
 }
 .page {
 	margin: 5mm 5mm 5mm 15mm;
