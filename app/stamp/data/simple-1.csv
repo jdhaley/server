@@ -1,4 +1,4 @@
-﻿type,opt,title,header,body,footer,width,height,rotation,shape
+﻿type,qty,title,header,body,footer,width,height,rotation,shape
 p,,Canada,,,,,,,
 g,,1932–33. Visit of King George V,,,,21,25,,
 c,,War Memorial,1c,green,,,,,
@@ -10,7 +10,7 @@ c,,,2c,,,,,,
 c,,,5c,,,,,,
 c,,,10c,,,,,,
 p,,Canada,,,,,,,
-r,5,1935. Definitive Issue,,,,25,42,,
-r,6,,,,,25,42,,
-r,3,,,,,25,42,,
-r,2,Misc,,,,,,,
+s,5,1935. Definitive Issue,,,,25,42,,
+s,6,,,,,25,42,,
+s,3,,,,,25,42,,
+s,2,Misc,,,,,,,
