@@ -30,7 +30,6 @@ body {
 	font-size: 16pt;
 	padding: 2mm;
 }
-
 .page > .body {
 	flex: 1;
 	display: flex;
@@ -39,6 +38,8 @@ body {
 	align-items: flex-end;
 	justify-content: space-evenly;
 }
+
+/** A top is an item or group as a direct descendent of the page body */
 .top > .title {
 	margin-top: 2mm;
 	margin-bottom: 1mm;
@@ -61,7 +62,7 @@ body {
 	flex-direction: column;
 	padding: 1mm 2mm 1mm 2mm;
 }
-.variety > .title {
+.item > .title {
 	padding-bottom: 1px;
 	/*line-height: 90%; */
 }
