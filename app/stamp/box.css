@@ -18,7 +18,7 @@ body {
 	flex-direction: column;
 }
 .page {
-	margin: 5mm 5mm 5mm 15mm;
+	margin: 5mm 0 0 15mm;
 	border: 1mm solid black;
 	display: flex;
 	flex-direction: column;
