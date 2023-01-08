@@ -1,16 +1,16 @@
-﻿type,qty,title,header,body,footer,width,height,rotation,shape
-p,,Canada,,,,,,,
-g,,1932–33. Visit of King George V,,,,21,25,,
-c,,War Memorial,1c,green,,,,,
-c,,Vancouver Island,2c,red,,,,1,
-c,,Parliament Hill,3c,green/ blue/ purple orange,,,,,
-s,,1933. Commemorative,4c,violet,,40,30,,
-g,,1934. Definitive Issue,,,,,,,
-c,,,2c,,,,,,
-c,,,5c,,,,,,
-c,,,10c,,,,,,
-s,5,1935. Definitive Issue… Perf 10,,See Note 1,,25,42,,
-s,9,… Perf 12,,,,25,42,,
-p,,Canada,,,,,,,
-s,3,… Wmk Star,,,,25,42,,
-s,2,Misc,,,,,,,
+﻿level,title,header,body,footer,shape,width,height,rotation,qty
+0,Canada,,,,,,,,
+1,1932–33. Visit of King George V,,,,,21,25,,
+2,War Memorial,1c,green,,,,,,
+2,Vancouver Island,2c,red,,,,,1,
+2,Parliament Hill,3c,green/ blue/ purple orange,,,,,,
+1,1933. Commemorative,4c,violet,,,40,30,,1
+1,1934. Definitive Issue,,,,,,,,
+2,,2c,,,,,,,
+2,,5c,,,,,,,
+2,,10c,,,,,,,
+1,1935. Definitive Issue… Perf 10,,See Note 1,,,25,42,,5
+1,… Perf 12,,,,,25,42,,9
+0,Canada,,,,,,,,
+1,… Wmk Star,,,,,42,25,,4
+1,Misc,,,,,,,,2
