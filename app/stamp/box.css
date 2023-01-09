@@ -17,7 +17,13 @@ body {
 	display: flex;
 	flex-direction: column;
 }
-.page {
+/** A top is an item or group as a direct descendent of the page body */
+.top > ui-header {
+	margin-top: 2mm;
+	margin-bottom: 1mm;
+}
+
+ui-page {
 	margin: 5mm 0 0 15mm;
 	border: 1mm solid black;
 	display: flex;
@@ -26,11 +32,11 @@ body {
 	height: 270mm;
 	page-break-after: always;
 }
-.page > .title {
+ui-page > ui-header {
 	font-size: 16pt;
 	padding: 2mm;
 }
-.page > .body {
+ui-page > ui-body {
 	flex: 1;
 	display: flex;
 	flex-wrap: wrap;
@@ -39,35 +45,29 @@ body {
 	justify-content: space-evenly;
 }
 
-/** A top is an item or group as a direct descendent of the page body */
-.top > .title {
-	margin-top: 2mm;
-	margin-bottom: 1mm;
-}
-
-.group {
+ui-group {
 	display: flex;
 	flex-direction: column;
 	margin: 0 2mm 0 2mm;
 }
 
-.group > .body {
+ui-group > ui-body {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-end;
 }
 
-.item {
+ui-item {
 	display: flex;
 	flex-direction: column;
 	padding: 1mm 2mm 1mm 2mm;
 }
-.item > .title {
+ui-item > ui-header {
 	padding-bottom: 1px;
 	/*line-height: 90%; */
 }
 
-.box {
+ui-box {
 	padding: 0 1mm 0 1mm;
 	justify-content: space-between;
 	font-size: 6pt;
@@ -76,13 +76,13 @@ body {
 	flex-direction: column;
 	overflow: hidden;
 }
-.box > .header {
+ui-box > ui-header {
 	padding-top: 1mm;
 }
-.box > footer {
+ui-box > ui-body {
+	overflow: hidden;
+}
+ui-box > ui-footer {
 	padding-bottom: 1mm;
 	color: darkgray;
-}
-.box > .body {
-	font-variant: small-caps;
 }
