@@ -1,5 +1,5 @@
-﻿level,title,header,body,footer,shape,width,height,rotation,qty
-,Canada,,,,,,,,
+﻿level,caption,header,body,footer,shape,width,height,rotation,qty
+0,Canada,,,,,,,,
 1,1932–33. Visit of King George V,,,,,21,25,,
 2,War Memorial,1c,green,,,,,,
 2,,,,,,,,1,
@@ -15,6 +15,6 @@
 1,1935. Definitive Issue… Perf 10,,See Note 1,,,25,42,,5
 1,… Perf 12,,,,,25,42,,9
 ,,,,,,,,,
-,Canada,,,,,,,,
+0,Canada,,,,,,,,
 1,… Wmk Star,,,,,42,25,,4
 1,Misc,,,,,,,,2
